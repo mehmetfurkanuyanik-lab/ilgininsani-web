@@ -728,6 +728,7 @@
                         montajIstegi: item.montajIstegi || "Hayır",
                         cekilisGunSayisi: item.cekilisGunSayisi || 0,
                         toplamUcret: item.toplamUcret || 0,
+                        resimUrl: item.resimUrl || "https://via.placeholder.com/400",
                         notlar: item.notlar || "",
                         durum: item.durum || "pending",
                         tarih: item.tarih || new Date().toISOString().split('T')[0]
@@ -814,6 +815,13 @@
                     <div style="font-size:0.8rem; color:#9ab; margin-bottom:5px; font-weight:600;">Esnaf Notu:</div>
                     <div style="font-size:0.9rem; line-height:1.5; color:#fff;">${item.notlar ? item.notlar : 'Ek not bulunmuyor.'}</div>
                 </div>
+                ${item.resimUrl && item.resimUrl !== 'https://via.placeholder.com/400' ? `
+                <div style="margin-top:15px;">
+                    <div style="font-size:0.8rem; color:#9ab; margin-bottom:5px; font-weight:600;">Kampanya Görseli:</div>
+                    <a href="${item.resimUrl}" target="_blank">
+                        <img src="${item.resimUrl}" style="max-width:100%; max-height:160px; border-radius:10px; border:1px solid rgba(255,255,255,0.1); margin-top:5px; display:block;" alt="Kampanya Görseli">
+                    </a>
+                </div>` : ''}
             `;
 
             document.getElementById('modalBody').innerHTML = detailsHtml;
