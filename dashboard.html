@@ -398,7 +398,7 @@
                 </select>
                 <select class="filter-select" id="filterPackage" onchange="filterData()">
                     <option value="all">Tüm Paketler</option>
-                    <option value="temel">Temel (Ücretsiz)</option>
+                    <option value="temel">Temel</option>
                     <option value="premium">Premium (₺299)</option>
                     <option value="vip">VIP (₺599)</option>
                 </select>
@@ -578,8 +578,14 @@
             let revenue = 0;
             campaigns.forEach(c => {
                 if (c.durum === 'approved') {
-                    if (c.paket === 'premium') revenue += 299;
-                    if (c.paket === 'vip') revenue += 599;
+                    if (c.ucret) {
+                        revenue += parseFloat(c.ucret);
+                    } else {
+                        // Fallback logic for mock/older data
+                        if (c.paket === 'temel') revenue += 99;
+                        else if (c.paket === 'premium') revenue += 299;
+                        else if (c.paket === 'vip') revenue += 599;
+                    }
                 }
             });
 
