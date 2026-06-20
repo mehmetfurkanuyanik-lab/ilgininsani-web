@@ -945,21 +945,22 @@
                             <span class="sim-phone-title" data-tr="Uygulamada Görünüm Simülasyonu" data-en="App View Simulation">Uygulamada Görünüm Simülasyonu</span>
                         </div>
                         <div class="campaign-card" style="margin: 10px auto; max-width: 280px; box-shadow: none; border: 1px solid rgba(255,255,255,0.08);">
-                            <div class="campaign-card-img" style="height: 110px;">
-                                <i class="fas fa-tags placeholder-icon" style="font-size: 2.5rem; opacity: 0.25;"></i>
-                                <span class="discount-badge">%30 İNDİRİM</span>
+                            <div class="campaign-card-img" style="height: 110px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                                <img id="previewAppImage" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                <i class="fas fa-tags placeholder-icon" id="previewAppPlaceholder" style="font-size: 2.5rem; opacity: 0.25;"></i>
+                                <span class="discount-badge" id="previewAppDiscount" style="display: none;">%30 İNDİRİM</span>
                             </div>
                             <div class="campaign-card-body" style="padding: 12px; text-align: left;">
-                                <div class="campaign-esnaf" style="font-size: 0.65rem;">İşletme Adınız</div>
-                                <div class="campaign-title" style="font-size: 0.9rem; margin-bottom: 8px;">Kampanya Başlığınız Buraya Gelir</div>
+                                <div class="campaign-esnaf" id="previewAppEsnaf" style="font-size: 0.65rem;">İşletme Adınız</div>
+                                <div class="campaign-title" id="previewAppTitle" style="font-size: 0.9rem; margin-bottom: 8px;">Kampanya Başlığınız Buraya Gelir</div>
                                 <div class="price-row" style="margin-bottom: 0;">
                                     <div>
-                                        <div class="price-old" style="font-size: 0.75rem;">500 TL</div>
-                                        <div class="price-new" style="font-size: 1.2rem;">350 TL</div>
+                                        <div class="price-old" id="previewAppPriceOld" style="font-size: 0.75rem; display: none;">500 TL</div>
+                                        <div class="price-new" id="previewAppPriceNew" style="font-size: 1.2rem;">— TL</div>
                                     </div>
-                                    <div class="promo-badge" style="padding: 3px 8px; border-radius: 6px; margin-left: auto;">
+                                    <div class="promo-badge" style="padding: 3px 8px; border-radius: 6px; margin-left: auto; display: none;">
                                         <span class="promo-label" style="font-size: 0.5rem;">KOD</span>
-                                        <span class="promo-code" style="font-size: 0.75rem;">PROMO</span>
+                                        <span class="promo-code" id="previewAppPromoCode" style="font-size: 0.75rem;">PROMO</span>
                                     </div>
                                 </div>
                             </div>
@@ -998,11 +999,14 @@
                                 <span style="font-weight: bold; color: #fff;">ilgin.insani</span>
                                 <span style="margin-left: auto; color: #888;"><i class="fas fa-ellipsis-h"></i></span>
                             </div>
-                            <div style="aspect-ratio: 1/1; background: linear-gradient(135deg, #e1306c, #833ab4); display: flex; align-items: center; justify-content: center;"><i class="fab fa-instagram" style="font-size: 3rem; color: #fff; opacity: 0.35;"></i></div>
+                            <div style="aspect-ratio: 1/1; background: linear-gradient(135deg, #e1306c, #833ab4); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                                <img id="previewInstaImage" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                <i class="fab fa-instagram" id="previewInstaPlaceholder" style="font-size: 3rem; color: #fff; opacity: 0.35;"></i>
+                            </div>
                             <div style="padding: 8px; background: #000;">
                                 <div style="display:flex; gap:10px; margin-bottom: 5px; font-size: 0.85rem; color: #fff;"><span><i class="far fa-heart"></i></span><span><i class="far fa-comment"></i></span><span><i class="far fa-paper-plane"></i></span></div>
                                 <div style="font-weight: bold; color: #fff; margin-bottom: 3px;">1.432 beğeni</div>
-                                <div><span style="font-weight: bold; color: #fff; margin-right: 4px;">ilgin.insani</span><span style="color: #eee;">İşletmeniz için hazırladığımız profesyonel reklam yayını yayında! #ilgın</span></div>
+                                <div style="line-height: 1.4; color: #eee;"><span style="font-weight: bold; color: #fff; margin-right: 4px;">ilgin.insani</span><span id="previewInstaCaption">İşletmeniz için hazırladığımız profesyonel reklam yayını yayında! #ilgın</span></div>
                             </div>
                         </div>
                     </div>
@@ -1561,6 +1565,31 @@
                             <span style="font-weight: 800; font-size: 0.95rem; color: #b0c4de; letter-spacing: 0.5px;" data-tr="TOPLAM FATURA TUTARI:" data-en="TOTAL INVOICE AMOUNT:">TOPLAM FATURA TUTARI:</span>
                             <span style="font-weight: 900; font-size: 1.6rem; color: var(--accent); text-shadow: 0 0 10px rgba(243,156,18,0.4);" id="invoiceTotal">₺0</span>
                         </div>
+                        
+                        <!-- Dinamik ROI Hesaplayıcı Paneli -->
+                        <div id="roiPanel" style="margin-top: 20px; padding-top: 15px; border-top: 1.5px dashed rgba(255,255,255,0.15);">
+                            <h5 style="font-size: 0.85rem; color: #fff; margin-bottom: 12px; font-weight: 700; text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px;"><i class="fas fa-chart-pie" style="color: var(--green);"></i> <span data-tr="TAHMİNİ YATIRIM GETİRİSİ (ROI) ANALİZİ" data-en="ESTIMATED RETURN ON INVESTMENT (ROI)">TAHMİNİ YATIRIM GETİRİSİ (ROI) ANALİZİ</span></h5>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; background: rgba(0,0,0,0.25); border-radius: 12px; padding: 15px; border: 1px solid rgba(255,255,255,0.05);">
+                                <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                    <span style="font-size: 0.62rem; color: #9ab; font-weight: 600; text-transform: uppercase;" data-tr="Tahmini Erişim" data-en="Est. Reach">Tahmini Erişim</span>
+                                    <span style="font-size: 1.05rem; font-weight: 800; color: #fff;" id="roiReach">—</span>
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                    <span style="font-size: 0.62rem; color: #9ab; font-weight: 600; text-transform: uppercase;" data-tr="Sektör Dönüşüm" data-en="Conv. Rate">Sektör Dönüşüm</span>
+                                    <span style="font-size: 1.05rem; font-weight: 800; color: var(--blue);" id="roiConvRate">—</span>
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                    <span style="font-size: 0.62rem; color: #9ab; font-weight: 600; text-transform: uppercase;" data-tr="Tahmini Ciro" data-en="Projected Revenue">Tahmini Ciro</span>
+                                    <span style="font-size: 1.05rem; font-weight: 800; color: var(--green);" id="roiRevenue">—</span>
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                    <span style="font-size: 0.62rem; color: #9ab; font-weight: 600; text-transform: uppercase;" data-tr="Tahmini ROI Oranı" data-en="Projected ROI">Tahmini ROI Oranı</span>
+                                    <span style="font-size: 1.05rem; font-weight: 800; color: var(--accent);" id="roiRatio">—</span>
+                                </div>
+                            </div>
+                            <div style="text-align: center; margin-top: 8px; font-size: 0.65rem; color: #888;" data-tr="* ROI analizi, sektörel ortalamalar ve tahmini gösterimler temel alınarak hesaplanmıştır." data-en="* ROI analysis is based on industry averages and estimated views.">* ROI analizi, sektörel ortalamalar ve tahmini gösterimler temel alınarak hesaplanmıştır.</div>
+                        </div>
+
                         <div style="text-align: center; margin-top: 12px; font-size: 0.72rem; color: #789; font-style: italic;" data-tr="* Ödeme detayları ve aktivasyon için 24 saat içinde temsilcimiz sizinle iletişime geçecektir." data-en="* Our representative will contact you within 24 hours for payment details and activation.">* Ödeme detayları ve aktivasyon için 24 saat içinde temsilcimiz sizinle iletişime geçecektir.</div>
                         
                         <!-- Invoice WhatsApp Button -->
@@ -1870,6 +1899,101 @@
             `;
         }
 
+        // CANLI KAMPANYA ÖNİZLEME SİMÜLATÖRÜ
+        function updateMockupPreviews() {
+            const business = document.getElementById('reqBusiness').value || (currentLang === 'tr' ? 'İşletme Adı' : 'Business Name');
+            const title = document.getElementById('reqCampaignTitle').value || (currentLang === 'tr' ? 'Kampanya Başlığınız Buraya Gelir' : 'Your Campaign Title Goes Here');
+            const oldPriceVal = parseFloat(document.getElementById('reqOldPrice').value);
+            const newPriceVal = parseFloat(document.getElementById('reqNewPrice').value);
+            const promo = document.getElementById('reqPromoCode').value;
+            const imageUrl = document.getElementById('reqImageUrl').value;
+            
+            // App Simulator
+            const pEsnaf = document.getElementById('previewAppEsnaf');
+            const pTitle = document.getElementById('previewAppTitle');
+            const pOld = document.getElementById('previewAppPriceOld');
+            const pNew = document.getElementById('previewAppPriceNew');
+            const pDiscount = document.getElementById('previewAppDiscount');
+            const pPromo = document.getElementById('previewAppPromoCode');
+            
+            if (pEsnaf) pEsnaf.innerText = business;
+            if (pTitle) pTitle.innerText = title;
+            
+            let discountText = '';
+            if (pDiscount && pOld && pNew) {
+                if (!isNaN(oldPriceVal) && !isNaN(newPriceVal) && oldPriceVal > 0 && newPriceVal < oldPriceVal) {
+                    const percent = Math.round(((oldPriceVal - newPriceVal) / oldPriceVal) * 100);
+                    discountText = `%${percent} ` + (currentLang === 'tr' ? 'İNDİRİM' : 'DISCOUNT');
+                    pDiscount.style.display = 'inline-block';
+                    pDiscount.innerText = discountText;
+                    
+                    pOld.innerText = oldPriceVal + ' TL';
+                    pOld.style.display = 'inline-block';
+                    pNew.innerText = newPriceVal + ' TL';
+                } else {
+                    pDiscount.style.display = 'none';
+                    pOld.style.display = 'none';
+                    pNew.innerText = (newPriceVal ? newPriceVal + ' TL' : '— TL');
+                }
+            }
+            
+            if (pPromo) {
+                if (promo) {
+                    pPromo.parentNode.style.display = 'inline-flex';
+                    pPromo.innerText = promo.toUpperCase();
+                } else {
+                    pPromo.parentNode.style.display = 'none';
+                }
+            }
+            
+            // Images App / Insta
+            const appImg = document.getElementById('previewAppImage');
+            const appPlaceholder = document.getElementById('previewAppPlaceholder');
+            const instaImg = document.getElementById('previewInstaImage');
+            const instaPlaceholder = document.getElementById('previewInstaPlaceholder');
+            
+            if (imageUrl && imageUrl !== 'https://via.placeholder.com/400' && imageUrl !== 'https://via.placeholder.com/150') {
+                if (appImg) { appImg.src = imageUrl; appImg.style.display = 'block'; }
+                if (appPlaceholder) appPlaceholder.style.display = 'none';
+                if (instaImg) { instaImg.src = imageUrl; instaImg.style.display = 'block'; }
+                if (instaPlaceholder) instaPlaceholder.style.display = 'none';
+            } else {
+                if (appImg) appImg.style.display = 'none';
+                if (appPlaceholder) appPlaceholder.style.display = 'block';
+                if (instaImg) instaImg.style.display = 'none';
+                if (instaPlaceholder) instaPlaceholder.style.display = 'block';
+            }
+            
+            // Insta Caption
+            const category = document.getElementById('reqCategory').value || (currentLang === 'tr' ? 'Hizmet' : 'Service');
+            const instaCap = document.getElementById('previewInstaCaption');
+            if (instaCap) {
+                let instaCaptionText = '';
+                if (currentLang === 'tr') {
+                    instaCaptionText = `🔥 <strong>${business}</strong> kalitesi şimdi Ilgın İnsanı topluluğunda! \n📍 Kategori: #${category.replace(/\s+/g, '')} \n📢 Kampanya: ${title}`;
+                    if (newPriceVal) {
+                        instaCaptionText += ` \n💰 Özel Fiyat: ${newPriceVal} TL`;
+                        if (oldPriceVal) instaCaptionText += ` (Yerine ${oldPriceVal} TL!)`;
+                    }
+                    if (promo) {
+                        instaCaptionText += ` \n🎁 İndirim Kodu: ${promo.toUpperCase()}`;
+                    }
+                    instaCaptionText += `\n\nDetaylar mobil uygulamamızda ve bio'daki linkte! #ilgin #ilgininsani`;
+                } else {
+                    instaCaptionText = `🔥 <strong>${business}</strong> is now featured in Ilgın İnsanı community! \n📍 Category: #${category.replace(/\s+/g, '')} \n📢 Campaign: ${title}`;
+                    if (newPriceVal) {
+                        instaCaptionText += ` \n💰 Special Price: ${newPriceVal} TL`;
+                        if (oldPriceVal) instaCaptionText += ` (Was ${oldPriceVal} TL!)`;
+                    }
+                    if (promo) {
+                        instaCaptionText += ` \n🎁 Promo Code: ${promo.toUpperCase()}`;
+                    }
+                    instaCaptionText += `\n\nDetails in our app & bio link! #ilgin #ilgininsani`;
+                }
+                instaCap.innerHTML = instaCaptionText.replace(/\n/g, '<br>');
+            }
+        }
+
         function updatePrices() {
             const duration = document.getElementById('reqDuration').value;
             const prices = pricingMatrix[duration];
@@ -1964,6 +2088,61 @@
                 invoiceTotal.innerText = '₺' + totalCost;
             }
 
+            // ROI HESAPLAMA
+            let estReach = 0;
+            if (selectedAdType === 'app_only' || selectedAdType === 'combo') {
+                const appReachMap = { temel: 1500, premium: 3500, vip: 7000 };
+                estReach += appReachMap[selectedPackage] || 0;
+            }
+            if (selectedAdType === 'insta_only' || selectedAdType === 'combo') {
+                const instaReachMap = {
+                    story: 13000,
+                    post: 20000,
+                    post_story: 25000,
+                    reels: 25000,
+                    reels_story: 30000,
+                    kapsamli_reels_story: 30000,
+                    drone_story: 17500,
+                    drone_reels: 30000,
+                    drone_combo: 40000,
+                    suggested: 48000,
+                    monthly: 150000,
+                    giveaway: 25000
+                };
+                estReach += instaReachMap[instaPackage] || 0;
+            }
+
+            const categoryRates = {
+                "Gıda / Restoran": 0.035,
+                "Giyim / Moda": 0.030,
+                "Kozmetik / Güzellik": 0.025,
+                "Tarım / Hayvancılık": 0.015,
+                "Teknoloji / Elektronik": 0.020,
+                "Hizmet / Diğer": 0.020
+            };
+            const catVal = document.getElementById('reqCategory').value;
+            const convRate = categoryRates[catVal] || 0.020;
+            
+            const newPriceInput = parseFloat(document.getElementById('reqNewPrice').value);
+            const itemPrice = (!isNaN(newPriceInput) && newPriceInput > 0) ? newPriceInput : 250;
+            const estConversions = estReach * convRate;
+            const estRevenue = Math.round(estConversions * itemPrice);
+            
+            let roiRatioVal = 0;
+            if (totalCost > 0) {
+                roiRatioVal = (estRevenue / totalCost).toFixed(1);
+            }
+            
+            const roiReachEl = document.getElementById('roiReach');
+            const roiConvEl = document.getElementById('roiConvRate');
+            const roiRevEl = document.getElementById('roiRevenue');
+            const roiRatioEl = document.getElementById('roiRatio');
+            
+            if (roiReachEl) roiReachEl.innerText = estReach.toLocaleString() + ' ' + (currentLang === 'tr' ? 'Kişi' : 'People');
+            if (roiConvEl) roiConvEl.innerText = `%${(convRate * 100).toFixed(1)}`;
+            if (roiRevEl) roiRevEl.innerText = '₺' + estRevenue.toLocaleString();
+            if (roiRatioEl) roiRatioEl.innerText = roiRatioVal > 0 ? `${roiRatioVal}x` : '—';
+
             // Submit butonu yazısını güncelle
             const submitBtn = document.getElementById('reqSubmitBtn');
             if (submitBtn) {
@@ -1974,7 +2153,20 @@
                         : `Submit Request — Total: ₺${totalCost}`;
                 }
             }
+            updateMockupPreviews();
         }
+
+        // Event Dinleyicilerini Form Alanlarına Bağla
+        document.getElementById('reqBusiness').addEventListener('input', updateMockupPreviews);
+        document.getElementById('reqCampaignTitle').addEventListener('input', updateMockupPreviews);
+        document.getElementById('reqOldPrice').addEventListener('input', updateMockupPreviews);
+        document.getElementById('reqNewPrice').addEventListener('input', () => { updateMockupPreviews(); updatePrices(); });
+        document.getElementById('reqPromoCode').addEventListener('input', updateMockupPreviews);
+        document.getElementById('reqCategory').addEventListener('change', () => { updateMockupPreviews(); updatePrices(); });
+        document.getElementById('reqInstaPackage').addEventListener('change', () => { updateMockupPreviews(); updatePrices(); });
+        document.getElementById('reqShootRequired').addEventListener('change', updatePrices);
+        document.getElementById('reqGiveawayDays').addEventListener('input', updatePrices);
+
         document.getElementById('reqDuration').addEventListener('change', updatePrices);
 
         /* ============================================================
@@ -2344,92 +2536,97 @@
             const formData = new FormData();
             formData.append('file', file);
             
-            // 1. Yol: Graph.org (Türkiye'de engelsiz, Telgraph resmi klonu, kalıcı ve hızlı)
             try {
-                const response = await fetch('https://graph.org/upload', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                if (!response.ok) throw new Error('Graph.org hatası');
-                
-                const data = await response.json();
-                if (Array.isArray(data) && data.length > 0 && data[0].src) {
-                    const directUrl = `https://graph.org${data[0].src}`;
-                    reqImageUrl.value = directUrl;
-                    uploadStatus.innerHTML = '<i class="fas fa-check-circle"></i> Görsel Yüklendi!';
-                    uploadStatus.style.color = '#2ecc71';
-                    return;
+                // 1. Yol: Graph.org (Türkiye'de engelsiz, Telgraph resmi klonu, kalıcı ve hızlı)
+                try {
+                    const response = await fetch('https://graph.org/upload', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    if (!response.ok) throw new Error('Graph.org hatası');
+                    
+                    const data = await response.json();
+                    if (Array.isArray(data) && data.length > 0 && data[0].src) {
+                        const directUrl = `https://graph.org${data[0].src}`;
+                        reqImageUrl.value = directUrl;
+                        uploadStatus.innerHTML = '<i class="fas fa-check-circle"></i> Görsel Yüklendi!';
+                        uploadStatus.style.color = '#2ecc71';
+                        return;
+                    }
+                } catch (err) {
+                    console.warn("Graph.org yükleme hatası, Telegraph deneniyor...", err);
                 }
-            } catch (err) {
-                console.warn("Graph.org yükleme hatası, Telegraph deneniyor...", err);
-            }
-            
-            // 2. Yol: Telegraph (Kalıcı, CORS Destekli)
-            try {
-                const response = await fetch('https://telegra.ph/upload', {
-                    method: 'POST',
-                    body: formData
-                });
                 
-                if (!response.ok) throw new Error('Telegraph hatası');
-                
-                const data = await response.json();
-                if (Array.isArray(data) && data.length > 0 && data[0].src) {
-                    const directUrl = `https://telegra.ph${data[0].src}`;
-                    reqImageUrl.value = directUrl;
-                    uploadStatus.innerHTML = '<i class="fas fa-check-circle"></i> Görsel Yüklendi!';
-                    uploadStatus.style.color = '#2ecc71';
-                    return;
+                // 2. Yol: Telegraph (Kalıcı, CORS Destekli)
+                try {
+                    const response = await fetch('https://telegra.ph/upload', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    if (!response.ok) throw new Error('Telegraph hatası');
+                    
+                    const data = await response.json();
+                    if (Array.isArray(data) && data.length > 0 && data[0].src) {
+                        const directUrl = `https://telegra.ph${data[0].src}`;
+                        reqImageUrl.value = directUrl;
+                        uploadStatus.innerHTML = '<i class="fas fa-check-circle"></i> Görsel Yüklendi!';
+                        uploadStatus.style.color = '#2ecc71';
+                        return;
+                    }
+                } catch (err) {
+                    console.warn("Telegraph yükleme hatası, Tmpfiles deneniyor...", err);
                 }
-            } catch (err) {
-                console.warn("Telegraph yükleme hatası, Tmpfiles deneniyor...", err);
-            }
-            
-            // 3. Yol: Tmpfiles (CORS Destekli Yedek)
-            try {
-                const response = await fetch('https://tmpfiles.org/api/v1/upload', {
-                    method: 'POST',
-                    body: formData
-                });
                 
-                if (!response.ok) throw new Error('Tmpfiles hatası');
-                
-                const data = await response.json();
-                if (data.status === "success" && data.data && data.data.url) {
-                    const rawUrl = data.data.url;
-                    const directUrl = rawUrl.replace('https://tmpfiles.org/', 'https://tmpfiles.org/dl/');
-                    reqImageUrl.value = directUrl;
-                    uploadStatus.innerHTML = '<i class="fas fa-check-circle"></i> Görsel Yüklendi (Yedek Sunucu)!';
-                    uploadStatus.style.color = '#2ecc71';
-                    return;
+                // 3. Yol: Tmpfiles (CORS Destekli Yedek)
+                try {
+                    const response = await fetch('https://tmpfiles.org/api/v1/upload', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    if (!response.ok) throw new Error('Tmpfiles hatası');
+                    
+                    const data = await response.json();
+                    if (data.status === "success" && data.data && data.data.url) {
+                        const rawUrl = data.data.url;
+                        const directUrl = rawUrl.replace('https://tmpfiles.org/', 'https://tmpfiles.org/dl/');
+                        reqImageUrl.value = directUrl;
+                        uploadStatus.innerHTML = '<i class="fas fa-check-circle"></i> Görsel Yüklendi (Yedek Sunucu)!';
+                        uploadStatus.style.color = '#2ecc71';
+                        return;
+                    }
+                } catch (err) {
+                    console.warn("Tmpfiles yükleme hatası, Pixeldrain deneniyor...", err);
                 }
-            } catch (err) {
-                console.warn("Tmpfiles yükleme hatası, Pixeldrain deneniyor...", err);
-            }
-
-            // 4. Yol: Pixeldrain (Son Yedek)
-            try {
-                const response = await fetch('https://pixeldrain.com/api/file', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                if (!response.ok) throw new Error('Pixeldrain hatası');
-                
-                const data = await response.json();
-                if (data.success) {
-                    const directUrl = `https://pixeldrain.com/api/file/${data.id}`;
-                    reqImageUrl.value = directUrl;
-                    uploadStatus.innerHTML = '<i class="fas fa-check-circle"></i> Görsel Yüklendi (Alternatif Sunucu)!';
-                    uploadStatus.style.color = '#2ecc71';
-                    return;
+    
+                // 4. Yol: Pixeldrain (Son Yedek)
+                try {
+                    const response = await fetch('https://pixeldrain.com/api/file', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    if (!response.ok) throw new Error('Pixeldrain hatası');
+                    
+                    const data = await response.json();
+                    if (data.success) {
+                        const directUrl = `https://pixeldrain.com/api/file/${data.id}`;
+                        reqImageUrl.value = directUrl;
+                        uploadStatus.innerHTML = '<i class="fas fa-check-circle"></i> Görsel Yüklendi (Alternatif Sunucu)!';
+                        uploadStatus.style.color = '#2ecc71';
+                        return;
+                    }
+                } catch (err) {
+                    console.error("Tüm görsel sunucuları başarısız oldu:", err);
+                    uploadStatus.innerHTML = '<i class="fas fa-times-circle"></i> Görsel yüklenemedi. Varsayılan resim kullanılacak.';
+                    uploadStatus.style.color = '#e74c3c';
+                    reqImageUrl.value = 'https://via.placeholder.com/400';
                 }
-            } catch (err) {
-                console.error("Tüm görsel sunucuları başarısız oldu:", err);
-                uploadStatus.innerHTML = '<i class="fas fa-times-circle"></i> Görsel yüklenemedi. Varsayılan resim kullanılacak.';
-                uploadStatus.style.color = '#e74c3c';
-                reqImageUrl.value = 'https://via.placeholder.com/400';
+            } finally {
+                // Her halükarda mockup önizlemesini güncelle
+                updateMockupPreviews();
             }
         }
 
