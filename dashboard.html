@@ -568,14 +568,22 @@
                     saglik: "Sağlık & Güzellik",
                     tekstil: "Tekstil & Giyim",
                     hizmet: "Hizmet Sektörü",
-                    diger: "Diğer"
-                }[item.kategori] || "Bilinmeyen";
+                    diger: "Diğer",
+                    "Gıda / Restoran": "Gıda / Restoran",
+                    "Giyim / Moda": "Giyim / Moda",
+                    "Kozmetik / Güzellik": "Kozmetik / Güzellik",
+                    "Tarım / Hayvancılık": "Tarım / Hayvancılık",
+                    "Teknoloji / Elektronik": "Teknoloji / Elektronik",
+                    "Hizmet / Diğer": "Hizmet / Diğer"
+                }[item.kategori] || item.kategori || "Diğer";
 
                 const packageBadge = item.paket === 'temel' 
                     ? '<span class="badge badge-pkg">Temel</span>'
                     : item.paket === 'premium'
                     ? '<span class="badge badge-pkg premium">Premium</span>'
-                    : '<span class="badge badge-pkg vip">VIP</span>';
+                    : item.paket === 'vip'
+                    ? '<span class="badge badge-pkg vip">VIP</span>'
+                    : '<span class="badge badge-pkg">Yok</span>';
 
                 const statusBadge = item.durum === 'pending'
                     ? '<span class="badge badge-pending">Bekliyor</span>'
@@ -594,8 +602,8 @@
                 if (item.instagramPaket && item.instagramPaket !== 'none') {
                     const instaBadgeLabel = {
                         story: "HİKAYE", post: "GÖNDERİ", post_story: "POST+STORY", reels: "REELS", reels_story: "REELS+STORY",
-                        drone_story: "DRONE STORY", drone_reels: "DRONE REELS", drone_combo: "DRONE REELS+STORY",
-                        suggested: "ÖNERİYOR VİDEO", monthly: "AYLIK SPONSOR", giveaway: "ÇEKİLİŞ"
+                        kapsamli_reels_story: "KAPSAMLI REELS+STORY", drone_story: "DRONE STORY", drone_reels: "DRONE REELS",
+                        drone_combo: "DRONE REELS+STORY", suggested: "ÖNERİYOR VİDEO", monthly: "AYLIK SPONSOR", giveaway: "ÇEKİLİŞ"
                     }[item.instagramPaket] || item.instagramPaket.toUpperCase();
                     instaBadge = `<div style="font-size: 0.7rem; color: #e6683c; font-weight: bold; margin-top: 4px;"><i class="fab fa-instagram"></i> Instagram: ${instaBadgeLabel} (${item.montajIstegi === 'Evet' ? 'Çekimli' : 'Çekimsiz'})</div>`;
                 }
@@ -780,8 +788,14 @@
                 saglik: "Sağlık & Güzellik",
                 tekstil: "Tekstil & Giyim",
                 hizmet: "Hizmet Sektörü",
-                diger: "Diğer"
-            }[item.kategori] || "Diğer";
+                diger: "Diğer",
+                "Gıda / Restoran": "Gıda / Restoran",
+                "Giyim / Moda": "Giyim / Moda",
+                "Kozmetik / Güzellik": "Kozmetik / Güzellik",
+                "Tarım / Hayvancılık": "Tarım / Hayvancılık",
+                "Teknoloji / Elektronik": "Teknoloji / Elektronik",
+                "Hizmet / Diğer": "Hizmet / Diğer"
+            }[item.kategori] || item.kategori || "Diğer";
 
             const detailsHtml = `
                 <div class="detail-row"><span class="detail-label">Yetkili Kişi:</span><span class="detail-val">${item.yetkili}</span></div>
@@ -802,6 +816,7 @@
                         post_story: "Gönderi + Hikaye",
                         reels: "Reels Videosu",
                         reels_story: "Reels + Hikaye",
+                        kapsamli_reels_story: "Tasarım/Çekim Kapsamlı Reels + Hikaye",
                         drone_story: "Drone ile Hikaye",
                         drone_reels: "Drone ile Reels",
                         drone_combo: "Drone ile Reels + Hikaye",
