@@ -346,9 +346,48 @@
             th, td { padding: 12px 16px; }
             .header { flex-direction: column; gap: 15px; text-align: center; }
         }
+
+        /* ADMIN LOGIN OVERLAY */
+        .login-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #071118 0%, #0f1c24 100%);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999;
+        }
+        .login-box {
+            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08); border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px; padding: 40px; width: 90%; max-width: 400px;
+            text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        .login-box h3 { margin-bottom: 20px; font-weight: 800; font-size: 1.5rem; }
+        .login-box h3 span { color: var(--accent); }
+        .login-box input {
+            width: 100%; padding: 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(0,0,0,0.3); color: #fff; text-align: center; font-size: 1.1rem;
+            margin-bottom: 18px; outline: none; transition: 0.2s;
+        }
+        .login-box input:focus { border-color: var(--accent); }
+        .btn-login {
+            width: 100%; padding: 14px; background: var(--accent); color: #111;
+            border: none; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.3s;
+        }
+        .btn-login:hover { background: var(--accent-dark); transform: translateY(-2px); }
     </style>
 </head>
 <body>
+
+    <!-- Giriş Paneli -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-box">
+            <div class="brand-dot" style="margin: 0 auto 15px; width: 15px; height: 15px;"></div>
+            <h3>Ilgın İnsanı <span>Admin</span></h3>
+            <p style="font-size: 0.85rem; color: #9ab; margin-bottom: 20px;">Devam etmek için yönetici şifresini girin.</p>
+            <input type="password" id="adminPassword" placeholder="••••••••" onkeydown="if(event.key === 'Enter') loginAdmin()">
+            <button class="btn-login" onclick="loginAdmin()">Giriş Yap</button>
+            <p id="loginError" style="color: var(--red); font-size: 0.8rem; margin-top: 12px; display: none; font-weight: bold;">Hatalı şifre! Tekrar deneyin.</p>
+        </div>
+    </div>
 
     <div class="container">
         <!-- HEADER -->
@@ -745,6 +784,33 @@
 
         // Load initially
         renderTable();
+
+        // Şifre doğrulama mantığı
+        const ADMIN_HASH = "ilgin42"; // Yönetici Şifresi
+        
+        function checkAuth() {
+            if (sessionStorage.getItem('admin_authenticated') === 'true') {
+                document.getElementById('loginOverlay').style.display = 'none';
+            } else {
+                document.getElementById('loginOverlay').style.display = 'flex';
+            }
+        }
+
+        function loginAdmin() {
+            const pass = document.getElementById('adminPassword').value;
+            const err = document.getElementById('loginError');
+            if (pass === ADMIN_HASH) {
+                sessionStorage.setItem('admin_authenticated', 'true');
+                document.getElementById('loginOverlay').style.display = 'none';
+                err.style.display = 'none';
+            } else {
+                err.style.display = 'block';
+                document.getElementById('adminPassword').value = '';
+            }
+        }
+        
+        // Sayfa yüklendiğinde kontrol et
+        checkAuth();
     </script>
 </body>
 </html>

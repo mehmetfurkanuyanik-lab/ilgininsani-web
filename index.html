@@ -718,6 +718,7 @@
 
         <div class="footer">
             &copy; 2026 Ilgın İnsanı | Teknolojiyi şehrimizle buluşturuyoruz. 🌾
+            <a href="dashboard.html" style="color: #444; margin-left: 8px; font-size: 0.8rem; text-decoration: none;" title="Yönetici Girişi"><i class="fas fa-lock"></i></a>
         </div>
     </div>
 
@@ -1000,10 +1001,12 @@
                 card.target = '_blank';
                 card.className = 'insta-card reveal';
                 
-                const typeIcon = post.type === 'reels' ? '<i class="fas fa-video"></i>' : '<i class="fas fa-image"></i>';
+                const typeIconHtml = (post.type && post.type.includes('fa-'))
+                    ? `<i class="${post.type}"></i>`
+                    : (post.type === 'reels' ? '<i class="fas fa-video"></i>' : '<i class="fas fa-image"></i>');
                 
                 card.innerHTML = `
-                    <div class="insta-type-badge">${typeIcon}</div>
+                    <div class="insta-type-badge">${typeIconHtml}</div>
                     <img src="${post.imageUrl}" alt="Instagram Post">
                     <div class="insta-overlay">
                         <div class="insta-meta">
