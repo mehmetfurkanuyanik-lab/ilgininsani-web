@@ -447,7 +447,134 @@
             .hero h1 { font-size: 2.2rem; }
             .ai-section, .contact-section, .live-pharmacy-widget { padding: 20px; }
         }
+
+        /* INSTAGRAM REKLAM PAKETLERİ */
+        .insta-pricing-section {
+            margin-bottom: 50px;
+        }
+        .insta-pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .insta-pricing-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 25px 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+        .insta-pricing-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(236, 110, 60, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+            transition: 0.5s;
+        }
+        .insta-pricing-card:hover::before {
+            background: radial-gradient(circle, rgba(236, 110, 60, 0.15) 0%, transparent 70%);
+        }
+        .insta-pricing-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(236, 110, 60, 0.4);
+            box-shadow: 0 15px 30px rgba(236, 110, 60, 0.15);
+        }
+        .insta-pricing-header {
+            text-align: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding-bottom: 15px;
+        }
+        .insta-pricing-badge {
+            background: rgba(236, 110, 60, 0.15);
+            color: #e6683c;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .insta-pricing-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .insta-pricing-price {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #f39c12;
+        }
+        .insta-pricing-price span {
+            font-size: 0.85rem;
+            color: #aaa;
+            font-weight: 600;
+        }
+        .insta-pricing-stats {
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.04);
+            font-size: 0.8rem;
+        }
+        .insta-pricing-stats i {
+            color: #e6683c;
+            margin-right: 4px;
+        }
+        .insta-pricing-features {
+            list-style: none;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        .insta-pricing-features li {
+            font-size: 0.8rem;
+            color: #ccc;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .insta-pricing-features li i {
+            color: #2ecc71;
+            font-size: 0.85rem;
+        }
+        .insta-pricing-cta {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.3s;
+            display: block;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        .insta-pricing-cta:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 15px rgba(220, 39, 67, 0.4);
+        }
     </style>
+
 </head>
 <body>
 
@@ -619,6 +746,169 @@
             
             <div class="insta-grid" id="instaGrid">
                 <!-- Posts will be dynamically loaded here -->
+            </div>
+        </div>
+
+        <!-- INSTAGRAM ADVERTISING PRICING -->
+        <div class="insta-pricing-section reveal">
+            <h2 class="section-title" data-tr="Instagram Reklam Hizmetleri" data-en="Instagram Ad Services">Instagram Reklam Hizmetleri</h2>
+            <p style="text-align: center; color: #bbb; margin-top: -30px; margin-bottom: 30px;" data-tr="Ilgın'ın en büyük yerel Instagram topluluğunda işletmenizi ve kampanyalarınızı öne çıkarın." data-en="Feature your business and campaigns in Ilgın's largest local Instagram community.">Ilgın'ın en büyük yerel Instagram topluluğunda işletmenizi ve kampanyalarınızı öne çıkarın.</p>
+            
+            <div class="insta-pricing-grid">
+                <!-- Hikaye -->
+                <div class="insta-pricing-card">
+                    <div class="insta-pricing-header">
+                        <span class="insta-pricing-badge" data-tr="Hikaye" data-en="Story">Hikaye</span>
+                        <div class="insta-pricing-title">Instagram Story</div>
+                        <div class="insta-pricing-price">₺750 <span>/ 24 Saat</span></div>
+                    </div>
+                    <div class="insta-pricing-stats">
+                        <i class="fas fa-eye"></i> <strong data-tr="12k - 14k Görüntülenme" data-en="12k - 14k Views">12.000 - 14.000 Görüntülenme</strong>
+                    </div>
+                    <ul class="insta-pricing-features">
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="24 saat aktif yayın süresi" data-en="Active for 24 hours">24 saat aktif yayın süresi</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Bağlantı (Kaydır-Git) ve etiket ekleme" data-en="Add links & business tag">Bağlantı (Kaydır-Git) ve etiket ekleme</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Hızlı geri dönüş ve etkileşim" data-en="Fast feedback & engagement">Hızlı geri dönüş ve etkileşim</span></li>
+                    </ul>
+                    <a href="esnaf.html#talep" class="insta-pricing-cta" data-tr="Hemen Başvur" data-en="Apply Now">Hemen Başvur</a>
+                </div>
+
+                <!-- Gönderi -->
+                <div class="insta-pricing-card">
+                    <div class="insta-pricing-header">
+                        <span class="insta-pricing-badge" data-tr="Gönderi" data-en="Post">Gönderi</span>
+                        <div class="insta-pricing-title">Instagram Post</div>
+                        <div class="insta-pricing-price">₺1.500 <span>/ Kalıcı</span></div>
+                    </div>
+                    <div class="insta-pricing-stats">
+                        <i class="fas fa-eye"></i> <strong data-tr="15k - 25k Görüntülenme" data-en="15k - 25k Views">15.000 - 25.000 Görüntülenme</strong>
+                    </div>
+                    <ul class="insta-pricing-features">
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Profilimizde sürekli kalıcı yayın" data-en="Permanently stays in our feed">Profilimizde sürekli kalıcı yayın</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Detaylı görsel ve açıklama yazısı" data-en="Detailed visual & caption text">Detaylı görsel ve açıklama yazısı</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="İşletme hesabı ortak gönderi (Collab)" data-en="Collab option with your business">İşletme hesabı ortak gönderi (Collab)</span></li>
+                    </ul>
+                    <a href="esnaf.html#talep" class="insta-pricing-cta" data-tr="Hemen Başvur" data-en="Apply Now">Hemen Başvur</a>
+                </div>
+
+                <!-- Gönderi + Hikaye -->
+                <div class="insta-pricing-card">
+                    <div class="insta-pricing-header">
+                        <span class="insta-pricing-badge" data-tr="Kombo" data-en="Combo">Kombo</span>
+                        <div class="insta-pricing-title">Post + Story</div>
+                        <div class="insta-pricing-price">₺2.000 <span>/ Avantajlı</span></div>
+                    </div>
+                    <div class="insta-pricing-stats">
+                        <i class="fas fa-eye"></i> <strong data-tr="18k - 28k Görüntülenme" data-en="18k - 28k Views">18.000 - 28.000 Görüntülenme</strong>
+                    </div>
+                    <ul class="insta-pricing-features">
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Kalıcı akış gönderisi" data-en="Permanent feed post">Kalıcı akış gönderisi</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="İndirim bağlantılı hikaye paylaşımı" data-en="Supporting story with link">İndirim bağlantılı hikaye paylaşımı</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Maksimum görünürlük kombini" data-en="Maximum visibility combo">Maksimum görünürlük kombini</span></li>
+                    </ul>
+                    <a href="esnaf.html#talep" class="insta-pricing-cta" data-tr="Hemen Başvur" data-en="Apply Now">Hemen Başvur</a>
+                </div>
+
+                <!-- Reels -->
+                <div class="insta-pricing-card">
+                    <div class="insta-pricing-header">
+                        <span class="insta-pricing-badge" data-tr="Reels" data-en="Reels">Reels</span>
+                        <div class="insta-pricing-title">Reels Videosu</div>
+                        <div class="insta-pricing-price">₺2.500 <span>/ Kalıcı</span></div>
+                    </div>
+                    <div class="insta-pricing-stats">
+                        <i class="fas fa-eye"></i> <strong data-tr="20k - 30k Görüntülenme" data-en="20k - 30k Views">20.000 - 30.000 Görüntülenme</strong>
+                    </div>
+                    <ul class="insta-pricing-features">
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Kalıcı Reels sekmesi yayını" data-en="Permanent reels video post">Kalıcı Reels sekmesi yayını</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Instagram Keşfet algoritma desteği" data-en="Instagram Explore algorithm support">Instagram Keşfet algoritma desteği</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Yüksek erişim oranı ve popüler müzik" data-en="High reach & trending audio">Yüksek erişim oranı ve popüler müzik</span></li>
+                    </ul>
+                    <a href="esnaf.html#talep" class="insta-pricing-cta" data-tr="Hemen Başvur" data-en="Apply Now">Hemen Başvur</a>
+                </div>
+
+                <!-- Reels + Hikaye -->
+                <div class="insta-pricing-card">
+                    <div class="insta-pricing-header">
+                        <span class="insta-pricing-badge" data-tr="Reels Kombo" data-en="Reels Combo">Reels Combo</span>
+                        <div class="insta-pricing-title">Reels + Story</div>
+                        <div class="insta-pricing-price">₺3.000 <span>/ Popüler</span></div>
+                    </div>
+                    <div class="insta-pricing-stats">
+                        <i class="fas fa-eye"></i> <strong data-tr="25k - 35k Görüntülenme" data-en="25k - 35k Views">25.000 - 35.000 Görüntülenme</strong>
+                    </div>
+                    <ul class="insta-pricing-features">
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Kalıcı Reels videosu" data-en="Permanent reels video">Kalıcı Reels videosu</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Story ile hikaye yönlendirmesi" data-en="Story sharing with swipe-up">Story ile hikaye yönlendirmesi</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Öne çıkarılan reels & hikaye kombosu" data-en="Featured reels & story combo">Öne çıkarılan reels & hikaye kombosu</span></li>
+                    </ul>
+                    <a href="esnaf.html#talep" class="insta-pricing-cta" data-tr="Hemen Başvur" data-en="Apply Now">Hemen Başvur</a>
+                </div>
+
+                <!-- Pro Çekim & Drone (#IlgınİnsanıÖneriyor) -->
+                <div class="insta-pricing-card" style="border-color: rgba(212, 175, 55, 0.4); box-shadow: 0 12px 30px rgba(212, 175, 55, 0.15);">
+                    <div class="insta-pricing-header">
+                        <span class="insta-pricing-badge" style="background: rgba(212, 175, 55, 0.15); color: #d4af37;" data-tr="Özel Öneri" data-en="Special Recommend">Özel Öneri</span>
+                        <div class="insta-pricing-title" style="color: #d4af37;">#IlgınİnsanıÖneriyor</div>
+                        <div class="insta-pricing-price">₺5.000 <span>/ Paket</span></div>
+                    </div>
+                    <div class="insta-pricing-stats" style="border-color: rgba(212, 175, 55, 0.2);">
+                        <i class="fas fa-eye" style="color: #d4af37;"></i> <strong data-tr="45k - 50k+ Görüntülenme" data-en="45k - 50k+ Views">45.000 - 50.000+ Görüntülenme</strong>
+                    </div>
+                    <ul class="insta-pricing-features">
+                        <li><i class="fas fa-star" style="color: #d4af37;"></i> <strong data-tr="Drone ile havadan çekimler" data-en="Drone aerial videography">Drone ile havadan çekimler</strong></li>
+                        <li><i class="fas fa-star" style="color: #d4af37;"></i> <span data-tr="Profesyonel kurgu & montaj" data-en="Professional video editing">Profesyonel kurgu & montaj</span></li>
+                        <li><i class="fas fa-star" style="color: #d4af37;"></i> <span data-tr="1 Reels + 1 Hikaye (Fiyata dahil)" data-en="1 Reels + 1 Story included">1 Reels + 1 Hikaye (Fiyata dahil)</span></li>
+                    </ul>
+                    <a href="esnaf.html#talep" class="insta-pricing-cta" style="background: linear-gradient(45deg, #d4af37, #aa7c11); color: #fff;" data-tr="Kampanyayı Başlat" data-en="Start Campaign">Kampanyayı Başlat</a>
+                </div>
+
+                <!-- Çekiliş Sponsorluğu -->
+                <div class="insta-pricing-card">
+                    <div class="insta-pricing-header">
+                        <span class="insta-pricing-badge" data-tr="Çekiliş" data-en="Giveaway">Çekiliş</span>
+                        <div class="insta-pricing-title">Çekiliş Sponsorluğu</div>
+                        <div class="insta-pricing-price">₺500 <span>/ Günlük</span></div>
+                    </div>
+                    <div class="insta-pricing-stats">
+                        <i class="fas fa-users"></i> <strong data-tr="Hızlı Takipçi Kazanımı" data-en="Rapid Follower Growth">Hızlı Takipçi Kazanımı</strong>
+                    </div>
+                    <ul class="insta-pricing-features">
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Minimum 3 gün katılım şartı" data-en="Minimum 3 days duration">Minimum 3 days duration</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Hediye ürün/yemek sponsorluğu" data-en="Gift product/food sponsorship">Hediye ürün/yemek sponsorluğu</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Süreye bağlı artan hikaye desteği" data-en="Story support based on days">Süreye bağlı artan hikaye desteği</span></li>
+                    </ul>
+                    <a href="esnaf.html#talep" class="insta-pricing-cta" data-tr="Hemen Başvur" data-en="Apply Now">Hemen Başvur</a>
+                </div>
+
+                <!-- Aylık Paket -->
+                <div class="insta-pricing-card">
+                    <div class="insta-pricing-header">
+                        <span class="insta-pricing-badge" data-tr="Aylık Paket" data-en="Monthly Pack">Aylık Paket</span>
+                        <div class="insta-pricing-title">Esnaf Aylık Sponsorluk</div>
+                        <div class="insta-pricing-price">₺12.500 <span>/ 30 Gün</span></div>
+                    </div>
+                    <div class="insta-pricing-stats">
+                        <i class="fas fa-chart-line"></i> <strong data-tr="Kesintisiz Marka Tanıtımı" data-en="Continuous Branding">Kesintisiz Marka Tanıtımı</strong>
+                    </div>
+                    <ul class="insta-pricing-features">
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="1 ayda 10 adet Hikaye paylaşımı" data-en="10 Stories in 1 month">1 ayda 10 adet Hikaye paylaşımı</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="2 adet Gönderi (Kalıcı post)" data-en="2 Feed Posts (Permanent)">2 adet Gönderi (Kalıcı post)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="2 adet Reels Videosu (Kalıcı)" data-en="2 Reels Videos (Permanent)">2 adet Reels Videosu (Kalıcı)</span></li>
+                    </ul>
+                    <a href="esnaf.html#talep" class="insta-pricing-cta" data-tr="Hemen Başvur" data-en="Apply Now">Hemen Başvur</a>
+                </div>
+            </div>
+            
+            <!-- Ekstra Drone Fiyat Listesi (İnce detaylar) -->
+            <div style="margin-top: 30px; background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; font-size: 0.85rem; color: #ccc;">
+                <h4 style="color: #f39c12; font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-info-circle"></i> <span data-tr="Önemli Reklam Detayları ve Ek Hizmetler" data-en="Important Advertising Details & Add-ons">Önemli Reklam Detayları ve Ek Hizmetler</span></h4>
+                <ul style="list-style: none; padding-left: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px;">
+                    <li>📷 <strong data-tr="Kendi Çekiminiz/Fotoğrafınız:" data-en="Your Own Content:">Kendi Çekiminiz/Fotoğrafınız:</strong> <span data-tr="Yukarıdaki fiyatlar hazır görseller içindir." data-en="Above prices apply to pre-made visual submissions.">Yukarıdaki fiyatlar hazır görseller içindir.</span></li>
+                    <li>🎬 <strong data-tr="Bizim Çekimimiz ve Video Kurgu:" data-en="Our Shooting & Video Editing:">Bizim Çekimimiz ve Video Kurgu:</strong> <span data-tr="İşletmenizde yapacağımız çekimler için ekstra 500 ₺ eklenir." data-en="Filming & post-production adds 500 ₺.">İşletmenizde yapacağımız çekimler için ekstra 500 ₺ eklenir.</span></li>
+                    <li>🛸 <strong data-tr="Profesyonel Drone Çekim Paketleri:" data-en="Professional Drone Shoot Packs:">Profesyonel Drone Çekim Paketleri:</strong> <span data-tr="Reels: 4.000 ₺ | Hikaye: 2.000 ₺ | Reels + Hikaye: 5.000 ₺" data-en="Reels: 4,000 ₺ | Story: 2,000 ₺ | Reels + Story: 5,000 ₺">Reels: 4.000 ₺ | Hikaye: 2.000 ₺ | Reels + Hikaye: 5.000 ₺</span></li>
+                    <li>📈 <strong data-tr="Gösterim İstatistikleri:" data-en="Impression Stats:">Gösterim İstatistikleri:</strong> <span data-tr="İzlenme sayıları paylaşım gününe ve etkileşime göre değişkenlik gösterebilir." data-en="View counts may vary based on time, day, and user interaction.">İzlenme sayıları paylaşım gününe ve etkileşime göre değişkenlik gösterebilir.</span></li>
+                </ul>
             </div>
         </div>
 

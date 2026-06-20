@@ -583,6 +583,25 @@
                     ? '<span class="badge badge-approved">Onaylandı</span>'
                     : '<span class="badge badge-rejected">Reddedildi</span>';
 
+                let priceHtml = '';
+                if (item.yeniFiyat) {
+                    priceHtml = `${item.yeniFiyat} TL <span style="text-decoration: line-through; color: #789; font-weight: normal; margin-left: 5px;">${item.eskiFiyat ? item.eskiFiyat + ' TL' : ''}</span>`;
+                } else {
+                    priceHtml = 'İndirim Kodu';
+                }
+
+                let instaBadge = '';
+                if (item.instagramPaket && item.instagramPaket !== 'none') {
+                    const instaBadgeLabel = {
+                        story: "HİKAYE", post: "GÖNDERİ", post_story: "POST+STORY", reels: "REELS", reels_story: "REELS+STORY",
+                        drone_story: "DRONE STORY", drone_reels: "DRONE REELS", drone_combo: "DRONE REELS+STORY",
+                        suggested: "ÖNERİYOR VİDEO", monthly: "AYLIK SPONSOR", giveaway: "ÇEKİLİŞ"
+                    }[item.instagramPaket] || item.instagramPaket.toUpperCase();
+                    instaBadge = `<div style="font-size: 0.7rem; color: #e6683c; font-weight: bold; margin-top: 4px;"><i class="fab fa-instagram"></i> Instagram: ${instaBadgeLabel} (${item.montajIstegi === 'Evet' ? 'Çekimli' : 'Çekimsiz'})</div>`;
+                }
+
+                const totalCost = item.toplamUcret ? item.toplamUcret : (parseFloat(item.ucret || 0) + parseFloat(item.instagramUcret || 0));
+
                 tr.innerHTML = `
                     <td style="cursor:pointer;" onclick="openDetails('${item.id}')">
                         <div style="font-weight: 700; color: #fff;">${item.isletme}</div>
@@ -591,9 +610,10 @@
                     <td><span style="font-size: 0.85rem; background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 6px;">${categoryLabel}</span></td>
                     <td style="cursor:pointer;" onclick="openDetails('${item.id}')">
                         <div style="font-weight: 600;">${item.kampanyaBasligi}</div>
-                        <div style="font-size: 0.8rem; color: var(--accent); font-weight: 700;">${item.yeniFiyat ? item.yeniFiyat + ' TL' : 'İndirim Kodu'} <span style="text-decoration: line-through; color: #789; font-weight: normal; margin-left: 5px;">${item.eskiFiyat ? item.eskiFiyat + ' TL' : ''}</span></div>
+                        <div style="font-size: 0.8rem; color: var(--accent); font-weight: 700;">${priceHtml}</div>
+                        ${instaBadge}
                     </td>
-                    <td>${packageBadge}</td>
+                    <td>${packageBadge} <div style="font-size: 0.75rem; color:#aaa; margin-top:2px;">Top: ₺${totalCost}</div></td>
                     <td>${statusBadge}</td>
                     <td>
                         <div class="actions-wrap">
@@ -617,7 +637,9 @@
             let revenue = 0;
             campaigns.forEach(c => {
                 if (c.durum === 'approved') {
-                    if (c.ucret) {
+                    if (c.toplamUcret) {
+                        revenue += parseFloat(c.toplamUcret);
+                    } else if (c.ucret) {
                         revenue += parseFloat(c.ucret);
                     } else {
                         // Fallback logic for mock/older data
@@ -700,6 +722,12 @@
                         promokod: item.promokod || "",
                         sure: item.sure || "7",
                         paket: item.paket || "temel",
+                        ucret: item.ucret || 0,
+                        instagramPaket: item.instagramPaket || "none",
+                        instagramUcret: item.instagramUcret || 0,
+                        montajIstegi: item.montajIstegi || "Hayır",
+                        cekilisGunSayisi: item.cekilisGunSayisi || 0,
+                        toplamUcret: item.toplamUcret || 0,
                         notlar: item.notlar || "",
                         durum: item.durum || "pending",
                         tarih: item.tarih || new Date().toISOString().split('T')[0]
@@ -758,7 +786,29 @@
                 <div class="detail-row"><span class="detail-label">Kampanya Fiyatı:</span><span class="detail-val" style="color:var(--accent); font-weight:800;">${item.yeniFiyat ? item.yeniFiyat + ' TL' : '—'}</span></div>
                 <div class="detail-row"><span class="detail-label">İndirim Kodu:</span><span class="detail-val">${item.promokod ? item.promokod : '—'}</span></div>
                 <div class="detail-row"><span class="detail-label">Kampanya Süresi:</span><span class="detail-val">${item.sure} Gün</span></div>
-                <div class="detail-row"><span class="detail-label">Yayın Paketi:</span><span class="detail-val" style="text-transform:uppercase;">${item.paket}</span></div>
+                
+                <div class="detail-row" style="border-top:1px dashed rgba(255,255,255,0.1); padding-top:10px; margin-top:10px;"><span class="detail-label">Uygulama Paketi:</span><span class="detail-val" style="text-transform:uppercase;">${item.paket} (₺${item.ucret || 0})</span></div>
+                <div class="detail-row"><span class="detail-label">Instagram Paketi:</span><span class="detail-val" style="color:#e6683c; font-weight:bold;">${
+                    {
+                        none: "İstenmiyor",
+                        story: "Hikaye (Story)",
+                        post: "Gönderi (Post)",
+                        post_story: "Gönderi + Hikaye",
+                        reels: "Reels Videosu",
+                        reels_story: "Reels + Hikaye",
+                        drone_story: "Drone ile Hikaye",
+                        drone_reels: "Drone ile Reels",
+                        drone_combo: "Drone ile Reels + Hikaye",
+                        suggested: "#IlgınİnsanıÖneriyor Özel Video",
+                        monthly: "Aylık Esnaf Sponsorluğu",
+                        giveaway: "Çekiliş Sponsorluğu"
+                    }[item.instagramPaket || "none"] || "İstenmiyor"
+                } (₺${item.instagramUcret || 0})</span></div>
+                ${item.instagramPaket === 'giveaway' ? `<div class="detail-row"><span class="detail-label">Çekiliş Süresi:</span><span class="detail-val">${item.cekilisGunSayisi || 3} Gün</span></div>` : ''}
+                <div class="detail-row"><span class="detail-label">Çekim / Kurgu Talebi:</span><span class="detail-val">${item.montajIstegi || 'Hayır'}</span></div>
+                
+                <div class="detail-row" style="border-top:1.5px solid var(--accent); padding-top:10px; margin-top:10px;"><span class="detail-label" style="color:#fff; font-weight:bold;">TOPLAM FATURA:</span><span class="detail-val" style="color:var(--accent); font-weight:900; font-size:1.2rem;">₺${item.toplamUcret ? item.toplamUcret : (parseFloat(item.ucret || 0) + parseFloat(item.instagramUcret || 0))}</span></div>
+                
                 <div class="detail-row"><span class="detail-label">Talep Tarihi:</span><span class="detail-val">${item.tarih}</span></div>
                 <div style="margin-top:20px; background:rgba(0,0,0,0.2); padding:15px; border-radius:12px; border:1px solid var(--border-color);">
                     <div style="font-size:0.8rem; color:#9ab; margin-bottom:5px; font-weight:600;">Esnaf Notu:</div>

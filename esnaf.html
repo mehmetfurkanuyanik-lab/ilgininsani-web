@@ -719,7 +719,38 @@
                         </div>
                     </div>
 
-                    <div class="req-field">
+                    <!-- Instagram Reklam Seçenekleri -->
+                    <div class="req-field" style="margin-top: 15px; border-top: 1px dashed rgba(255,255,255,0.15); padding-top: 15px;">
+                        <label data-tr="Instagram Reklam Desteği (İsteğe Bağlı)" data-en="Instagram Ad Support (Optional)">Instagram Reklam Desteği (İsteğe Bağlı)</label>
+                        <select id="reqInstaPackage" onchange="updatePrices()">
+                            <option value="none" data-tr="İstemiyorum (Sadece Uygulama İçi Fırsatlar)" data-en="None (Only In-App Deals)">İstemiyorum (Sadece Uygulama İçi Fırsatlar)</option>
+                            <option value="story" data-tr="Hikaye Paylaşımı (₺750)" data-en="Story Post (₺750)">Hikaye Paylaşımı (₺750)</option>
+                            <option value="post" data-tr="Gönderi Paylaşımı (₺1.500)" data-en="Feed Post (₺1.500)">Gönderi Paylaşımı (₺1.500)</option>
+                            <option value="post_story" data-tr="Gönderi + Hikaye Kombosu (₺2.000)" data-en="Post + Story Combo (₺2.000)">Gönderi + Hikaye Kombosu (₺2.000)</option>
+                            <option value="reels" data-tr="Reels Videosu (₺2.500)" data-en="Reels Video (₺2.500)">Reels Videosu (₺2.500)</option>
+                            <option value="reels_story" data-tr="Reels + Hikaye Kombosu (₺3.000)" data-en="Reels + Story Combo (₺3.000)">Reels + Hikaye Kombosu (₺3.000)</option>
+                            <option value="drone_story" data-tr="Drone ile Hikaye Çekimi (₺2.000)" data-en="Drone Story Videography (₺2.000)">Drone ile Hikaye Çekimi (₺2.000)</option>
+                            <option value="drone_reels" data-tr="Drone ile Reels Çekimi (₺4.000)" data-en="Drone Reels Videography (₺4.000)">Drone ile Reels Çekimi (₺4.000)</option>
+                            <option value="drone_combo" data-tr="Drone ile Reels + Hikaye (₺5.000)" data-en="Drone Reels + Story (₺5.000)">Drone ile Reels + Hikaye (₺5.000)</option>
+                            <option value="suggested" data-tr="#IlgınİnsanıÖneriyor Özel Video Konsepti (₺5.000)" data-en="#IlgınİnsanıÖneriyor Special Video Concept (₺5.000)">#IlgınİnsanıÖneriyor Özel Video Konsepti (₺5.000)</option>
+                            <option value="monthly" data-tr="Aylık Esnaf Sponsorluk Paketi (₺12.500)" data-en="Monthly Merchant Sponsorship (₺12.500)">Aylık Esnaf Sponsorluk Paketi (₺12.500)</option>
+                            <option value="giveaway" data-tr="Çekiliş Sponsorluğu (₺500 / Gün)" data-en="Giveaway Sponsorship (₺500 / Day)">Çekiliş Sponsorluğu (₺500 / Gün)</option>
+                        </select>
+                    </div>
+
+                    <!-- Çekiliş Gün Sayısı -->
+                    <div id="giveawayDaysWrapper" class="req-field" style="display: none; margin-top: 10px;">
+                        <label data-tr="Çekiliş Süresi (Gün - En Az 3 Gün)" data-en="Giveaway Duration (Days - Min 3 Days)">Çekiliş Süresi (Gün - En Az 3 Gün)</label>
+                        <input type="number" id="reqGiveawayDays" min="3" value="3" oninput="updatePrices()" style="width: 100%;">
+                    </div>
+
+                    <!-- Çekim ve Montaj Talebi -->
+                    <div id="shootRequiredWrapper" class="req-field" style="display: none; flex-direction: row; align-items: center; gap: 10px; margin-top: 10px; background: rgba(255,255,255,0.02); padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);">
+                        <input type="checkbox" id="reqShootRequired" style="width: 18px; height: 18px; cursor: pointer; margin: 0;" onchange="updatePrices()">
+                        <label for="reqShootRequired" style="cursor: pointer; font-size: 0.8rem; color: #ccc;" data-tr="Fotoğraf / Video çekimi ve kurgusunu Ilgın İnsanı yapsın (+₺500)" data-en="Ilgın İnsanı shoots & edits photos / videos (+₺500)">Fotoğraf / Video çekimi ve kurgusunu Ilgın İnsanı yapsın (+₺500)</label>
+                    </div>
+
+                    <div class="req-field" style="margin-top: 15px;">
                         <label data-tr="Ek Notlar / İstekler" data-en="Additional Notes / Requests">Ek Notlar / İstekler</label>
                         <textarea id="reqNotes" placeholder="Kampanyanızla ilgili eklemek istedikleriniz..."></textarea>
                     </div>
@@ -766,6 +797,21 @@
             "30": { temel: 299, premium: 799, vip: 1499 }
         };
 
+        const instaPrices = {
+            none: 0,
+            story: 750,
+            post: 1500,
+            post_story: 2000,
+            reels: 2500,
+            reels_story: 3000,
+            drone_story: 2000,
+            drone_reels: 4000,
+            drone_combo: 5000,
+            suggested: 5000,
+            monthly: 12500,
+            giveaway: 500
+        };
+
         function updatePrices() {
             const duration = document.getElementById('reqDuration').value;
             const prices = pricingMatrix[duration];
@@ -773,6 +819,52 @@
                 document.getElementById('priceBasic').innerText = '₺' + prices.temel;
                 document.getElementById('pricePremium').innerText = '₺' + prices.premium;
                 document.getElementById('priceVip').innerText = '₺' + prices.vip;
+            }
+
+            // Instagram Alanları Kontrolü
+            const instaPackage = document.getElementById('reqInstaPackage').value;
+            const giveawayWrapper = document.getElementById('giveawayDaysWrapper');
+            const shootWrapper = document.getElementById('shootRequiredWrapper');
+
+            // Çekiliş gün sayısı görünürlüğü
+            if (instaPackage === 'giveaway') {
+                giveawayWrapper.style.display = 'block';
+            } else {
+                giveawayWrapper.style.display = 'none';
+            }
+
+            // Çekim/Montaj seçeneği görünürlüğü
+            const supportsShoot = ['story', 'post', 'post_story', 'reels', 'reels_story', 'giveaway'].includes(instaPackage);
+            if (supportsShoot) {
+                shootWrapper.style.display = 'flex';
+            } else {
+                shootWrapper.style.display = 'none';
+                document.getElementById('reqShootRequired').checked = false;
+            }
+
+            // Hesaplama
+            const appPrice = prices ? prices[selectedPackage] : 0;
+            
+            let instaCost = 0;
+            if (instaPackage === 'giveaway') {
+                const days = Math.max(3, parseInt(document.getElementById('reqGiveawayDays').value) || 3);
+                instaCost = 500 * days;
+            } else {
+                instaCost = instaPrices[instaPackage] || 0;
+            }
+
+            const shootCost = (supportsShoot && document.getElementById('reqShootRequired').checked) ? 500 : 0;
+            const totalCost = appPrice + instaCost + shootCost;
+
+            // Submit butonu yazısını güncelle
+            const submitBtn = document.getElementById('reqSubmitBtn');
+            if (submitBtn) {
+                const span = submitBtn.querySelector('span');
+                if (span) {
+                    span.innerText = currentLang === 'tr' 
+                        ? `Talebi Gönder — Toplam: ₺${totalCost}` 
+                        : `Submit Request — Total: ₺${totalCost}`;
+                }
             }
         }
         document.getElementById('reqDuration').addEventListener('change', updatePrices);
@@ -993,6 +1085,7 @@
             selectedPackage = pkg;
             document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('selected'));
             document.getElementById('pkg' + pkg.charAt(0).toUpperCase() + pkg.slice(1)).classList.add('selected');
+            updatePrices(); // 🔥 Toplam fiyatı güncelle
         }
 
         /* ============================================================
@@ -1007,7 +1100,17 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>' + (currentLang === 'tr' ? 'Gönderiliyor...' : 'Sending...') + '</span>';
 
             const duration = document.getElementById('reqDuration').value;
-            const price = pricingMatrix[duration] ? pricingMatrix[duration][selectedPackage] : null;
+            const appCost = pricingMatrix[duration] ? pricingMatrix[duration][selectedPackage] : 0;
+            
+            const instaPackage = document.getElementById('reqInstaPackage').value;
+            const giveawayDays = (instaPackage === 'giveaway') ? Math.max(3, parseInt(document.getElementById('reqGiveawayDays').value) || 3) : 0;
+            
+            const supportsShoot = ['story', 'post', 'post_story', 'reels', 'reels_story', 'giveaway'].includes(instaPackage);
+            const shootRequired = supportsShoot && document.getElementById('reqShootRequired').checked;
+
+            const instaCost = (instaPackage === 'giveaway') ? (500 * giveawayDays) : (instaPrices[instaPackage] || 0);
+            const shootCost = shootRequired ? 500 : 0;
+            const totalCost = appCost + instaCost + shootCost;
 
             const payload = {
                 isletme: document.getElementById('reqBusiness').value,
@@ -1020,7 +1123,12 @@
                 promokod: document.getElementById('reqPromoCode').value || null,
                 sure: duration,
                 paket: selectedPackage,
-                ucret: price,
+                ucret: appCost,
+                instagramPaket: instaPackage,
+                instagramUcret: instaCost,
+                montajIstegi: shootRequired ? 'Evet' : 'Hayır',
+                cekilisGunSayisi: giveawayDays,
+                toplamUcret: totalCost,
                 notlar: document.getElementById('reqNotes').value || null,
                 kaynak: 'web-esnaf-sayfasi'
             };
@@ -1053,7 +1161,7 @@
                 status.style.display = 'block';
             } finally {
                 btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-paper-plane"></i> <span>' + (currentLang === 'tr' ? 'Talebi Gönder — 24 Saatte Yayına Al' : 'Submit Request — Go Live in 24 Hours') + '</span>';
+                updatePrices(); // reset submit button price
                 setTimeout(() => { status.style.display = 'none'; }, 7000);
             }
         });
