@@ -221,38 +221,107 @@
            BÖLÜM 4 — TALEP FORMU
            ======================== */
         .request-box {
-            background: var(--glass-bg); backdrop-filter: blur(14px);
-            border: 1px solid var(--glass-border); border-radius: 22px;
-            padding: 40px; margin-bottom: 55px;
+            background: rgba(15, 28, 36, 0.65);
+            backdrop-filter: blur(20px);
+            border: 1.5px solid rgba(243, 156, 18, 0.35);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 55px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 35px rgba(243, 156, 18, 0.12);
+            position: relative;
+            overflow: hidden;
         }
-        .step-badges { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 30px; }
+        .request-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(243, 156, 18, 0.08) 0%, transparent 100%);
+            pointer-events: none;
+        }
+        .step-badges { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 35px; justify-content: center; }
         .step-badge {
-            display: flex; align-items: center; gap: 8px;
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px; padding: 7px 16px; font-size: 0.8rem; color: #9ab;
+            display: flex; align-items: center; gap: 10px;
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 30px; padding: 8px 20px; font-size: 0.85rem; color: #b0c4de;
+            font-weight: 600; transition: 0.3s;
+        }
+        .step-badge.active {
+            border-color: var(--accent);
+            background: rgba(243, 156, 18, 0.1);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(243, 156, 18, 0.2);
         }
         .step-badge .step-num {
             width: 22px; height: 22px; border-radius: 50%; background: var(--accent);
-            color: #111; font-size: 0.7rem; font-weight: 800;
+            color: #111; font-size: 0.75rem; font-weight: 800;
             display: flex; align-items: center; justify-content: center;
         }
 
-        .req-form { display: flex; flex-direction: column; gap: 18px; }
+        .req-form { display: flex; flex-direction: column; gap: 18px; position: relative; z-index: 2; }
         .req-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
         @media (max-width: 600px) { .req-row { grid-template-columns: 1fr; } }
         .req-field { display: flex; flex-direction: column; gap: 8px; }
-        .req-field label { font-size: 0.85rem; font-weight: 600; color: #b0c4de; }
+        .req-field label { font-size: 0.85rem; font-weight: 700; color: #b0c4de; text-transform: uppercase; letter-spacing: 0.5px; }
         .req-field input, .req-field textarea, .req-field select {
-            padding: 14px 16px; background: rgba(0,0,0,0.25);
+            padding: 14px 16px; background: rgba(0,0,0,0.35);
             border: 1px solid rgba(255,255,255,0.15); border-radius: 12px;
-            color: #fff; font-size: 0.95rem; font-family: inherit; transition: border-color 0.2s;
+            color: #fff; font-size: 0.95rem; font-family: inherit; transition: all 0.25s ease;
         }
         .req-field input:focus, .req-field textarea:focus, .req-field select:focus {
             outline: none; border-color: var(--accent);
+            box-shadow: 0 0 12px rgba(243, 156, 18, 0.25);
+            background: rgba(0,0,0,0.55);
         }
         .req-field input::placeholder, .req-field textarea::placeholder { color: rgba(255,255,255,0.25); }
-        .req-field select option { background: #1a2a3a; color: #fff; }
+        .req-field select option { background: #0f1c24; color: #fff; }
         .req-field textarea { resize: vertical; min-height: 100px; }
+
+        /* File Upload Dropzone Style */
+        .file-upload-wrapper {
+            position: relative;
+            border: 2px dashed rgba(243, 156, 18, 0.35);
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        .file-upload-wrapper:hover {
+            border-color: var(--accent);
+            background: rgba(243, 156, 18, 0.07);
+            box-shadow: 0 0 15px rgba(243, 156, 18, 0.15);
+        }
+        .file-upload-wrapper input[type="file"] {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .file-upload-wrapper .upload-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            transition: transform 0.3s ease;
+        }
+        .file-upload-wrapper:hover .upload-icon {
+            transform: translateY(-4px);
+        }
+        .file-upload-wrapper .upload-text {
+            font-size: 0.9rem;
+            color: #fff;
+            font-weight: 700;
+        }
+        .file-upload-wrapper .upload-desc {
+            font-size: 0.75rem;
+            color: #9ab;
+        }
 
         /* Paket seçimi */
         .pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
@@ -755,11 +824,15 @@
                         
                         <!-- Görsel Yükleme Alanı -->
                         <div class="req-field" style="margin-top: 15px;">
-                            <label data-tr="Kampanya Görseli (Dosya Yükle veya Link Yapıştır)" data-en="Campaign Image (Upload File or Paste Link)">Kampanya Görseli (Dosya Yükle veya Link Yapıştır)</label>
-                            <div style="display: flex; flex-direction: column; gap: 8px;">
-                                <input type="file" id="reqImageFile" accept="image/*" onchange="uploadImage()" style="background: rgba(0,0,0,0.15); border: 1px dashed rgba(255,255,255,0.2); padding: 10px;">
-                                <input type="url" id="reqImageUrl" placeholder="Veya Görsel URL'si (Örn: https://site.com/resim.jpg)" value="https://via.placeholder.com/400">
+                            <label data-tr="Kampanya Görseli (Dosya Seçin) *" data-en="Campaign Image (Choose File) *">Kampanya Görseli (Dosya Seçin) *</label>
+                            <div class="file-upload-wrapper">
+                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                                <span class="upload-text" data-tr="Görsel Seçmek İçin Tıklayın veya Dosya Sürükleyin" data-en="Click or Drag File to Select Image">Görsel Seçmek İçin Tıklayın veya Dosya Sürükleyin</span>
+                                <span class="upload-desc" data-tr="PNG, JPG veya JPEG (Maks. 5MB)" data-en="PNG, JPG or JPEG (Max 5MB)">PNG, JPG veya JPEG (Maks. 5MB)</span>
+                                <input type="file" id="reqImageFile" accept="image/*" onchange="uploadImage()">
                             </div>
+                            <input type="hidden" id="reqImageUrl" value="https://via.placeholder.com/400">
+                            
                             <div id="imagePreview" style="margin-top: 10px; display: none; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);">
                                 <img id="previewImg" src="" style="max-width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
                                 <span id="uploadStatus" style="font-size: 0.8rem; font-weight: 600;"></span>
@@ -772,18 +845,22 @@
                         <div class="req-field">
                             <label data-tr="Instagram Reklam Desteği / Paket Seçin *" data-en="Select Instagram Ad Package *">Instagram Reklam Desteği / Paket Seçin *</label>
                             <select id="reqInstaPackage" onchange="updatePrices()">
-                                <option value="story" data-tr="Hikaye Paylaşımı (₺750)" data-en="Story Post (₺750)">Hikaye Paylaşımı (₺750)</option>
-                                <option value="post" data-tr="Gönderi Paylaşımı (₺1.500)" data-en="Feed Post (₺1.500)">Gönderi Paylaşımı (₺1.500)</option>
-                                <option value="post_story" data-tr="Gönderi + Hikaye Kombosu (₺2.000)" data-en="Post + Story Combo (₺2.000)">Gönderi + Hikaye Kombosu (₺2.000)</option>
-                                <option value="reels" data-tr="Reels Videosu (₺2.500)" data-en="Reels Video (₺2.500)">Reels Videosu (₺2.500)</option>
-                                <option value="reels_story" data-tr="Reels + Hikaye Kombosu (₺3.000)" data-en="Reels + Story Combo (₺3.000)">Reels + Hikaye Kombosu (₺3.000)</option>
-                                <option value="drone_story" data-tr="Drone ile Hikaye Çekimi (₺2.000)" data-en="Drone Story Videography (₺2.000)">Drone ile Hikaye Çekimi (₺2.000)</option>
-                                <option value="drone_reels" data-tr="Drone ile Reels Çekimi (₺4.000)" data-en="Drone Reels Videography (₺4.000)">Drone ile Reels Çekimi (₺4.000)</option>
-                                <option value="drone_combo" data-tr="Drone ile Reels + Hikaye (₺5.000)" data-en="Drone Reels + Story (₺5.000)">Drone ile Reels + Hikaye (₺5.000)</option>
-                                <option value="suggested" data-tr="#IlgınİnsanıÖneriyor Özel Video Konsepti (₺5.000)" data-en="#IlgınİnsanıÖneriyor Special Video Concept (₺5.000)">#IlgınİnsanıÖneriyor Özel Video Konsepti (₺5.000)</option>
-                                <option value="monthly" data-tr="Aylık Esnaf Sponsorluk Paketi (₺12.500)" data-en="Monthly Merchant Sponsorship (₺12.500)">Aylık Esnaf Sponsorluk Paketi (₺12.500)</option>
-                                <option value="giveaway" data-tr="Çekiliş Sponsorluğu (₺500 / Gün)" data-en="Giveaway Sponsorship (₺500 / Day)">Çekiliş Sponsorluğu (₺500 / Gün)</option>
+                                <option value="story" data-tr="Hikaye Paylaşımı (₺750) — [12k-14k Gösterim]" data-en="Story Post (₺750) — [12k-14k Views]">Hikaye Paylaşımı (₺750) — [12k-14k Gösterim]</option>
+                                <option value="post" data-tr="Gönderi Paylaşımı (₺1.500) — [15k-25k Gösterim]" data-en="Feed Post (₺1,500) — [15k-25k Views]">Gönderi Paylaşımı (₺1.500) — [15k-25k Gösterim]</option>
+                                <option value="post_story" data-tr="Gönderi + Hikaye Kombosu (₺2.000) — [18k-28k Gösterim]" data-en="Post + Story Combo (₺2,000) — [18k-28k Views]">Gönderi + Hikaye Kombosu (₺2.000) — [18k-28k Gösterim]</option>
+                                <option value="reels" data-tr="Reels Videosu (₺2.500) — [20k-30k Gösterim]" data-en="Reels Video (₺2,500) — [20k-30k Views]">Reels Videosu (₺2.500) — [20k-30k Gösterim]</option>
+                                <option value="reels_story" data-tr="Reels + Hikaye Kombosu (₺3.000) — [25k-35k Gösterim]" data-en="Reels + Story Combo (₺3,000) — [25k-35k Views]">Reels + Hikaye Kombosu (₺3.000) — [25k-35k Gösterim]</option>
+                                <option value="kapsamli_reels_story" data-tr="Tasarım/Çekim Kapsamlı Reels + Hikaye (₺4.000) — [25k-35k Gösterim]" data-en="Pro Reels + Story Shoot & Edit (₺4,000) — [25k-35k Views]">Tasarım/Çekim Kapsamlı Reels + Hikaye (₺4.000) — [25k-35k Gösterim]</option>
+                                <option value="drone_story" data-tr="Drone ile Profesyonel Hikaye Çekimi (₺2.000) — [15k-20k Gösterim]" data-en="Drone Story Videography (₺2,000) — [15k-20k Views]">Drone ile Profesyonel Hikaye Çekimi (₺2.000) — [15k-20k Gösterim]</option>
+                                <option value="drone_reels" data-tr="Drone ile Profesyonel Reels Çekimi (₺4.000) — [25k-35k Gösterim]" data-en="Drone Reels Videography (₺4,000) — [25k-35k Views]">Drone ile Profesyonel Reels Çekimi (₺4.000) — [25k-35k Gösterim]</option>
+                                <option value="drone_combo" data-tr="Drone ile Profesyonel Reels + Hikaye (₺5.000) — [35k-45k Gösterim]" data-en="Drone Reels + Story Shoot (₺5,000) — [35k-45k Views]">Drone ile Profesyonel Reels + Hikaye (₺5.000) — [35k-45k Gösterim]</option>
+                                <option value="suggested" data-tr="#IlgınİnsanıÖneriyor Özel Reels + Hikaye (₺5.000) — [45k-50k+ Gösterim]" data-en="#IlgınİnsanıÖneriyor Special Reels + Story (₺5,000) — [45k-50k+ Views]">#IlgınİnsanıÖneriyor Özel Reels + Hikaye (₺5.000) — [45k-50k+ Gösterim]</option>
+                                <option value="monthly" data-tr="Esnaf Aylık Sponsorluk Paketi (₺12.500) — [150k+ Gösterim]" data-en="Monthly Merchant Sponsorship (₺12,500) — [150k+ Views]">Esnaf Aylık Sponsorluk Paketi (₺12.500) — [150k+ Gösterim]</option>
+                                <option value="giveaway" data-tr="Çekiliş Sponsorluğu (₺500 / Gün) — [Min. 3 Gün]" data-en="Giveaway Sponsorship (₺500 / Day) — [Min. 3 Days]">Çekiliş Sponsorluğu (₺500 / Gün) — [Min. 3 Gün]</option>
                             </select>
+                            
+                            <!-- Dinamik Paket Detayları -->
+                            <div id="instaPackageDetails" style="margin-top: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 15px; font-size: 0.85rem; display: none;"></div>
                         </div>
 
                         <!-- Çekiliş Gün Sayısı -->
@@ -804,7 +881,21 @@
                         <textarea id="reqNotes" placeholder="Kampanyanızla ilgili eklemek istedikleriniz..."></textarea>
                     </div>
 
-                    <button type="submit" class="req-submit" id="reqSubmitBtn">
+                    <!-- Fatura Kartı (Summary) -->
+                    <div id="invoiceCard" style="background: rgba(15, 28, 36, 0.85); backdrop-filter: blur(20px); border: 2px dashed var(--accent); border-radius: 20px; padding: 25px; margin-top: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 0 20px rgba(243, 156, 18, 0.05); display: none; position: relative;">
+                        <div style="position: absolute; top: -2px; left: 20px; right: 20px; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); box-shadow: 0 0 8px var(--accent);"></div>
+                        <h4 style="font-size: 1.05rem; color: #fff; margin-bottom: 15px; border-bottom: 1.5px dashed rgba(255,255,255,0.15); padding-bottom: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; justify-content: center;"><i class="fas fa-receipt" style="color: var(--accent);"></i> <span data-tr="SEÇİLEN HİZMETLER VE ÖDEME DETAYI" data-en="SELECTED SERVICES & PAYMENT DETAIL">SEÇİLEN HİZMETLER VE ÖDEME DETAYI</span></h4>
+                        <div id="invoiceItems" style="display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; padding: 5px 0;">
+                            <!-- Dinamik Fatura Öğeleri -->
+                        </div>
+                        <div style="border-top: 2px dashed rgba(255,255,255,0.15); margin-top: 15px; padding-top: 15px; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 800; font-size: 0.95rem; color: #b0c4de; letter-spacing: 0.5px;" data-tr="TOPLAM FATURA TUTARI:" data-en="TOTAL INVOICE AMOUNT:">TOPLAM FATURA TUTARI:</span>
+                            <span style="font-weight: 900; font-size: 1.6rem; color: var(--accent); text-shadow: 0 0 10px rgba(243,156,18,0.4);" id="invoiceTotal">₺0</span>
+                        </div>
+                        <div style="text-align: center; margin-top: 12px; font-size: 0.72rem; color: #789; font-style: italic;" data-tr="* Ödeme detayları ve aktivasyon için 24 saat içinde temsilcimiz sizinle iletişime geçecektir." data-en="* Our representative will contact you within 24 hours for payment details and activation.">* Ödeme detayları ve aktivasyon için 24 saat içinde temsilcimiz sizinle iletişime geçecektir.</div>
+                    </div>
+
+                    <button type="submit" class="req-submit" id="reqSubmitBtn" style="margin-top: 15px;">
                         <i class="fas fa-paper-plane"></i>
                         <span data-tr="Talebi Gönder — 24 Saatte Yayına Al" data-en="Submit Request — Go Live in 24 Hours">Talebi Gönder — 24 Saatte Yayına Al</span>
                     </button>
@@ -925,6 +1016,7 @@
             post_story: 2000,
             reels: 2500,
             reels_story: 3000,
+            kapsamli_reels_story: 4000,
             drone_story: 2000,
             drone_reels: 4000,
             drone_combo: 5000,
@@ -932,6 +1024,95 @@
             monthly: 12500,
             giveaway: 500
         };
+
+        function updateInstaPackageDetails(pkg, days) {
+            const container = document.getElementById('instaPackageDetails');
+            if (selectedAdType === 'app_only' || pkg === 'none') {
+                container.style.display = 'none';
+                return;
+            }
+            container.style.display = 'block';
+            
+            const details = {
+                story: {
+                    reach: "12.000 - 14.000 Gösterim (Ortalama)",
+                    dur: "24 Saat (Paylaşımdan 24 saat sonra silinir)",
+                    desc: "Sizin tarafınızdan gönderilen fotoğraf/video hikaye olarak paylaşılır. Bağlantı linki ve işletme etiketi eklenebilir."
+                },
+                post: {
+                    reach: "15.000 - 25.000 Gösterim (Ortalama)",
+                    dur: "Kalıcı (Profilimizde sürekli kalır)",
+                    desc: "Sizin tarafınızdan gönderilen dikey/kare görsel açıklama yazısı ve konumla birlikte gönderi olarak paylaşılır."
+                },
+                post_story: {
+                    reach: "20.000 - 30.000 Gösterim (Ortalama)",
+                    dur: "Gönderi Kalıcı, Hikaye 24 Saat",
+                    desc: "Kampanyanız hem gönderi hem hikaye olarak paylaşılır. Hem hızlı etkileşim hem de kalıcılık sağlar."
+                },
+                reels: {
+                    reach: "20.000 - 30.000 Gösterim (Ortalama)",
+                    dur: "Kalıcı (Profilimizde sürekli kalır)",
+                    desc: "Sizin tarafınızdan gönderilen dikey video (Reels) olarak paylaşılır. Keşfet etkileşimi çok yüksektir."
+                },
+                reels_story: {
+                    reach: "25.000 - 35.000 Gösterim (Ortalama)",
+                    dur: "Reels Kalıcı, Hikaye 24 Saat",
+                    desc: "Kampanyanız hem reels videosu hem de destekleyici hikaye paylaşımıyla çift yönlü duyurulur."
+                },
+                kapsamli_reels_story: {
+                    reach: "25.000 - 35.000 Gösterim (Ortalama)",
+                    dur: "Reels Kalıcı, Hikaye 24 Saat",
+                    desc: "Ilgın İnsanı ekibi tarafından bizzat işletmenizde profesyonel video/fotoğraf çekimi ve montajı yapılarak hazırlanan 1 Reels videosu + 1 Hikaye (Çekim ve montaj bedeli fiyata dahildir)."
+                },
+                drone_story: {
+                    reach: "15.000 - 20.000 Gösterim (Ortalama)",
+                    dur: "24 Saat Yayın",
+                    desc: "Drone ile profesyonel havadan çekimler yapılarak tasarlanan özel hikaye reklamı."
+                },
+                drone_reels: {
+                    reach: "25.000 - 35.000 Gösterim (Ortalama)",
+                    dur: "Kalıcı (Profilimizde sürekli kalır)",
+                    desc: "Drone ile havadan video çekimi ve kurgusu dahil olmak üzere hazırlanan özel Reels videosu."
+                },
+                drone_combo: {
+                    reach: "35.000 - 45.000 Gösterim (Ortalama)",
+                    dur: "Reels Kalıcı, Hikaye 24 Saat",
+                    desc: "Drone ile profesyonel çekim yapılmış 1 Reels videosu ve 1 destekleyici Hikaye paylaşımı."
+                },
+                suggested: {
+                    reach: "45.000 - 50.000+ Gösterim (Maksimum Etki)",
+                    dur: "Kalıcı (Profilimizde sürekli kalır)",
+                    desc: "Firmanız için en etkili reklam seçeneğidir! Drone ile çekim, profesyonel montaj, seslendirme, dükkan önerisi ve +1 hikaye fiyata dahildir. Ilgın İnsanı ekibi dükkanınızı bizzat önerir."
+                },
+                monthly: {
+                    reach: "150.000+ Toplam Gösterim (Aylık Yayılım)",
+                    dur: "1 Ay Boyunca Yayılım",
+                    desc: "Aylık kurumsal sponsorluk paketi. 1 ayda 10 adet hikaye + 2 adet gönderi + 2 adet reels videosu paylaşılır."
+                },
+                giveaway: {
+                    reach: "Maksimum Takipçi ve Yüksek Etkileşim",
+                    dur: `${days} Gün Boyunca`,
+                    desc: `İşletmenizden çekilişle hediye vererek takipçi ve marka bilinirliği kazanın. Belirlenen gün sayısına göre hikaye eklenir (Min 3 gündür. Gün başı 500 ₺. 3 gün için 1, 5 gün için 2, 7 gün için 3 hikaye fiyata dahildir).`
+                }
+            }[pkg];
+
+            if (!details) {
+                container.style.display = 'none';
+                return;
+            }
+
+            container.innerHTML = `
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:6px;">
+                    <span style="color:#e6683c; font-weight:700;"><i class="fas fa-chart-line"></i> Tahmini Erişim:</span>
+                    <span style="font-weight:700; color:#fff;">${details.reach}</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:6px;">
+                    <span style="color:#9b59b6; font-weight:700;"><i class="far fa-clock"></i> Yayın Süresi:</span>
+                    <span style="font-weight:700; color:#fff;">${details.dur}</span>
+                </div>
+                <p style="color:#ddd; line-height:1.4; font-size:0.8rem; margin-top:5px;">${details.desc}</p>
+            `;
+        }
 
         function updatePrices() {
             const duration = document.getElementById('reqDuration').value;
@@ -946,6 +1127,7 @@
             const instaPackage = document.getElementById('reqInstaPackage').value;
             const giveawayWrapper = document.getElementById('giveawayDaysWrapper');
             const shootWrapper = document.getElementById('shootRequiredWrapper');
+            const finalGiveawayDays = (instaPackage === 'giveaway') ? Math.max(3, parseInt(document.getElementById('reqGiveawayDays').value) || 3) : 0;
 
             // Çekiliş gün sayısı görünürlüğü
             if (selectedAdType !== 'app_only' && instaPackage === 'giveaway') {
@@ -963,6 +1145,9 @@
                 if (document.getElementById('reqShootRequired')) document.getElementById('reqShootRequired').checked = false;
             }
 
+            // Dinamik Açıklamalar Güncelle
+            updateInstaPackageDetails(instaPackage, finalGiveawayDays);
+
             // Hesaplama
             let appPrice = 0;
             if (selectedAdType === 'app_only' || selectedAdType === 'combo') {
@@ -972,8 +1157,7 @@
             let instaCost = 0;
             if (selectedAdType === 'insta_only' || selectedAdType === 'combo') {
                 if (instaPackage === 'giveaway') {
-                    const days = Math.max(3, parseInt(document.getElementById('reqGiveawayDays').value) || 3);
-                    instaCost = 500 * days;
+                    instaCost = 500 * finalGiveawayDays;
                 } else {
                     instaCost = instaPrices[instaPackage] || 0;
                 }
@@ -981,6 +1165,48 @@
 
             const shootCost = (selectedAdType !== 'app_only' && supportsShoot && document.getElementById('reqShootRequired').checked) ? 500 : 0;
             const totalCost = appPrice + instaCost + shootCost;
+
+            // Fatura Özeti Güncelle
+            const invoiceCard = document.getElementById('invoiceCard');
+            const invoiceItems = document.getElementById('invoiceItems');
+            const invoiceTotal = document.getElementById('invoiceTotal');
+            
+            if (invoiceCard && invoiceItems && invoiceTotal) {
+                invoiceCard.style.display = 'block';
+                let itemsHtml = '';
+                
+                if (selectedAdType === 'app_only' || selectedAdType === 'combo') {
+                    const pkgLabels = { temel: 'Temel Paket', premium: 'Premium Paket', vip: 'VIP Paket' };
+                    itemsHtml += `<div style="display:flex; justify-content:space-between;"><span style="color:#ccc;">📱 Mobil Uygulama (${pkgLabels[selectedPackage]} - ${duration} Gün):</span><span style="font-weight:bold; color:#fff;">₺${appPrice}</span></div>`;
+                }
+                
+                if (selectedAdType === 'insta_only' || selectedAdType === 'combo') {
+                    const instaPkgLabels = {
+                        story: 'Instagram Story (Hikaye)',
+                        post: 'Instagram Post (Gönderi)',
+                        post_story: 'Instagram Post + Story',
+                        reels: 'Instagram Reels',
+                        reels_story: 'Instagram Reels + Story',
+                        kapsamli_reels_story: 'Instagram Çekimli Reels + Story',
+                        drone_story: 'Instagram Drone Story',
+                        drone_reels: 'Instagram Drone Reels',
+                        drone_combo: 'Instagram Drone Reels + Story',
+                        suggested: 'Instagram #IlgınİnsanıÖneriyor',
+                        monthly: 'Instagram Aylık Sponsorluk',
+                        giveaway: 'Instagram Çekiliş Sponsorluğu'
+                    };
+                    const instaLabel = instaPkgLabels[instaPackage] || instaPackage;
+                    const instaDurationText = instaPackage === 'giveaway' ? ` (${finalGiveawayDays} Gün)` : '';
+                    itemsHtml += `<div style="display:flex; justify-content:space-between;"><span style="color:#ccc;">📸 ${instaLabel}${instaDurationText}:</span><span style="font-weight:bold; color:#fff;">₺${instaCost}</span></div>`;
+                }
+                
+                if (selectedAdType !== 'app_only' && supportsShoot && document.getElementById('reqShootRequired').checked) {
+                    itemsHtml += `<div style="display:flex; justify-content:space-between;"><span style="color:#ccc;">🎬 Fotoğraf / Video Çekimi ve Kurgusu:</span><span style="font-weight:bold; color:#fff;">₺500</span></div>`;
+                }
+                
+                invoiceItems.innerHTML = itemsHtml;
+                invoiceTotal.innerText = '₺' + totalCost;
+            }
 
             // Submit butonu yazısını güncelle
             const submitBtn = document.getElementById('reqSubmitBtn');
@@ -1300,7 +1526,8 @@
                 status.style.display = 'block';
             } finally {
                 btn.disabled = false;
-                updatePrices(); // reset submit button price
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> <span></span>';
+                updatePrices(); // reset submit button price and fill the span text
                 setTimeout(() => { status.style.display = 'none'; }, 7000);
             }
         });
@@ -1324,7 +1551,28 @@
             const formData = new FormData();
             formData.append('file', file);
             
-            // 1. Yol: Telegraph (Kalıcı, CORS Destekli)
+            // 1. Yol: Graph.org (Türkiye'de engelsiz, Telgraph resmi klonu, kalıcı ve hızlı)
+            try {
+                const response = await fetch('https://graph.org/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) throw new Error('Graph.org hatası');
+                
+                const data = await response.json();
+                if (Array.isArray(data) && data.length > 0 && data[0].src) {
+                    const directUrl = `https://graph.org${data[0].src}`;
+                    reqImageUrl.value = directUrl;
+                    uploadStatus.innerHTML = '<i class="fas fa-check-circle"></i> Görsel Yüklendi!';
+                    uploadStatus.style.color = '#2ecc71';
+                    return;
+                }
+            } catch (err) {
+                console.warn("Graph.org yükleme hatası, Telegraph deneniyor...", err);
+            }
+            
+            // 2. Yol: Telegraph (Kalıcı, CORS Destekli)
             try {
                 const response = await fetch('https://telegra.ph/upload', {
                     method: 'POST',
@@ -1345,7 +1593,7 @@
                 console.warn("Telegraph yükleme hatası, Tmpfiles deneniyor...", err);
             }
             
-            // 2. Yol: Tmpfiles (CORS Destekli Yedek)
+            // 3. Yol: Tmpfiles (CORS Destekli Yedek)
             try {
                 const response = await fetch('https://tmpfiles.org/api/v1/upload', {
                     method: 'POST',
@@ -1367,7 +1615,7 @@
                 console.warn("Tmpfiles yükleme hatası, Pixeldrain deneniyor...", err);
             }
 
-            // 3. Yol: Pixeldrain (Son Yedek)
+            // 4. Yol: Pixeldrain (Son Yedek)
             try {
                 const response = await fetch('https://pixeldrain.com/api/file', {
                     method: 'POST',
