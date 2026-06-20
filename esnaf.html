@@ -85,8 +85,10 @@
             padding: 11px 22px; border-radius: 50px; font-weight: 600; text-decoration: none;
             font-size: 0.9rem; transition: 0.3s;
         }
-        .app-badge-apple { background: #fff; color: #111; }
-        .app-badge-play { background: var(--accent); color: #fff; }
+        .app-badge-apple { background: #000; color: #fff; border: 1px solid rgba(255,255,255,0.25); }
+        .app-badge-apple:hover { background: #1a1a1a; box-shadow: 0 5px 15px rgba(255,255,255,0.08); }
+        .app-badge-play { background: #111111; color: #ffffff; border: 1px solid #00E676; }
+        .app-badge-play:hover { background: #1a1a1a; box-shadow: 0 5px 15px rgba(0, 230, 118, 0.25); }
         .app-badge:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
 
         /* SECTION BAŞLIKLARI */
@@ -749,6 +751,50 @@
             letter-spacing: 0.5px;
             margin-bottom: 8px;
         }
+        .insta-follow-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            box-shadow: 0 10px 20px rgba(225, 48, 108, 0.25);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .insta-follow-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(225, 48, 108, 0.45), 0 0 15px rgba(243, 156, 18, 0.25);
+        }
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: #fff;
+            padding: 15px 25px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+        }
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.45);
+        }
     </style>
 </head>
 <body>
@@ -772,7 +818,7 @@
         <!-- PAGE HERO -->
         <div class="page-hero reveal">
             <span class="hero-icon"><i class="fas fa-bullhorn"></i></span>
-            <h1 data-tr="<span>Reklam, İşbirliği</span> & Sponsorluk Alanı" data-en="<span>Advertising, Partnership</span> & Sponsor Area"><span>Reklam, İşbirliği</span> & Sponsorluk Alanı</h1>
+            <h1 data-tr="<span>Reklam, İşbirliği</span> & Sponsorluk — Ilgın İnsanı" data-en="<span>Advertising, Partnership</span> & Sponsor — Ilgın İnsanı"><span>Reklam, İşbirliği</span> & Sponsorluk — Ilgın İnsanı</h1>
             <p data-tr="İşletmenizi Ilgın'ın en etkili yerel reklam ağında öne çıkarın. Süper Uygulamamız ve milyonlarca erişim gücüne sahip sosyal medya kanallarımızla müşterilerinize doğrudan ulaşın." data-en="Feature your business in Ilgın's most effective local ad network. Reach your customers directly with our Super App and social media channels with millions of reach.">İşletmenizi Ilgın'ın en etkili yerel reklam ağında öne çıkarın. Süper Uygulamamız ve milyonlarca erişim gücüne sahip sosyal medya kanallarımızla müşterilerinize doğrudan ulaşın.</p>
             <div class="app-badges">
                 <a href="https://apps.apple.com/tr/app/ilg%C4%B1n-i-nsan%C4%B1/id6776758130?l=tr" target="_blank" class="app-badge app-badge-apple">
@@ -833,6 +879,13 @@
                     <div class="stat-label" data-tr="Aktif Üye" data-en="Active Members">Aktif Üye</div>
                     <span class="stat-period" data-tr="Anlık Push Bildirim Alıcısı" data-en="Instant Push Recipients">Anlık Push Bildirim Alıcısı</span>
                 </div>
+            </div>
+            <!-- Instagram Takip Et Butonu -->
+            <div style="text-align: center; margin-top: 25px;">
+                <a href="https://instagram.com/ilgin.insani" target="_blank" class="insta-follow-btn">
+                    <i class="fab fa-instagram"></i>
+                    <span data-tr="Instagram'da Bizi Takip Edin (@ilgin.insani)" data-en="Follow Us on Instagram (@ilgin.insani)">Instagram'da Bizi Takip Edin (@ilgin.insani)</span>
+                </a>
             </div>
         </div>
 
@@ -1314,6 +1367,42 @@
                 </div>
 
                 <form id="requestForm" class="req-form">
+                    <!-- Reklam Türü Seçimi Tab Bar (En Üstte) -->
+                    <div class="req-field" style="margin-top: 5px;">
+                        <label data-tr="Hizmet / Reklam Türü Seçin *" data-en="Select Service / Ad Type *">Hizmet / Reklam Türü Seçin *</label>
+                        <div class="pkg-grid" style="grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 15px;">
+                            <label class="pkg-card selected" id="typeInstaOnly" onclick="selectAdType('insta_only')">
+                                <input type="radio" name="adType" value="insta_only" checked style="display:none;">
+                                <i class="fab fa-instagram" style="font-size: 1.6rem; margin-bottom: 8px; color: #e1306c; display: block;"></i>
+                                <div class="pkg-name" data-tr="Sadece Instagram" data-en="Instagram Only">Sadece Instagram</div>
+                                <div class="pkg-desc" data-tr="Story, Post, Reels" data-en="Story, Post, Reels">Story, Post, Reels</div>
+                            </label>
+                            <label class="pkg-card" id="typeAppOnly" onclick="selectAdType('app_only')">
+                                <input type="radio" name="adType" value="app_only" style="display:none;">
+                                <i class="fas fa-mobile-alt" style="font-size: 1.6rem; margin-bottom: 8px; color: var(--blue); display: block;"></i>
+                                <div class="pkg-name" data-tr="Sadece Mobil Uygulama" data-en="App Only">Sadece Mobil Uygulama</div>
+                                <div class="pkg-desc" data-tr="Uygulamada Liste İlanı" data-en="App Listed Ad">Uygulamada Liste İlanı</div>
+                            </label>
+                            <label class="pkg-card" id="typeCombo" onclick="selectAdType('combo')">
+                                <input type="radio" name="adType" value="combo" style="display:none;">
+                                <i class="fas fa-rocket" style="font-size: 1.6rem; margin-bottom: 8px; color: var(--accent); display: block;"></i>
+                                <div class="pkg-name" data-tr="Kombo Paket" data-en="Combo Pack">Kombo Paket</div>
+                                <div class="pkg-desc" data-tr="Hem Mobil Hem Instagram" data-en="App & Instagram">Hem Mobil Hem Instagram</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Dinamik Sekme Açıklama Paneli -->
+                    <div id="tabDescriptionPanel" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 18px; margin-bottom: 20px; display: flex; align-items: center; gap: 15px;">
+                        <div class="desc-icon-wrap" style="width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; background: rgba(225, 48, 108, 0.08);">
+                            <i class="fab fa-instagram" id="descIcon" style="color: #e1306c;"></i>
+                        </div>
+                        <div>
+                            <h4 id="descTitle" style="font-weight: 800; font-size: 0.95rem; color: #fff;" data-tr="Instagram Topluluk Reklamı" data-en="Instagram Community Ad">Instagram Topluluk Reklamı</h4>
+                            <p id="descSubtitle" style="font-size: 0.8rem; color: #9ab; line-height: 1.4;" data-tr="58.400+ takipçili @ilgin.insani Instagram hesabımızda dükkanınızın reklamını yayınlayın. Reels, Post ve Story seçenekleriyle doğrudan yerel müşterilere ulaşın." data-en="Advertise your business on our @ilgin.insani Instagram account with 58,400+ followers. Reach local customers directly with Reels, Post, and Story options.">58.400+ takipçili @ilgin.insani Instagram hesabımızda dükkanınızın reklamını yayınlayın. Reels, Post ve Story seçenekleriyle doğrudan yerel müşterilere ulaşın.</p>
+                        </div>
+                    </div>
+
                     <!-- İşletme Bilgileri -->
                     <div class="req-row">
                         <div class="req-field">
@@ -1341,31 +1430,6 @@
                         <div class="req-field">
                             <label data-tr="Telefon Numarası *" data-en="Phone Number *">Telefon Numarası *</label>
                             <input type="tel" id="reqPhone" placeholder="Örn: 0505 123 45 67" required>
-                        </div>
-                    </div>
-
-                    <!-- Reklam Türü Seçimi -->
-                    <div class="req-field" style="margin-top: 15px;">
-                        <label data-tr="Hizmet / Reklam Türü Seçin *" data-en="Select Service / Ad Type *">Hizmet / Reklam Türü Seçin *</label>
-                        <div class="pkg-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 20px;">
-                            <label class="pkg-card" id="typeAppOnly" onclick="selectAdType('app_only')">
-                                <input type="radio" name="adType" value="app_only" style="display:none;">
-                                <i class="fas fa-mobile-alt" style="font-size: 1.5rem; margin-bottom: 8px; color: var(--blue); display: block;"></i>
-                                <div class="pkg-name" data-tr="Sadece Mobil Uygulama" data-en="App Only">Sadece Mobil Uygulama</div>
-                                <div class="pkg-desc" data-tr="Ilgın Fırsat Merkezinde Yayın" data-en="In-App Opportunities">Ilgın Fırsat Merkezinde Yayın</div>
-                            </label>
-                            <label class="pkg-card selected" id="typeInstaOnly" onclick="selectAdType('insta_only')">
-                                <input type="radio" name="adType" value="insta_only" checked style="display:none;">
-                                <i class="fab fa-instagram" style="font-size: 1.5rem; margin-bottom: 8px; color: #e1306c; display: block;"></i>
-                                <div class="pkg-name" data-tr="Sadece Instagram" data-en="Instagram Only">Sadece Instagram</div>
-                                <div class="pkg-desc" data-tr="Story, Post, Reels Paylaşımları" data-en="Story, Post, Reels Shares">Story, Post, Reels Paylaşımları</div>
-                            </label>
-                            <label class="pkg-card" id="typeCombo" onclick="selectAdType('combo')">
-                                <input type="radio" name="adType" value="combo" style="display:none;">
-                                <i class="fas fa-rocket" style="font-size: 1.5rem; margin-bottom: 8px; color: var(--accent); display: block;"></i>
-                                <div class="pkg-name" data-tr="Kombo Paket" data-en="Combo Pack">Kombo Paket</div>
-                                <div class="pkg-desc" data-tr="Hem Mobil Hem Instagram" data-en="Both App & Instagram">Hem Mobil Hem Instagram</div>
-                            </label>
                         </div>
                     </div>
 
@@ -1498,12 +1562,29 @@
                             <span style="font-weight: 900; font-size: 1.6rem; color: var(--accent); text-shadow: 0 0 10px rgba(243,156,18,0.4);" id="invoiceTotal">₺0</span>
                         </div>
                         <div style="text-align: center; margin-top: 12px; font-size: 0.72rem; color: #789; font-style: italic;" data-tr="* Ödeme detayları ve aktivasyon için 24 saat içinde temsilcimiz sizinle iletişime geçecektir." data-en="* Our representative will contact you within 24 hours for payment details and activation.">* Ödeme detayları ve aktivasyon için 24 saat içinde temsilcimiz sizinle iletişime geçecektir.</div>
+                        
+                        <!-- Invoice WhatsApp Button -->
+                        <div style="margin-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 15px; text-align: center;">
+                            <a href="https://wa.me/905464154299?text=Merhaba,%20Ilgın%20İnsanı%20reklam%20paneli%20üzerinden%20bir%20kampanya%20talebi%20hakkında%20görüşmek%20istiyorum." target="_blank" class="whatsapp-btn" style="margin-top: 0; display: inline-flex; width: auto;">
+                                <i class="fab fa-whatsapp"></i>
+                                <span data-tr="Müşteri Temsilcisine Sor / WhatsApp" data-en="Ask a Representative / WhatsApp">Müşteri Temsilcisine Sor / WhatsApp</span>
+                            </a>
+                        </div>
                     </div>
 
                     <button type="submit" class="req-submit" id="reqSubmitBtn" style="margin-top: 15px;">
                         <i class="fas fa-paper-plane"></i>
                         <span data-tr="Talebi Gönder — 24 Saatte Yayına Al" data-en="Submit Request — Go Live in 24 Hours">Talebi Gönder — 24 Saatte Yayına Al</span>
                     </button>
+                    
+                    <!-- Footer WhatsApp Section -->
+                    <div style="text-align: center; margin-top: 15px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <span style="font-size: 0.8rem; color: #9ab;" data-tr="veya doğrudan temsilcimizle WhatsApp üzerinden iletişime geçin:" data-en="or contact our representative directly via WhatsApp:">veya doğrudan temsilcimizle WhatsApp üzerinden iletişime geçin:</span>
+                        <a href="https://wa.me/905464154299?text=Merhaba,%20Ilgın%20İnsanı%20reklam%20paneli%20üzerinden%20bir%20reklam%20paketi%20satın%20almak%20istiyorum." target="_blank" class="whatsapp-btn" style="margin-top: 0; width: 100%;">
+                            <i class="fab fa-whatsapp"></i>
+                            <span data-tr="Hızlı WhatsApp İletişim Hattı (0546 415 42 99)" data-en="Quick WhatsApp Contact Line (0546 415 42 99)">Hızlı WhatsApp İletişim Hattı (0546 415 42 99)</span>
+                        </a>
+                    </div>
                 </form>
                 <div class="form-status" id="reqFormStatus"></div>
             </div>
@@ -1570,7 +1651,75 @@
                 if (instaFields) instaFields.style.display = 'block';
                 if (campaignTitleInput) campaignTitleInput.required = true;
             }
+            updateTabDescription(type);
             updatePrices();
+        }
+
+        function updateTabDescription(type) {
+            const descPanel = document.getElementById('tabDescriptionPanel');
+            const descIcon = document.getElementById('descIcon');
+            const descTitle = document.getElementById('descTitle');
+            const descSubtitle = document.getElementById('descSubtitle');
+            
+            if (!descPanel || !descIcon || !descTitle || !descSubtitle) return;
+            
+            const data = {
+                insta_only: {
+                    icon: 'fab fa-instagram',
+                    iconColor: '#e1306c',
+                    bgColor: 'rgba(225, 48, 108, 0.08)',
+                    borderColor: 'rgba(225, 48, 108, 0.2)',
+                    tr: {
+                        title: 'Instagram Topluluk Reklamı',
+                        sub: '58.400+ takipçili @ilgin.insani Instagram hesabımızda dükkanınızın reklamını yayınlayın. Reels, Post ve Story seçenekleriyle doğrudan yerel müşterilere ulaşın.'
+                    },
+                    en: {
+                        title: 'Instagram Community Ad',
+                        sub: 'Advertise your business on our @ilgin.insani Instagram account with 58,400+ followers. Reach local customers directly with Reels, Post, and Story options.'
+                    }
+                },
+                app_only: {
+                    icon: 'fas fa-mobile-alt',
+                    iconColor: 'var(--blue)',
+                    bgColor: 'rgba(52, 152, 219, 0.08)',
+                    borderColor: 'rgba(52, 152, 219, 0.2)',
+                    tr: {
+                        title: 'Süper Uygulama Fırsat İlanı',
+                        sub: 'Mobil uygulamamızdaki Fırsat & Kampanyalar listesinde yer alın. Premium veya VIP Slider paketi seçerek tüm kullanıcılara anlık bildirim (push) gönderin.'
+                    },
+                    en: {
+                        title: 'Super App Opportunity Ad',
+                        sub: 'Get listed in the Opportunities & Campaigns list in our mobile app. Choose a Premium or VIP Slider package to send instant push notifications to all users.'
+                    }
+                },
+                combo: {
+                    icon: 'fas fa-rocket',
+                    iconColor: 'var(--accent)',
+                    bgColor: 'rgba(243, 156, 18, 0.08)',
+                    borderColor: 'rgba(243, 156, 18, 0.2)',
+                    tr: {
+                        title: 'Maksimum Etkili Kombo Paket',
+                        sub: 'Hem Instagram sayfamızda hem de mobil uygulamamızda eş zamanlı reklam yapın. Hem geniş kitlelere erişin hem de push bildirimleri ile kalıcı müşteri kazanın.'
+                    },
+                    en: {
+                        title: 'Maximum Impact Combo Package',
+                        sub: 'Advertise simultaneously on both our Instagram page and our mobile app. Reach broad audiences and gain loyal customers through push notifications.'
+                    }
+                }
+            }[type];
+            
+            descIcon.className = data.icon;
+            descIcon.style.color = data.iconColor;
+            descIcon.parentNode.style.background = data.bgColor;
+            descPanel.style.borderColor = data.borderColor;
+            
+            descTitle.setAttribute('data-tr', data.tr.title);
+            descTitle.setAttribute('data-en', data.en.title);
+            descSubtitle.setAttribute('data-tr', data.tr.sub);
+            descSubtitle.setAttribute('data-en', data.en.sub);
+            
+            descTitle.innerHTML = currentLang === 'tr' ? data.tr.title : data.en.title;
+            descSubtitle.innerHTML = currentLang === 'tr' ? data.tr.sub : data.en.sub;
         }
 
         // URL Hash / Query Parametresi Okuma (index.html'den yönlendirme için)
@@ -1584,55 +1733,7 @@
                 const pkg = urlParams.get('package') || getPackageFromHash(hash);
                 if (pkg) {
                     const select = document.getElementById('reqInstaPackage');
-                    if (select && [...select.options].some(o => o.value === pkg)) {
-                        select.value = pkg;
-                    }
-                }
-                updatePrices();
-            } else if (type === 'combo' || hash.includes('combo')) {
-                selectAdType('combo');
-            } else if (type === 'app_only' || hash.includes('app_only') || hash.includes('app')) {
-                selectAdType('app_only');
-            } else {
-                selectAdType('insta_only');
-            }
-        }
-        
-        function getPackageFromHash(hash) {
-            const pkgs = ['story', 'post', 'post_story', 'reels', 'reels_story', 'drone_story', 'drone_reels', 'drone_combo', 'suggested', 'monthly', 'giveaway'];
-            for (let p of pkgs) {
-                if (hash.includes(p)) return p;
-            }
-            return null;
-        }
-
-        /* ============================================================
-           SÜREYE BAĞLI DİNAMİK FİYATLANDIRMA
-        ============================================================ */
-        const pricingMatrix = {
-            "3": { temel: 49, premium: 149, vip: 299 },
-            "7": { temel: 99, premium: 299, vip: 599 },
-            "14": { temel: 179, premium: 499, vip: 999 },
-            "30": { temel: 299, premium: 799, vip: 1499 }
-        };
-
-        const instaPrices = {
-            none: 0,
-            story: 750,
-            post: 1500,
-            post_story: 2000,
-            reels: 2500,
-            reels_story: 3000,
-            kapsamli_reels_story: 4000,
-            drone_story: 2000,
-            drone_reels: 4000,
-            drone_combo: 5000,
-            suggested: 5000,
-            monthly: 12500,
-            giveaway: 500
-        };
-
-        function updateInstaPackageDetails(pkg, days) {
+                    if (select && [...select.        function updateInstaPackageDetails(pkg, days) {
             const container = document.getElementById('instaPackageDetails');
             if (selectedAdType === 'app_only' || pkg === 'none') {
                 container.style.display = 'none';
@@ -1644,70 +1745,70 @@
                 story: {
                     reach: "12.000 - 14.000 Gösterim (Ortalama)",
                     dur: "24 Saat (Paylaşımdan 24 saat sonra silinir)",
-                    desc: "Sizin tarafınızdan gönderilen fotoğraf/video hikaye olarak paylaşılır. Bağlantı linki ve işletme etiketi eklenebilir."
+                    desc: "Sizin tarafınızdan gönderilen fotoğraf/video hikaye (Story) olarak paylaşılır. <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ Hızlı duyurular, günlük indirimler ve flaş kampanyalar için idealdir.</li><li>✅ Doğrudan web sitesine veya WhatsApp hattına yönlendiren tıklanabilir buton linki eklenir.</li><li><li>✅ @etiket desteğiyle kendi Instagram hesabınıza doğrudan organik takipçi çekersiniz.</li></ul>"
                 },
                 post: {
                     reach: "15.000 - 25.000 Gösterim (Ortalama)",
                     dur: "Kalıcı (Profilimizde sürekli kalır)",
-                    desc: "Sizin tarafınızdan gönderilen dikey/kare görsel açıklama yazısı ve konumla birlikte gönderi olarak paylaşılır."
+                    desc: "Sizin tarafınızdan gönderilen dikey/kare görsel açıklama yazısı ve konumla birlikte gönderi (Post) olarak paylaşılır. <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ İşletmenizin vitrinini, imza ürünlerini ve genel bilgilerini kalıcı olarak sergiler.</li><li>✅ Ortak gönderi (Collab) seçeneğiyle dükkanınızın profilinde de yayınlanır, güven verir.</li><li>✅ Beğeni, kaydetme ve yerel yorumlarla yüksek etkileşim yakalar.</li></ul>"
                 },
                 post_story: {
                     reach: "20.000 - 30.000 Gösterim (Ortalama)",
                     dur: "Gönderi Kalıcı, Hikaye 24 Saat",
-                    desc: "Kampanyanız hem gönderi hem hikaye olarak paylaşılır. Hem hızlı etkileşim hem de kalıcılık sağlar."
+                    desc: "Kampanyanız hem gönderi hem hikaye olarak paylaşılır. Hem hızlı etkileşim hem de kalıcılık sağlar. <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ Hem kalıcı bir arşiv hem de anlık yüksek trafik çeken en popüler ekonomik kombodur.</li><li>✅ Story üzerinden gelen sıcak müşteriler doğrudan satışa/rezervasyona dönüşür.</li></ul>"
                 },
                 reels: {
                     reach: "20.000 - 30.000 Gösterim (Ortalama)",
                     dur: "Kalıcı (Profilimizde sürekli kalır)",
-                    desc: "Sizin tarafınızdan gönderilen dikey video (Reels) olarak paylaşılır. Keşfet etkileşimi çok yüksektir."
+                    desc: "Sizin tarafınızdan gönderilen dikey video (Reels) olarak paylaşılır. Keşfet etkileşimi çok yüksektir. <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ Instagram Keşfet algoritması sayesinde takipçi dışındaki binlerce yerel Ilgın halkına ulaşır.</li><li>✅ Trend sesler ve dinamik kurgu ile izleyicilerin hafızasında yer edersiniz.</li><li>✅ Paylaşım gücü en yüksek format olup viral yayılım sağlar.</li></ul>"
                 },
                 reels_story: {
                     reach: "25.000 - 35.000 Gösterim (Ortalama)",
                     dur: "Reels Kalıcı, Hikaye 24 Saat",
-                    desc: "Kampanyanız hem reels videosu hem de destekleyici hikaye paylaşımıyla çift yönlü duyurulur."
+                    desc: "Kampanyanız hem reels videosu hem de destekleyici hikaye paylaşımıyla çift yönlü duyurulur. <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ Video ile işletmenizi anlatırken hikayedeki link ile müşteriyi doğrudan kasaya çekersiniz.</li><li>✅ Ilgın genelinde maksimum etkileşim oranı sağlayan en verimli sosyal medya paketidir.</li></ul>"
                 },
                 kapsamli_reels_story: {
                     reach: "25.000 - 35.000 Gösterim (Ortalama)",
                     dur: "Reels Kalıcı, Hikaye 24 Saat",
-                    desc: "Ilgın İnsanı ekibi tarafından bizzat işletmenizde profesyonel video/fotoğraf çekimi ve montajı yapılarak hazırlanan 1 Reels videosu + 1 Hikaye (Çekim ve montaj bedeli fiyata dahildir)."
+                    desc: "Ilgın İnsanı ekibi tarafından bizzat işletmenizde profesyonel video/fotoğraf çekimi ve montajı yapılarak hazırlanan 1 Reels videosu + 1 Hikaye (Çekim ve montaj bedeli fiyata dahildir). <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ Ekipman, ışık ve kurgu derdiniz olmaz; tüm video üretimini biz üstleniriz.</li><li>✅ Profesyonel seslendirme (ses tonlama) ve modern kurgu teknikleri kullanılır.</li><li>✅ Marka prestijinizi en üst seviyeye çıkaran, kurumsal hissettiren Premium çözümdür.</li></ul>"
                 },
                 drone_story: {
                     reach: "15.000 - 20.000 Gösterim (Ortalama)",
                     dur: "24 Saat Yayın",
-                    desc: "Drone ile profesyonel havadan çekimler yapılarak tasarlanan özel hikaye reklamı."
+                    desc: "Drone ile profesyonel havadan çekimler yapılarak tasarlanan özel hikaye reklamı. <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ Alışılmışın dışında, havadan kuş bakışı görüntülerle anında dikkat çeker.</li><li>✅ Konumunuzu ve dükkan büyüklüğünüzü Ilgın halkına görsel bir şölenle kanıtlar.</li></ul>"
                 },
                 drone_reels: {
                     reach: "25.000 - 35.000 Gösterim (Ortalama)",
                     dur: "Kalıcı (Profilimizde sürekli kalır)",
-                    desc: "Drone ile havadan video çekimi ve kurgusu dahil olmak üzere hazırlanan özel Reels videosu."
+                    desc: "Drone ile havadan video çekimi ve kurgusu dahil olmak üzere hazırlanan özel Reels videosu. <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ Keşfet etkili havadan video ile benzersiz bir yerel tanıtım arşivi oluşturursunuz.</li><li>✅ Dış cephe, çevre ve dükkan lokasyonunuz hafızalara kazınır.</li></ul>"
                 },
                 drone_combo: {
                     reach: "35.000 - 45.000 Gösterim (Ortalama)",
                     dur: "Reels Kalıcı, Hikaye 24 Saat",
-                    desc: "Drone ile profesyonel çekim yapılmış 1 Reels videosu ve 1 destekleyici Hikaye paylaşımı."
+                    desc: "Drone ile profesyonel çekim yapılmış 1 Reels videosu ve 1 destekleyici Hikaye paylaşımı. <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ Hem havadan görkemli bir tanıtım videosu hem de anında müşteri çeken linkli hikaye bir aradadır.</li><li>✅ Ilgın esnafı arasında fark yaratmak ve büyüklüğünüzü göstermek için en prestijli seçenektir.</li></ul>"
                 },
                 suggested: {
                     reach: "45.000 - 50.000+ Gösterim (Maksimum Etki)",
                     dur: "Kalıcı (Profilimizde sürekli kalır)",
-                    desc: "Firmanız için en etkili reklam seçeneğidir! Drone ile çekim, profesyonel montaj, seslendirme, dükkan önerisi ve +1 hikaye fiyata dahildir. Ilgın İnsanı ekibi dükkanınızı bizzat önerir."
+                    desc: "Firmanız için en etkili reklam seçeneğidir! Drone ile çekim, profesyonel montaj, seslendirme, dükkan önerisi ve +1 hikaye fiyata dahildir. Ilgın İnsanı ekibi dükkanınızı bizzat önerir. <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ <b>Bölgesel Güven:</b> Ilgın İnsanı markasının referans gücünü arkanıza alırsınız.</li><li>✅ Dükkanınıza en yüksek müşteri dönüşünü getiren, güven odaklı en prestijli pakettir.</li></ul>"
                 },
                 monthly: {
                     reach: "150.000+ Toplam Gösterim (Aylık Yayılım)",
                     dur: "1 Ay Boyunca Yayılım",
-                    desc: "Aylık kurumsal sponsorluk paketi. 1 ayda 10 adet hikaye + 2 adet gönderi + 2 adet reels videosu paylaşılır."
+                    desc: "Aylık kurumsal sponsorluk paketi. 1 ayda 10 adet hikaye + 2 adet gönderi + 2 adet reels videosu paylaşılır. <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ Aylık reklam bütçenizi tek seferde planlayıp dükkanınızı tüm ay boyunca Ilgın'ın gündeminde tutarsınız.</li><li>✅ Süreklilik sayesinde marka bilinirliğiniz kalıcı hale gelir.</li><li>✅ Tekil alımlara göre <b>%30 daha ekonomiktir</b>.</li></ul>"
                 },
                 giveaway: {
                     reach: "Maksimum Takipçi ve Yüksek Etkileşim",
                     dur: `${days} Gün Boyunca`,
-                    desc: `İşletmenizden çekilişle hediye vererek takipçi ve marka bilinirliği kazanın. Belirlenen gün sayısına göre hikaye eklenir (Min 3 gündür. Gün başı 500 ₺. 3 gün için 1, 5 gün için 2, 7 gün için 3 hikaye fiyata dahildir).`
+                    desc: `İşletmenizden çekilişle hediye vererek takipçi ve marka bilinirliği kazanın. Belirlenen gün sayısına göre hikaye eklenir (Min 3 gündür. Gün başı 500 ₺. 3 gün için 1, 5 gün için 2, 7 gün için 3 hikaye fiyata dahildir). <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ Katılım şartı olarak dükkanınızın hesabını takip etme zorunluluğu konur.</li><li>✅ Kısa sürede <b>binlerce yeni yerel takipçi</b> ve yüksek hesap etkileşimi kazandırır.</li></ul>`
                 }
             }[pkg];
-
+ 
             if (!details) {
                 container.style.display = 'none';
                 return;
             }
-
+ 
             container.innerHTML = `
                 <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:6px;">
                     <span style="color:#e6683c; font-weight:700;"><i class="fas fa-chart-line"></i> Tahmini Erişim:</span>
@@ -1717,7 +1818,7 @@
                     <span style="color:#9b59b6; font-weight:700;"><i class="far fa-clock"></i> Yayın Süresi:</span>
                     <span style="font-weight:700; color:#fff;">${details.dur}</span>
                 </div>
-                <p style="color:#ddd; line-height:1.4; font-size:0.8rem; margin-top:5px;">${details.desc}</p>
+                <div style="color:#ddd; line-height:1.4; font-size:0.8rem; margin-top:8px;">${details.desc}</div>
             `;
         }
 
