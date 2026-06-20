@@ -61,8 +61,10 @@
             padding: 14px 28px; border-radius: 50px; font-weight: 600; text-decoration: none;
             transition: all 0.3s ease;
         }
-        .btn-apple { background: #fff; color: #111; }
-        .btn-play { background: #f39c12; color: #fff; }
+        .btn-apple { background: #000; color: #fff; border: 1px solid rgba(255,255,255,0.25); }
+        .btn-apple:hover { background: #1a1a1a; box-shadow: 0 5px 15px rgba(255,255,255,0.08); }
+        .btn-play { background: #111111; color: #ffffff; border: 1px solid #00E676; }
+        .btn-play:hover { background: #1a1a1a; box-shadow: 0 5px 15px rgba(0, 230, 118, 0.25); }
         .btn-insta { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: #fff; }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
@@ -216,8 +218,10 @@
         /* SMARTPHONE MOCKUP CSS */
         .phone-container {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            gap: 15px;
         }
         .phone-mockup {
             position: relative;
@@ -453,10 +457,13 @@
             margin-bottom: 50px;
         }
         .insta-pricing-grid {
-            display: grid;
+            display: none;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 20px;
             margin-top: 30px;
+        }
+        .insta-pricing-grid.active {
+            display: grid;
         }
         .insta-pricing-card {
             background: rgba(255, 255, 255, 0.03);
@@ -573,6 +580,34 @@
             transform: scale(1.02);
             box-shadow: 0 6px 15px rgba(220, 39, 67, 0.4);
         }
+
+        /* TAB SYSTEM FOR AD PACKAGES */
+        .showcase-tabs {
+            display: flex; justify-content: center; gap: 15px; margin-bottom: 35px; flex-wrap: wrap;
+        }
+        .showcase-tab-btn {
+            background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.1);
+            color: #ccc; padding: 12px 24px; border-radius: 30px; font-weight: 700;
+            cursor: pointer; transition: all 0.3s ease; font-size: 0.95rem;
+            display: inline-flex; align-items: center; gap: 10px;
+        }
+        .showcase-tab-btn:hover {
+            background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #fff;
+        }
+        .showcase-tab-btn.active {
+            background: rgba(243, 156, 18, 0.12); border-color: #f39c12; color: #f39c12;
+            box-shadow: 0 0 15px rgba(243, 156, 18, 0.2);
+        }
+        
+        .app-pricing-grid {
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .app-pricing-grid.active {
+            display: grid;
+        }
     </style>
 
 </head>
@@ -601,6 +636,16 @@
             </div>
             
             <div class="phone-container reveal">
+                <!-- Mode Switcher -->
+                <div style="display: flex; gap: 8px; background: rgba(255,255,255,0.05); padding: 4px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.08); margin-bottom: 5px;">
+                    <button type="button" id="phoneModeAppBtn" onclick="setPhoneMode('app')" style="background: var(--accent); color: #111; border: none; padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: 0.2s;" data-tr="<i class='fas fa-mobile-alt'></i> Mobil Uygulama" data-en="<i class='fas fa-mobile-alt'></i> Mobile App">
+                        <i class="fas fa-mobile-alt"></i> Mobil Uygulama
+                    </button>
+                    <button type="button" id="phoneModeInstaBtn" onclick="setPhoneMode('insta')" style="background: transparent; color: #ccc; border: none; padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: 0.2s;" data-tr="<i class='fab fa-instagram'></i> Instagram Sayfası" data-en="<i class='fab fa-instagram'></i> Instagram Page">
+                        <i class="fab fa-instagram"></i> Instagram Sayfası
+                    </button>
+                </div>
+
                 <div class="phone-mockup">
                     <div class="phone-notch"></div>
                     <div class="phone-screen">
@@ -611,7 +656,9 @@
                                 <i class="fas fa-battery-three-quarters"></i>
                             </div>
                         </div>
-                        <div class="phone-body">
+                        
+                        <!-- APP MODE BODY -->
+                        <div class="phone-body" id="phoneBodyApp" style="display: flex; flex-direction: column; gap: 12px; height: 100%; justify-content: flex-start;">
                             <div class="phone-app-title">Ilgın İnsanı</div>
                             <div class="phone-menu-grid">
                                 <div class="phone-menu-item" onclick="clickPhoneDemo('eczane', this)">
@@ -637,6 +684,38 @@
                                 <div class="phone-preview-desc" id="phonePreviewDesc" data-tr="Yukarıdaki butonlara tıklayarak uygulama özelliklerini canlı simüle et!" data-en="Click the buttons above to simulate app features live!">Yukarıdaki butonlara tıklayarak uygulama özelliklerini canlı simüle et!</div>
                             </div>
                         </div>
+
+                        <!-- INSTAGRAM MODE BODY -->
+                        <div class="phone-body" id="phoneBodyInsta" style="display: none; flex-direction: column; gap: 10px; height: 100%; justify-content: flex-start; overflow: hidden;">
+                            <!-- Insta Profile Header -->
+                            <div style="display: flex; align-items: center; gap: 8px; padding: 4px 6px; border-bottom: 1px solid rgba(255,255,255,0.06); width: 100%;">
+                                <div style="width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743); padding: 1px; box-sizing: border-box;">
+                                    <div style="width: 100%; height: 100%; border-radius: 50%; background: #000; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.55rem; color: #fff;">II</div>
+                                </div>
+                                <div style="display: flex; flex-direction: column; text-align: left;">
+                                    <span style="font-weight: 800; font-size: 0.65rem; color: #fff; line-height: 1.1;">ilgin.insani</span>
+                                    <span style="font-size: 0.5rem; color: #aaa;">Konya / Ilgın</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Insta Feed Image -->
+                            <div style="width: 100%; aspect-ratio: 1.25/1; background: #050505; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); position: relative;">
+                                <img id="phoneInstaPostImg" src="A_dramatic_and_cinematic_dikey_202606192209.jpeg" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div style="position: absolute; top: 6px; right: 6px; background: rgba(0,0,0,0.6); padding: 2px 5px; border-radius: 8px; font-size: 0.45rem; display: flex; align-items: center; gap: 2px; border: 1px solid rgba(255,255,255,0.1);"><i class="fas fa-play" style="color: #fff; font-size: 0.45rem;"></i> Reels</div>
+                            </div>
+                            
+                            <!-- Insta Post Description -->
+                            <div style="padding: 0 5px; text-align: left; font-size: 0.58rem; display: flex; flex-direction: column; gap: 3px; flex-grow: 1; overflow-y: auto;">
+                                <div style="display: flex; gap: 8px; font-size: 0.65rem; color: #fff; margin-bottom: 1px;">
+                                    <i class="fas fa-heart" style="color: #e1306c;"></i>
+                                    <i class="far fa-comment"></i>
+                                    <i class="far fa-paper-plane"></i>
+                                </div>
+                                <div><strong style="color: #fff;" id="phoneInstaPostLikes">1.245 beğeni</strong></div>
+                                <div style="line-height: 1.3; color: #ddd;" id="phoneInstaPostCaption"><strong>ilgin.insani</strong> Ilgın'ın tarihi sokaklarında sinematik bir yürüyüş... 🌾</div>
+                            </div>
+                        </div>
+
                         <div style="text-align: center; font-size: 0.6rem; color: rgba(255,255,255,0.4); margin-top: 5px;">
                             <i class="fas fa-home"></i>
                         </div>
@@ -734,6 +813,30 @@
             </div>
         </div>
 
+        <!-- YAPAY ZEKA ASİSTANLARI -->
+        <div class="ai-section">
+            <h2 style="text-align: center; margin-bottom: 10px;" data-tr="Türkiye'de Bir İlk: Yapay Zeka Asistanları" data-en="First in Turkey: AI Assistants">Türkiye'de Bir İlk: Yapay Zeka Asistanları</h2>
+            <p style="text-align: center; color: #ddd;" data-tr="Ilgın'a özel eğitilmiş yapay zeka asistanlarımız emrinizde!" data-en="Our AI assistants specially trained for Ilgın are at your service!">Ilgın'a özel eğitilmiş yapay zeka asistanlarımız emrinizde!</p>
+            
+            <div class="ai-grid">
+                <div class="ai-card">
+                    <i class="fas fa-tractor"></i>
+                    <h4 data-tr="Ziraat Asistanı" data-en="Agriculture Assistant">Ziraat Asistanı</h4>
+                    <p style="font-size: 0.9rem; color: #bbb; margin-top: 5px;" data-tr="Tarlanız, ürünleriniz ve hava durumu hakkında çiftçimize özel destek." data-en="Special support for our farmers regarding your field, crops, and weather.">Tarlanız, ürünleriniz ve hava durumu hakkında çiftçimize özel destek.</p>
+                </div>
+                <div class="ai-card">
+                    <i class="fas fa-paw"></i>
+                    <h4 data-tr="Veteriner Asistanı" data-en="Veterinary Assistant">Veteriner Asistanı</h4>
+                    <p style="font-size: 0.9rem; color: #bbb; margin-top: 5px;" data-tr="Hayvanlarınızın sağlığı hakkında hızlıca ön bilgi alın." data-en="Get quick preliminary info about the health of your animals.">Hayvanlarınızın sağlığı hakkında hızlıca ön bilgi alın.</p>
+                </div>
+                <div class="ai-card">
+                    <i class="fas fa-robot"></i>
+                    <h4 data-tr="Genel Asistan" data-en="General Assistant">Genel Asistan</h4>
+                    <p style="font-size: 0.9rem; color: #bbb; margin-top: 5px;" data-tr="Ilgın tarihi, kültürü veya günlük sorularınız için anında sohbet edin." data-en="Chat instantly about Ilgın's history, culture, or your daily questions.">Ilgın tarihi, kültürü veya günlük sorularınız için anında sohbet edin.</p>
+                </div>
+            </div>
+        </div>
+
         <!-- INSTAGRAM SHOWCASE -->
         <div class="insta-section">
             <h2 class="section-title" data-tr="Instagram'da Biz" data-en="Us on Instagram">Instagram'da Biz</h2>
@@ -749,12 +852,23 @@
             </div>
         </div>
 
-        <!-- INSTAGRAM ADVERTISING PRICING -->
+        <!-- ADVERTISING PRICING SECTION -->
         <div class="insta-pricing-section reveal">
-            <h2 class="section-title" data-tr="Instagram Reklam Hizmetleri" data-en="Instagram Ad Services">Instagram Reklam Hizmetleri</h2>
-            <p style="text-align: center; color: #bbb; margin-top: -30px; margin-bottom: 30px;" data-tr="Ilgın'ın en büyük yerel Instagram topluluğunda işletmenizi ve kampanyalarınızı öne çıkarın." data-en="Feature your business and campaigns in Ilgın's largest local Instagram community.">Ilgın'ın en büyük yerel Instagram topluluğunda işletmenizi ve kampanyalarınızı öne çıkarın.</p>
+            <h2 class="section-title" data-tr="Reklam ve Sponsorluk Paketleri" data-en="Advertising & Sponsorship Packages">Reklam ve Sponsorluk Paketleri</h2>
+            <p style="text-align: center; color: #bbb; margin-top: -30px; margin-bottom: 30px;" data-tr="İşletmenizin ihtiyacına en uygun paketi seçin, yerel kitlelere anında ulaşın." data-en="Select the package that fits your business needs and reach local audiences instantly.">İşletmenizin ihtiyacına en uygun paketi seçin, yerel kitlelere anında ulaşın.</p>
             
-            <div class="insta-pricing-grid">
+            <!-- Tab Seçenekleri -->
+            <div class="showcase-tabs">
+                <button class="showcase-tab-btn active" id="tabInstaBtn" onclick="switchShowcaseTab('insta')">
+                    <i class="fab fa-instagram"></i> <span data-tr="Instagram Topluluk Reklamları" data-en="Instagram Community Ads">Instagram Topluluk Reklamları</span>
+                </button>
+                <button class="showcase-tab-btn" id="tabAppBtn" onclick="switchShowcaseTab('app')">
+                    <i class="fas fa-mobile-alt"></i> <span data-tr="Mobil Uygulama Reklamları" data-en="Mobile App Advertising">Mobil Uygulama Reklamları</span>
+                </button>
+            </div>
+            
+            <!-- 📸 INSTAGRAM REKLAM GRİDİ -->
+            <div class="insta-pricing-grid active" id="showcaseInstaGrid">
                 <!-- Hikaye -->
                 <div class="insta-pricing-card">
                     <div class="insta-pricing-header">
@@ -972,6 +1086,63 @@
                 </div>
             </div>
             
+            <!-- 📱 MOBİL UYGULAMA REKLAM GRİDİ -->
+            <div class="app-pricing-grid" id="showcaseAppGrid">
+                <!-- Temel -->
+                <div class="insta-pricing-card">
+                    <div class="insta-pricing-header">
+                        <span class="insta-pricing-badge" style="background: rgba(52, 152, 219, 0.15); color: var(--blue);" data-tr="Başlangıç" data-en="Basic">Başlangıç</span>
+                        <div class="insta-pricing-title" data-tr="Temel Uygulama İlanı" data-en="Basic App Listing">Temel Uygulama İlanı</div>
+                        <div class="insta-pricing-price">₺99 <span>/ Haftalık</span></div>
+                    </div>
+                    <div class="insta-pricing-stats" style="border-color: rgba(52, 152, 219, 0.2);">
+                        <i class="fas fa-eye" style="color: var(--blue);"></i> <strong data-tr="2.500+ Aktif Üye" data-en="2,500+ Active Members">2.500+ Aktif Üye</strong>
+                    </div>
+                    <ul class="insta-pricing-features">
+                        <li><i class="fas fa-check-circle" style="color: var(--blue);"></i> <span data-tr="Fırsat Merkezi liste gösterimi" data-en="Listed in Opportunities page">Fırsat Merkezi liste gösterimi</span></li>
+                        <li><i class="fas fa-check-circle" style="color: var(--blue);"></i> <span data-tr="İşletme adı ve kampanya başlığı" data-en="Business name & promo title">İşletme adı ve kampanya başlığı</span></li>
+                        <li><i class="fas fa-check-circle" style="color: var(--blue);"></i> <span data-tr="İndirim kodu ve konum butonu" data-en="Promo code & location button">İndirim kodu & konum butonu</span></li>
+                    </ul>
+                    <a href="esnaf.html?type=app_only&package=temel#talep" class="insta-pricing-cta" style="background: linear-gradient(45deg, #3498db, #2980b9); color: #fff;" data-tr="Hemen Başvur" data-en="Apply Now">Hemen Başvur</a>
+                </div>
+
+                <!-- Premium -->
+                <div class="insta-pricing-card" style="border-color: rgba(155, 89, 182, 0.4); box-shadow: 0 12px 30px rgba(155, 89, 182, 0.15);">
+                    <div class="insta-pricing-header">
+                        <span class="insta-pricing-badge" style="background: rgba(155, 89, 182, 0.15); color: #9b59b6;" data-tr="Popüler" data-en="Popular">Popüler</span>
+                        <div class="insta-pricing-title" data-tr="Premium Uygulama İlanı" data-en="Premium App Listing">Premium Uygulama İlanı</div>
+                        <div class="insta-pricing-price">₺299 <span>/ Haftalık</span></div>
+                    </div>
+                    <div class="insta-pricing-stats" style="border-color: rgba(155, 89, 182, 0.2);">
+                        <i class="fas fa-bell" style="color: #9b59b6;"></i> <strong data-tr="Anlık Bildirim Gönderimi" data-en="Instant Push Notification">Anlık Bildirim Gönderimi</strong>
+                    </div>
+                    <ul class="insta-pricing-features">
+                        <li><i class="fas fa-check-circle" style="color: #9b59b6;"></i> <span data-tr="Fırsat Merkezinde Premium (Turuncu) Çerçeve" data-en="Premium (Orange) Border in app">Fırsat Merkezinde Premium (Turuncu) Çerçeve</span></li>
+                        <li><i class="fas fa-check-circle" style="color: #9b59b6;"></i> <span data-tr="Tüm üyelere 1 adet Anlık Bildirim (Push)" data-en="1 Push Notification to all users">Tüm üyelere 1 adet Anlık Bildirim (Push)</span></li>
+                        <li><i class="fas fa-check-circle" style="color: #9b59b6;"></i> <span data-tr="Genişletilmiş kampanya kartı tasarımı" data-en="Enhanced campaign layout">Genişletilmiş kampanya kartı tasarımı</span></li>
+                    </ul>
+                    <a href="esnaf.html?type=app_only&package=premium#talep" class="insta-pricing-cta" style="background: linear-gradient(45deg, #9b59b6, #8e44ad); color: #fff;" data-tr="Hemen Başvur" data-en="Apply Now">Hemen Başvur</a>
+                </div>
+
+                <!-- VIP -->
+                <div class="insta-pricing-card" style="border-color: rgba(212, 175, 55, 0.4); box-shadow: 0 12px 30px rgba(212, 175, 55, 0.15);">
+                    <div class="insta-pricing-header">
+                        <span class="insta-pricing-badge" style="background: rgba(212, 175, 55, 0.15); color: #d4af37;" data-tr="Maksimum Etki" data-en="Maximum Reach">Maksimum Etki</span>
+                        <div class="insta-pricing-title" data-tr="VIP Slider Banner" data-en="VIP Slider Banner">VIP Slider Banner</div>
+                        <div class="insta-pricing-price">₺599 <span>/ Haftalık</span></div>
+                    </div>
+                    <div class="insta-pricing-stats" style="border-color: rgba(212, 175, 55, 0.2);">
+                        <i class="fas fa-star" style="color: #d4af37;"></i> <strong data-tr="Ana Sayfa Sürgülü Afiş" data-en="Home Slider Ad Banner">Ana Sayfa Sürgülü Afiş</strong>
+                    </div>
+                    <ul class="insta-pricing-features">
+                        <li><i class="fas fa-check-circle" style="color: #d4af37;"></i> <span data-tr="Ana sayfanın en üstünde VIP Slider yayını" data-en="Featured in homepage VIP Slider">Ana sayfanın en üstünde VIP Slider yayını</span></li>
+                        <li><i class="fas fa-check-circle" style="color: #d4af37;"></i> <span data-tr="Seçtiğiniz süreye göre 1, 3 veya 5 adet yüksek öncelikli bildirim" data-en="1, 3, or 5 high priority push notifications depending on duration">Seçtiğiniz süreye göre 1, 3 veya 5 adet yüksek öncelikli bildirim</span></li>
+                        <li><i class="fas fa-check-circle" style="color: #d4af37;"></i> <span data-tr="Afiş görselinizin tam boy sergilenmesi" data-en="Full size ad banner display">Afiş görselinizin tam boy sergilenmesi</span></li>
+                    </ul>
+                    <a href="esnaf.html?type=app_only&package=vip#talep" class="insta-pricing-cta" style="background: linear-gradient(45deg, #d4af37, #aa7c11); color: #fff;" data-tr="Hemen Başvur" data-en="Apply Now">Hemen Başvur</a>
+                </div>
+            </div>
+            
             <!-- Ekstra Drone Fiyat Listesi (İnce detaylar) -->
             <div style="margin-top: 30px; background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; font-size: 0.85rem; color: #ccc;">
                 <h4 style="color: #f39c12; font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-info-circle"></i> <span data-tr="Önemli Reklam Detayları ve Ek Hizmetler" data-en="Important Advertising Details & Add-ons">Önemli Reklam Detayları ve Ek Hizmetler</span></h4>
@@ -988,29 +1159,6 @@
             <h3 data-tr="<i class='fas fa-bullhorn'></i> Reklam, İşbirliği & Sponsorluk Alanı" data-en="<i class='fas fa-bullhorn'></i> Advertising, Partnership & Sponsorship"><i class="fas fa-bullhorn"></i> Reklam, İşbirliği & Sponsorluk Alanı</h3>
             <p style="margin-bottom: 15px;" data-tr="İşletmenizi hem Süper Uygulamamızda (2.500+ aktif üye) hem de aylık 9.3 Milyon+ gösterim gücüne sahip sosyal medya ağımızda öne çıkarın. Detaylı reklam paketleri, fiyatlar ve başvuru için portalımızı ziyaret edin." data-en="Feature your business in our Super App (2,500+ active users) and our social media network with 9.3 Million+ monthly views. Visit our portal for detailed packages, prices, and applications.">İşletmenizi hem Süper Uygulamamızda (2.500+ aktif üye) hem de aylık 9.3 Milyon+ gösterim gücüne sahip sosyal medya ağımızda öne çıkarın. Detaylı reklam paketleri, fiyatlar ve başvuru için portalımızı ziyaret edin.</p>
             <a href="esnaf.html" class="btn" style="background: #fff; color: #aa7c11; font-weight: 700; text-decoration: none; padding: 10px 24px; border-radius: 30px; font-size: 0.9rem; display: inline-flex;" data-tr="<i class='fas fa-bullhorn'></i> Reklam & İşbirliği Paketleri" data-en="<i class='fas fa-bullhorn'></i> Ad & Partnership Packages"><i class="fas fa-bullhorn"></i> Reklam & İşbirliği Paketleri</a>
-        </div>
-
-        <div class="ai-section">
-            <h2 style="text-align: center; margin-bottom: 10px;" data-tr="Türkiye'de Bir İlk: Yapay Zeka Asistanları" data-en="First in Turkey: AI Assistants">Türkiye'de Bir İlk: Yapay Zeka Asistanları</h2>
-            <p style="text-align: center; color: #ddd;" data-tr="Ilgın'a özel eğitilmiş yapay zeka asistanlarımız emrinizde!" data-en="Our AI assistants specially trained for Ilgın are at your service!">Ilgın'a özel eğitilmiş yapay zeka asistanlarımız emrinizde!</p>
-            
-            <div class="ai-grid">
-                <div class="ai-card">
-                    <i class="fas fa-tractor"></i>
-                    <h4 data-tr="Ziraat Asistanı" data-en="Agriculture Assistant">Ziraat Asistanı</h4>
-                    <p style="font-size: 0.9rem; color: #bbb; margin-top: 5px;" data-tr="Tarlanız, ürünleriniz ve hava durumu hakkında çiftçimize özel destek." data-en="Special support for our farmers regarding your field, crops, and weather.">Tarlanız, ürünleriniz ve hava durumu hakkında çiftçimize özel destek.</p>
-                </div>
-                <div class="ai-card">
-                    <i class="fas fa-paw"></i>
-                    <h4 data-tr="Veteriner Asistanı" data-en="Veterinary Assistant">Veteriner Asistanı</h4>
-                    <p style="font-size: 0.9rem; color: #bbb; margin-top: 5px;" data-tr="Hayvanlarınızın sağlığı hakkında hızlıca ön bilgi alın." data-en="Get quick preliminary info about the health of your animals.">Hayvanlarınızın sağlığı hakkında hızlıca ön bilgi alın.</p>
-                </div>
-                <div class="ai-card">
-                    <i class="fas fa-robot"></i>
-                    <h4 data-tr="Genel Asistan" data-en="General Assistant">Genel Asistan</h4>
-                    <p style="font-size: 0.9rem; color: #bbb; margin-top: 5px;" data-tr="Ilgın tarihi, kültürü veya günlük sorularınız için anında sohbet edin." data-en="Chat instantly about Ilgın's history, culture, or your daily questions.">Ilgın tarihi, kültürü veya günlük sorularınız için anında sohbet edin.</p>
-                </div>
-            </div>
         </div>
 
         <h2 class="section-title" data-tr="Hemşehrilerimiz Ne Diyor?" data-en="What Do Our Citizens Say?">Hemşehrilerimiz Ne Diyor?</h2>
@@ -1279,6 +1427,54 @@
             }
         };
 
+        let loadedInstaPosts = null;
+
+        function setPhoneMode(mode) {
+            const appBody = document.getElementById('phoneBodyApp');
+            const instaBody = document.getElementById('phoneBodyInsta');
+            const appBtn = document.getElementById('phoneModeAppBtn');
+            const instaBtn = document.getElementById('phoneModeInstaBtn');
+            
+            if (mode === 'app') {
+                appBody.style.display = 'flex';
+                instaBody.style.display = 'none';
+                appBtn.style.background = 'var(--accent)';
+                appBtn.style.color = '#111';
+                instaBtn.style.background = 'transparent';
+                instaBtn.style.color = '#ccc';
+            } else {
+                appBody.style.display = 'none';
+                instaBody.style.display = 'flex';
+                instaBtn.style.background = '#e1306c';
+                instaBtn.style.color = '#fff';
+                appBtn.style.background = 'transparent';
+                appBtn.style.color = '#ccc';
+                
+                const posts = loadedInstaPosts || defaultInstaPosts;
+                if (posts && posts.length > 0) {
+                    const post = posts[0];
+                    document.getElementById('phoneInstaPostImg').src = post.imageUrl;
+                    document.getElementById('phoneInstaPostLikes').innerText = (post.likes || '1,245') + " " + (currentLang === 'tr' ? 'beğeni' : 'likes');
+                    document.getElementById('phoneInstaPostCaption').innerHTML = `<strong>ilgin.insani</strong> ${post.caption || ''}`;
+                }
+            }
+        }
+
+        function switchShowcaseTab(tab) {
+            document.getElementById('tabAppBtn').classList.remove('active');
+            document.getElementById('tabInstaBtn').classList.remove('active');
+            document.getElementById('showcaseAppGrid').classList.remove('active');
+            document.getElementById('showcaseInstaGrid').classList.remove('active');
+            
+            if (tab === 'app') {
+                document.getElementById('tabAppBtn').classList.add('active');
+                document.getElementById('showcaseAppGrid').classList.add('active');
+            } else {
+                document.getElementById('tabInstaBtn').classList.add('active');
+                document.getElementById('showcaseInstaGrid').classList.add('active');
+            }
+        }
+
         function clickPhoneDemo(key, element) {
             // Reset background for all items
             document.querySelectorAll('.phone-menu-item').forEach(el => {
@@ -1353,6 +1549,7 @@
         }
 
         function renderInstaGrid(posts) {
+            loadedInstaPosts = posts;
             const grid = document.getElementById('instaGrid');
             if (!grid) return;
             grid.innerHTML = '';
