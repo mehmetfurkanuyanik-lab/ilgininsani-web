@@ -267,6 +267,14 @@
             content: '✓'; position: absolute; top: 10px; right: 14px;
             color: var(--accent); font-weight: 900; font-size: 1rem;
         }
+        
+        /* Ad Type Specific Selected Styles */
+        #typeAppOnly.selected { border-color: var(--blue) !important; background: rgba(52, 152, 219, 0.12) !important; }
+        #typeAppOnly.selected::after { color: var(--blue) !important; }
+        #typeInstaOnly.selected { border-color: #e1306c !important; background: rgba(225, 48, 108, 0.12) !important; }
+        #typeInstaOnly.selected::after { color: #e1306c !important; }
+        #typeCombo.selected { border-color: var(--accent) !important; background: rgba(243, 156, 18, 0.12) !important; }
+        #typeCombo.selected::after { color: var(--accent) !important; }
         .pkg-card input[type="radio"] { display: none; }
         .pkg-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; }
         .pkg-price { color: var(--accent); font-size: 1.3rem; font-weight: 900; margin-bottom: 6px; }
@@ -627,127 +635,155 @@
                 <!-- Adım göstergesi -->
                 <div class="step-badges">
                     <div class="step-badge"><span class="step-num">1</span> <span data-tr="Bilgilerinizi girin" data-en="Enter your info">Bilgilerinizi girin</span></div>
-                    <div class="step-badge"><span class="step-num">2</span> <span data-tr="Kampanya detayı ekleyin" data-en="Add campaign details">Kampanya detayı ekleyin</span></div>
-                    <div class="step-badge"><span class="step-num">3</span> <span data-tr="24 saat içinde yayında" data-en="Live within 24 hours">24 saat içinde yayında</span></div>
+                    <div class="step-badge"><span class="step-num">2</span> <span data-tr="Reklam türünü seçin" data-en="Select ad type">Reklam türünü seçin</span></div>
+                    <div class="step-badge"><span class="step-num">3</span> <span data-tr="Talebi gönderin" data-en="Submit request">Talebi gönderin</span></div>
                 </div>
 
                 <form id="requestForm" class="req-form">
                     <!-- İşletme Bilgileri -->
                     <div class="req-row">
                         <div class="req-field">
-                            <label data-tr="İşletme / Esnaf Adı *" data-en="Business Name *">İşletme / Esnaf Adı *</label>
-                            <input type="text" id="reqBusiness" placeholder="Örn: Yılmaz Kasap" required>
+                            <label data-tr="İşletme Adı *" data-en="Business Name *">İşletme Adı *</label>
+                            <input type="text" id="reqBusiness" placeholder="Örn: Ilgın Kuaförü" required>
                         </div>
                         <div class="req-field">
-                            <label data-tr="Yetkili Kişi Adı *" data-en="Contact Person *">Yetkili Kişi Adı *</label>
-                            <input type="text" id="reqContact" placeholder="Adınız Soyadınız" required>
+                            <label data-tr="Sektör / Kategori *" data-en="Category / Industry *">Sektör / Kategori *</label>
+                            <select id="reqCategory" required>
+                                <option value="" disabled selected data-tr="Sektör Seçin" data-en="Select Sector">Sektör Seçin</option>
+                                <option value="Gıda / Restoran" data-tr="Gıda / Restoran" data-en="Food / Restaurant">Gıda / Restoran</option>
+                                <option value="Giyim / Moda" data-tr="Giyim / Moda" data-en="Clothing / Fashion">Giyim / Moda</option>
+                                <option value="Kozmetik / Güzellik" data-tr="Kozmetik / Güzellik" data-en="Cosmetics / Beauty">Kozmetik / Güzellik</option>
+                                <option value="Tarım / Hayvancılık" data-tr="Tarım / Hayvancılık" data-en="Agriculture / Livestock">Tarım / Hayvancılık</option>
+                                <option value="Teknoloji / Elektronik" data-tr="Teknoloji / Elektronik" data-en="Technology / Electronics">Teknoloji / Elektronik</option>
+                                <option value="Hizmet / Diğer" data-tr="Hizmet / Diğer" data-en="Service / Other">Hizmet / Diğer</option>
+                            </select>
                         </div>
                     </div>
                     <div class="req-row">
+                        <div class="req-field">
+                            <label data-tr="Yetkili Adı Soyadı *" data-en="Authorized Contact Person *">Yetkili Adı Soyadı *</label>
+                            <input type="text" id="reqContact" placeholder="Örn: Ahmet Yılmaz" required>
+                        </div>
                         <div class="req-field">
                             <label data-tr="Telefon Numarası *" data-en="Phone Number *">Telefon Numarası *</label>
-                            <input type="tel" id="reqPhone" placeholder="0 5XX XXX XX XX" required>
+                            <input type="tel" id="reqPhone" placeholder="Örn: 0505 123 45 67" required>
                         </div>
+                    </div>
+
+                    <!-- Reklam Türü Seçimi -->
+                    <div class="req-field" style="margin-top: 15px;">
+                        <label data-tr="Hizmet / Reklam Türü Seçin *" data-en="Select Service / Ad Type *">Hizmet / Reklam Türü Seçin *</label>
+                        <div class="pkg-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 20px;">
+                            <label class="pkg-card selected" id="typeAppOnly" onclick="selectAdType('app_only')">
+                                <input type="radio" name="adType" value="app_only" checked style="display:none;">
+                                <i class="fas fa-mobile-alt" style="font-size: 1.5rem; margin-bottom: 8px; color: var(--blue); display: block;"></i>
+                                <div class="pkg-name" data-tr="Sadece Mobil Uygulama" data-en="App Only">Sadece Mobil Uygulama</div>
+                                <div class="pkg-desc" data-tr="Ilgın Fırsat Merkezinde Yayın" data-en="In-App Opportunities">Ilgın Fırsat Merkezinde Yayın</div>
+                            </label>
+                            <label class="pkg-card" id="typeInstaOnly" onclick="selectAdType('insta_only')">
+                                <input type="radio" name="adType" value="insta_only" style="display:none;">
+                                <i class="fab fa-instagram" style="font-size: 1.5rem; margin-bottom: 8px; color: #e1306c; display: block;"></i>
+                                <div class="pkg-name" data-tr="Sadece Instagram" data-en="Instagram Only">Sadece Instagram</div>
+                                <div class="pkg-desc" data-tr="Story, Post, Reels Paylaşımları" data-en="Story, Post, Reels Shares">Story, Post, Reels Paylaşımları</div>
+                            </label>
+                            <label class="pkg-card" id="typeCombo" onclick="selectAdType('combo')">
+                                <input type="radio" name="adType" value="combo" style="display:none;">
+                                <i class="fas fa-rocket" style="font-size: 1.5rem; margin-bottom: 8px; color: var(--accent); display: block;"></i>
+                                <div class="pkg-name" data-tr="Kombo Paket" data-en="Combo Pack">Kombo Paket</div>
+                                <div class="pkg-desc" data-tr="Hem Mobil Hem Instagram" data-en="Both App & Instagram">Hem Mobil Hem Instagram</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- UYGULAMA İÇİ FIRSAT DETAYLARI -->
+                    <div id="appCampaignFields" style="transition: all 0.3s ease;">
                         <div class="req-field">
-                            <label data-tr="İşletme Kategorisi" data-en="Business Category">İşletme Kategorisi</label>
-                            <select id="reqCategory">
-                                <option value="" data-tr="Seçiniz..." data-en="Select...">Seçiniz...</option>
-                                <option value="gida" data-tr="Gıda & Market" data-en="Food & Grocery">Gıda & Market</option>
-                                <option value="tarim" data-tr="Tarım & Ziraat" data-en="Agriculture">Tarım & Ziraat</option>
-                                <option value="saglik" data-tr="Sağlık & Güzellik" data-en="Health & Beauty">Sağlık & Güzellik</option>
-                                <option value="tekstil" data-tr="Tekstil & Giyim" data-en="Textile & Clothing">Tekstil & Giyim</option>
-                                <option value="hizmet" data-tr="Hizmet Sektörü" data-en="Services">Hizmet Sektörü</option>
-                                <option value="diger" data-tr="Diğer" data-en="Other">Diğer</option>
+                            <label data-tr="Kampanya / İndirim Başlığı *" data-en="Campaign / Discount Title *">Kampanya / İndirim Başlığı *</label>
+                            <input type="text" id="reqCampaignTitle" placeholder="Örn: Yazlık Saç Modeli Kampanyası" required>
+                        </div>
+                        <div class="req-row">
+                            <div class="req-field">
+                                <label data-tr="Eski Fiyat (TL)" data-en="Original Price (TL)">Eski Fiyat (TL)</label>
+                                <input type="number" id="reqOldPrice" placeholder="Örn: 500" min="0" step="0.01">
+                            </div>
+                            <div class="req-field">
+                                <label data-tr="Kampanya Fiyatı (TL)" data-en="Campaign Price (TL)">Kampanya Fiyatı (TL)</label>
+                                <input type="number" id="reqNewPrice" placeholder="Örn: 350" min="0" step="0.01">
+                            </div>
+                        </div>
+                        <div class="req-row">
+                            <div class="req-field">
+                                <label data-tr="İndirim Kodu (Opsiyonel)" data-en="Promo Code (Optional)">İndirim Kodu (Opsiyonel)</label>
+                                <input type="text" id="reqPromoCode" placeholder="Örn: YAZ30">
+                            </div>
+                            <div class="req-field">
+                                <label data-tr="Kampanya Süresi" data-en="Campaign Duration">Kampanya Süresi</label>
+                                <select id="reqDuration">
+                                    <option value="3" data-tr="3 Gün" data-en="3 Days">3 Gün</option>
+                                    <option value="7" selected data-tr="1 Hafta" data-en="1 Week">1 Hafta</option>
+                                    <option value="14" data-tr="2 Hafta" data-en="2 Weeks">2 Hafta</option>
+                                    <option value="30" data-tr="1 Ay" data-en="1 Month">1 Ay</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Yayın Paketi Seçimi -->
+                        <div class="req-field">
+                            <label data-tr="Uygulama İçi Yayın Paketi Seçin" data-en="Select In-App Publishing Package">Uygulama İçi Yayın Paketi Seçin</label>
+                            <div class="pkg-grid">
+                                <label class="pkg-card" id="pkgBasic" onclick="selectPackage('temel')">
+                                    <input type="radio" name="pkg" value="temel">
+                                    <div class="pkg-name" data-tr="Temel" data-en="Basic">Temel</div>
+                                    <div class="pkg-price" id="priceBasic">₺99</div>
+                                    <div class="pkg-desc" data-tr="Liste görünümünde yayın" data-en="List view publishing">Liste görünümünde yayın</div>
+                                </label>
+                                <label class="pkg-card selected" id="pkgPremium" onclick="selectPackage('premium')">
+                                    <input type="radio" name="pkg" value="premium" checked>
+                                    <span class="pkg-popular" data-tr="Popüler" data-en="Popular">Popüler</span>
+                                    <div class="pkg-name" data-tr="Premium" data-en="Premium">Premium</div>
+                                    <div class="pkg-price" id="pricePremium">₺299</div>
+                                    <div class="pkg-desc" data-tr="Öne çıkan + bildirim" data-en="Featured + notification">Öne çıkan + bildirim</div>
+                                </label>
+                                <label class="pkg-card" id="pkgVip" onclick="selectPackage('vip')">
+                                    <input type="radio" name="pkg" value="vip">
+                                    <div class="pkg-name">VIP</div>
+                                    <div class="pkg-price" id="priceVip">₺599</div>
+                                    <div class="pkg-desc" data-tr="Tam sayfa banner + bildirim" data-en="Full page banner + notification">Tam sayfa banner + bildirim</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- INSTAGRAM REKLAM DETAYLARI -->
+                    <div id="instagramAdFields" style="transition: all 0.3s ease; margin-top: 15px; border-top: 1px dashed rgba(255,255,255,0.15); padding-top: 15px;">
+                        <div class="req-field">
+                            <label data-tr="Instagram Reklam Desteği / Paket Seçin *" data-en="Select Instagram Ad Package *">Instagram Reklam Desteği / Paket Seçin *</label>
+                            <select id="reqInstaPackage" onchange="updatePrices()">
+                                <option value="story" data-tr="Hikaye Paylaşımı (₺750)" data-en="Story Post (₺750)">Hikaye Paylaşımı (₺750)</option>
+                                <option value="post" data-tr="Gönderi Paylaşımı (₺1.500)" data-en="Feed Post (₺1.500)">Gönderi Paylaşımı (₺1.500)</option>
+                                <option value="post_story" data-tr="Gönderi + Hikaye Kombosu (₺2.000)" data-en="Post + Story Combo (₺2.000)">Gönderi + Hikaye Kombosu (₺2.000)</option>
+                                <option value="reels" data-tr="Reels Videosu (₺2.500)" data-en="Reels Video (₺2.500)">Reels Videosu (₺2.500)</option>
+                                <option value="reels_story" data-tr="Reels + Hikaye Kombosu (₺3.000)" data-en="Reels + Story Combo (₺3.000)">Reels + Hikaye Kombosu (₺3.000)</option>
+                                <option value="drone_story" data-tr="Drone ile Hikaye Çekimi (₺2.000)" data-en="Drone Story Videography (₺2.000)">Drone ile Hikaye Çekimi (₺2.000)</option>
+                                <option value="drone_reels" data-tr="Drone ile Reels Çekimi (₺4.000)" data-en="Drone Reels Videography (₺4.000)">Drone ile Reels Çekimi (₺4.000)</option>
+                                <option value="drone_combo" data-tr="Drone ile Reels + Hikaye (₺5.000)" data-en="Drone Reels + Story (₺5.000)">Drone ile Reels + Hikaye (₺5.000)</option>
+                                <option value="suggested" data-tr="#IlgınİnsanıÖneriyor Özel Video Konsepti (₺5.000)" data-en="#IlgınİnsanıÖneriyor Special Video Concept (₺5.000)">#IlgınİnsanıÖneriyor Özel Video Konsepti (₺5.000)</option>
+                                <option value="monthly" data-tr="Aylık Esnaf Sponsorluk Paketi (₺12.500)" data-en="Monthly Merchant Sponsorship (₺12.500)">Aylık Esnaf Sponsorluk Paketi (₺12.500)</option>
+                                <option value="giveaway" data-tr="Çekiliş Sponsorluğu (₺500 / Gün)" data-en="Giveaway Sponsorship (₺500 / Day)">Çekiliş Sponsorluğu (₺500 / Gün)</option>
                             </select>
                         </div>
-                    </div>
 
-                    <!-- Kampanya Detayları -->
-                    <div class="req-field">
-                        <label data-tr="Kampanya Başlığı *" data-en="Campaign Title *">Kampanya Başlığı *</label>
-                        <input type="text" id="reqCampaignTitle" placeholder="Örn: Yazlık Saç Modeli Kampanyası" required>
-                    </div>
-                    <div class="req-row">
-                        <div class="req-field">
-                            <label data-tr="Eski Fiyat (TL)" data-en="Original Price (TL)">Eski Fiyat (TL)</label>
-                            <input type="number" id="reqOldPrice" placeholder="Örn: 500" min="0" step="0.01">
+                        <!-- Çekiliş Gün Sayısı -->
+                        <div id="giveawayDaysWrapper" class="req-field" style="display: none; margin-top: 10px;">
+                            <label data-tr="Çekiliş Süresi (Gün - En Az 3 Gün)" data-en="Giveaway Duration (Days - Min 3 Days)">Çekiliş Süresi (Gün - En Az 3 Gün)</label>
+                            <input type="number" id="reqGiveawayDays" min="3" value="3" oninput="updatePrices()" style="width: 100%;">
                         </div>
-                        <div class="req-field">
-                            <label data-tr="Kampanya Fiyatı (TL)" data-en="Campaign Price (TL)">Kampanya Fiyatı (TL)</label>
-                            <input type="number" id="reqNewPrice" placeholder="Örn: 350" min="0" step="0.01">
-                        </div>
-                    </div>
-                    <div class="req-row">
-                        <div class="req-field">
-                            <label data-tr="İndirim Kodu (Opsiyonel)" data-en="Promo Code (Optional)">İndirim Kodu (Opsiyonel)</label>
-                            <input type="text" id="reqPromoCode" placeholder="Örn: YAZ30">
-                        </div>
-                        <div class="req-field">
-                            <label data-tr="Kampanya Süresi" data-en="Campaign Duration">Kampanya Süresi</label>
-                            <select id="reqDuration">
-                                <option value="3" data-tr="3 Gün" data-en="3 Days">3 Gün</option>
-                                <option value="7" selected data-tr="1 Hafta" data-en="1 Week">1 Hafta</option>
-                                <option value="14" data-tr="2 Hafta" data-en="2 Weeks">2 Hafta</option>
-                                <option value="30" data-tr="1 Ay" data-en="1 Month">1 Ay</option>
-                            </select>
-                        </div>
-                    </div>
 
-                    <!-- Paket Seçimi -->
-                    <div class="req-field">
-                        <label data-tr="Yayın Paketi Seçin" data-en="Select Publishing Package">Yayın Paketi Seçin</label>
-                        <div class="pkg-grid">
-                            <label class="pkg-card" id="pkgBasic" onclick="selectPackage('temel')">
-                                <input type="radio" name="pkg" value="temel">
-                                <div class="pkg-name" data-tr="Temel" data-en="Basic">Temel</div>
-                                <div class="pkg-price" id="priceBasic">₺99</div>
-                                <div class="pkg-desc" data-tr="Liste görünümünde yayın" data-en="List view publishing">Liste görünümünde yayın</div>
-                            </label>
-                            <label class="pkg-card selected" id="pkgPremium" onclick="selectPackage('premium')">
-                                <input type="radio" name="pkg" value="premium" checked>
-                                <span class="pkg-popular" data-tr="Popüler" data-en="Popular">Popüler</span>
-                                <div class="pkg-name" data-tr="Premium" data-en="Premium">Premium</div>
-                                <div class="pkg-price" id="pricePremium">₺299</div>
-                                <div class="pkg-desc" data-tr="Öne çıkan + bildirim" data-en="Featured + notification">Öne çıkan + bildirim</div>
-                            </label>
-                            <label class="pkg-card" id="pkgVip" onclick="selectPackage('vip')">
-                                <input type="radio" name="pkg" value="vip">
-                                <div class="pkg-name">VIP</div>
-                                <div class="pkg-price" id="priceVip">₺599</div>
-                                <div class="pkg-desc" data-tr="Tam sayfa banner + bildirim" data-en="Full page banner + notification">Tam sayfa banner + bildirim</div>
-                            </label>
+                        <!-- Çekim ve Montaj Talebi -->
+                        <div id="shootRequiredWrapper" class="req-field" style="display: none; flex-direction: row; align-items: center; gap: 10px; margin-top: 10px; background: rgba(255,255,255,0.02); padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);">
+                            <input type="checkbox" id="reqShootRequired" style="width: 18px; height: 18px; cursor: pointer; margin: 0;" onchange="updatePrices()">
+                            <label for="reqShootRequired" style="cursor: pointer; font-size: 0.8rem; color: #ccc;" data-tr="Fotoğraf / Video çekimi ve kurgusunu Ilgın İnsanı yapsın (+₺500)" data-en="Ilgın İnsanı shoots & edits photos / videos (+₺500)">Fotoğraf / Video çekimi ve kurgusunu Ilgın İnsanı yapsın (+₺500)</label>
                         </div>
-                    </div>
-
-                    <!-- Instagram Reklam Seçenekleri -->
-                    <div class="req-field" style="margin-top: 15px; border-top: 1px dashed rgba(255,255,255,0.15); padding-top: 15px;">
-                        <label data-tr="Instagram Reklam Desteği (İsteğe Bağlı)" data-en="Instagram Ad Support (Optional)">Instagram Reklam Desteği (İsteğe Bağlı)</label>
-                        <select id="reqInstaPackage" onchange="updatePrices()">
-                            <option value="none" data-tr="İstemiyorum (Sadece Uygulama İçi Fırsatlar)" data-en="None (Only In-App Deals)">İstemiyorum (Sadece Uygulama İçi Fırsatlar)</option>
-                            <option value="story" data-tr="Hikaye Paylaşımı (₺750)" data-en="Story Post (₺750)">Hikaye Paylaşımı (₺750)</option>
-                            <option value="post" data-tr="Gönderi Paylaşımı (₺1.500)" data-en="Feed Post (₺1.500)">Gönderi Paylaşımı (₺1.500)</option>
-                            <option value="post_story" data-tr="Gönderi + Hikaye Kombosu (₺2.000)" data-en="Post + Story Combo (₺2.000)">Gönderi + Hikaye Kombosu (₺2.000)</option>
-                            <option value="reels" data-tr="Reels Videosu (₺2.500)" data-en="Reels Video (₺2.500)">Reels Videosu (₺2.500)</option>
-                            <option value="reels_story" data-tr="Reels + Hikaye Kombosu (₺3.000)" data-en="Reels + Story Combo (₺3.000)">Reels + Hikaye Kombosu (₺3.000)</option>
-                            <option value="drone_story" data-tr="Drone ile Hikaye Çekimi (₺2.000)" data-en="Drone Story Videography (₺2.000)">Drone ile Hikaye Çekimi (₺2.000)</option>
-                            <option value="drone_reels" data-tr="Drone ile Reels Çekimi (₺4.000)" data-en="Drone Reels Videography (₺4.000)">Drone ile Reels Çekimi (₺4.000)</option>
-                            <option value="drone_combo" data-tr="Drone ile Reels + Hikaye (₺5.000)" data-en="Drone Reels + Story (₺5.000)">Drone ile Reels + Hikaye (₺5.000)</option>
-                            <option value="suggested" data-tr="#IlgınİnsanıÖneriyor Özel Video Konsepti (₺5.000)" data-en="#IlgınİnsanıÖneriyor Special Video Concept (₺5.000)">#IlgınİnsanıÖneriyor Özel Video Konsepti (₺5.000)</option>
-                            <option value="monthly" data-tr="Aylık Esnaf Sponsorluk Paketi (₺12.500)" data-en="Monthly Merchant Sponsorship (₺12.500)">Aylık Esnaf Sponsorluk Paketi (₺12.500)</option>
-                            <option value="giveaway" data-tr="Çekiliş Sponsorluğu (₺500 / Gün)" data-en="Giveaway Sponsorship (₺500 / Day)">Çekiliş Sponsorluğu (₺500 / Gün)</option>
-                        </select>
-                    </div>
-
-                    <!-- Çekiliş Gün Sayısı -->
-                    <div id="giveawayDaysWrapper" class="req-field" style="display: none; margin-top: 10px;">
-                        <label data-tr="Çekiliş Süresi (Gün - En Az 3 Gün)" data-en="Giveaway Duration (Days - Min 3 Days)">Çekiliş Süresi (Gün - En Az 3 Gün)</label>
-                        <input type="number" id="reqGiveawayDays" min="3" value="3" oninput="updatePrices()" style="width: 100%;">
-                    </div>
-
-                    <!-- Çekim ve Montaj Talebi -->
-                    <div id="shootRequiredWrapper" class="req-field" style="display: none; flex-direction: row; align-items: center; gap: 10px; margin-top: 10px; background: rgba(255,255,255,0.02); padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);">
-                        <input type="checkbox" id="reqShootRequired" style="width: 18px; height: 18px; cursor: pointer; margin: 0;" onchange="updatePrices()">
-                        <label for="reqShootRequired" style="cursor: pointer; font-size: 0.8rem; color: #ccc;" data-tr="Fotoğraf / Video çekimi ve kurgusunu Ilgın İnsanı yapsın (+₺500)" data-en="Ilgın İnsanı shoots & edits photos / videos (+₺500)">Fotoğraf / Video çekimi ve kurgusunu Ilgın İnsanı yapsın (+₺500)</label>
                     </div>
 
                     <div class="req-field" style="margin-top: 15px;">
@@ -788,6 +824,78 @@
         }
 
         /* ============================================================
+           REKLAM TÜRÜ (UYGULAMA / INSTAGRAM / KOMBO) SEÇİMİ
+        ============================================================ */
+        let selectedAdType = 'app_only';
+        
+        function selectAdType(type) {
+            selectedAdType = type;
+            document.querySelectorAll('input[name="adType"]').forEach(radio => {
+                radio.checked = radio.value === type;
+            });
+            document.querySelectorAll('[id^="type"]').forEach(c => c.classList.remove('selected'));
+            
+            const selectedId = {
+                app_only: 'typeAppOnly',
+                insta_only: 'typeInstaOnly',
+                combo: 'typeCombo'
+            }[type];
+            if (document.getElementById(selectedId)) {
+                document.getElementById(selectedId).classList.add('selected');
+            }
+
+            const appFields = document.getElementById('appCampaignFields');
+            const instaFields = document.getElementById('instagramAdFields');
+            const campaignTitleInput = document.getElementById('reqCampaignTitle');
+
+            if (type === 'app_only') {
+                if (appFields) appFields.style.display = 'block';
+                if (instaFields) instaFields.style.display = 'none';
+                if (campaignTitleInput) campaignTitleInput.required = true;
+            } else if (type === 'insta_only') {
+                if (appFields) appFields.style.display = 'none';
+                if (instaFields) instaFields.style.display = 'block';
+                if (campaignTitleInput) campaignTitleInput.required = false;
+            } else if (type === 'combo') {
+                if (appFields) appFields.style.display = 'block';
+                if (instaFields) instaFields.style.display = 'block';
+                if (campaignTitleInput) campaignTitleInput.required = true;
+            }
+            updatePrices();
+        }
+
+        // URL Hash / Query Parametresi Okuma (index.html'den yönlendirme için)
+        function checkUrlParams() {
+            const hash = window.location.hash;
+            const urlParams = new URLSearchParams(window.location.search);
+            const type = urlParams.get('type');
+            
+            if (type === 'insta_only' || hash.includes('insta_only') || hash.includes('instagram')) {
+                selectAdType('insta_only');
+                const pkg = urlParams.get('package') || getPackageFromHash(hash);
+                if (pkg) {
+                    const select = document.getElementById('reqInstaPackage');
+                    if (select && [...select.options].some(o => o.value === pkg)) {
+                        select.value = pkg;
+                    }
+                }
+                updatePrices();
+            } else if (type === 'combo' || hash.includes('combo')) {
+                selectAdType('combo');
+            } else {
+                selectAdType('app_only');
+            }
+        }
+        
+        function getPackageFromHash(hash) {
+            const pkgs = ['story', 'post', 'post_story', 'reels', 'reels_story', 'drone_story', 'drone_reels', 'drone_combo', 'suggested', 'monthly', 'giveaway'];
+            for (let p of pkgs) {
+                if (hash.includes(p)) return p;
+            }
+            return null;
+        }
+
+        /* ============================================================
            SÜREYE BAĞLI DİNAMİK FİYATLANDIRMA
         ============================================================ */
         const pricingMatrix = {
@@ -816,9 +924,9 @@
             const duration = document.getElementById('reqDuration').value;
             const prices = pricingMatrix[duration];
             if (prices) {
-                document.getElementById('priceBasic').innerText = '₺' + prices.temel;
-                document.getElementById('pricePremium').innerText = '₺' + prices.premium;
-                document.getElementById('priceVip').innerText = '₺' + prices.vip;
+                if (document.getElementById('priceBasic')) document.getElementById('priceBasic').innerText = '₺' + prices.temel;
+                if (document.getElementById('pricePremium')) document.getElementById('pricePremium').innerText = '₺' + prices.premium;
+                if (document.getElementById('priceVip')) document.getElementById('priceVip').innerText = '₺' + prices.vip;
             }
 
             // Instagram Alanları Kontrolü
@@ -827,33 +935,38 @@
             const shootWrapper = document.getElementById('shootRequiredWrapper');
 
             // Çekiliş gün sayısı görünürlüğü
-            if (instaPackage === 'giveaway') {
-                giveawayWrapper.style.display = 'block';
+            if (selectedAdType !== 'app_only' && instaPackage === 'giveaway') {
+                if (giveawayWrapper) giveawayWrapper.style.display = 'block';
             } else {
-                giveawayWrapper.style.display = 'none';
+                if (giveawayWrapper) giveawayWrapper.style.display = 'none';
             }
 
             // Çekim/Montaj seçeneği görünürlüğü
             const supportsShoot = ['story', 'post', 'post_story', 'reels', 'reels_story', 'giveaway'].includes(instaPackage);
-            if (supportsShoot) {
-                shootWrapper.style.display = 'flex';
+            if (selectedAdType !== 'app_only' && supportsShoot) {
+                if (shootWrapper) shootWrapper.style.display = 'flex';
             } else {
-                shootWrapper.style.display = 'none';
-                document.getElementById('reqShootRequired').checked = false;
+                if (shootWrapper) shootWrapper.style.display = 'none';
+                if (document.getElementById('reqShootRequired')) document.getElementById('reqShootRequired').checked = false;
             }
 
             // Hesaplama
-            const appPrice = prices ? prices[selectedPackage] : 0;
+            let appPrice = 0;
+            if (selectedAdType === 'app_only' || selectedAdType === 'combo') {
+                appPrice = prices ? prices[selectedPackage] : 0;
+            }
             
             let instaCost = 0;
-            if (instaPackage === 'giveaway') {
-                const days = Math.max(3, parseInt(document.getElementById('reqGiveawayDays').value) || 3);
-                instaCost = 500 * days;
-            } else {
-                instaCost = instaPrices[instaPackage] || 0;
+            if (selectedAdType === 'insta_only' || selectedAdType === 'combo') {
+                if (instaPackage === 'giveaway') {
+                    const days = Math.max(3, parseInt(document.getElementById('reqGiveawayDays').value) || 3);
+                    instaCost = 500 * days;
+                } else {
+                    instaCost = instaPrices[instaPackage] || 0;
+                }
             }
 
-            const shootCost = (supportsShoot && document.getElementById('reqShootRequired').checked) ? 500 : 0;
+            const shootCost = (selectedAdType !== 'app_only' && supportsShoot && document.getElementById('reqShootRequired').checked) ? 500 : 0;
             const totalCost = appPrice + instaCost + shootCost;
 
             // Submit butonu yazısını güncelle
@@ -1100,34 +1213,45 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>' + (currentLang === 'tr' ? 'Gönderiliyor...' : 'Sending...') + '</span>';
 
             const duration = document.getElementById('reqDuration').value;
-            const appCost = pricingMatrix[duration] ? pricingMatrix[duration][selectedPackage] : 0;
             
-            const instaPackage = document.getElementById('reqInstaPackage').value;
-            const giveawayDays = (instaPackage === 'giveaway') ? Math.max(3, parseInt(document.getElementById('reqGiveawayDays').value) || 3) : 0;
-            
-            const supportsShoot = ['story', 'post', 'post_story', 'reels', 'reels_story', 'giveaway'].includes(instaPackage);
-            const shootRequired = supportsShoot && document.getElementById('reqShootRequired').checked;
+            let appCost = 0;
+            let finalInstaPackage = 'none';
+            let finalInstaCost = 0;
+            let finalGiveawayDays = 0;
+            let shootRequired = false;
 
-            const instaCost = (instaPackage === 'giveaway') ? (500 * giveawayDays) : (instaPrices[instaPackage] || 0);
+            if (selectedAdType === 'app_only' || selectedAdType === 'combo') {
+                appCost = pricingMatrix[duration] ? pricingMatrix[duration][selectedPackage] : 0;
+            }
+            if (selectedAdType === 'insta_only' || selectedAdType === 'combo') {
+                finalInstaPackage = document.getElementById('reqInstaPackage').value;
+                finalGiveawayDays = (finalInstaPackage === 'giveaway') ? Math.max(3, parseInt(document.getElementById('reqGiveawayDays').value) || 3) : 0;
+                finalInstaCost = (finalInstaPackage === 'giveaway') ? (500 * finalGiveawayDays) : (instaPrices[finalInstaPackage] || 0);
+                
+                const supportsShoot = ['story', 'post', 'post_story', 'reels', 'reels_story', 'giveaway'].includes(finalInstaPackage);
+                shootRequired = supportsShoot && document.getElementById('reqShootRequired').checked;
+            }
+
             const shootCost = shootRequired ? 500 : 0;
-            const totalCost = appCost + instaCost + shootCost;
+            const totalCost = appCost + finalInstaCost + shootCost;
 
             const payload = {
+                reklamTuru: selectedAdType,
                 isletme: document.getElementById('reqBusiness').value,
                 yetkili: document.getElementById('reqContact').value,
                 telefon: document.getElementById('reqPhone').value,
                 kategori: document.getElementById('reqCategory').value,
-                kampanyaBasligi: document.getElementById('reqCampaignTitle').value,
-                eskiFiyat: document.getElementById('reqOldPrice').value || null,
-                yeniFiyat: document.getElementById('reqNewPrice').value || null,
-                promokod: document.getElementById('reqPromoCode').value || null,
-                sure: duration,
-                paket: selectedPackage,
+                kampanyaBasligi: selectedAdType !== 'insta_only' ? document.getElementById('reqCampaignTitle').value : 'Sadece Instagram Reklamı',
+                eskiFiyat: selectedAdType !== 'insta_only' ? (document.getElementById('reqOldPrice').value || null) : null,
+                yeniFiyat: selectedAdType !== 'insta_only' ? (document.getElementById('reqNewPrice').value || null) : null,
+                promokod: selectedAdType !== 'insta_only' ? (document.getElementById('reqPromoCode').value || null) : null,
+                sure: selectedAdType !== 'insta_only' ? duration : '0',
+                paket: selectedAdType !== 'insta_only' ? selectedPackage : 'none',
                 ucret: appCost,
-                instagramPaket: instaPackage,
-                instagramUcret: instaCost,
+                instagramPaket: finalInstaPackage,
+                instagramUcret: finalInstaCost,
                 montajIstegi: shootRequired ? 'Evet' : 'Hayır',
-                cekilisGunSayisi: giveawayDays,
+                cekilisGunSayisi: finalGiveawayDays,
                 toplamUcret: totalCost,
                 notlar: document.getElementById('reqNotes').value || null,
                 kaynak: 'web-esnaf-sayfasi'
@@ -1149,6 +1273,7 @@
                 status.style.display = 'block';
                 document.getElementById('requestForm').reset();
                 selectPackage('premium');
+                selectAdType('app_only');
                 updatePrices();
             } catch (err) {
                 status.innerHTML = '<i class="fas fa-times-circle" style="color:#e74c3c;"></i> '
@@ -1167,6 +1292,7 @@
         });
 
         // Initialize values on page load
+        checkUrlParams();
         updatePrices();
         updateFlyer();
 
