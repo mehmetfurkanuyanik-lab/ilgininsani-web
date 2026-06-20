@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ilgın İnsanı - Esnaf ve İşletmeler Sayfası. Kampanya oluştur, indirim hesapla, işletmenizi Ilgın'ın dijital vitrininde öne çıkarın.">
-    <meta name="keywords" content="Ilgın esnaf, Ilgın işletmeler, Ilgın kampanya, Ilgın indirim, Ilgın İnsanı esnaf">
+    <meta name="description" content="Ilgın İnsanı - Reklam ve Sponsorluk Portalı. Kampanya oluştur, indirim hesapla, işletmenizi Ilgın'ın en büyük dijital topluluğunda öne çıkarın.">
+    <meta name="keywords" content="Ilgın reklam, Ilgın sponsorluk, Ilgın esnaf reklamı, Ilgın İnsanı tanıtım, Ilgın pazarlama">
     <meta name="author" content="Furkan Uyanık">
-    <title>Esnaf & İşletmeler — Ilgın İnsanı</title>
+    <title>Reklam & Sponsorluk Portalı — Ilgın İnsanı</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
@@ -453,6 +453,302 @@
         /* SCROLL reveal efekti */
         .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease, transform 0.55s ease; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* TAB SYSTEM FOR AD PACKAGES */
+        .showcase-tabs {
+            display: flex; justify-content: center; gap: 15px; margin-bottom: 35px; flex-wrap: wrap;
+        }
+        .showcase-tab-btn {
+            background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.1);
+            color: #ccc; padding: 12px 24px; border-radius: 30px; font-weight: 700;
+            cursor: pointer; transition: all 0.3s ease; font-size: 0.95rem;
+            display: inline-flex; align-items: center; gap: 10px;
+        }
+        .showcase-tab-btn:hover {
+            background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #fff;
+        }
+        .showcase-tab-btn.active {
+            background: rgba(243, 156, 18, 0.12); border-color: var(--accent); color: var(--accent);
+            box-shadow: 0 0 15px rgba(243, 156, 18, 0.2);
+        }
+        
+        /* PRICING GRID & CARDS FOR SHOWCASE */
+        .showcase-pricing-grid {
+            display: none; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 25px; margin-bottom: 50px;
+        }
+        .showcase-pricing-grid.active {
+            display: grid; animation: fadeIn 0.4s ease;
+        }
+        
+        .showcase-pricing-card {
+            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08); border-top: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 24px; padding: 30px 24px; display: flex; flex-direction: column;
+            justify-content: space-between; transition: all 0.3s ease; position: relative;
+            overflow: hidden; box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
+        .showcase-pricing-card::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(243,156,18,0.03) 0%, transparent 70%);
+            pointer-events: none; transition: 0.5s;
+        }
+        .showcase-pricing-card:hover {
+            transform: translateY(-8px); border-color: rgba(243, 156, 18, 0.4);
+            box-shadow: 0 20px 40px rgba(243, 156, 18, 0.15);
+        }
+        .showcase-pricing-card.premium-card {
+            border-color: rgba(155, 89, 182, 0.3);
+        }
+        .showcase-pricing-card.premium-card:hover {
+            border-color: #9b59b6;
+            box-shadow: 0 20px 40px rgba(155, 89, 182, 0.15);
+        }
+        .showcase-pricing-card.gold-card {
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+        .showcase-pricing-card.gold-card:hover {
+            border-color: #d4af37;
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15);
+        }
+        
+        .showcase-pricing-card .badge {
+            background: rgba(255, 255, 255, 0.08); color: #ccc;
+            padding: 4px 12px; border-radius: 20px; font-size: 0.72rem; font-weight: 700;
+            display: inline-block; margin-bottom: 12px; text-transform: uppercase;
+        }
+        .showcase-pricing-card.premium-card .badge {
+            background: rgba(155, 89, 182, 0.15); color: #9b59b6;
+        }
+        .showcase-pricing-card.gold-card .badge {
+            background: rgba(212, 175, 55, 0.15); color: #d4af37;
+        }
+        
+        .showcase-pricing-card .title {
+            font-size: 1.35rem; font-weight: 800; color: #fff; margin-bottom: 8px;
+        }
+        .showcase-pricing-card .price {
+            font-size: 2.1rem; font-weight: 900; color: var(--accent); margin-bottom: 15px;
+        }
+        .showcase-pricing-card.premium-card .price { color: #9b59b6; }
+        .showcase-pricing-card.gold-card .price { color: #d4af37; }
+        .showcase-pricing-card .price span {
+            font-size: 0.85rem; color: #aaa; font-weight: 600;
+        }
+        
+        .showcase-pricing-card .stats-box {
+            background: rgba(0,0,0,0.25); padding: 12px; border-radius: 14px;
+            text-align: center; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.85rem; font-weight: 600;
+        }
+        .showcase-pricing-card .stats-box i {
+            margin-right: 6px;
+        }
+        
+        .showcase-pricing-card .features-list {
+            list-style: none; margin-bottom: 25px; flex-grow: 1;
+        }
+        .showcase-pricing-card .features-list li {
+            font-size: 0.85rem; color: #ccc; margin-bottom: 10px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .showcase-pricing-card .features-list li i {
+            color: var(--green); font-size: 0.85rem;
+        }
+        .showcase-pricing-card.premium-card .features-list li i { color: #9b59b6; }
+        .showcase-pricing-card.gold-card .features-list li i { color: #d4af37; }
+        
+        .showcase-pricing-card .select-btn {
+            width: 100%; text-align: center; padding: 12px; border-radius: 14px;
+            font-weight: 700; font-size: 0.9rem; text-decoration: none; display: block;
+            border: none; cursor: pointer; transition: 0.3s;
+            background: rgba(255,255,255,0.06); color: #fff; border: 1.5px solid rgba(255,255,255,0.12);
+        }
+        .showcase-pricing-card:hover .select-btn {
+            background: var(--accent); color: #111; border-color: var(--accent);
+            box-shadow: 0 6px 15px rgba(243, 156, 18, 0.3);
+        }
+        .showcase-pricing-card.premium-card:hover .select-btn {
+            background: #9b59b6; color: #fff; border-color: #9b59b6;
+            box-shadow: 0 6px 15px rgba(155, 89, 182, 0.3);
+        }
+        .showcase-pricing-card.gold-card:hover .select-btn {
+            background: #d4af37; color: #111; border-color: #d4af37;
+            box-shadow: 0 6px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        /* STATS DASHBOARD & CHANNEL SHOWCASE EXTRA CSS */
+        .stats-dashboard {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 35px 30px;
+            margin-bottom: 50px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+        .stats-dashboard-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .stats-dashboard-title i {
+            color: var(--accent);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .stat-card {
+            background: rgba(0,0,0,0.25);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 18px;
+            padding: 20px 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+        }
+        .stat-card.insta { border-color: rgba(225, 48, 108, 0.2); }
+        .stat-card.insta:hover { border-color: #e1306c; box-shadow: 0 10px 20px rgba(225, 48, 108, 0.15); }
+        .stat-card.fb { border-color: rgba(52, 152, 219, 0.2); }
+        .stat-card.fb:hover { border-color: var(--blue); box-shadow: 0 10px 20px rgba(52, 152, 219, 0.15); }
+        .stat-card.app { border-color: rgba(243, 156, 18, 0.2); }
+        .stat-card.app:hover { border-color: var(--accent); box-shadow: 0 10px 20px rgba(243, 156, 18, 0.15); }
+
+        .stat-icon {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .stat-card.insta .stat-icon { color: #e1306c; }
+        .stat-card.fb .stat-icon { color: var(--blue); }
+        .stat-card.app .stat-icon { color: var(--accent); }
+
+        .stat-num {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+        .stat-label {
+            font-size: 0.72rem;
+            color: #9ab;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .stat-period {
+            font-size: 0.6rem;
+            color: rgba(255,255,255,0.3);
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* CHANNEL SHOWCASE */
+        .channel-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .channel-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 24px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
+        .channel-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(243, 156, 18, 0.35);
+            box-shadow: 0 20px 40px rgba(243, 156, 18, 0.12);
+        }
+        .channel-card.card-insta-color:hover {
+            border-color: rgba(225, 48, 108, 0.35);
+            box-shadow: 0 20px 40px rgba(225, 48, 108, 0.12);
+        }
+        .channel-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .channel-header i {
+            font-size: 2.2rem;
+            color: var(--accent);
+        }
+        .channel-card.card-insta-color .channel-header i {
+            color: #e1306c;
+        }
+        .channel-header h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #fff;
+        }
+        .channel-stats-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            align-self: flex-start;
+            margin-bottom: 20px;
+        }
+        .channel-details-list {
+            list-style: none;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        .channel-details-list li {
+            font-size: 0.85rem;
+            color: #ccc;
+            margin-bottom: 12px;
+            line-height: 1.5;
+            border-bottom: 1px dashed rgba(255,255,255,0.05);
+            padding-bottom: 8px;
+        }
+        .channel-details-list li strong {
+            color: #fff;
+            font-weight: 700;
+        }
+        .simulator-box {
+            background: rgba(0,0,0,0.2);
+            border-radius: 16px;
+            padding: 12px;
+            margin-top: 10px;
+            border: 1px solid rgba(255,255,255,0.03);
+            text-align: center;
+        }
+        .sim-phone-header {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
     </style>
 </head>
 <body>
@@ -475,9 +771,9 @@
 
         <!-- PAGE HERO -->
         <div class="page-hero reveal">
-            <span class="hero-icon"><i class="fas fa-store-alt"></i></span>
-            <h1 data-tr="<span>Esnaf</span> & İşletmeler" data-en="<span>Merchants</span> & Businesses"><span>Esnaf</span> & İşletmeler</h1>
-            <p data-tr="Kampanyanızı Ilgın'ın 5.000+ kullanıcısına ulaştırın. İndirimlerinizi hesaplayın, başvurunuzu gönderin — uygulamada 24 saat içinde yayında olun." data-en="Reach your campaign to Ilgın's 5,000+ users. Calculate your discounts, submit your request — go live in the app within 24 hours.">Kampanyanızı Ilgın'ın 5.000+ kullanıcısına ulaştırın. İndirimlerinizi hesaplayın, başvurunuzu gönderin — uygulamada 24 saat içinde yayında olun.</p>
+            <span class="hero-icon"><i class="fas fa-bullhorn"></i></span>
+            <h1 data-tr="<span>Reklam, İşbirliği</span> & Sponsorluk Alanı" data-en="<span>Advertising, Partnership</span> & Sponsor Area"><span>Reklam, İşbirliği</span> & Sponsorluk Alanı</h1>
+            <p data-tr="İşletmenizi Ilgın'ın en etkili yerel reklam ağında öne çıkarın. Süper Uygulamamız ve milyonlarca erişim gücüne sahip sosyal medya kanallarımızla müşterilerinize doğrudan ulaşın." data-en="Feature your business in Ilgın's most effective local ad network. Reach your customers directly with our Super App and social media channels with millions of reach.">İşletmenizi Ilgın'ın en etkili yerel reklam ağında öne çıkarın. Süper Uygulamamız ve milyonlarca erişim gücüne sahip sosyal medya kanallarımızla müşterilerinize doğrudan ulaşın.</p>
             <div class="app-badges">
                 <a href="https://apps.apple.com/tr/app/ilg%C4%B1n-i-nsan%C4%B1/id6776758130?l=tr" target="_blank" class="app-badge app-badge-apple">
                     <i class="fab fa-apple"></i> App Store
@@ -488,103 +784,178 @@
             </div>
         </div>
 
-        <!-- ====================== NEDEN ESNAF? ====================== -->
-        <h2 class="section-title reveal" data-tr="Neden Ilgın İnsanı'nda Olmalısınız?" data-en="Why Should You Be on Ilgın İnsanı?">Neden Ilgın İnsanı'nda Olmalısınız?</h2>
-        <p class="section-subtitle reveal" data-tr="Şehrin uygulamasında esnafınızın dijital vitrinini oluşturun." data-en="Create your business's digital showcase in the city's app.">Şehrin uygulamasında esnafınızın dijital vitrinini oluşturun.</p>
+        <!-- CANLI İSTATİSTİK PANELİ -->
+        <div class="stats-dashboard reveal">
+            <div class="stats-dashboard-title">
+                <i class="fas fa-chart-bar"></i>
+                <span data-tr="Ilgın İnsanı Canlı Erişim & Etkileşim İstatistikleri" data-en="Ilgın İnsanı Live Reach & Engagement Stats">Ilgın İnsanı Canlı Erişim & Etkileşim İstatistikleri</span>
+            </div>
+            <div class="stats-grid">
+                <!-- Insta Görüntülenme -->
+                <div class="stat-card insta">
+                    <span class="stat-icon"><i class="fab fa-instagram"></i></span>
+                    <div class="stat-num" id="statInstaViews">9.386.773</div>
+                    <div class="stat-label" data-tr="Görüntüleme" data-en="Views">Görüntüleme</div>
+                    <span class="stat-period" data-tr="Son 30 Gün (Instagram)" data-en="Last 30 Days (Instagram)">Son 30 Gün (Instagram)</span>
+                </div>
+                <!-- Insta Takipçi -->
+                <div class="stat-card insta">
+                    <span class="stat-icon"><i class="fas fa-users"></i></span>
+                    <div class="stat-num" id="statInstaFollowers">58.413</div>
+                    <div class="stat-label" data-tr="Takipçi" data-en="Followers">Takipçi</div>
+                    <span class="stat-period" data-tr="Organik Yerel Kitle" data-en="Organic Local Audience">Organik Yerel Kitle</span>
+                </div>
+                <!-- Insta Erişim -->
+                <div class="stat-card insta">
+                    <span class="stat-icon"><i class="fas fa-user-friends"></i></span>
+                    <div class="stat-num" id="statInstaReach">493.238</div>
+                    <div class="stat-label" data-tr="Erişilen Hesap" data-en="Accounts Reached">Erişilen Hesap</div>
+                    <span class="stat-period" data-tr="Tekil Erişim (Son 30 Gün)" data-en="Unique Reach (Last 30d)">Tekil Erişim (Son 30 Gün)</span>
+                </div>
+                <!-- Insta Etkileşim -->
+                <div class="stat-card insta">
+                    <span class="stat-icon"><i class="fas fa-heart"></i></span>
+                    <div class="stat-num" id="statInstaInteractions">120.274</div>
+                    <div class="stat-label" data-tr="Etkileşim" data-en="Interactions">Etkileşim</div>
+                    <span class="stat-period" data-tr="Beğeni, Yorum & Paylaşım" data-en="Likes, Comments & Shares">Beğeni, Yorum & Paylaşım</span>
+                </div>
+                <!-- Facebook Görüntüleme -->
+                <div class="stat-card fb">
+                    <span class="stat-icon"><i class="fab fa-facebook"></i></span>
+                    <div class="stat-num" id="statFbViews">980.000+</div>
+                    <div class="stat-label" data-tr="Görüntüleme" data-en="Views">Görüntüleme</div>
+                    <span class="stat-period" data-tr="Son 30 Gün (Facebook)" data-en="Last 30 Days (Facebook)">Son 30 Gün (Facebook)</span>
+                </div>
+                <!-- Mobil Uygulama Kullanıcısı -->
+                <div class="stat-card app">
+                    <span class="stat-icon"><i class="fas fa-mobile-alt"></i></span>
+                    <div class="stat-num" id="statAppUsers">2.500+</div>
+                    <div class="stat-label" data-tr="Aktif Üye" data-en="Active Members">Aktif Üye</div>
+                    <span class="stat-period" data-tr="Anlık Push Bildirim Alıcısı" data-en="Instant Push Recipients">Anlık Push Bildirim Alıcısı</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====================== NEDEN BİZ? ====================== -->
+        <h2 class="section-title reveal" data-tr="Neden Ilgın İnsanı Reklam Ağında Olmalısınız?" data-en="Why Choose Ilgın İnsanı Advertising Network?">Neden Ilgın İnsanı Reklam Ağında Olmalısınız?</h2>
+        <p class="section-subtitle reveal" data-tr="Şehrin Süper Uygulaması ve Milyonlara Ulaşan En Güçlü Sosyal Medya Ağında Reklam Verin." data-en="Advertise on the city's Super App and the strongest social media network reaching millions.">Şehrin Süper Uygulaması ve Milyonlara Ulaşan En Güçlü Sosyal Medya Ağında Reklam Verin.</p>
         <div class="why-grid">
             <div class="why-card reveal">
-                <div class="icon-wrap icon-orange"><i class="fas fa-users"></i></div>
-                <h3 data-tr="Geniş Kitleye Ulaşın" data-en="Reach a Wide Audience">Geniş Kitleye Ulaşın</h3>
-                <p data-tr="5.000+ aktif Ilgın sakininin bulunduğu platforma kampanyanızı ekleyin." data-en="Add your campaign to a platform with 5,000+ active Ilgın residents.">5.000+ aktif Ilgın sakininin bulunduğu platforma kampanyanızı ekleyin.</p>
+                <div class="icon-wrap icon-orange"><i class="fas fa-bullhorn"></i></div>
+                <h3 data-tr="Milyonluk Erişim Gücü" data-en="Millions of Views">Milyonluk Erişim Gücü</h3>
+                <p data-tr="Instagram ve Facebook ağlarımızda aylık 10 Milyon+ yerel gösterim potansiyeline ulaşın." data-en="Reach 10 Million+ monthly local impressions on our Instagram and Facebook networks.">Instagram ve Facebook ağlarımızda aylık 10 Milyon+ yerel gösterim potansiyeline ulaşın.</p>
             </div>
             <div class="why-card reveal">
                 <div class="icon-wrap icon-blue"><i class="fas fa-bell"></i></div>
-                <h3 data-tr="Anlık Bildirimler" data-en="Instant Notifications">Anlık Bildirimler</h3>
-                <p data-tr="Kampanyanız başladığında tüm kullanıcılara push notification gönderilir." data-en="When your campaign starts, a push notification is sent to all users.">Kampanyanız başladığında tüm kullanıcılara push notification gönderilir.</p>
+                <h3 data-tr="Anlık Bildirim (Push)" data-en="Instant Push Alerts">Anlık Bildirim (Push)</h3>
+                <p data-tr="Uygulamadaki 2.500+ aktif Ilgın sakinine anlık push bildirimleriyle doğrudan ulaşın." data-en="Reach 2,500+ active Ilgın residents directly with instant in-app push alerts.">Uygulamadaki 2.500+ aktif Ilgın sakinine anlık push bildirimleriyle doğrudan ulaşın.</p>
             </div>
             <div class="why-card reveal">
-                <div class="icon-wrap icon-green"><i class="fas fa-map-marker-alt"></i></div>
-                <h3 data-tr="Konum Entegrasyonu" data-en="Location Integration">Konum Entegrasyonu</h3>
-                <p data-tr="İşletmenizin konumu uygulamaya eklenir; müşteriler tek tıkla yol tarifi alır." data-en="Your business location is added to the app; customers get directions with one click.">İşletmenizin konumu uygulamaya eklenir; müşteriler tek tıkla yol tarifi alır.</p>
+                <div class="icon-wrap icon-green"><i class="fas fa-video"></i></div>
+                <h3 data-tr="4K Drone ve Video Çekimi" data-en="4K Drone & Video Production">4K Drone ve Video Çekimi</h3>
+                <p data-tr="İşletmeniz için profesyonel video kurgusu, seslendirme ve havadan 4K drone çekim desteği." data-en="Get professional video editing, custom voiceover, and 4K drone aerial videography.">İşletmeniz için profesyonel video kurgusu, seslendirme ve havadan 4K drone çekim desteği.</p>
             </div>
             <div class="why-card reveal">
-                <div class="icon-wrap icon-purple"><i class="fas fa-chart-bar"></i></div>
-                <h3 data-tr="Kampanya Takibi" data-en="Campaign Tracking">Kampanya Takibi</h3>
-                <p data-tr="Kampanyanızın kaç kişiye ulaştığını ve bitiş tarihini anlık görün." data-en="See how many people your campaign reached and its expiration date in real time.">Kampanyanızın kaç kişiye ulaştığını ve bitiş tarihini anlık görün.</p>
+                <div class="icon-wrap icon-purple"><i class="fas fa-map-marked-alt"></i></div>
+                <h3 data-tr="Konum & A4 Afiş Desteği" data-en="Location & A4 Flyer Support">Konum & A4 Afiş Desteği</h3>
+                <p data-tr="Harita yol tarifleri, indirim hesaplayıcı ve kasaya asmak için ücretsiz QR kodlu A4 afiş üretimi." data-en="Interactive map directions, discount calculator, and free printable QR-coded A4 store flyers.">Harita yol tarifleri, indirim hesaplayıcı ve kasaya asmak için ücretsiz QR kodlu A4 afiş üretimi.</p>
             </div>
         </div>
 
         <hr class="section-divider">
 
-        <!-- ====================== KAMPANYA ÖRNEKLERİ ====================== -->
-        <div style="text-align:center; margin-bottom: 20px;" class="reveal">
-            <span class="preview-label"><i class="fas fa-mobile-alt"></i> <span data-tr="Uygulamada Böyle Görünür" data-en="Looks Like This in the App">Uygulamada Böyle Görünür</span></span>
-        </div>
-        <h2 class="section-title reveal" data-tr="Kampanya Örnekleri" data-en="Campaign Examples">Kampanya Örnekleri</h2>
-        <p class="section-subtitle reveal" data-tr="Kampanyanız uygulamada bu kartlar gibi gösterilir." data-en="Your campaign will be shown in the app as cards like these.">Kampanyanız uygulamada bu kartlar gibi gösterilir.</p>
+        <!-- ====================== REKLAM KANALLARI & CANLI VİTRİN ====================== -->
+        <h2 class="section-title reveal" data-tr="Reklam Kanalları ve Canlı Vitrin" data-en="Ad Channels & Live Showcase">Reklam Kanalları ve Canlı Vitrin</h2>
+        <p class="section-subtitle reveal" data-tr="Mobil Uygulamamız ve Instagram Sayfamızdaki Reklam Seçeneklerinin Detaylarını İnceleyin." data-en="Review details of Advertising Options in our Mobile App and Instagram Page.">Mobil Uygulamamız ve Instagram Sayfamızdaki Reklam Seçeneklerinin Detaylarını İnceleyin.</p>
 
-        <div class="campaign-preview-grid">
-            <!-- Örnek Kart 1 -->
-            <div class="campaign-card reveal">
-                <div class="campaign-card-img">
-                    <i class="fas fa-cut placeholder-icon"></i>
-                    <span class="discount-badge">%30 İNDİRİM</span>
-                </div>
-                <div class="campaign-card-body">
-                    <div class="campaign-esnaf">Ilgın Kuaförü</div>
-                    <div class="campaign-title">Yazlık Saç Modeli Kampanyası</div>
-                    <div class="price-row">
-                        <div>
-                            <div class="price-old">350 TL</div>
-                            <div class="price-new">245 TL</div>
+        <div class="channel-wrapper reveal">
+            <!-- 📱 MOBİL UYGULAMA REKLAM KANALI -->
+            <div class="channel-card">
+                <div>
+                    <div class="channel-header">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3 data-tr="Mobil Uygulama Reklam Ağı" data-en="Mobile App Ad Network">Mobil Uygulama Reklam Ağı</h3>
+                    </div>
+                    <div class="channel-stats-badge" style="background: rgba(243, 156, 18, 0.15); color: var(--accent);">
+                        <i class="fas fa-users"></i> <span data-tr="2.500+ Aktif Ilgın Sakini" data-en="2,500+ Active Local Users">2.500+ Aktif Ilgın Sakini</span>
+                    </div>
+                    <ul class="channel-details-list">
+                        <li><strong data-tr="Nerede Gösterilir?" data-en="Display Location?">Nerede Gösterilir?:</strong> <span data-tr="VIP Slider Banner (Ana sayfa en üst sürgülü afiş) ve Fırsat & Kampanyalar Listesi." data-en="VIP Slider Banner (homepage top carousel) and Opportunity & Deals List.">VIP Slider Banner (Ana sayfa en üst sürgülü afiş) ve Fırsat & Kampanyalar Listesi.</span></li>
+                        <li><strong data-tr="Müşteri Etkisi:" data-en="Customer Impact:">Müşteri Etkisi:</strong> <span data-tr="Kullanıcılar tek tıkla işletmenizin konumuna yol tarifi alır. Anlık bildirim (Push Notification) ile telefonlara doğrudan sinyal gider." data-en="Users get map routing to your store with one click. Instant push notifications trigger alerts on their phones.">Kullanıcılar tek tıkla işletmenizin konumuna yol tarifi alır. Anlık bildirim (Push Notification) ile telefonlara doğrudan sinyal gider.</span></li>
+                        <li><strong data-tr="Kimler İçin Uygun?" data-en="Who is it for?">Kimler İçin Uygun?:</strong> <span data-tr="Ilgın'daki lokantalar, kuaförler, marketler, tarım dükkanları ve indirimli kampanya yapan tüm yerel esnaflar." data-en="Restaurants, barbers, markets, agro-stores, and any local merchants offering discount deals.">Ilgın'daki lokantalar, kuaförler, marketler, tarım dükkanları ve indirimli kampanya yapan tüm yerel esnaflar.</span></li>
+                        <li><strong data-tr="Yayın Paketleri:" data-en="Publishing Packs:">Yayın Paketleri:</strong> <span data-tr="Temel (₺99/Hafta), Premium (₺299/Hafta), VIP Slider (₺599/Hafta)" data-en="Basic (₺99/Week), Premium (₺299/Week), VIP Slider (₺599/Week)">Temel (₺99/Hafta), Premium (₺299/Hafta), VIP Slider (₺599/Hafta)</span></li>
+                    </ul>
+                    
+                    <!-- Küçük Canlı Simülatör (App Mockup) -->
+                    <div class="simulator-box app-sim">
+                        <div class="sim-phone-header">
+                            <span class="sim-phone-title" data-tr="Uygulamada Görünüm Simülasyonu" data-en="App View Simulation">Uygulamada Görünüm Simülasyonu</span>
                         </div>
-                        <div class="promo-badge" style="margin-left: auto;">
-                            <span class="promo-label">KOD</span>
-                            <span class="promo-code">YAZ30</span>
+                        <div class="campaign-card" style="margin: 10px auto; max-width: 280px; box-shadow: none; border: 1px solid rgba(255,255,255,0.08);">
+                            <div class="campaign-card-img" style="height: 110px;">
+                                <i class="fas fa-tags placeholder-icon" style="font-size: 2.5rem; opacity: 0.25;"></i>
+                                <span class="discount-badge">%30 İNDİRİM</span>
+                            </div>
+                            <div class="campaign-card-body" style="padding: 12px; text-align: left;">
+                                <div class="campaign-esnaf" style="font-size: 0.65rem;">İşletme Adınız</div>
+                                <div class="campaign-title" style="font-size: 0.9rem; margin-bottom: 8px;">Kampanya Başlığınız Buraya Gelir</div>
+                                <div class="price-row" style="margin-bottom: 0;">
+                                    <div>
+                                        <div class="price-old" style="font-size: 0.75rem;">500 TL</div>
+                                        <div class="price-new" style="font-size: 1.2rem;">350 TL</div>
+                                    </div>
+                                    <div class="promo-badge" style="padding: 3px 8px; border-radius: 6px; margin-left: auto;">
+                                        <span class="promo-label" style="font-size: 0.5rem;">KOD</span>
+                                        <span class="promo-code" style="font-size: 0.75rem;">PROMO</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <a href="#talep" class="campaign-cta"><i class="fas fa-directions"></i> <span data-tr="Fırsatı Yerinde Gör" data-en="See the Deal In Person">Fırsatı Yerinde Gör</span></a>
                 </div>
+                
+                <a href="#talep" class="campaign-cta" onclick="selectShowcasePackage('app_only', 'premium')" style="margin-top: 15px; text-decoration: none;"><i class="fas fa-bullhorn"></i> <span data-tr="Uygulama Reklamı Başvurusu" data-en="Apply for App Ad">Uygulama Reklamı Başvurusu</span></a>
             </div>
-            <!-- Örnek Kart 2 -->
-            <div class="campaign-card reveal">
-                <div class="campaign-card-img" style="background: linear-gradient(135deg, #1a3a2a, #2d6a4f);">
-                    <i class="fas fa-seedling placeholder-icon"></i>
-                    <span class="discount-badge">%20 İNDİRİM</span>
-                </div>
-                <div class="campaign-card-body">
-                    <div class="campaign-esnaf">Ilgın Tarım Marketi</div>
-                    <div class="campaign-title">Hasat Sezonu Gübre Paketi</div>
-                    <div class="price-row">
-                        <div>
-                            <div class="price-old">1.200 TL</div>
-                            <div class="price-new">960 TL</div>
+
+            <!-- 📸 INSTAGRAM REKLAM KANALI -->
+            <div class="channel-card card-insta-color">
+                <div>
+                    <div class="channel-header">
+                        <i class="fab fa-instagram"></i>
+                        <h3 data-tr="Instagram Topluluk Ağı" data-en="Instagram Community Network">Instagram Topluluk Ağı</h3>
+                    </div>
+                    <div class="channel-stats-badge" style="background: rgba(225, 48, 108, 0.15); color: #e1306c;">
+                        <i class="fas fa-chart-line"></i> <span data-tr="Aylık 9.3 Milyon+ Gösterim" data-en="9.3M+ Monthly Impressions">Aylık 9.3 Milyon+ Gösterim</span>
+                    </div>
+                    <ul class="channel-details-list">
+                        <li><strong data-tr="Nerede Gösterilir?" data-en="Display Location?">Nerede Gösterilir?:</strong> <span data-tr="58.400+ Takipçili @ilgin.insani Instagram hesabında Story (linkli), Post veya Keşfet odaklı Reels videosu olarak." data-en="As Story (with link), Post, or Explore-optimized Reels video on @ilgin.insani Instagram account with 58,400+ followers.">58.400+ Takipçili @ilgin.insani Instagram hesabında Story (linkli), Post veya Keşfet odaklı Reels videosu olarak.</span></li>
+                        <li><strong data-tr="Müşteri Etkisi:" data-en="Customer Impact:">Müşteri Etkisi:</strong> <span data-tr="Ortalama 12k ile 50k+ yerel gösterim gücü. Yerel Keşfet algoritması sayesinde dükkanınız Ilgın halkının sürekli önüne düşer. Drone/video kurgusu sayesinde marka prestijiniz artar." data-en="12k to 50k+ local reach. Local Explore algorithms push your store to residents continuously. Drone and edit boosts brand prestige.">Ortalama 12k ile 50k+ yerel gösterim gücü. Yerel Keşfet algoritması sayesinde dükkanınız Ilgın halkının sürekli önüne düşer. Drone/video kurgusu sayesinde marka prestijiniz artar.</span></li>
+                        <li><strong data-tr="Kimler İçin Uygun?" data-en="Who is it for?">Kimler İçin Uygun?:</strong> <span data-tr="Marka değerini artırmak, dükkan tanıtımı yapmak, yeni şube açılışını duyurmak ve büyük kitlelere görsel şovla ulaşmak isteyenler." data-en="Businesses looking to boost brand awareness, promote stores, announce openings, or reach massive local audiences visually.">Marka değerini artırmak, dükkan tanıtımı yapmak, yeni şube açılışını duyurmak ve büyük kitlelere görsel şovla ulaşmak isteyenler.</span></li>
+                        <li><strong data-tr="Reklam Paketleri:" data-en="Ad Packages:">Reklam Paketleri:</strong> <span data-tr="Story (₺750), Post (₺1.500), Reels (₺2.500), Drone & Özel Çekimler (₺2.000 - ₺5.000), Aylık Sponsorluk (₺12.500)" data-en="Story (₺750), Post (₺1,500), Reels (₺2,500), Drone & Special Shoots (₺2,000 - ₺5,000), Monthly (₺12,500)">Story (₺750), Post (₺1.500), Reels (₺2.500), Drone & Özel Çekimler (₺2.000 - ₺5.000), Aylık Sponsorluk (₺12.500)</span></li>
+                    </ul>
+                    
+                    <!-- Küçük Canlı Simülatör (Instagram Mockup) -->
+                    <div class="simulator-box insta-sim">
+                        <div class="sim-phone-header">
+                            <span class="sim-phone-title" style="color: #e1306c;" data-tr="Instagram Akış Simülasyonu" data-en="Instagram Feed Simulation">Instagram Akış Simülasyonu</span>
+                        </div>
+                        <div class="insta-mockup-feed" style="margin: 10px auto; max-width: 280px; background: #000; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); overflow: hidden; font-size: 0.7rem; text-align: left; line-height: 1.3;">
+                            <div style="padding: 8px; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid rgba(255,255,255,0.05); background: #000;">
+                                <div style="width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743); padding: 1px;"><div style="width: 100%; height: 100%; border-radius: 50%; background: #000; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.45rem; color: #fff;">II</div></div>
+                                <span style="font-weight: bold; color: #fff;">ilgin.insani</span>
+                                <span style="margin-left: auto; color: #888;"><i class="fas fa-ellipsis-h"></i></span>
+                            </div>
+                            <div style="aspect-ratio: 1/1; background: linear-gradient(135deg, #e1306c, #833ab4); display: flex; align-items: center; justify-content: center;"><i class="fab fa-instagram" style="font-size: 3rem; color: #fff; opacity: 0.35;"></i></div>
+                            <div style="padding: 8px; background: #000;">
+                                <div style="display:flex; gap:10px; margin-bottom: 5px; font-size: 0.85rem; color: #fff;"><span><i class="far fa-heart"></i></span><span><i class="far fa-comment"></i></span><span><i class="far fa-paper-plane"></i></span></div>
+                                <div style="font-weight: bold; color: #fff; margin-bottom: 3px;">1.432 beğeni</div>
+                                <div><span style="font-weight: bold; color: #fff; margin-right: 4px;">ilgin.insani</span><span style="color: #eee;">İşletmeniz için hazırladığımız profesyonel reklam yayını yayında! #ilgın</span></div>
+                            </div>
                         </div>
                     </div>
-                    <a href="#talep" class="campaign-cta"><i class="fas fa-directions"></i> <span data-tr="Fırsatı Yerinde Gör" data-en="See the Deal In Person">Fırsatı Yerinde Gör</span></a>
                 </div>
-            </div>
-            <!-- Örnek Kart 3 -->
-            <div class="campaign-card reveal">
-                <div class="campaign-card-img" style="background: linear-gradient(135deg, #3a1a1a, #6a2d2d);">
-                    <i class="fas fa-utensils placeholder-icon"></i>
-                    <span class="discount-badge">%15 İNDİRİM</span>
-                </div>
-                <div class="campaign-card-body">
-                    <div class="campaign-esnaf">Kervansaray Lokantası</div>
-                    <div class="campaign-title">Öğle Menüsü Fırsatı</div>
-                    <div class="price-row">
-                        <div>
-                            <div class="price-old">180 TL</div>
-                            <div class="price-new">153 TL</div>
-                        </div>
-                        <div class="promo-badge" style="margin-left: auto;">
-                            <span class="promo-label">KOD</span>
-                            <span class="promo-code">KERVAN</span>
-                        </div>
-                    </div>
-                    <a href="#talep" class="campaign-cta"><i class="fas fa-directions"></i> <span data-tr="Fırsatı Yerinde Gör" data-en="See the Deal In Person">Fırsatı Yerinde Gör</span></a>
-                </div>
+                
+                <a href="#talep" class="campaign-cta" onclick="selectShowcasePackage('insta_only', 'story')" style="background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366); color: #fff; border: none; text-decoration: none; margin-top: 15px;"><i class="fab fa-instagram"></i> <span data-tr="Instagram Reklamı Başvurusu" data-en="Apply for Instagram Ad">Instagram Reklamı Başvurusu</span></a>
             </div>
         </div>
 
@@ -653,6 +1024,240 @@
             </div>
         </div>
         
+        <hr class="section-divider">
+
+        <!-- ====================== REKLAM PAKETLERİMİZ SHOWCASE ====================== -->
+        <h2 class="section-title reveal" data-tr="Reklam ve Sponsorluk Paketleri" data-en="Advertising & Sponsorship Packages">Reklam ve Sponsorluk Paketleri</h2>
+        <p class="section-subtitle reveal" data-tr="İşletmenizin ihtiyacına en uygun paketi seçin, geniş kitlelere anında ulaşın." data-en="Select the package that fits your business needs and reach wide audiences instantly.">İşletmenizin ihtiyacına en uygun paketi seçin, geniş kitlelere anında ulaşın.</p>
+
+        <!-- Tab Seçenekleri -->
+        <div class="showcase-tabs reveal">
+            <button class="showcase-tab-btn active" id="tabAppBtn" onclick="switchShowcaseTab('app')">
+                <i class="fas fa-mobile-alt"></i> <span data-tr="Mobil Uygulama Reklamları" data-en="Mobile App Advertising">Mobil Uygulama Reklamları</span>
+            </button>
+            <button class="showcase-tab-btn" id="tabInstaBtn" onclick="switchShowcaseTab('insta')">
+                <i class="fab fa-instagram"></i> <span data-tr="Instagram Topluluk Reklamları" data-en="Instagram Community Ads">Instagram Topluluk Reklamları</span>
+            </button>
+        </div>
+
+        <!-- 📱 UYGULAMA REKLAM GRİDİ -->
+        <div class="showcase-pricing-grid active reveal" id="showcaseAppGrid">
+            <!-- Temel -->
+            <div class="showcase-pricing-card">
+                <div>
+                    <span class="badge" data-tr="Başlangıç" data-en="Basic">Başlangıç</span>
+                    <div class="title" data-tr="Temel Uygulama İlanı" data-en="Basic App Listing">Temel Uygulama İlanı</div>
+                    <div class="price">₺99 <span>/ Haftalık</span></div>
+                    <div class="stats-box" style="border-color: rgba(52,152,219,0.2); color: var(--blue);">
+                        <i class="fas fa-eye"></i> <strong data-tr="5.000+ Aktif Üye" data-en="5,000+ Active Members">5.000+ Aktif Üye</strong>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Fırsat Merkezi liste gösterimi" data-en="Listed in Opportunities page">Fırsat Merkezi liste gösterimi</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="İşletme adı ve kampanya başlığı" data-en="Business name & promo title">İşletme adı ve kampanya başlığı</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="İndirim kodu ve konum butonu" data-en="Promo code & location button">İndirim kodu ve konum butonu</span></li>
+                    </ul>
+                </div>
+                <button type="button" class="select-btn" onclick="selectShowcasePackage('app_only', 'temel')">Hemen Başvur</button>
+            </div>
+
+            <!-- Premium -->
+            <div class="showcase-pricing-card premium-card">
+                <div>
+                    <span class="badge" data-tr="Popüler" data-en="Popular">Popüler</span>
+                    <div class="title" data-tr="Premium Uygulama İlanı" data-en="Premium App Listing">Premium Uygulama İlanı</div>
+                    <div class="price">₺299 <span>/ Haftalık</span></div>
+                    <div class="stats-box" style="border-color: rgba(155,89,182,0.2); color: #9b59b6;">
+                        <i class="fas fa-bell"></i> <strong data-tr="Anlık Bildirim Gönderimi" data-en="Instant Push Notification">Anlık Bildirim Gönderimi</strong>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Fırsat Merkezinde Premium (Turuncu) Çerçeve" data-en="Premium (Orange) Border in app">Fırsat Merkezinde Premium (Turuncu) Çerçeve</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Tüm üyelere 1 adet Anlık Bildirim (Push)" data-en="1 Push Notification to all users">Tüm üyelere 1 adet Anlık Bildirim (Push)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Genişletilmiş kampanya kartı tasarımı" data-en="Enhanced campaign card layout">Genişletilmiş kampanya kartı tasarımı</span></li>
+                    </ul>
+                </div>
+                <button type="button" class="select-btn" onclick="selectShowcasePackage('app_only', 'premium')">Hemen Başvur</button>
+            </div>
+
+            <!-- VIP -->
+            <div class="showcase-pricing-card gold-card">
+                <div>
+                    <span class="badge" data-tr="Maksimum Etki" data-en="Maximum Reach">Maksimum Etki</span>
+                    <div class="title" data-tr="VIP Slider Banner" data-en="VIP Slider Banner">VIP Slider Banner</div>
+                    <div class="price">₺599 <span>/ Haftalık</span></div>
+                    <div class="stats-box" style="border-color: rgba(212,175,55,0.2); color: #d4af37;">
+                        <i class="fas fa-star"></i> <strong data-tr="Ana Sayfa Sürgülü Afiş" data-en="Home Slider Ad Banner">Ana Sayfa Sürgülü Afiş</strong>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Ana sayfanın en üstünde VIP Slider yayını" data-en="Featured in homepage VIP Slider">Ana sayfanın en üstünde VIP Slider yayını</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Tüm üyelere 1 adet yüksek öncelikli bildirim" data-en="1 High priority push notification">Tüm üyelere 1 adet yüksek öncelikli bildirim</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Afiş görselinizin tam boy sergilenmesi" data-en="Full size ad banner display">Afiş görselinizin tam boy sergilenmesi</span></li>
+                    </ul>
+                </div>
+                <button type="button" class="select-btn" onclick="selectShowcasePackage('app_only', 'vip')">Hemen Başvur</button>
+            </div>
+        </div>
+
+        <!-- 📸 INSTAGRAM REKLAM GRİDİ -->
+        <div class="showcase-pricing-grid reveal" id="showcaseInstaGrid">
+            <!-- Story -->
+            <div class="showcase-pricing-card">
+                <div>
+                    <span class="badge" data-tr="Hızlı Erişim" data-en="Quick Reach">Hızlı Erişim</span>
+                    <div class="title">Instagram Story</div>
+                    <div class="price">₺750 <span>/ 24 Saat</span></div>
+                    <div class="stats-box" style="border-color: rgba(236,110,60,0.2); color: #e6683c;">
+                        <i class="fas fa-eye"></i> <strong data-tr="12k - 14k Görüntülenme" data-en="12k - 14k Views">12.000 - 14.000 Görüntülenme</strong>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="24 saat aktif reklam hikayesi" data-en="Active story for 24 hours">24 saat aktif reklam hikayesi</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Bağlantı linki & hesap etiketi ekleme" data-en="Add direct link & tag support">Bağlantı linki & hesap etiketi ekleme</span></li>
+                    </ul>
+                </div>
+                <button type="button" class="select-btn" onclick="selectShowcasePackage('insta_only', 'story')">Hemen Başvur</button>
+            </div>
+
+            <!-- Post -->
+            <div class="showcase-pricing-card">
+                <div>
+                    <span class="badge" data-tr="Kalıcı" data-en="Permanent">Kalıcı</span>
+                    <div class="title">Instagram Post</div>
+                    <div class="price">₺1.500 <span>/ Kalıcı</span></div>
+                    <div class="stats-box" style="border-color: rgba(236,110,60,0.2); color: #e6683c;">
+                        <i class="fas fa-eye"></i> <strong data-tr="15k - 25k Görüntülenme" data-en="15k - 25k Views">15.000 - 25.000 Görüntülenme</strong>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Profilimizde kalıcı akış gönderisi" data-en="Permanent feed post in grid">Profilimizde kalıcı akış gönderisi</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Ortak gönderi (Collab) yapma imkanı" data-en="Collab option with your profile">Ortak gönderi (Collab) yapma imkanı</span></li>
+                    </ul>
+                </div>
+                <button type="button" class="select-btn" onclick="selectShowcasePackage('insta_only', 'post')">Hemen Başvur</button>
+            </div>
+
+            <!-- Combo -->
+            <div class="showcase-pricing-card premium-card">
+                <div>
+                    <span class="badge" data-tr="Avantajlı" data-en="Advantageous">Avantajlı</span>
+                    <div class="title">Post + Story Kombo</div>
+                    <div class="price">₺2.000 <span>/ Paket</span></div>
+                    <div class="stats-box" style="border-color: rgba(155,89,182,0.2); color: #9b59b6;">
+                        <i class="fas fa-fire"></i> <strong data-tr="20k - 30k Görüntülenme" data-en="20k - 30k Views">20.000 - 30.000 Görüntülenme</strong>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="1 adet Kalıcı Gönderi" data-en="1 Permanent Feed Post">1 adet Kalıcı Gönderi</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="1 adet Hikaye Paylaşımı" data-en="1 Story Share with Link">1 adet Hikaye Paylaşımı</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Maksimum görünürlük kombini" data-en="Maximum visibility combo">Maksimum görünürlük kombini</span></li>
+                    </ul>
+                </div>
+                <button type="button" class="select-btn" onclick="selectShowcasePackage('insta_only', 'post_story')">Hemen Başvur</button>
+            </div>
+
+            <!-- Reels -->
+            <div class="showcase-pricing-card">
+                <div>
+                    <span class="badge" data-tr="Yüksek Etkileşim" data-en="High Engagement">Yüksek Etkileşim</span>
+                    <div class="title">Instagram Reels</div>
+                    <div class="price">₺2.500 <span>/ Kalıcı</span></div>
+                    <div class="stats-box" style="border-color: rgba(236,110,60,0.2); color: #e6683c;">
+                        <i class="fas fa-play"></i> <strong data-tr="20k - 30k Görüntülenme" data-en="20k - 30k Views">20.000 - 30.000 Görüntülenme</strong>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Kalıcı Reels videosu paylaşımı" data-en="Permanent Reels video post">Kalıcı Reels videosu paylaşımı</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Keşfet ve popüler müzik desteği" data-en="Explore page & audio algorithm">Keşfet ve popüler müzik desteği</span></li>
+                    </ul>
+                </div>
+                <button type="button" class="select-btn" onclick="selectShowcasePackage('insta_only', 'reels')">Hemen Başvur</button>
+            </div>
+
+            <!-- Reels + Story -->
+            <div class="showcase-pricing-card">
+                <div>
+                    <span class="badge" data-tr="Popüler" data-en="Popular">Popüler</span>
+                    <div class="title">Reels + Story Kombo</div>
+                    <div class="price">₺3.000 <span>/ Paket</span></div>
+                    <div class="stats-box" style="border-color: rgba(236,110,60,0.2); color: #e6683c;">
+                        <i class="fas fa-chart-bar"></i> <strong data-tr="25k - 35k Görüntülenme" data-en="25k - 35k Views">25.000 - 35.000 Görüntülenme</strong>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="1 adet Kalıcı Reels Videosu" data-en="1 Permanent Reels Video">1 adet Kalıcı Reels Videosu</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="1 adet Linkli Hikaye Paylaşımı" data-en="1 Story Share with Link">1 adet Linkli Hikaye Paylaşımı</span></li>
+                    </ul>
+                </div>
+                <button type="button" class="select-btn" onclick="selectShowcasePackage('insta_only', 'reels_story')">Hemen Başvur</button>
+            </div>
+
+            <!-- Kapsamlı Reels + Story -->
+            <div class="showcase-pricing-card premium-card">
+                <div>
+                    <span class="badge" data-tr="Yerinde Çekim" data-en="On-site Shoot">Yerinde Çekim</span>
+                    <div class="title" style="color: #9b59b6;">Kapsamlı Reels + Story</div>
+                    <div class="price">₺4.000 <span>/ Çekimli</span></div>
+                    <div class="stats-box" style="border-color: rgba(155,89,182,0.2); color: #9b59b6;">
+                        <i class="fas fa-video"></i> <strong data-tr="Çekim ve Montaj Dahil" data-en="Production & Editing Inc.">Çekim ve Montaj Dahil</strong>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Ilgın İnsanı ekibi dükkanınıza gelip video çeker" data-en="Our crew shoots video at your business">Ilgın İnsanı ekibi dükkanınıza gelip video çeker</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Profesyonel kurgu, montaj ve seslendirme" data-en="Pro cutting, audio, & sound design">Profesyonel kurgu, montaj ve seslendirme</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="1 Reels (Kalıcı) + 1 Hikaye yayını" data-en="1 Reels (Perm) + 1 Story release">1 Reels (Kalıcı) + 1 Hikaye yayını</span></li>
+                    </ul>
+                </div>
+                <button type="button" class="select-btn" onclick="selectShowcasePackage('insta_only', 'kapsamli_reels_story')">Hemen Başvur</button>
+            </div>
+
+            <!-- Drone Reels + Story -->
+            <div class="showcase-pricing-card premium-card" style="border-color: rgba(52,152,219,0.4);">
+                <div>
+                    <span class="badge" style="background: rgba(52,152,219,0.15); color: var(--blue);" data-tr="Havadan Çekim" data-en="Aerial Shoot">Havadan Çekim</span>
+                    <div class="title" style="color: var(--blue);">Drone Reels + Story</div>
+                    <div class="price">₺5.000 <span>/ Paket</span></div>
+                    <div class="stats-box" style="border-color: rgba(52,152,219,0.2); color: var(--blue);">
+                        <i class="fas fa-paper-plane"></i> <strong data-tr="35k - 45k Görüntülenme" data-en="35k - 45k Views">35.000 - 45.000 Görüntülenme</strong>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="4K Drone ile havadan profesyonel çekim" data-en="Professional 4K drone videography">4K Drone ile havadan profesyonel çekim</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="İşletmenin dış ve iç özel kurgulanmış videosu" data-en="Custom inside/outside video edit">İşletmenin dış ve iç özel kurgulanmış videosu</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="1 Reels (Kalıcı) + 1 Hikaye" data-en="1 Reels (Perm) + 1 Story">1 Reels (Kalıcı) + 1 Hikaye</span></li>
+                    </ul>
+                </div>
+                <button type="button" class="select-btn" onclick="selectShowcasePackage('insta_only', 'drone_combo')">Hemen Başvur</button>
+            </div>
+
+            <!-- #IlgınİnsanıÖneriyor -->
+            <div class="showcase-pricing-card gold-card">
+                <div>
+                    <span class="badge" data-tr="Vip Sponsorluk" data-en="Vip Sponsorship">Vip Sponsorluk</span>
+                    <div class="title" style="color: #d4af37;">#IlgınİnsanıÖneriyor</div>
+                    <div class="price">₺5.000 <span>/ Paket</span></div>
+                    <div class="stats-box" style="border-color: rgba(212,175,55,0.2); color: #d4af37;">
+                        <i class="fas fa-award"></i> <strong data-tr="Maksimum Bölgesel Prestij" data-en="Maximum Local Prestige">Maksimum Bölgesel Prestij</strong>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Yerinde 4K video çekimi + Drone çekimleri" data-en="On-site 4K shooting + Drone footage">Yerinde 4K video çekimi + Drone çekimleri</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Temsilcimiz tarafından bizzat dükkan önerisi" data-en="Direct store review and recommendation">Temsilcimiz tarafından bizzat dükkan önerisi</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="Profesyonel seslendirme, montaj ve kurgu" data-en="Professional voiceover and editing">Profesyonel seslendirme, montaj ve kurgu</span></li>
+                    </ul>
+                </div>
+                <button type="button" class="select-btn" onclick="selectShowcasePackage('insta_only', 'suggested')">Hemen Başvur</button>
+            </div>
+
+            <!-- Aylık Sponsorluk -->
+            <div class="showcase-pricing-card gold-card">
+                <div>
+                    <span class="badge" data-tr="Kurumsal Ortak" data-en="Corporate Partner">Kurumsal Ortak</span>
+                    <div class="title" style="color: #d4af37;">Aylık Sponsorluk</div>
+                    <div class="price">₺12.500 <span>/ Aylık</span></div>
+                    <div class="stats-box" style="border-color: rgba(212,175,55,0.2); color: #d4af37;">
+                        <i class="fas fa-bullhorn"></i> <strong data-tr="150.000+ Aylık Gösterim" data-en="150,000+ Views">150.000+ Aylık Gösterim</strong>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="1 Ay boyunca tüm platformlarda sponsorluk" data-en="Sponsorship on all platforms for 1 month">1 Ay boyunca tüm platformlarda sponsorluk</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="10 adet Hikaye + 2 adet Post + 2 adet Reels" data-en="10 Stories + 2 Posts + 2 Reels">10 adet Hikaye + 2 adet Post + 2 adet Reels</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-tr="İşletmenizin marka değerine büyük katkı" data-en="Major boost to brand awareness">İşletmenizin marka değerine büyük katkı</span></li>
+                    </ul>
+                </div>
+                <button type="button" class="select-btn" onclick="selectShowcasePackage('insta_only', 'monthly')">Hemen Başvur</button>
+            </div>
+        </div>
+
         <hr class="section-divider">
 
         <!-- ====================== İNDİRİM HESAPLAYICI ====================== -->
@@ -1395,6 +2000,43 @@
         }
 
         /* ============================================================
+           REKLAM PAKETLERİ SHOWCASE KONTROLLERİ
+        ============================================================ */
+        function switchShowcaseTab(tab) {
+            document.getElementById('tabAppBtn').classList.remove('active');
+            document.getElementById('tabInstaBtn').classList.remove('active');
+            document.getElementById('showcaseAppGrid').classList.remove('active');
+            document.getElementById('showcaseInstaGrid').classList.remove('active');
+            
+            if (tab === 'app') {
+                document.getElementById('tabAppBtn').classList.add('active');
+                document.getElementById('showcaseAppGrid').classList.add('active');
+            } else {
+                document.getElementById('tabInstaBtn').classList.add('active');
+                document.getElementById('showcaseInstaGrid').classList.add('active');
+            }
+        }
+        
+        function selectShowcasePackage(type, packageVal) {
+            // Form alanına kaydır
+            document.getElementById('talep').scrollIntoView({ behavior: 'smooth' });
+            
+            // Reklam Türünü Seç
+            selectAdType(type);
+            
+            // Paketi Seç
+            if (type === 'app_only') {
+                selectPackage(packageVal);
+            } else if (type === 'insta_only') {
+                const select = document.getElementById('reqInstaPackage');
+                if (select) {
+                    select.value = packageVal;
+                }
+            }
+            updatePrices();
+        }
+
+        /* ============================================================
            İNDİRİM HESAPLAYICI
         ============================================================ */
         function calculateDiscount() {
@@ -1640,10 +2282,33 @@
             }
         }
 
+        /* ============================================================
+           CANLI REKLAM VE SPONSORLUK İSTATİSTİKLERİ (N8N APİ ENTEGRASYONU)
+        ============================================================ */
+        async function fetchLiveStats() {
+            try {
+                const response = await fetch('https://n8n.ilgininsani.com/webhook/reklam-istatistikler');
+                if (!response.ok) throw new Error('API hatası');
+                const data = await response.json();
+                
+                if (data) {
+                    if (data.instaViews) document.getElementById('statInstaViews').innerText = data.instaViews;
+                    if (data.instaFollowers) document.getElementById('statInstaFollowers').innerText = data.instaFollowers;
+                    if (data.instaReach) document.getElementById('statInstaReach').innerText = data.instaReach;
+                    if (data.instaInteractions) document.getElementById('statInstaInteractions').innerText = data.instaInteractions;
+                    if (data.fbViews) document.getElementById('statFbViews').innerText = data.fbViews;
+                    if (data.appUsers) document.getElementById('statAppUsers').innerText = data.appUsers;
+                }
+            } catch (err) {
+                console.warn('Reklam istatistikleri API canlı güncelleme hatası (Yedek veriler kullanılıyor):', err);
+            }
+        }
+
         // Initialize values on page load
         checkUrlParams();
         updatePrices();
         updateFlyer();
+        fetchLiveStats();
 
         /* ============================================================
            SCROLL REVEAL
