@@ -89,6 +89,49 @@ Verileri aldıktan sonra Telegram üzerinden sana mesaj gönderir.
 
 ---
 
+---
+
+## 4. Aşama: Canlı Instagram Vitrini için n8n Akışı Kurulumu 📸
+
+Web sitesinin ana sayfasındaki **"Instagram'da Biz"** bölümünü dinamik Instagram gönderileri ile beslemek için n8n üzerinde bir API/Webhook akışı oluşturabilirsin:
+
+### n8n Akış Aşamaları:
+```mermaid
+graph LR
+    A[İnternet Tarayıcısı GET] --> B(n8n GET Webhook)
+    B --> C(Veri Kaynağı: Instagram/Google Sheet/Database)
+    C --> D(Respond to Webhook: JSON Gönder)
+```
+
+### Kurulum Adımları:
+1. **Webhook Düğümü (GET):**
+   - **Method:** `GET`
+   - **Path:** `instagram-showcase` (Yani tetiklenecek adres: `https://n8n.ilgininsani.com/webhook/instagram-showcase` olacak)
+   - **Response Mode:** `Using 'Respond to Webhook' Node`
+
+2. **Veri Kaynağını Bağlama (Seçenekler):**
+   - **Seçenek A (Kolay ve Kontrollü):** Bir **Google Sheet** oluşturup sütunları `imageUrl`, `link`, `likes`, `comments`, `type`, `caption` olarak belirle. n8n'de **Google Sheets (Read Rows)** düğümü ile bu satırları oku. (Bu sayede hangi gönderilerin sitede duracağını kendin yönetirsin).
+   - **Seçenek B (Resmi Entegrasyon):** n8n içerisindeki **Instagram** düğümünü kullanarak `@ilgin.insani` hesabının son medya gönderilerini otomatik çek.
+
+3. **Respond to Webhook Düğümü (Yanıt):**
+   - **Response Source:** `Bu düğümün girdisi (Input data)`
+   - **Response Body:** Google Sheet'ten veya Instagram'dan gelen veriyi dizi (Array of JSON objects) halinde tarayıcıya geri döner.
+   - Dönecek veri formatı şu şekilde olmalıdır:
+     ```json
+     [
+       {
+         "imageUrl": "https://resim-adresi.com/gorsel.jpg",
+         "link": "https://www.instagram.com/p/C_postsLink/",
+         "likes": "1,450",
+         "comments": "32",
+         "type": "photo", // "photo" veya "reels"
+         "caption": "Ilgın'ın eşsiz güzellikleri..."
+       }
+     ]
+     ```
+
+---
+
 ## 💡 Esnaflara Katkı Sağlayacak Ek Fikirler
 
 Esnafların ilgisini çekmek ve süper uygulamayı daha popüler hale getirmek için şu fikirleri de düşünebilirsin:

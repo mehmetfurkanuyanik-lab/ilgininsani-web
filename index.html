@@ -32,18 +32,30 @@
 
         .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
 
+        .hero-wrapper {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 35px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
         .hero {
-            text-align: center; padding: 60px 20px;
+            text-align: left; padding: 50px 40px;
             background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
             border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 40px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-bottom: 0;
         }
 
         .hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 15px; }
         .hero h1 span { color: #f39c12; }
-        .hero p.lead { font-size: 1.2rem; max-width: 800px; margin: 0 auto 30px; color: #e0e0e0; }
+        .hero p.lead { font-size: 1.1rem; margin: 0 0 25px 0; color: #e0e0e0; }
 
-        .action-buttons { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 20px; }
+        .action-buttons { display: flex; justify-content: flex-start; gap: 15px; flex-wrap: wrap; margin-bottom: 20px; }
         .btn {
             display: inline-flex; align-items: center; gap: 10px;
             padding: 14px 28px; border-radius: 50px; font-weight: 600; text-decoration: none;
@@ -173,7 +185,7 @@
 
         .footer { text-align: center; padding: 20px; color: #666; font-size: 0.9rem; }
 
-        /* GLASSMORPHISM SHOWCASE & COLLAGE */
+        /* GLASSMORPHISM SHOWCASE & SMARTPHONE MOCKUP */
         .showcase-section { margin-bottom: 50px; }
         .glass-showcase-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -200,37 +212,235 @@
         .glass-card-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
         .glass-card-header i { font-size: 1.8rem; color: #f39c12; }
         .glass-card-header h3 { font-size: 1.25rem; font-weight: 700; }
-        
-        .collage-section { margin-bottom: 50px; }
-        .collage-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 30px;
-        }
-        .collage-item {
-            position: relative; border-radius: 16px; overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1); height: 220px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3); transition: all 0.4s ease;
-        }
-        .collage-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .collage-item:hover img { transform: scale(1.1); }
-        .collage-item:hover {
-            border-color: #f39c12; box-shadow: 0 12px 30px rgba(243, 156, 18, 0.25);
-            z-index: 5;
-        }
-        .collage-caption {
-            position: absolute; bottom: 0; left: 0; width: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            padding: 15px; font-size: 0.9rem; font-weight: 600; color: #fff;
-            transform: translateY(100%); transition: transform 0.3s ease;
-        }
-        .collage-item:hover .collage-caption { transform: translateY(0); }
 
-        .span-row-2 { grid-row: span 2; height: 460px; }
-        .span-col-2 { grid-column: span 2; }
+        /* SMARTPHONE MOCKUP CSS */
+        .phone-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .phone-mockup {
+            position: relative;
+            width: 270px;
+            height: 540px;
+            background: #000;
+            border: 10px solid #222;
+            border-radius: 38px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(243, 156, 18, 0.12);
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .phone-mockup:hover {
+            transform: translateY(-8px) rotate(1deg);
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.6), 0 0 35px rgba(243, 156, 18, 0.25);
+        }
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 130px;
+            height: 16px;
+            background: #222;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            z-index: 10;
+        }
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #0d1e26 0%, #152c38 100%);
+            padding: 22px 12px 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+        .phone-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 2px 6px 0;
+        }
+        .phone-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+            gap: 12px;
+            justify-content: flex-start;
+        }
+        .phone-app-title {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #f39c12;
+            text-align: center;
+            margin-bottom: 2px;
+        }
+        .phone-menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+        .phone-menu-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 10px 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .phone-menu-item:hover {
+            background: rgba(243, 156, 18, 0.15);
+            border-color: rgba(243, 156, 18, 0.35);
+            transform: translateY(-2px);
+        }
+        .phone-menu-item i {
+            font-size: 1.1rem;
+            color: #f39c12;
+            margin-bottom: 4px;
+            display: block;
+        }
+        .phone-menu-item span {
+            font-size: 0.6rem;
+            font-weight: 600;
+            display: block;
+            color: #eee;
+        }
+        .phone-preview-screen {
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 10px;
+            padding: 10px;
+            height: 120px;
+            border: 1px dashed rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .phone-preview-title {
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: #3498db;
+            margin-bottom: 4px;
+        }
+        .phone-preview-desc {
+            font-size: 0.58rem;
+            color: #ccc;
+            line-height: 1.35;
+        }
+
+        /* INSTAGRAM SHOWCASE */
+        .insta-section { margin-bottom: 50px; }
+        .insta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 18px;
+            margin-top: 25px;
+        }
+        .insta-card {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+        .insta-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .insta-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 15px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .insta-card:hover {
+            transform: scale(1.03) translateY(-4px);
+            border-color: #f39c12;
+            box-shadow: 0 15px 30px rgba(243, 156, 18, 0.2);
+        }
+        .insta-card:hover img {
+            transform: scale(1.08);
+        }
+        .insta-card:hover .insta-overlay {
+            opacity: 1;
+        }
+        .insta-meta {
+            display: flex;
+            gap: 15px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .insta-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .insta-caption {
+            font-size: 0.7rem;
+            color: #ddd;
+            line-height: 1.35;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .insta-type-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.72rem;
+            z-index: 2;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
 
         @media (max-width: 900px) {
-            .collage-grid { grid-template-columns: repeat(2, 1fr); }
-            .span-row-2 { height: 220px; grid-row: auto; }
-            .span-col-2 { grid-column: auto; }
+            .hero-wrapper {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .hero {
+                text-align: center;
+                padding: 40px 20px;
+            }
+            .action-buttons {
+                justify-content: center;
+            }
+            .phone-mockup {
+                width: 260px;
+                height: 520px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -247,17 +457,64 @@
     </div>
 
     <div class="container">
-        <div class="hero">
-            <h1 data-tr="Ilgın <span>İnsanı</span>" data-en="Ilgın <span>People</span>">Ilgın <span>İnsanı</span></h1>
-            <p class="lead" data-tr="Ilgın artık cebinizde! Şehrimizdeki günlük hayatı kolaylaştıran, vatandaşları bir araya getiren ve yapay zeka destekli çözümler sunan kapsamlı Süper Uygulama." data-en="Ilgın is now in your pocket! A comprehensive Super App that facilitates daily life in our city, brings citizens together, and offers AI-powered solutions.">Ilgın artık cebinizde! Şehrimizdeki günlük hayatı kolaylaştıran, vatandaşları bir araya getiren ve yapay zeka destekli çözümler sunan kapsamlı Süper Uygulama.</p>
-            
-            <div class="action-buttons">
-                <a href="https://apps.apple.com/tr/app/ilg%C4%B1n-i-nsan%C4%B1/id6776758130?l=tr" target="_blank" class="btn btn-apple"><i class="fab fa-apple"></i> App Store</a>
-                <a href="https://play.google.com/store/apps/details?id=com.ilgininsani.app&pcampaignid=web_share" target="_blank" class="btn btn-play"><i class="fab fa-google-play"></i> Google Play</a>
+        <!-- HERO SECTION WITH INTEGRATED SMARTPHONE DEMO -->
+        <div class="hero-wrapper">
+            <div class="hero">
+                <h1 data-tr="Ilgın <span>İnsanı</span>" data-en="Ilgın <span>People</span>">Ilgın <span>İnsanı</span></h1>
+                <p class="lead" data-tr="Ilgın artık cebinizde! Şehrimizdeki günlük hayatı kolaylaştıran, vatandaşları bir araya getiren ve yapay zeka destekli çözümler sunan kapsamlı Süper Uygulama." data-en="Ilgın is now in your pocket! A comprehensive Super App that facilitates daily life in our city, brings citizens together, and offers AI-powered solutions.">Ilgın artık cebinizde! Şehrimizdeki günlük hayatı kolaylaştıran, vatandaşları bir araya getiren ve yapay zeka destekli çözümler sunan kapsamlı Süper Uygulama.</p>
+                
+                <div class="action-buttons">
+                    <a href="https://apps.apple.com/tr/app/ilg%C4%B1n-i-nsan%C4%B1/id6776758130?l=tr" target="_blank" class="btn btn-apple"><i class="fab fa-apple"></i> App Store</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.ilgininsani.app&pcampaignid=web_share" target="_blank" class="btn btn-play"><i class="fab fa-google-play"></i> Google Play</a>
+                </div>
+                <div class="action-buttons">
+                    <a href="https://instagram.com/ilgin.insani" target="_blank" class="btn btn-insta" data-tr="<i class='fab fa-instagram'></i> @ilgin.insani Takip Et" data-en="<i class='fab fa-instagram'></i> Follow @ilgin.insani"><i class="fab fa-instagram"></i> @ilgin.insani Takip Et</a>
+                    <a href="esnaf.html" class="btn" style="background: rgba(243, 156, 18, 0.2); border: 2px solid #f39c12; color: #fff;" data-tr="<i class='fas fa-store-alt'></i> Esnaf & İşletme Portalı" data-en="<i class='fas fa-store-alt'></i> Merchant & Business Portal"><i class="fas fa-store-alt"></i> Esnaf & İşletme Portalı</a>
+                </div>
             </div>
-            <div class="action-buttons">
-                <a href="https://instagram.com/ilgin.insani" target="_blank" class="btn btn-insta" data-tr="<i class='fab fa-instagram'></i> @ilgin.insani Takip Et" data-en="<i class='fab fa-instagram'></i> Follow @ilgin.insani"><i class="fab fa-instagram"></i> @ilgin.insani Takip Et</a>
-                <a href="esnaf.html" class="btn" style="background: rgba(243, 156, 18, 0.2); border: 2px solid #f39c12; color: #fff;" data-tr="<i class='fas fa-store-alt'></i> Esnaf & İşletme Portalı" data-en="<i class='fas fa-store-alt'></i> Merchant & Business Portal"><i class="fas fa-store-alt"></i> Esnaf & İşletme Portalı</a>
+            
+            <div class="phone-container reveal">
+                <div class="phone-mockup">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen">
+                        <div class="phone-header">
+                            <span>17:55</span>
+                            <div style="display:flex; gap: 4px;">
+                                <i class="fas fa-wifi"></i>
+                                <i class="fas fa-battery-three-quarters"></i>
+                            </div>
+                        </div>
+                        <div class="phone-body">
+                            <div class="phone-app-title">Ilgın İnsanı</div>
+                            <div class="phone-menu-grid">
+                                <div class="phone-menu-item" onclick="clickPhoneDemo('eczane', this)">
+                                    <i class="fas fa-clinic-medical"></i>
+                                    <span data-tr="Eczane" data-en="Pharmacy">Eczane</span>
+                                </div>
+                                <div class="phone-menu-item" onclick="clickPhoneDemo('haber', this)">
+                                    <i class="far fa-newspaper"></i>
+                                    <span data-tr="Haberler" data-en="News">Haberler</span>
+                                </div>
+                                <div class="phone-menu-item" onclick="clickPhoneDemo('ziraat', this)">
+                                    <i class="fas fa-tractor"></i>
+                                    <span data-tr="Ziraat" data-en="Agri-AI">Ziraat</span>
+                                </div>
+                                <div class="phone-menu-item" onclick="clickPhoneDemo('yol', this)">
+                                    <i class="fas fa-car"></i>
+                                    <span data-tr="Yolculuk" data-en="Rideshare">Yolculuk</span>
+                                </div>
+                            </div>
+                            
+                            <div class="phone-preview-screen" id="phonePreviewScreen">
+                                <div class="phone-preview-title" id="phonePreviewTitle" data-tr="Uygulamayı Dene" data-en="Try the App">Uygulamayı Dene</div>
+                                <div class="phone-preview-desc" id="phonePreviewDesc" data-tr="Yukarıdaki butonlara tıklayarak uygulama özelliklerini canlı simüle et!" data-en="Click the buttons above to simulate app features live!">Yukarıdaki butonlara tıklayarak uygulama özelliklerini canlı simüle et!</div>
+                            </div>
+                        </div>
+                        <div style="text-align: center; font-size: 0.6rem; color: rgba(255,255,255,0.4); margin-top: 5px;">
+                            <i class="fas fa-home"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -350,32 +607,18 @@
             </div>
         </div>
 
-        <!-- ASYMMETRIC IMAGE COLLAGE -->
-        <div class="collage-section">
-            <h2 class="section-title" data-tr="Şehrimizden Kareler" data-en="Frames From Our City">Şehrimizden Kareler</h2>
-            <p style="text-align: center; color: #bbb; margin-top: -30px; margin-bottom: 30px;" data-tr="Ilgın'ın tarihi, doğası ve harita detaylarının bir araya geldiği estetik kolaj sergisi." data-en="An aesthetic collage exhibition bringing together Ilgın's history, nature, and map details.">Ilgın'ın tarihi, doğası ve harita detaylarının bir araya geldiği estetik kolaj sergisi.</p>
+        <!-- INSTAGRAM SHOWCASE -->
+        <div class="insta-section">
+            <h2 class="section-title" data-tr="Instagram'da Biz" data-en="Us on Instagram">Instagram'da Biz</h2>
+            <p style="text-align: center; color: #bbb; margin-top: -30px; margin-bottom: 30px;">
+                <a href="https://instagram.com/ilgin.insani" target="_blank" style="color: #f39c12; text-decoration: none; font-weight: 600;">
+                    <i class="fab fa-instagram"></i> @ilgin.insani
+                </a>
+                <span data-tr=" hesabımızı takip edin, şehrimizden gelişmeleri kaçırmayın!" data-en=" follow our account, don't miss the developments from our city!"> hesabımızı takip edin, şehrimizden gelişmeleri kaçırmayın!</span>
+            </p>
             
-            <div class="collage-grid">
-                <div class="collage-item span-row-2">
-                    <img src="A_dramatic_and_cinematic_dikey_202606192209.jpeg" alt="Ilgın View 1">
-                    <div class="collage-caption" data-tr="Sinematik Ilgın Görünümü" data-en="Cinematic Ilgın View">Sinematik Ilgın Görünümü</div>
-                </div>
-                <div class="collage-item span-col-2">
-                    <img src="A_panoramic,_wide-angle_2D_fantasy_202606191827.jpeg" alt="Ilgın View 2">
-                    <div class="collage-caption" data-tr="Panoramik Çavuşçu Gölü Tasarımı" data-en="Panoramic Çavuşçu Lake Design">Panoramik Çavuşçu Gölü Tasarımı</div>
-                </div>
-                <div class="collage-item">
-                    <img src="A_professional_stylized_3D_mobile_202606192209.jpeg" alt="Ilgın View 3">
-                    <div class="collage-caption" data-tr="3D Stylized Mobil Arayüz" data-en="3D Stylized Mobile UI">3D Stylized Mobil Arayüz</div>
-                </div>
-                <div class="collage-item span-col-2">
-                    <img src="ilgin_horizontal_map.png" alt="Ilgın Map">
-                    <div class="collage-caption" data-tr="Ilgın Detaylı Şehir Haritası" data-en="Detailed Ilgın City Map">Ilgın Detaylı Şehir Haritası</div>
-                </div>
-                <div class="collage-item">
-                    <img src="Gemini_Generated_Image_cvk4xccvk4xccvk4.jfif" alt="Ilgın View 4">
-                    <div class="collage-caption" data-tr="Tarihi Dokular" data-en="Historical Textures">Tarihi Dokular</div>
-                </div>
+            <div class="insta-grid" id="instaGrid">
+                <!-- Posts will be dynamically loaded here -->
             </div>
         </div>
 
@@ -622,12 +865,170 @@
                 setTimeout(() => { status.style.display = 'none'; }, 6000);
             }
         });
+
+        /* ============================================================
+           INTERACTIVE SMARTPHONE DEMO
+        ============================================================ */
+        const phoneData = {
+            tr: {
+                eczane: {
+                    title: "Nöbetçi Eczaneler",
+                    desc: "🔴 Özlem Eczanesi Açık!<br>Yeni Devlet Hastanesi Karşısı.<br>Tek tıkla yol tarifi al."
+                },
+                haber: {
+                    title: "Haber & Vefat İlanları",
+                    desc: "📰 Ilgın'da doğalgaz altyapısı genişliyor. Mahalle cenaze ve taziye ilanları anlık bildirimle cepte."
+                },
+                ziraat: {
+                    title: "Ziraat & Veteriner Yapay Zeka",
+                    desc: "🤖 Pancar, buğday hastalıkları veya hayvan sağlığı hakkında yapay zekaya soru sor, saniyeler içinde cevap al!"
+                },
+                yol: {
+                    title: "Yol Arkadaşım",
+                    desc: "🚗 Ilgın-Konya arası yol arkadaşı ilanları. Yol masraflarını paylaş, tasarruf et."
+                },
+                default: {
+                    title: "Uygulamayı Dene",
+                    desc: "Yukarıdaki butonlara tıklayarak uygulama özelliklerini canlı simüle et!"
+                }
+            },
+            en: {
+                eczane: {
+                    title: "Duty Pharmacies",
+                    desc: "🔴 Özlem Pharmacy Open!<br>Opposite the New State Hospital.<br>Get directions with one click."
+                },
+                haber: {
+                    title: "News & Obituaries",
+                    desc: "📰 Gas pipeline infrastructure expanding in Ilgın. Cenaze notices sent via push alerts."
+                },
+                ziraat: {
+                    title: "AI Agriculture & Vet",
+                    desc: "🤖 Ask artificial intelligence crop diseases or livestock questions, get answers in seconds!"
+                },
+                yol: {
+                    title: "Travel Companion",
+                    desc: "🚗 Rideshare announcements between Ilgın and Konya. Share road costs and save."
+                },
+                default: {
+                    title: "Try the App",
+                    desc: "Click the buttons above to simulate app features live!"
+                }
+            }
+        };
+
+        function clickPhoneDemo(key, element) {
+            // Reset background for all items
+            document.querySelectorAll('.phone-menu-item').forEach(el => {
+                el.style.background = 'rgba(255, 255, 255, 0.05)';
+                el.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+            });
+            
+            // Set active state
+            element.style.background = 'rgba(243, 156, 18, 0.15)';
+            element.style.borderColor = 'rgba(243, 156, 18, 0.35)';
+
+            const data = phoneData[currentLang][key] || phoneData[currentLang]['default'];
+            document.getElementById('phonePreviewTitle').innerText = data.title;
+            document.getElementById('phonePreviewDesc').innerHTML = data.desc;
+        }
+
+        /* ============================================================
+           CANLI INSTAGRAM VITRINI (N8N UYARLI)
+        ============================================================ */
+        const defaultInstaPosts = [
+            {
+                imageUrl: "A_dramatic_and_cinematic_dikey_202606192209.jpeg",
+                link: "https://instagram.com/ilgin.insani",
+                likes: "1,245",
+                comments: "84",
+                type: "reels",
+                caption: "Ilgın'ın tarihi sokaklarında sinematik bir yürüyüş... 🌾"
+            },
+            {
+                imageUrl: "A_panoramic,_wide-angle_2D_fantasy_202606191827.jpeg",
+                link: "https://instagram.com/ilgin.insani",
+                likes: "956",
+                comments: "42",
+                type: "photo",
+                caption: "Çavuşçu Gölü'nde gün batımı manzarası. Doğanın renkleri... 🌅"
+            },
+            {
+                imageUrl: "A_professional_stylized_3D_mobile_202606192209.jpeg",
+                link: "https://instagram.com/ilgin.insani",
+                likes: "2,104",
+                comments: "156",
+                type: "photo",
+                caption: "Yeni mobil sürümümüz yayında! Hemen App Store ve Google Play'den indirin. 📱"
+            },
+            {
+                imageUrl: "ilgin_horizontal_map.png",
+                link: "https://instagram.com/ilgin.insani",
+                likes: "1,530",
+                comments: "93",
+                type: "reels",
+                caption: "Detaylı Ilgın Şehir Haritası artık cebinizde! Canlı yol durumunu takip edin. 🗺️"
+            }
+        ];
+
+        async function fetchInstagramGrid() {
+            try {
+                const response = await fetch('https://n8n.ilgininsani.com/webhook/instagram-showcase', {
+                    method: 'GET'
+                });
+                if (!response.ok) throw new Error("Ağ hatası");
+                const data = await response.json();
+                
+                if (Array.isArray(data) && data.length > 0) {
+                    renderInstaGrid(data);
+                } else {
+                    renderInstaGrid(defaultInstaPosts);
+                }
+            } catch (error) {
+                console.warn("Instagram verileri n8n'den alınamadı, yedek veriler yükleniyor:", error.message);
+                renderInstaGrid(defaultInstaPosts);
+            }
+        }
+
+        function renderInstaGrid(posts) {
+            const grid = document.getElementById('instaGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            
+            posts.forEach(post => {
+                const card = document.createElement('a');
+                card.href = post.link || 'https://instagram.com/ilgin.insani';
+                card.target = '_blank';
+                card.className = 'insta-card reveal';
+                
+                const typeIcon = post.type === 'reels' ? '<i class="fas fa-video"></i>' : '<i class="fas fa-image"></i>';
+                
+                card.innerHTML = `
+                    <div class="insta-type-badge">${typeIcon}</div>
+                    <img src="${post.imageUrl}" alt="Instagram Post">
+                    <div class="insta-overlay">
+                        <div class="insta-meta">
+                            <span><i class="fas fa-heart"></i> ${post.likes || '0'}</span>
+                            <span><i class="fas fa-comment"></i> ${post.comments || '0'}</span>
+                        </div>
+                        <div class="insta-caption">${post.caption || ''}</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            
+            if (typeof revealObserver !== 'undefined') {
+                document.querySelectorAll('.insta-card').forEach(el => revealObserver.observe(el));
+            }
+        }
+
+        // Load Instagram feed
+        fetchInstagramGrid();
     </script>
     <!-- 3D Tilt Effect CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
     <script>
         // Initialize 3D Tilt on landing page elements
-        VanillaTilt.init(document.querySelectorAll(".feature-card, .ai-card, .review-card, .premium-teaser"), {
+        VanillaTilt.init(document.querySelectorAll(".feature-card, .ai-card, .review-card, .premium-teaser, .phone-mockup"), {
             max: 12,
             speed: 400,
             glare: true,
