@@ -1733,7 +1733,55 @@
                 const pkg = urlParams.get('package') || getPackageFromHash(hash);
                 if (pkg) {
                     const select = document.getElementById('reqInstaPackage');
-                    if (select && [...select.        function updateInstaPackageDetails(pkg, days) {
+                    if (select && [...select.options].some(o => o.value === pkg)) {
+                        select.value = pkg;
+                    }
+                }
+                updatePrices();
+            } else if (type === 'combo' || hash.includes('combo')) {
+                selectAdType('combo');
+            } else if (type === 'app_only' || hash.includes('app_only') || hash.includes('app')) {
+                selectAdType('app_only');
+            } else {
+                selectAdType('insta_only');
+            }
+        }
+        
+        function getPackageFromHash(hash) {
+            const pkgs = ['story', 'post', 'post_story', 'reels', 'reels_story', 'drone_story', 'drone_reels', 'drone_combo', 'suggested', 'monthly', 'giveaway'];
+            for (let p of pkgs) {
+                if (hash.includes(p)) return p;
+            }
+            return null;
+        }
+
+        /* ============================================================
+           SÜREYE BAĞLI DİNAMİK FİYATLANDIRMA
+        ============================================================ */
+        const pricingMatrix = {
+            "3": { temel: 49, premium: 149, vip: 299 },
+            "7": { temel: 99, premium: 299, vip: 599 },
+            "14": { temel: 179, premium: 499, vip: 999 },
+            "30": { temel: 299, premium: 799, vip: 1499 }
+        };
+
+        const instaPrices = {
+            none: 0,
+            story: 750,
+            post: 1500,
+            post_story: 2000,
+            reels: 2500,
+            reels_story: 3000,
+            kapsamli_reels_story: 4000,
+            drone_story: 2000,
+            drone_reels: 4000,
+            drone_combo: 5000,
+            suggested: 5000,
+            monthly: 12500,
+            giveaway: 500
+        };
+
+        function updateInstaPackageDetails(pkg, days) {
             const container = document.getElementById('instaPackageDetails');
             if (selectedAdType === 'app_only' || pkg === 'none') {
                 container.style.display = 'none';
