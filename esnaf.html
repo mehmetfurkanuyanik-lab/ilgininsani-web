@@ -358,11 +358,21 @@
 
         .req-submit {
             display: flex; align-items: center; justify-content: center; gap: 10px;
-            background: var(--accent); color: #111; border: none; border-radius: 14px;
-            padding: 17px; font-size: 1.05rem; font-weight: 700; cursor: pointer;
-            transition: 0.3s; width: 100%;
+            background: linear-gradient(135deg, #f39c12 0%, #f1c40f 50%, #e67e22 100%);
+            background-size: 200% auto;
+            color: #111; border: none; border-radius: 14px;
+            padding: 18px; font-size: 1.1rem; font-weight: 800; cursor: pointer;
+            transition: all 0.4s ease; width: 100%;
+            box-shadow: 0 6px 20px rgba(243,156,18,0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .req-submit:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(243,156,18,0.45); }
+        .req-submit:hover {
+            background-position: right center;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(243,156,18,0.55), 0 0 15px rgba(241,196,15,0.4);
+            color: #000;
+        }
         .req-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
         .form-status { text-align: center; margin-top: 12px; font-weight: 600; display: none; padding: 14px; border-radius: 12px; }
 
@@ -1590,28 +1600,21 @@
                             <div style="text-align: center; margin-top: 8px; font-size: 0.65rem; color: #888;" data-tr="* ROI analizi, sektörel ortalamalar ve tahmini gösterimler temel alınarak hesaplanmıştır." data-en="* ROI analysis is based on industry averages and estimated views.">* ROI analizi, sektörel ortalamalar ve tahmini gösterimler temel alınarak hesaplanmıştır.</div>
                         </div>
 
-                        <div style="text-align: center; margin-top: 12px; font-size: 0.72rem; color: #789; font-style: italic;" data-tr="* Ödeme detayları ve aktivasyon için 24 saat içinde temsilcimiz sizinle iletişime geçecektir." data-en="* Our representative will contact you within 24 hours for payment details and activation.">* Ödeme detayları ve aktivasyon için 24 saat içinde temsilcimiz sizinle iletişime geçecektir.</div>
+                        <div style="text-align: center; margin-top: 12px; font-size: 0.72rem; color: #789; font-style: italic; margin-bottom: 15px;" data-tr="* Ödeme detayları ve aktivasyon için 24 saat içinde temsilcimiz sizinle iletişime geçecektir." data-en="* Our representative will contact you within 24 hours for payment details and activation.">* Ödeme detayları ve aktivasyon için 24 saat içinde temsilcimiz sizinle iletişime geçecektir.</div>
                         
-                        <!-- Invoice WhatsApp Button -->
-                        <div style="margin-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 15px; text-align: center;">
-                            <a href="https://wa.me/905464154299?text=Merhaba,%20Ilgın%20İnsanı%20reklam%20paneli%20üzerinden%20bir%20kampanya%20talebi%20hakkında%20görüşmek%20istiyorum." target="_blank" class="whatsapp-btn" style="margin-top: 0; display: inline-flex; width: auto;">
-                                <i class="fab fa-whatsapp"></i>
-                                <span data-tr="Müşteri Temsilcisine Sor / WhatsApp" data-en="Ask a Representative / WhatsApp">Müşteri Temsilcisine Sor / WhatsApp</span>
-                            </a>
-                        </div>
+                        <!-- Submit Button inside Invoice Card -->
+                        <button type="submit" class="req-submit" id="reqSubmitBtn">
+                            <i class="fas fa-paper-plane"></i>
+                            <span data-tr="Talebi Gönder — 24 Saatte Yayına Al" data-en="Submit Request — Go Live in 24 Hours">Talebi Gönder — 24 Saatte Yayına Al</span>
+                        </button>
                     </div>
 
-                    <button type="submit" class="req-submit" id="reqSubmitBtn" style="margin-top: 15px;">
-                        <i class="fas fa-paper-plane"></i>
-                        <span data-tr="Talebi Gönder — 24 Saatte Yayına Al" data-en="Submit Request — Go Live in 24 Hours">Talebi Gönder — 24 Saatte Yayına Al</span>
-                    </button>
-                    
-                    <!-- Footer WhatsApp Section -->
-                    <div style="text-align: center; margin-top: 15px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
-                        <span style="font-size: 0.8rem; color: #9ab;" data-tr="veya doğrudan temsilcimizle WhatsApp üzerinden iletişime geçin:" data-en="or contact our representative directly via WhatsApp:">veya doğrudan temsilcimizle WhatsApp üzerinden iletişime geçin:</span>
+                    <!-- Footer WhatsApp Support Section -->
+                    <div style="text-align: center; margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <span style="font-size: 0.82rem; color: #9ab; font-weight: 600;" data-tr="Sorularınız mı var? Doğrudan temsilcimizle WhatsApp üzerinden iletişime geçin:" data-en="Have questions? Contact our representative directly via WhatsApp:">Sorularınız mı var? Doğrudan temsilcimizle WhatsApp üzerinden iletişime geçin:</span>
                         <a href="https://wa.me/905464154299?text=Merhaba,%20Ilgın%20İnsanı%20reklam%20paneli%20üzerinden%20bir%20reklam%20paketi%20satın%20almak%20istiyorum." target="_blank" class="whatsapp-btn" style="margin-top: 0; width: 100%;">
                             <i class="fab fa-whatsapp"></i>
-                            <span data-tr="Hızlı WhatsApp İletişim Hattı (0546 415 42 99)" data-en="Quick WhatsApp Contact Line (0546 415 42 99)">Hızlı WhatsApp İletişim Hattı (0546 415 42 99)</span>
+                            <span data-tr="Müşteri Temsilcisine Sor (0546 415 42 99)" data-en="Ask a Representative (0546 415 42 99)">Müşteri Temsilcisine Sor (0546 415 42 99)</span>
                         </a>
                     </div>
                 </form>
