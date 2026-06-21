@@ -287,6 +287,26 @@
                 </div>
             </div>
 
+            <!-- Kampanya Detay Kartı (Sleek & Premium) -->
+            <div id="campaignDetailsCard" style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-top: 1px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 20px; margin-bottom: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-sub); font-weight: 700; letter-spacing: 0.5px;">Başlangıç Tarihi</span>
+                    <span id="campaignStartDate" style="font-size: 1.1rem; font-weight: 800; color: #fff;">-</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-sub); font-weight: 700; letter-spacing: 0.5px;">Yatırım Tutarı</span>
+                    <span id="campaignTotalCost" style="font-size: 1.1rem; font-weight: 800; color: var(--accent);">-</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-sub); font-weight: 700; letter-spacing: 0.5px;">Uygulama İçi Yayın</span>
+                    <span id="campaignAppPackage" style="font-size: 1.1rem; font-weight: 800; color: #fff;">-</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-sub); font-weight: 700; letter-spacing: 0.5px;">Instagram Desteği</span>
+                    <span id="campaignInstaPackage" style="font-size: 1.1rem; font-weight: 800; color: #fff;">-</span>
+                </div>
+            </div>
+
             <!-- Instagram Live Stats (Conditional) - MOVED TO TOP -->
             <div id="instaStatsSection" style="display: none; background: rgba(230,104,60,0.05); border: 1px solid rgba(230,104,60,0.2); border-radius: 20px; padding: 25px; margin-bottom: 30px;">
                 <h4 style="font-size: 1rem; font-weight: 800; color: #e6683c; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; margin-top: 0;">
@@ -317,7 +337,7 @@
                     <div style="display: flex; align-items: center; gap: 10px; flex-grow: 1;">
                         <span class="live-dot" style="background: #e6683c; animation: pulse-orange 1.5s infinite; flex-shrink: 0; width: 10px; height: 10px; border-radius: 50%;"></span>
                         <span id="instaStatusText" style="font-size: 0.82rem; color: var(--text-sub); line-height: 1.4;">
-                            Instagram canlı takibiniz aktif durumdadır. Verileriniz, resmi Meta API entegrasyonu aracılığıyla doğrudan sosyal medya hesabınızdan doğrulanmış <strong>gerçek verilerdir</strong> ve yarım saatte bir güncellenmektedir.
+                            Instagram canlı takibiniz aktif durumdadır. Verileriniz, resmi Meta API entegrasyonu aracılığıyla doğrudan sosyal medya hesabınızdan doğrulanmış <strong>gerçek verilerdir</strong>  ve yarım saatte bir güncellenmektedir.
                         </span>
                     </div>
                     <a id="instaPostBtn" href="#" target="_blank" class="btn-insta-post" style="padding: 10px 20px; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-radius: 12px; color: #fff; font-weight: bold; font-size: 0.8rem; text-decoration: none; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(220,39,67,0.3);">
@@ -326,48 +346,51 @@
                 </div>
             </div>
 
-            <!-- In-App Stats Header & Disclaimer -->
-            <div style="margin-top: 10px; margin-bottom: 15px;">
-                <h4 style="font-size: 1rem; font-weight: 800; color: var(--blue); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
-                    <i class="fas fa-mobile-alt"></i> Uygulama İçi Gösterim ve Tıklama Analitiği
-                </h4>
-                <div style="padding: 12px 18px; background: rgba(52, 152, 219, 0.04); border: 1px solid rgba(52, 152, 219, 0.15); border-radius: 14px; font-size: 0.8rem; color: #9ab; display: flex; align-items: flex-start; gap: 10px; line-height: 1.4;">
-                    <i class="fas fa-info-circle" style="color: var(--blue); margin-top: 3px; font-size: 1rem; flex-shrink: 0;"></i>
-                    <div>
-                        <strong>Önemli Bilgilendirme (Tahmini Veri):</strong> Bu bölümdeki gösterim ve tıklama sayıları, esnaf reklam paketi standartları çerçevesinde modellenmiş <strong>tahmini verilerdir</strong> ve yarım saatte bir güncellenmektedir. Bu veriler tahminlere dayalı olup, gerçek kullanıcı hareketlerini ve kesin tıklama sayılarını net ve birebir olarak yansıtmamaktadır.
+            <!-- In-App Stats Section (Conditional) -->
+            <div id="appStatsSection" style="display: none;">
+                <!-- In-App Stats Header & Disclaimer -->
+                <div style="margin-top: 10px; margin-bottom: 15px;">
+                    <h4 style="font-size: 1rem; font-weight: 800; color: var(--blue); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-mobile-alt"></i> Uygulama İçi Gösterim ve Tıklama Analitiği
+                    </h4>
+                    <div style="padding: 12px 18px; background: rgba(52, 152, 219, 0.04); border: 1px solid rgba(52, 152, 219, 0.15); border-radius: 14px; font-size: 0.8rem; color: #9ab; display: flex; align-items: flex-start; gap: 10px; line-height: 1.4;">
+                        <i class="fas fa-info-circle" style="color: var(--blue); margin-top: 3px; font-size: 1rem; flex-shrink: 0;"></i>
+                        <div>
+                            <strong>Önemli Bilgilendirme (Tahmini Veri):</strong> Bu bölümdeki gösterim ve tıklama sayıları, esnaf reklam paketi standartları çerçevesinde modellenmiş <strong>tahmini verilerdir</strong> ve yarım saatte bir güncellenmektedir. Bu veriler tahminlere dayalı olup, gerçek kullanıcı hareketlerini ve kesin tıklama sayılarını net ve birebir olarak yansıtmamaktadır.
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Performance Metrics Grid -->
-            <div class="metrics-grid">
-                <!-- Görüntüleme -->
-                <div class="metric-card views">
-                    <span class="metric-icon"><i class="fas fa-eye"></i></span>
-                    <div class="metric-number" id="metricViews">0</div>
-                    <div class="metric-title" data-tr="Toplam Gösterim" data-en="Total Impressions">Toplam Gösterim</div>
-                    <span class="metric-sub" style="color: var(--accent); font-weight: 600;">(Tahmini • Yarım Saatte Bir Güncellenir)</span>
-                </div>
-                <!-- Tıklama -->
-                <div class="metric-card clicks">
-                    <span class="metric-icon"><i class="fas fa-mouse-pointer"></i></span>
-                    <div class="metric-number" id="metricClicks">0</div>
-                    <div class="metric-title" data-tr="Buton Tıklaması" data-en="Action Clicks">Buton Tıklaması</div>
-                    <span class="metric-sub" style="color: var(--blue); font-weight: 600;">(Tahmini • Yarım Saatte Bir Güncellenir)</span>
-                </div>
-                <!-- CTR (Tıklama Oranı) -->
-                <div class="metric-card ctr">
-                    <span class="metric-icon"><i class="fas fa-percentage"></i></span>
-                    <div class="metric-number" id="metricCtr">%0.0</div>
-                    <div class="metric-title" data-tr="Tıklama Oranı (CTR)" data-en="Click-Through Rate">Tıklama Oranı (CTR)</div>
-                    <span class="metric-sub" data-tr="Erişim / İlgi Oranı" data-en="Engagement vs Reach ratio">Tahmini İlgi Oranı</span>
-                </div>
-                <!-- ROI (Tahmini Yatırım Getirisi) -->
-                <div class="metric-card roi">
-                    <span class="metric-icon"><i class="fas fa-chart-line"></i></span>
-                    <div class="metric-number" id="metricRoi">0.0x</div>
-                    <div class="metric-title" data-tr="Yatırım Getirisi (ROI)" data-en="Return on Investment">Yatırım Getirisi (ROI)</div>
-                    <span class="metric-sub" data-tr="Tahmini Getiri Oranı" data-en="Estimated return factor">Tahmini Getiri Oranı</span>
+                <!-- Performance Metrics Grid -->
+                <div class="metrics-grid">
+                    <!-- Görüntüleme -->
+                    <div class="metric-card views">
+                        <span class="metric-icon"><i class="fas fa-eye"></i></span>
+                        <div class="metric-number" id="metricViews">0</div>
+                        <div class="metric-title" data-tr="Toplam Gösterim" data-en="Total Impressions">Toplam Gösterim</div>
+                        <span class="metric-sub" style="color: var(--accent); font-weight: 600;">(Tahmini • Yarım Saatte Bir Güncellenir)</span>
+                    </div>
+                    <!-- Tıklama -->
+                    <div class="metric-card clicks">
+                        <span class="metric-icon"><i class="fas fa-mouse-pointer"></i></span>
+                        <div class="metric-number" id="metricClicks">0</div>
+                        <div class="metric-title" data-tr="Buton Tıklaması" data-en="Action Clicks">Buton Tıklaması</div>
+                        <span class="metric-sub" style="color: var(--blue); font-weight: 600;">(Tahmini • Yarım Saatte Bir Güncellenir)</span>
+                    </div>
+                    <!-- CTR (Tıklama Oranı) -->
+                    <div class="metric-card ctr">
+                        <span class="metric-icon"><i class="fas fa-percentage"></i></span>
+                        <div class="metric-number" id="metricCtr">%0.0</div>
+                        <div class="metric-title" data-tr="Tıklama Oranı (CTR)" data-en="Click-Through Rate">Tıklama Oranı (CTR)</div>
+                        <span class="metric-sub" data-tr="Erişim / İlgi Oranı" data-en="Engagement vs Reach ratio">Tahmini İlgi Oranı</span>
+                    </div>
+                    <!-- ROI (Tahmini Yatırım Getirisi) -->
+                    <div class="metric-card roi">
+                        <span class="metric-icon"><i class="fas fa-chart-line"></i></span>
+                        <div class="metric-number" id="metricRoi">0.0x</div>
+                        <div class="metric-title" data-tr="Yatırım Getirisi (ROI)" data-en="Return on Investment">Yatırım Getirisi (ROI)</div>
+                        <span class="metric-sub" data-tr="Tahmini Getiri Oranı" data-en="Estimated return factor">Tahmini Getiri Oranı</span>
+                    </div>
                 </div>
             </div>
 
@@ -504,11 +527,55 @@
             badge.textContent = activeCampaign.paket.toUpperCase();
             badge.className = `campaign-badge ${activeCampaign.paket}`;
 
+            // Fill campaign details card
+            const startDate = activeCampaign.tarih || 'Belirtilmemiş';
+            let formattedDate = startDate;
+            try {
+                if (startDate && startDate !== 'Belirtilmemiş') {
+                    const d = new Date(startDate);
+                    if (!isNaN(d.getTime())) {
+                        formattedDate = d.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
+                    }
+                }
+            } catch(e) {}
+            document.getElementById('campaignStartDate').textContent = formattedDate;
+
+            // Total Cost (Investment Amount)
+            const costVal = activeCampaign.toplamUcret ? parseFloat(activeCampaign.toplamUcret) : 
+                            (parseFloat(activeCampaign.ucret || 0) + parseFloat(activeCampaign.instagramUcret || 0));
+            const totalCostText = costVal > 0 ? `₺${costVal.toLocaleString('tr-TR')}` : 'Belirtilmemiş';
+            document.getElementById('campaignTotalCost').textContent = totalCostText;
+
+            // App Package Name Translation
+            let appPkgText = 'Aktif Değil';
+            const isAppCampaign = activeCampaign.paket && activeCampaign.paket.toLowerCase() !== 'none';
+            if (isAppCampaign) {
+                const pkg = activeCampaign.paket.toLowerCase();
+                if (pkg === 'temel') appPkgText = 'Temel Yayın';
+                else if (pkg === 'premium') appPkgText = 'Premium Yayın';
+                else if (pkg === 'vip') appPkgText = 'VIP Slider Yayın';
+                else appPkgText = activeCampaign.paket.toUpperCase();
+            }
+            document.getElementById('campaignAppPackage').textContent = appPkgText;
+
+            // Instagram Package Name Translation
+            let instaPkgText = 'Aktif Değil';
+            const isInstaCampaign = activeCampaign.instagramPaket && activeCampaign.instagramPaket.toLowerCase() !== 'none';
+            if (isInstaCampaign) {
+                const instaPkg = activeCampaign.instagramPaket.toLowerCase();
+                if (instaPkg === 'story') instaPkgText = 'Instagram Story';
+                else if (instaPkg === 'post') instaPkgText = 'Instagram Post';
+                else if (instaPkg === 'reels') instaPkgText = 'Instagram Reels Video';
+                else if (instaPkg === 'drone') instaPkgText = 'Reels + Drone Çekimi';
+                else if (instaPkg === 'monthly') instaPkgText = 'Aylık Sponsorluk';
+                else instaPkgText = activeCampaign.instagramPaket.toUpperCase();
+            }
+            document.getElementById('campaignInstaPackage').textContent = instaPkgText;
+
             // Seed initial metrics using Google Sheets data
             seedInitialMetrics();
 
             // Set Instagram state and status text dynamically in the Instagram section
-            const isInstaCampaign = activeCampaign.instagramPaket && activeCampaign.instagramPaket !== 'none';
             const instaSection = document.getElementById('instaStatsSection');
             if (isInstaCampaign) {
                 instaSection.style.display = 'block';
@@ -526,6 +593,14 @@
                 }
             } else {
                 instaSection.style.display = 'none';
+            }
+
+            // Set In-App stats visibility
+            const appSection = document.getElementById('appStatsSection');
+            if (isAppCampaign) {
+                appSection.style.display = 'block';
+            } else {
+                appSection.style.display = 'none';
             }
         }
 
