@@ -837,7 +837,10 @@
                         resimUrl: item.resimUrl || "https://via.placeholder.com/400",
                         notlar: item.notlar || "",
                         durum: item.durum || "pending",
-                        tarih: item.tarih || new Date().toISOString().split('T')[0]
+                        tarih: item.tarih || new Date().toISOString().split('T')[0],
+                        instagram_media_id: item.instagram_media_id || "",
+                        instagram_url: item.instagram_url || "",
+                        instagram_active: item.instagram_active || "FALSE"
                     }));
                     localStorage.setItem('ilgin_campaigns', JSON.stringify(campaigns));
                     filterData();
@@ -979,6 +982,33 @@
                     </a>
                 </div>` : ''}
 
+                <!-- Instagram Canlı Takip Ayarları -->
+                ${(() => {
+                    if (item.durum === 'approved' && item.instagramPaket && item.instagramPaket !== 'none') {
+                        return `
+                            <div style="margin-top:20px; background:rgba(230,104,60,0.1); padding:15px; border-radius:12px; border:1px solid rgba(230,104,60,0.3);">
+                                <div style="font-size:0.85rem; color:#e6683c; margin-bottom:12px; font-weight:bold; display:flex; align-items:center; gap:8px;">
+                                    <i class="fab fa-instagram"></i> Instagram Canlı Takip Ayarları
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:15px;">
+                                    <div style="display:flex; flex-direction:column; gap:4px;">
+                                        <label style="font-size:0.75rem; color:#aaa; font-weight:bold; text-align:left;">Instagram Gönderi URL:</label>
+                                        <input type="text" id="modalInstaUrl" style="padding:8px 12px; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.15); border-radius:8px; color:#fff; font-size:0.85rem;" placeholder="https://www.instagram.com/p/..." value="${item.instagram_url || ''}">
+                                    </div>
+                                    <div style="display:flex; flex-direction:column; gap:4px;">
+                                        <label style="font-size:0.75rem; color:#aaa; font-weight:bold; text-align:left;">Instagram Media ID:</label>
+                                        <input type="text" id="modalInstaMediaId" style="padding:8px 12px; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.15); border-radius:8px; color:#fff; font-size:0.85rem;" placeholder="Örn: 17841405323456789" value="${item.instagram_media_id || ''}">
+                                    </div>
+                                </div>
+                                <button id="btnSaveInsta" onclick="saveInstagramDetails('${item.id}')" style="background:#e6683c; color:#fff; border:none; width:100%; padding:10px; border-radius:8px; font-weight:bold; cursor:pointer; font-size:0.85rem; transition:0.2s;">
+                                    Kaydet ve Canlı Takibi Başlat
+                                </button>
+                            </div>
+                        `;
+                    }
+                    return '';
+                })()}
+
                 <!-- WhatsApp Bilgilendirme Butonları -->
                 <div style="margin-top:20px; display:flex; gap:12px;">
                     <a href="${waApproveUrl}" target="_blank" class="btn-nav" style="background:#25D366; color:#fff; border:none; text-align:center; flex:1; display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px; border-radius:12px; text-decoration:none;"><i class="fab fa-whatsapp"></i> WhatsApp Onay</a>
@@ -992,6 +1022,49 @@
 
         function closeModal() {
             document.getElementById('detailModal').classList.remove('show');
+        }
+
+        async function saveInstagramDetails(id) {
+            const mediaId = document.getElementById('modalInstaMediaId').value.trim();
+            const postUrl = document.getElementById('modalInstaUrl').value.trim();
+            const btn = document.getElementById('btnSaveInsta');
+            
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Kaydediliyor...';
+            
+            campaigns = campaigns.map(c => {
+                if (c.id === id) {
+                    c.instagram_media_id = mediaId;
+                    c.instagram_url = postUrl;
+                    c.instagram_active = mediaId !== '' ? 'TRUE' : 'FALSE';
+                }
+                return c;
+            });
+            localStorage.setItem('ilgin_campaigns', JSON.stringify(campaigns));
+            
+            try {
+                const response = await fetch('https://n8n.ilgininsani.com/webhook/esnaf-kampanya-guncelle', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: id,
+                        instagram_media_id: mediaId,
+                        instagram_url: postUrl,
+                        instagram_active: mediaId !== '' ? 'TRUE' : 'FALSE'
+                    })
+                });
+                
+                if (!response.ok) throw new Error("n8n güncelleme hatası");
+                alert("Instagram canlı takip detayları kaydedildi! ✅");
+                filterData();
+                closeModal();
+            } catch (err) {
+                console.error("Hata:", err);
+                alert("n8n güncelleme hatası. E-Tablo güncellenemedi.");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = 'Kaydet ve Canlı Takibi Başlat';
+            }
         }
 
         // Close modal on click outside

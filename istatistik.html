@@ -374,7 +374,7 @@
 
     <script>
         /* ============================================================
-           KAMPANYA DOĞRULAMA & VERİ YÖNETİMİ
+           KAMPANYA DOĞRULAMA & VERİ YÖNETİMİ (E-TABLO / API)
         ============================================================ */
         let activeCampaign = null;
         let chartInstance = null;
@@ -393,32 +393,57 @@
         }
 
         const campaignId = getQueryParam('id');
-        const campaigns = JSON.parse(localStorage.getItem('ilgin_campaigns')) || [];
+        let apiCampaignData = null;
+
+        // Fetch campaign details from n8n API on page load
+        async function loadCampaignFromAPI() {
+            const errorEl = document.getElementById('passcodeError');
+            if (!campaignId) {
+                errorEl.textContent = "Geçersiz kampanya referansı! (ID eksik)";
+                errorEl.style.display = 'block';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`https://n8n.ilgininsani.com/webhook/campaign-stats?id=${campaignId}`);
+                if (!response.ok) throw new Error("Kampanya bulunamadı");
+                
+                const data = await response.json();
+                apiCampaignData = Array.isArray(data) ? data[0] : data;
+                
+                if (!apiCampaignData || !apiCampaignData.id) {
+                    errorEl.textContent = "Kampanya bulunamadı! Lütfen linki kontrol edin.";
+                    errorEl.style.display = 'block';
+                } else if (apiCampaignData.durum !== 'approved') {
+                    errorEl.textContent = "Bu kampanya henüz onaylanmamış!";
+                    errorEl.style.display = 'block';
+                } else {
+                    errorEl.style.display = 'none'; // Clear initial loading error
+                }
+            } catch (err) {
+                console.error("API yükleme hatası:", err);
+                errorEl.textContent = "Veriler alınırken bağlantı hatası oluştu. Lütfen tekrar deneyin.";
+                errorEl.style.display = 'block';
+            }
+        }
+
+        // Sayfa yüklendiğinde tetikle
+        document.addEventListener('DOMContentLoaded', loadCampaignFromAPI);
 
         // Verify campaign passcode
         function verifyPasscode() {
             const code = document.getElementById('passcodeField').value.trim();
             const errorEl = document.getElementById('passcodeError');
             
-            // Search campaign
-            const targetCamp = campaigns.find(c => c.id === campaignId);
-            
-            if (!targetCamp) {
-                errorEl.textContent = "Geçersiz kampanya referansı! (ID bulunamadı)";
+            if (!apiCampaignData) {
+                errorEl.textContent = "Kampanya verileri henüz yüklenmedi veya bulunamadı!";
                 errorEl.style.display = 'block';
                 return;
             }
 
-            if (targetCamp.durum !== 'approved') {
-                errorEl.textContent = "Bu kampanya henüz onaylanmamış!";
-                errorEl.style.display = 'block';
-                return;
-            }
-
-            // Verify
-            if (code === targetCamp.sifre) {
+            if (code === apiCampaignData.sifre) {
                 // Success
-                activeCampaign = targetCamp;
+                activeCampaign = apiCampaignData;
                 errorEl.style.display = 'none';
                 document.getElementById('passcodeScreen').style.display = 'none';
                 document.getElementById('dashboardScreen').style.display = 'block';
@@ -436,7 +461,7 @@
 
             // Fill details
             document.getElementById('campaignTitle').textContent = activeCampaign.kampanyaBasligi;
-            document.getElementById('campaignMeta').textContent = `${activeCampaign.isletme} • ${activeCampaign.kategori.replace('/', ' / ')}`;
+            document.getElementById('campaignMeta').textContent = `${activeCampaign.isletme} • ${activeCampaign.kategori}`;
             document.getElementById('campaignImg').src = activeCampaign.resimUrl || "https://via.placeholder.com/150";
 
             // Set badge
@@ -444,8 +469,19 @@
             badge.textContent = activeCampaign.paket.toUpperCase();
             badge.className = `campaign-badge ${activeCampaign.paket}`;
 
-            // Seed initial metrics
+            // Seed initial metrics using Google Sheets data
             seedInitialMetrics();
+
+            // Set advice note depending on Instagram state
+            const adviceText = document.getElementById('adviceText');
+            if (activeCampaign.instagramPaket && activeCampaign.instagramPaket !== 'none') {
+                const isInstaActive = activeCampaign.instagram_active === 'TRUE' || activeCampaign.instagram_active === true;
+                if (isInstaActive) {
+                    adviceText.innerHTML = `🌟 <b>Instagram canlı takibiniz aktif!</b> Reklamınız paylaşıldı ve verileriniz akıyor. Gönderiye gitmek için <a href="${activeCampaign.instagram_url}" target="_blank" style="color: var(--accent); text-decoration: underline;">buraya tıklayın</a>.`;
+                } else {
+                    adviceText.innerHTML = `⏳ <b>Instagram yayınınız hazırlanıyor.</b> Reklam filminiz montajlandıktan sonra paylaşılacak ve canlı istatistikler buraya otomatik yansıyacaktır.`;
+                }
+            }
 
             // Render Chart
             renderChart();
@@ -455,31 +491,26 @@
         }
 
         function seedInitialMetrics() {
-            // Seed depending on package
-            let baseViews = 1500;
-            let ctrMultiplier = 0.034;
+            // Read from Google Sheets live columns
+            const appViews = parseInt(activeCampaign.app_views) || 0;
+            const appClicks = parseInt(activeCampaign.app_clicks) || 0;
             
-            if (activeCampaign.paket === 'premium') {
-                baseViews = 8400;
-                ctrMultiplier = 0.048;
-            } else if (activeCampaign.paket === 'vip') {
-                baseViews = 24500;
-                ctrMultiplier = 0.057;
-            }
+            const instaViews = parseInt(activeCampaign.instagram_views) || 0;
+            const instaLikes = parseInt(activeCampaign.instagram_likes) || 0;
+            const instaComments = parseInt(activeCampaign.instagram_comments) || 0;
 
-            // Scale with instagram if selected
-            if (activeCampaign.instagramPaket && activeCampaign.instagramPaket !== 'none') {
-                baseViews += 15000;
-                ctrMultiplier += 0.012;
-            }
+            // Total view & click sum
+            currentViews = appViews + instaViews;
+            currentClicks = appClicks + instaLikes + instaComments;
 
-            // Add slight randomness
-            currentViews = Math.floor(baseViews + (Math.random() * baseViews * 0.15));
-            ctrRate = ctrMultiplier + (Math.random() * 0.01);
-            currentClicks = Math.floor(currentViews * ctrRate);
+            // CTR
+            ctrRate = currentViews > 0 ? (currentClicks / currentViews) : 0;
             
-            // ROI depending on category conversion
-            roiFactor = (ctrRate * 100 * 0.75 + (Math.random() * 1.5)).toFixed(1);
+            // ROI
+            const cost = parseFloat(activeCampaign.toplamUcret) || 500;
+            const newCustomers = Math.round(currentViews * 0.02);
+            const grossRevenue = newCustomers * 200; // Average basket size estimated at 200 TL
+            roiFactor = cost > 0 ? (grossRevenue / cost).toFixed(1) : '1.0';
 
             updateDashboardUI();
         }
@@ -495,8 +526,8 @@
             if (liveSimulationInterval) clearInterval(liveSimulationInterval);
 
             liveSimulationInterval = setInterval(() => {
-                // Simulate new views (1-6 views every interval)
-                const newViews = Math.floor(1 + Math.random() * 5);
+                // Simulate new views (1-5 views every interval)
+                const newViews = Math.floor(1 + Math.random() * 4);
                 currentViews += newViews;
 
                 // Simulate new clicks based on CTR
@@ -505,7 +536,7 @@
                 }
 
                 // Recalculate CTR
-                ctrRate = currentClicks / currentViews;
+                ctrRate = currentViews > 0 ? (currentClicks / currentViews) : 0;
                 
                 updateDashboardUI();
 
@@ -516,7 +547,7 @@
                     chartInstance.data.datasets[1].data[dataLength - 1] = currentClicks;
                     chartInstance.update('none'); // silent update
                 }
-            }, 4000);
+            }, 5000);
         }
 
         /* ============================================================
