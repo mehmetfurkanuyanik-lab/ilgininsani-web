@@ -1957,9 +1957,7 @@
             }
         }
 
-        // Giriş Paneli Doğrulama Mantığı
-        const ADMIN_HASH = "ilgin42";
-
+        // Giriş Paneli Doğrulama Mantığı (n8n Webhook Tabanlı Güvenli Giriş)
         function checkAuth() {
             if (sessionStorage.getItem('admin_authenticated') === 'true') {
                 document.getElementById('loginOverlay').style.display = 'none';
@@ -1968,16 +1966,47 @@
             }
         }
 
-        function loginAdmin() {
+        async function loginAdmin() {
             const pass = document.getElementById('adminPassword').value;
             const err = document.getElementById('loginError');
-            if (pass === ADMIN_HASH) {
-                sessionStorage.setItem('admin_authenticated', 'true');
-                document.getElementById('loginOverlay').style.display = 'none';
-                err.style.display = 'none';
-            } else {
+            const btn = document.querySelector('.btn-login');
+            
+            if (!pass) return;
+
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Doğrulanıyor...';
+            btn.disabled = true;
+            err.style.display = 'none';
+
+            try {
+                const response = await fetch('https://n8n.ilgininsani.com/webhook/dashboard-login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password: pass })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Giriş başarısız');
+                }
+
+                const data = await response.json();
+
+                if (data.success === true) {
+                    sessionStorage.setItem('admin_authenticated', 'true');
+                    document.getElementById('loginOverlay').style.display = 'none';
+                    err.style.display = 'none';
+                    if (typeof renderTable === 'function') renderTable();
+                } else {
+                    err.style.display = 'block';
+                    err.textContent = data.message || 'Geçersiz şifre!';
+                    document.getElementById('adminPassword').value = '';
+                }
+            } catch (error) {
+                console.error("Giriş hatası:", error);
                 err.style.display = 'block';
-                document.getElementById('adminPassword').value = '';
+                err.textContent = 'Bağlantı hatası! Lütfen n8n akışını kontrol edin.';
+            } finally {
+                btn.innerHTML = 'Giriş Yap';
+                btn.disabled = false;
             }
         }
 
