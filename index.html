@@ -773,6 +773,41 @@
         body.light-theme .phone-menu-item span {
             color: #1e293b !important;
         }
+        body.light-theme .pharmacy-name {
+            color: #0f172a !important;
+        }
+        body.light-theme .pharmacy-address {
+            color: #334155 !important;
+        }
+        body.light-theme .weather-current-details {
+            color: #334155 !important;
+        }
+        body.light-theme #travelTitle {
+            color: #0f172a !important;
+        }
+        body.light-theme #travelBody {
+            color: #334155 !important;
+        }
+        body.light-theme .travel-tab {
+            color: #475569 !important;
+            border-color: rgba(0,0,0,0.15) !important;
+            background: rgba(0,0,0,0.02) !important;
+        }
+        body.light-theme .travel-tab.active {
+            color: #f39c12 !important;
+            border-color: #f39c12 !important;
+            background: rgba(243, 156, 18, 0.1) !important;
+        }
+        body.light-theme #phoneBodyInsta span {
+            color: #1e293b !important;
+        }
+        body.light-theme #phoneBodyInsta strong,
+        body.light-theme #phoneInstaPostLikes {
+            color: #0f172a !important;
+        }
+        body.light-theme #phoneInstaPostCaption {
+            color: #334155 !important;
+        }
 
         /* GDPR COOKIE BANNER */
         .cookie-banner {
@@ -834,6 +869,33 @@
             display: flex; align-items: center; gap: 8px; animation: toastFadeIn 0.3s ease;
         }
         @keyframes toastFadeIn { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+        @media (max-width: 600px) {
+            body { padding-top: 88px; }
+            .weather-band { flex-direction: column; gap: 6px; text-align: center; }
+            .weather-band div { justify-content: center; width: 100%; }
+            .container { padding: 20px 12px; }
+            .hero { padding: 30px 15px; text-align: center; }
+            .hero h1 { font-size: 2rem; }
+            .hero p.lead { font-size: 0.95rem; }
+            .action-buttons { flex-direction: column; align-items: stretch; width: 100%; }
+            .btn { width: 100%; justify-content: center; padding: 12px 20px; }
+            .phone-mockup { width: 220px; height: 440px; margin: 0 auto; }
+            .live-pharmacy-widget { padding: 20px 12px; }
+            .pharmacy-name { font-size: 1.3rem; }
+            .pharmacy-desc { font-size: 1rem; }
+            .pharmacy-address { font-size: 0.85rem; }
+            .pharmacy-actions { flex-direction: column; align-items: stretch; }
+            .btn-call, .btn-map { width: 100%; text-align: center; }
+            .whats-new { padding: 15px; }
+            .whats-new ul { grid-template-columns: 1fr; }
+            .feature-card { padding: 20px 15px; }
+            .showcase-tabs { gap: 8px; }
+            .showcase-tab-btn { padding: 10px 16px; font-size: 0.85rem; width: 100%; justify-content: center; }
+            .cookie-banner { bottom: 10px; left: 10px; right: 10px; padding: 15px; }
+            .social-share-bar { gap: 6px; }
+            .share-btn { width: 38px; height: 38px; font-size: 1rem; }
+        }
     </style>
 
 </head>
@@ -2064,6 +2126,19 @@
             return { icon, nameTr, nameEn };
         }
 
+        let globalWeatherInfo = null;
+        let globalWeatherTemp = null;
+
+        function updateWeatherDisplay() {
+            if (!globalWeatherInfo || globalWeatherTemp === null) return;
+            const weatherTextEl = document.getElementById('weatherText');
+            if (weatherTextEl) {
+                const name = currentLang === 'tr' ? globalWeatherInfo.nameTr : globalWeatherInfo.nameEn;
+                const prefix = currentLang === 'tr' ? 'Ilgın Canlı Hava Durumu: ' : 'Ilgın Live Weather: ';
+                weatherTextEl.innerHTML = `<i class="fas ${globalWeatherInfo.icon}"></i> ${prefix} ${globalWeatherTemp}°C, ${name}`;
+            }
+        }
+
         async function fetchDetailedWeather() {
             try {
                 const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=38.28&longitude=31.91&current_weather=true&daily=weather_code,temperature_2m_max,temperature_2m_min,relative_humidity_2m_max,wind_speed_10m_max&timezone=auto');
@@ -2116,6 +2191,10 @@
                         forecastRow.appendChild(item);
                     }
                 }
+                
+                globalWeatherTemp = temp;
+                globalWeatherInfo = info;
+                updateWeatherDisplay();
             } catch (err) {
                 console.error("Detaylı hava durumu yüklenemedi:", err);
             }
@@ -2125,19 +2204,21 @@
            DARK/LIGHT TEMA YÖNETİMİ
         ============================================================ */
         function initTheme() {
-            const savedTheme = localStorage.getItem('theme');
+            const savedTheme = localStorage.getItem('theme') || 'dark';
             const toggleBtn = document.getElementById('themeToggle');
             if (savedTheme === 'light') {
                 document.body.classList.add('light-theme');
                 if (toggleBtn) {
                     toggleBtn.innerHTML = '<i class="fas fa-sun"></i> <span data-tr="Gündüz Modu" data-en="Light Mode">Gündüz Modu</span>';
-                    toggleBtn.querySelector('span').innerText = currentLang === 'tr' ? 'Gündüz Modu' : 'Light Mode';
+                    const span = toggleBtn.querySelector('span');
+                    if (span) span.innerText = currentLang === 'tr' ? 'Gündüz Modu' : 'Light Mode';
                 }
             } else {
                 document.body.classList.remove('light-theme');
                 if (toggleBtn) {
                     toggleBtn.innerHTML = '<i class="fas fa-moon"></i> <span data-tr="Gece Modu" data-en="Dark Mode">Gece Modu</span>';
-                    toggleBtn.querySelector('span').innerText = currentLang === 'tr' ? 'Gece Modu' : 'Dark Mode';
+                    const span = toggleBtn.querySelector('span');
+                    if (span) span.innerText = currentLang === 'tr' ? 'Gece Modu' : 'Dark Mode';
                 }
             }
         }
@@ -2151,6 +2232,12 @@
             }
             initTheme();
         }
+
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'theme') {
+                initTheme();
+            }
+        });
 
         /* ============================================================
            GDPR COOKIE BANNER

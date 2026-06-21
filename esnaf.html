@@ -1320,6 +1320,88 @@
         body.light-theme .flyer-preview {
             box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
         }
+
+        /* Fixed Light Theme text colors for comparison table & uploads */
+        body.light-theme .compare-pkg-col,
+        body.light-theme .compare-feature-col,
+        body.light-theme .compare-pkg-name,
+        body.light-theme .compare-select-btn {
+            color: #1e293b !important;
+        }
+        body.light-theme .compare-select-btn:hover {
+            color: #000 !important;
+        }
+        body.light-theme .file-upload-wrapper {
+            background: rgba(0, 0, 0, 0.02) !important;
+            border-color: rgba(243, 156, 18, 0.4) !important;
+        }
+        body.light-theme .file-upload-wrapper:hover {
+            background: rgba(243, 156, 18, 0.06) !important;
+        }
+        body.light-theme .file-upload-wrapper .upload-text {
+            color: #1e293b !important;
+        }
+        body.light-theme #invoiceCard {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border: 2px dashed var(--accent-dark) !important;
+            color: #0f172a !important;
+        }
+        body.light-theme #invoiceCard h4 {
+            color: #0f172a !important;
+        }
+        body.light-theme #invoiceItems {
+            color: #334155 !important;
+        }
+        body.light-theme #invoiceTotal {
+            color: var(--accent-dark) !important;
+        }
+        body.light-theme #roiPanel {
+            border-top: 1.5px dashed rgba(0, 0, 0, 0.15) !important;
+        }
+        body.light-theme #roiPanel h5 {
+            color: #0f172a !important;
+        }
+        body.light-theme #roiPanel div {
+            background: rgba(0, 0, 0, 0.03) !important;
+            border-color: rgba(0, 0, 0, 0.06) !important;
+        }
+        body.light-theme #roiPanel span {
+            color: #334155 !important;
+        }
+        body.light-theme #roiReach,
+        body.light-theme #roiConvRate,
+        body.light-theme #roiRevenue,
+        body.light-theme #roiRatio {
+            color: #0f172a !important;
+        }
+
+        /* 📱 MOBİL TASARIM İYİLEŞTİRMELERİ */
+        @media (max-width: 600px) {
+            .topbar { padding: 0 15px !important; }
+            .container { padding: 20px 12px !important; }
+            .page-hero { padding: 25px 15px !important; margin-bottom: 25px !important; }
+            .page-hero h1 { font-size: 1.8rem !important; }
+            .page-hero p { font-size: 0.95rem !important; margin-bottom: 20px !important; }
+            .app-badges { flex-direction: column; align-items: stretch; width: 100%; }
+            .app-badge { width: 100%; justify-content: center; }
+            .stats-dashboard { padding: 20px 15px !important; margin-bottom: 30px !important; }
+            .stats-dashboard-title { font-size: 1.25rem !important; }
+            .stats-grid { gap: 15px !important; }
+            .success-card { padding: 20px 15px !important; }
+            .success-avatar { font-size: 3rem !important; }
+            .success-metrics { gap: 10px !important; }
+            .success-metric-item { padding: 8px 14px !important; }
+            .success-quote { font-size: 0.9rem !important; }
+            .compare-table { min-width: 700px !important; }
+            .cal-wrapper { padding: 15px 10px !important; }
+            .cal-legend { gap: 10px !important; flex-wrap: wrap; }
+            .request-box { padding: 20px 15px !important; margin-bottom: 30px !important; }
+            .step-badges { gap: 8px !important; }
+            .step-badge { padding: 6px 14px !important; font-size: 0.75rem !important; }
+            .sticky-preview-card { position: static !important; width: 100% !important; margin-top: 20px !important; }
+            .showcase-tabs { flex-direction: column; width: 100%; gap: 8px; }
+            .showcase-tab-btn { width: 100% !important; justify-content: center; }
+        }
     </style>
 </head>
 <body>
@@ -1439,8 +1521,8 @@
                             <span class="metric-val after-val">~68 müşteri/gün</span>
                         </div>
                     </div>
-                    <div class="success-badge">+%70 Artış</div>
-                    <blockquote class="success-quote">"Kampanya başlar başlamaz telefon susmadı! Ilgın İnsanı'nda reklam vermek en doğru kararımdı."</blockquote>
+                    <div class="success-badge">+%70 Yoğunluk</div>
+                    <blockquote class="success-quote">"Dükkandaki müşteri yoğunluğumuz tavan yaptı! Sıcak ekmek ve simit siparişlerine yetişemedik. Ilgın İnsanı'nda reklam vermek en doğru kararımdı."</blockquote>
                     <div class="success-author">
                         <strong>Ahmet Y.</strong>
                         <span>Yılmaz Fırın & Kafe — Premium Paket</span>
@@ -1451,16 +1533,16 @@
                     <div class="success-metrics">
                         <div class="success-metric-item">
                             <span class="metric-before">Öncesi</span>
-                            <span class="metric-val before-val">Aylık ₺28.000 ciro</span>
+                            <span class="metric-val before-val">~15 çiftçi/gün</span>
                         </div>
                         <div class="metric-arrow">→</div>
                         <div class="success-metric-item">
                             <span class="metric-before">Sonrası</span>
-                            <span class="metric-val after-val">Aylık ₺47.000 ciro</span>
+                            <span class="metric-val after-val">~35 çiftçi/gün</span>
                         </div>
                     </div>
-                    <div class="success-badge">+%68 Ciro Artışı</div>
-                    <blockquote class="success-quote">"Hasat sezonunda kampanya açtım, stokları 3 günde bitirdim. Şiddetle tavsiye ederim."</blockquote>
+                    <div class="success-badge">+%133 Ziyaretçi</div>
+                    <blockquote class="success-quote">"Gübre ve tohum sezonunda açtığımız kampanya ile dükkanımıza giren çiftçi sayısı katlandı. Stoklarımızı 3 günde tükettik. Harika bir yerel kitle!"</blockquote>
                     <div class="success-author">
                         <strong>Mustafa B.</strong>
                         <span>Bulcuk Tarım Market — VIP Paket</span>
@@ -1479,8 +1561,8 @@
                             <span class="metric-val after-val">31 randevu/hafta</span>
                         </div>
                     </div>
-                    <div class="success-badge">+%158 Artış</div>
-                    <blockquote class="success-quote">"Reels videosu yayınlandıktan sonra haftalık randevularım iki katına çıktı. Mükemmel bir iş!"</blockquote>
+                    <div class="success-badge">+%158 Doluluk</div>
+                    <blockquote class="success-quote">"Reels videosu yayınlandıktan sonra salonumuzdaki randevular tamamen doldu. Haftalık randevu kapasitemiz tamamen kapandı. Mükemmel bir iş!"</blockquote>
                     <div class="success-author">
                         <strong>Fatma D.</strong>
                         <span>Vakıf Termal Kuaför — VIP + Instagram Reels</span>
@@ -1500,7 +1582,7 @@
                         </div>
                     </div>
                     <div class="success-badge">Hızlı Satış</div>
-                    <blockquote class="success-quote">"Sezon sonu ürünlerimi eritmek için mükemmeldi. Push bildirimi gönderilince dükkan doldu."</blockquote>
+                    <blockquote class="success-quote">"Sezon sonu stoklarımızı eritmek için kampanya duyurusu yaptık. Uygulama üzerinden bildirim gönderildiği gün mağazamız dolup taştı. 7 günde stoklar eridi!"</blockquote>
                     <div class="success-author">
                         <strong>Mehmet Ç.</strong>
                         <span>Ilgın Tekstil Dünyası — Premium Paket</span>
@@ -1525,7 +1607,96 @@
         <h2 class="section-title reveal">📊 Paket Karşılaştırma Tablosu</h2>
         <p class="section-subtitle reveal">Hangi paket size uygun? Yan yana karşılaştırın, formu otomatik doldurun.</p>
 
-        <div class="compare-table-wrapper reveal">
+        <!-- Tab Seçenekleri -->
+        <div class="showcase-tabs reveal" style="margin-bottom: 25px;">
+            <button class="showcase-tab-btn active" id="btnCompareInsta" onclick="switchCompareTab('insta')">
+                <i class="fab fa-instagram"></i> <span data-tr="Instagram Reklam Karşılaştırması" data-en="Instagram Ad Comparison">Instagram Reklam Karşılaştırması</span>
+            </button>
+            <button class="showcase-tab-btn" id="btnCompareApp" onclick="switchCompareTab('app')">
+                <i class="fas fa-mobile-alt"></i> <span data-tr="Uygulama Paket Karşılaştırması" data-en="App Ad Comparison">Uygulama Paket Karşılaştırması</span>
+            </button>
+        </div>
+
+        <!-- 📸 INSTAGRAM COMPARISON TABLE (DEFAULT) -->
+        <div class="compare-table-wrapper reveal" id="compareInstaWrapper">
+            <div class="compare-table">
+                <!-- Header Row -->
+                <div class="compare-header-row">
+                    <div class="compare-feature-col">Özellik</div>
+                    <div class="compare-pkg-col temel-col">
+                        <div class="compare-pkg-icon">📸</div>
+                        <div class="compare-pkg-name">Story</div>
+                        <div class="compare-pkg-price">₺750<span>/sefer</span></div>
+                        <button class="compare-select-btn temel-btn" onclick="selectPkgFromTableInsta('story')">Seç</button>
+                    </div>
+                    <div class="compare-pkg-col premium-col" style="position:relative;">
+                        <div class="compare-popular-badge">⭐ En Popüler</div>
+                        <div class="compare-pkg-icon">🔥</div>
+                        <div class="compare-pkg-name">Reels + Story</div>
+                        <div class="compare-pkg-price">₺3.000<span>/sefer</span></div>
+                        <button class="compare-select-btn premium-btn" onclick="selectPkgFromTableInsta('reels_story')">Seç</button>
+                    </div>
+                    <div class="compare-pkg-col vip-col">
+                        <div class="compare-pkg-icon">👑</div>
+                        <div class="compare-pkg-name">VIP Öneriyor</div>
+                        <div class="compare-pkg-price">₺5.000<span>/sefer</span></div>
+                        <button class="compare-select-btn vip-btn" onclick="selectPkgFromTableInsta('suggested')">Seç</button>
+                    </div>
+                </div>
+                <!-- Feature Rows -->
+                <div class="compare-row">
+                    <div class="compare-feature-col">Görünüm Formatı</div>
+                    <div class="compare-pkg-col temel-col">Hikaye (Story)</div>
+                    <div class="compare-pkg-col premium-col">Reels Videosu + Hikaye</div>
+                    <div class="compare-pkg-col vip-col">Kapsamlı Çekimli Reels + Hikaye</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-feature-col">Kalıcılık Süresi</div>
+                    <div class="compare-pkg-col temel-col">24 Saat</div>
+                    <div class="compare-pkg-col premium-col">Reels Kalıcı, Story 24s</div>
+                    <div class="compare-pkg-col vip-col">Reels Kalıcı, Story 24s</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-feature-col">Tahmini Erişim</div>
+                    <div class="compare-pkg-col temel-col">12k - 14k Gösterim</div>
+                    <div class="compare-pkg-col premium-col">25k - 35k Gösterim</div>
+                    <div class="compare-pkg-col vip-col">45k - 50k+ Gösterim</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-feature-col">Fotoğraf & Video Çekimi</div>
+                    <div class="compare-pkg-col temel-col">Sizden</div>
+                    <div class="compare-pkg-col premium-col">Sizden (+₺500 Çekimli)</div>
+                    <div class="compare-pkg-col vip-col">Dahil (Drone & 4K Çekim)</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-feature-col">Kurgu & Montaj Desteği</div>
+                    <div class="compare-pkg-col temel-col"><i class="fas fa-times compare-no"></i></div>
+                    <div class="compare-pkg-col premium-col">Temel Düzeltme</div>
+                    <div class="compare-pkg-col vip-col"><i class="fas fa-check compare-yes"></i> Profesyonel</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-feature-col">Ortak Gönderi (Collab)</div>
+                    <div class="compare-pkg-col temel-col"><i class="fas fa-times compare-no"></i></div>
+                    <div class="compare-pkg-col premium-col"><i class="fas fa-check compare-yes"></i> Opsiyonel</div>
+                    <div class="compare-pkg-col vip-col"><i class="fas fa-check compare-yes"></i> Dahil</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-feature-col">Prestij Seviyesi</div>
+                    <div class="compare-pkg-col temel-col">Standart</div>
+                    <div class="compare-pkg-col premium-col">Yüksek</div>
+                    <div class="compare-pkg-col vip-col">Maksimum (#Öneriyor Rozetli)</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-feature-col">Analitik Rapor</div>
+                    <div class="compare-pkg-col temel-col"><i class="fas fa-times compare-no"></i></div>
+                    <div class="compare-pkg-col premium-col"><i class="fas fa-check compare-yes"></i> Ekran Resmi</div>
+                    <div class="compare-pkg-col vip-col"><i class="fas fa-check compare-yes"></i> Detaylı Rapor (PDF)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📱 MOBİL UYGULAMA COMPARISON TABLE (HIDDEN BY DEFAULT) -->
+        <div class="compare-table-wrapper reveal" id="compareAppWrapper" style="display:none;">
             <div class="compare-table">
                 <!-- Header Row -->
                 <div class="compare-header-row">
@@ -2456,7 +2627,7 @@
             <div class="chatbot-options">
                 <button class="chat-option-btn" onclick="askChatbot('odeme', 'Ödeme Yöntemleri')" data-tr="💳 Ödeme Yöntemleri" data-en="💳 Payment Methods">💳 Ödeme Yöntemleri</button>
                 <button class="chat-option-btn" onclick="askChatbot('sure', 'Yayın Süresi')" data-tr="⏱️ Yayın Süresi" data-en="⏱️ Publishing Duration">⏱️ Yayın Süresi</button>
-                <button class="chat-option-btn" onclick="askChatbot('drone', 'Drone Çekimi')" data-tr="🚁 Drone Çekimi" data-en="🚁 Drone Videography">🚁 Drone Çekimi</button>
+                <button class="chat-option-btn" onclick="askChatbot('grafik', 'Grafik & Tasarım Desteği')" data-tr="🎨 Grafik & Tasarım Desteği" data-en="🎨 Design & Edit Support">🎨 Grafik & Tasarım Desteği</button>
                 <button class="chat-option-btn" onclick="askChatbot('istatistik', 'İstatistik Takibi')" data-tr="📊 İstatistik Takibi" data-en="📊 Stats Tracking">📊 İstatistik Takibi</button>
             </div>
         </div>
@@ -2566,20 +2737,20 @@
 
         const chatbotReplies = {
             odeme: {
-                tr: "Reklam ödemelerinizi Banka Havalesi / EFT veya Kredi Kartı ile güvenli ödeme linki üzerinden gerçekleştirebilirsiniz. Talebiniz onaylandıktan sonra fatura detayları tarafınıza iletilecektir.",
-                en: "You can make your ad payments via Bank Transfer / EFT or Credit Card through our secure payment link. Invoice details will be sent to you after your request is approved."
+                tr: "Reklam ödemelerimizi karşılıklı güven esasına dayanarak Havale / EFT veya yüz yüze nakit ödeme ile yapabilirsiniz. Kredi kartı ile ödeme seçeneğimiz bulunmamaktadır ve fatura kesilmemektedir.",
+                en: "You can make your ad payments via Bank Transfer / EFT or face-to-face cash payment based on mutual trust. We do not support credit card payments and do not issue invoices."
             },
             sure: {
                 tr: "Uygulama ilanları seçtiğiniz süre boyunca (3, 7, 14 veya 30 gün) kesintisiz yayında kalır. Sosyal medya paylaşımlarımız (Post, Reels) profilimizde kalıcı olarak arşivlenir. Hikayeler (Story) ise 24 saat sonra silinir.",
                 en: "App listings remain active for your selected duration (3, 7, 14, or 30 days). Social media posts (Posts, Reels) are permanently archived on our grid. Stories expire after 24 hours."
             },
-            drone: {
-                tr: "4K Drone çekimi VIP, Drone Reels ve Drone Kombo paketlerimizde ücrete dahildir. Diğer paketlerde ise isteğe bağlı olarak +₺500 ek çekim ve montaj ücretiyle profesyonel drone çekimi hizmetini ekleyebilirsiniz.",
-                en: "4K Drone videography is included in our VIP, Drone Reels, and Drone Combo packages. For other packages, you can optionally add professional drone services for an extra +₺500 shooting and editing fee."
+            grafik: {
+                tr: "Reklam görselleriniz veya Reels videolarınız için profesyonel grafik tasarım ve video kurgu/montaj desteği sağlıyoruz. Kapsamlı Reels ve Sponsorluk paketlerimizde bu hizmet fiyata dahil olarak tamamen ücretsiz sunulmaktadır.",
+                en: "We provide professional graphic design and video editing/montage support for your ad creatives and reels. This service is included completely free in our comprehensive Reels and Sponsorship packages."
             },
             istatistik: {
-                tr: "Premium ve VIP paket alan esnaflarımıza kampanya sonunda detaylı erişim, gösterim ve tıklama analitik raporu PDF formatında sunulur. Ayrıca canlı platform verilerini web sitemizdeki Dashboard sayfasından da izleyebilirsiniz.",
-                en: "For merchants purchasing Premium and VIP packages, a detailed PDF analytics report covering reach, impressions, and clicks is provided at the end of the campaign. You can also view live stats on our Dashboard page."
+                tr: "Onaylanan kampanyalarınız için üretilen 6 haneli özel şifre ile web sitemizdeki Canlı İstatistik sayfasından (istatistik.html) kampanyanızın gösterim, tıklama, CTR ve ROI verilerini canlı olarak takip edebilirsiniz.",
+                en: "With the 6-digit passcode generated for your approved campaigns, you can track views, clicks, CTR, and ROI data of your campaign live from the Live Stats page (istatistik.html)."
             }
         };
 
@@ -3847,7 +4018,7 @@
 
                 const cellDate = new Date(calYear, calMonth, d);
                 const isPast = cellDate < new Date(today.getFullYear(), today.getMonth(), today.getDate());
-                const isBusy = busyDays.includes(d);
+                const isBusy = false; // Bütün günler açık (müsait) kalsın!
                 const isSelected = calSelectedDay === d && calMonth === (new Date()).getMonth() + (calYear > today.getFullYear() ? 12 : 0);
 
                 if (isPast) {

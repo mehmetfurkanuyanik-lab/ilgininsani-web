@@ -346,8 +346,17 @@
 
         @media (max-width: 768px) {
             body { padding: 15px; }
-            th, td { padding: 12px 16px; }
+            th, td { padding: 12px 10px; font-size: 0.8rem; }
             .header { flex-direction: column; gap: 15px; text-align: center; }
+            .nav-links { justify-content: center; gap: 10px; width: 100%; flex-wrap: wrap; }
+            .btn-nav { flex-grow: 1; text-align: center; font-size: 0.8rem; padding: 10px 12px; }
+            .filter-bar { flex-direction: column; align-items: stretch; gap: 15px; }
+            .search-box { max-width: 100%; min-width: auto; }
+            .filters { flex-direction: column; gap: 10px; }
+            .filter-select { width: 100%; }
+            .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            table { min-width: 750px; }
+            .charts-row { grid-template-columns: 1fr !important; }
         }
 
         /* ADMIN LOGIN OVERLAY */
@@ -851,6 +860,9 @@
                     c.durum = newStatus;
                     // Trigger webhook notification back to n8n if approved
                     if (newStatus === 'approved') {
+                        if (!c.sifre) {
+                            c.sifre = String(Math.floor(100000 + Math.random() * 900000));
+                        }
                         notifyN8NApproval(c);
                     }
                 }
@@ -950,6 +962,12 @@
             const item = campaigns.find(c => c.id === id);
             if (!item) return;
 
+            // Generate passcode if approved and missing
+            if (item.durum === 'approved' && !item.sifre) {
+                item.sifre = String(Math.floor(100000 + Math.random() * 900000));
+                localStorage.setItem('ilgin_campaigns', JSON.stringify(campaigns));
+            }
+
             const modal = document.getElementById('detailModal');
             document.getElementById('modalTitle').textContent = item.isletme + " — Talep Detayı";
 
@@ -969,10 +987,27 @@
             }[item.kategori] || item.kategori || "Diğer";
 
             const cleanPhone = formatPhoneForWhatsApp(item.telefon);
-            const approveMsg = `Merhaba ${item.yetkili}, Ilgın İnsanı portalında oluşturduğunuz '${item.isletme}' işletmesine ait '${item.kampanyaBasligi}' başlıklı kampanya talebiniz onaylanmıştır! Kampanyanız başarıyla yayına alınmıştır. İyi çalışmalar dileriz!`;
+            
+            // Build approve message containing passcode and link
+            let approveMsg = `Merhaba ${item.yetkili}, Ilgın İnsanı portalında oluşturduğunuz '${item.isletme}' işletmesine ait '${item.kampanyaBasligi}' başlıklı kampanya talebiniz onaylanmıştır! Kampanyanız başarıyla yayına alınmıştır.\n\nCanlı kampanya verilerini takip etmek için aşağıdaki linki ve şifreyi kullanabilirsiniz:\nTakip Linki: https://ilgininsani.com/istatistik.html?id=${item.id}\nGiriş Şifresi: ${item.sifre || '—'}\n\nİyi çalışmalar dileriz!`;
+            
             const rejectMsg = `Merhaba ${item.yetkili}, Ilgın İnsanı portalında oluşturduğunuz '${item.isletme}' işletmesine ait '${item.kampanyaBasligi}' başlıklı kampanya talebiniz eksik veya hatalı bilgi nedeniyle onaylanamamıştır. Düzenleme detayları için bizimle iletişime geçebilirsiniz.`;
             const waApproveUrl = `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(approveMsg)}`;
             const waRejectUrl = `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(rejectMsg)}`;
+
+            let statsRowHtml = '';
+            if (item.durum === 'approved') {
+                statsRowHtml = `
+                    <div class="detail-row" style="background: rgba(46,204,113,0.08); padding: 8px 10px; border-radius: 8px; margin-bottom: 12px; border: 1px solid rgba(46,204,113,0.15);">
+                        <span class="detail-label" style="color:#2ecc71 !important; font-weight:bold;">Canlı İstatistik Linki:</span>
+                        <span class="detail-val"><a href="istatistik.html?id=${item.id}" target="_blank" style="color:var(--blue); text-decoration:underline;">istatistik.html?id=${item.id}</a></span>
+                    </div>
+                    <div class="detail-row" style="background: rgba(46,204,113,0.08); padding: 8px 10px; border-radius: 8px; margin-bottom: 12px; border: 1px solid rgba(46,204,113,0.15);">
+                        <span class="detail-label" style="color:#2ecc71 !important; font-weight:bold;">Takip Giriş Şifresi:</span>
+                        <span class="detail-val" style="color:#2ecc71; font-weight:800; font-size:1.1rem; letter-spacing:1px;">${item.sifre || '—'}</span>
+                    </div>
+                `;
+            }
 
             const detailsHtml = `
                 <div class="detail-row"><span class="detail-label">Yetkili Kişi:</span><span class="detail-val">${item.yetkili}</span></div>
@@ -1008,6 +1043,9 @@
                 <div class="detail-row" style="border-top:1.5px solid var(--accent); padding-top:10px; margin-top:10px;"><span class="detail-label" style="color:#fff; font-weight:bold;">TOPLAM FATURA:</span><span class="detail-val" style="color:var(--accent); font-weight:900; font-size:1.2rem;">₺${item.toplamUcret ? item.toplamUcret : (parseFloat(item.ucret || 0) + parseFloat(item.instagramUcret || 0))}</span></div>
                 
                 <div class="detail-row"><span class="detail-label">Talep Tarihi:</span><span class="detail-val">${item.tarih}</span></div>
+                
+                ${statsRowHtml}
+                
                 <div style="margin-top:20px; background:rgba(0,0,0,0.2); padding:15px; border-radius:12px; border:1px solid var(--border-color);">
                     <div style="font-size:0.8rem; color:#9ab; margin-bottom:5px; font-weight:600;">Esnaf Notu:</div>
                     <div style="font-size:0.9rem; line-height:1.5; color:#fff;">${item.notlar ? item.notlar : 'Ek not bulunmuyor.'}</div>
@@ -1594,6 +1632,13 @@
                 setTimeout(() => toast.remove(), 300);
             }, 2500);
         }
+
+        // Window storage event listener to synchronize theme across tabs instantly
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'theme') {
+                initTheme();
+            }
+        });
 
         // Modülleri enjekte et
         window.addEventListener('DOMContentLoaded', () => {
