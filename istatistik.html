@@ -51,12 +51,6 @@
             text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: 0.2s;
         }
         .topbar-back:hover { color: var(--accent); }
-        .topbar-lang {
-            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-            padding: 5px 14px; border-radius: 20px; cursor: pointer; font-size: 0.8rem;
-            font-weight: 600; color: #fff; transition: 0.3s; display: flex; align-items: center; gap: 6px;
-        }
-        .topbar-lang:hover { background: rgba(255,255,255,0.2); }
 
         .container {
             max-width: 1000px;
@@ -251,51 +245,6 @@
         .footer a { color: var(--accent); text-decoration: none; }
         .footer a:hover { text-decoration: underline; }
 
-        /* LIGHT THEME STYLES - istatistik.html */
-        body.light-theme {
-            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%) !important;
-            color: #0f172a !important;
-            --text-main: #0f172a;
-            --text-sub: #475569;
-        }
-        body.light-theme .topbar {
-            background: rgba(255, 255, 255, 0.8) !important;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
-        }
-        body.light-theme .topbar-brand { color: #1e293b !important; }
-        body.light-theme .topbar-back { color: #475569 !important; }
-        body.light-theme .topbar-lang, body.light-theme #themeToggle { background: rgba(0,0,0,0.05) !important; color: #1e293b !important; }
-
-        body.light-theme .passcode-wrapper,
-        body.light-theme .campaign-info-header,
-        body.light-theme .metric-card,
-        body.light-theme .chart-section,
-        body.light-theme .info-card {
-            background: rgba(255, 255, 255, 0.7) !important;
-            border-color: rgba(0, 0, 0, 0.08) !important;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
-            color: #1e293b !important;
-        }
-        body.light-theme .passcode-input-group input {
-            background: rgba(255,255,255,0.9) !important;
-            color: #0f172a !important;
-            border-color: rgba(0,0,0,0.15) !important;
-        }
-        body.light-theme .campaign-title-label,
-        body.light-theme .metric-number,
-        body.light-theme .passcode-wrapper h2,
-        body.light-theme .info-card h4 {
-            color: #0f172a !important;
-        }
-        body.light-theme .campaign-meta-label,
-        body.light-theme .metric-title,
-        body.light-theme .metric-sub,
-        body.light-theme .passcode-wrapper p,
-        body.light-theme .chart-title,
-        body.light-theme .info-card p {
-            color: #475569 !important;
-        }
-
         @media (max-width: 600px) {
             .topbar { padding: 0 15px; }
             .container { padding: 80px 15px 30px; }
@@ -323,11 +272,6 @@
             <div class="brand-dot"></div>
             Ilgın İnsanı
         </a>
-        <div style="display: flex; gap: 10px; align-items: center;">
-            <div class="topbar-lang" id="themeToggle" onclick="toggleTheme()">
-                <i class="fas fa-moon"></i> <span data-tr="Gece Modu" data-en="Dark Mode">Gece Modu</span>
-            </div>
-        </div>
     </div>
 
     <div class="container">
@@ -429,41 +373,6 @@
     </div>
 
     <script>
-        /* ============================================================
-           DARK/LIGHT TEMA YÖNETİMİ
-        ============================================================ */
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            const toggleBtn = document.getElementById('themeToggle');
-            const icon = toggleBtn.querySelector('i');
-            const textSpan = toggleBtn.querySelector('span');
-
-            if (savedTheme === 'light') {
-                document.body.classList.add('light-theme');
-                if (icon) icon.className = 'fas fa-sun';
-                if (textSpan) textSpan.textContent = 'Gündüz Modu';
-            } else {
-                document.body.classList.remove('light-theme');
-                if (icon) icon.className = 'fas fa-moon';
-                if (textSpan) textSpan.textContent = 'Gece Modu';
-            }
-        }
-
-        function toggleTheme() {
-            const isLight = document.body.classList.contains('light-theme');
-            localStorage.setItem('theme', isLight ? 'dark' : 'light');
-            initTheme();
-        }
-
-        window.addEventListener('storage', function(e) {
-            if (e.key === 'theme') {
-                initTheme();
-            }
-        });
-
-        // Initialize theme on load
-        initTheme();
-
         /* ============================================================
            KAMPANYA DOĞRULAMA & VERİ YÖNETİMİ
         ============================================================ */

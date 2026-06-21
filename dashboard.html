@@ -386,83 +386,6 @@
         }
         .btn-login:hover { background: var(--accent-dark); transform: translateY(-2px); }
 
-        /* LIGHT THEME STYLES - dashboard.html */
-        body.light-theme {
-            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%) !important;
-            color: #0f172a !important;
-        }
-        body.light-theme .header {
-            border-bottom-color: rgba(0, 0, 0, 0.08) !important;
-        }
-        body.light-theme .brand {
-            color: #1e293b !important;
-        }
-        body.light-theme .btn-nav, body.light-theme .filter-select, body.light-theme .search-box input {
-            background: rgba(0, 0, 0, 0.04) !important;
-            color: #1e293b !important;
-            border-color: rgba(0, 0, 0, 0.08) !important;
-        }
-        body.light-theme .search-box input:focus, body.light-theme .filter-select:focus {
-            border-color: var(--accent) !important;
-        }
-        body.light-theme .search-box i {
-            color: #64748b !important;
-        }
-        body.light-theme .stat-card,
-        body.light-theme .revenue-module,
-        body.light-theme .content-cal-wrapper,
-        body.light-theme .table-container,
-        body.light-theme .modal-content,
-        body.light-theme .revenue-kpi,
-        body.light-theme .revenue-target-row,
-        body.light-theme .content-cal-day {
-            background: rgba(255, 255, 255, 0.7) !important;
-            border-color: rgba(0, 0, 0, 0.08) !important;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
-            color: #1e293b !important;
-        }
-        body.light-theme th {
-            background: rgba(0,0,0,0.03) !important;
-            border-bottom-color: rgba(0,0,0,0.08) !important;
-            color: #475569 !important;
-        }
-        body.light-theme td {
-            border-bottom-color: rgba(0, 0, 0, 0.05) !important;
-            color: #334155 !important;
-        }
-        body.light-theme tr:hover td {
-            background: rgba(0,0,0,0.01) !important;
-        }
-        body.light-theme .stat-label,
-        body.light-theme .revenue-module-title,
-        body.light-theme .content-cal-title,
-        body.light-theme .revenue-kpi-label,
-        body.light-theme .detail-label,
-        body.light-theme .revenue-target-row label {
-            color: #475569 !important;
-        }
-        body.light-theme .stat-value,
-        body.light-theme .revenue-kpi-value,
-        body.light-theme .content-cal-month,
-        body.light-theme .detail-val,
-        body.light-theme .modal-title {
-            color: #0f172a !important;
-        }
-        body.light-theme .login-overlay {
-            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%) !important;
-        }
-        body.light-theme .login-box {
-            background: rgba(255, 255, 255, 0.7) !important;
-            border-color: rgba(0, 0, 0, 0.08) !important;
-            color: #0f172a !important;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05) !important;
-        }
-        body.light-theme .login-box input {
-            background: rgba(255, 255, 255, 0.9) !important;
-            color: #0f172a !important;
-            border-color: rgba(0,0,0,0.15) !important;
-        }
-
         /* GDPR COOKIE BANNER */
         .cookie-banner {
             position: fixed; bottom: 20px; left: 20px; right: 20px; max-width: 500px;
@@ -473,13 +396,7 @@
             display: flex; flex-direction: column; gap: 15px;
             animation: slideUp 0.5s ease;
         }
-        body.light-theme .cookie-banner {
-            background: rgba(255, 255, 255, 0.95) !important;
-            border-color: rgba(0,0,0,0.08) !important;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1) !important;
-        }
         .cookie-banner p { font-size: 0.85rem; color: #ddd; line-height: 1.4; }
-        body.light-theme .cookie-banner p { color: #334155 !important; }
         .cookie-btn-wrap { display: flex; gap: 10px; justify-content: flex-end; }
         .cookie-btn-accept { background: #2ecc71; color: #111; border: none; padding: 8px 20px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: 0.2s; }
         .cookie-btn-accept:hover { background: #27ae60; }
@@ -550,7 +467,6 @@
                 <a href="index.html" class="btn-nav"><i class="fas fa-home"></i> Ana Sayfa</a>
                 <a href="esnaf.html" class="btn-nav"><i class="fas fa-store"></i> Esnaf Sayfası</a>
                 <button class="btn-nav" onclick="syncData()"><i class="fas fa-sync"></i> n8n Eşitle</button>
-                <button class="btn-nav" id="themeToggle" onclick="toggleTheme()"><i class="fas fa-moon"></i> Gece Modu</button>
             </div>
         </div>
 
@@ -659,8 +575,9 @@
                 sure: "7",
                 paket: "premium",
                 notlar: "Kampanya sabah 08:00 - 11:00 saatleri arasında geçerlidir.",
-                durum: "pending",
-                tarih: "2026-06-20"
+                durum: "approved",
+                tarih: "2026-06-20",
+                sifre: "542319"
             },
             {
                 id: "2",
@@ -676,7 +593,8 @@
                 paket: "vip",
                 notlar: "Stoklarla sınırlıdır. Adrese teslimat mevcuttur.",
                 durum: "approved",
-                tarih: "2026-06-19"
+                tarih: "2026-06-19",
+                sifre: "882194"
             },
             {
                 id: "3",
@@ -692,7 +610,8 @@
                 paket: "vip",
                 notlar: "Önceden randevu alınması zorunludur.",
                 durum: "approved",
-                tarih: "2026-06-18"
+                tarih: "2026-06-18",
+                sifre: "349122"
             },
             {
                 id: "4",
@@ -707,13 +626,15 @@
                 sure: "7",
                 paket: "temel",
                 notlar: "Sadece nakit ödemelerde geçerlidir.",
-                durum: "rejected",
-                tarih: "2026-06-17"
+                durum: "approved",
+                tarih: "2026-06-17",
+                sifre: "651928"
             }
         ];
 
-        let campaigns = JSON.parse(localStorage.getItem('ilgin_campaigns')) || initialMockData;
-        if (!localStorage.getItem('ilgin_campaigns')) {
+        let campaigns = JSON.parse(localStorage.getItem('ilgin_campaigns')) || [];
+        if (campaigns.length === 0 || !campaigns.some(c => c.sifre)) {
+            campaigns = initialMockData;
             localStorage.setItem('ilgin_campaigns', JSON.stringify(campaigns));
         }
 
@@ -1316,7 +1237,6 @@
         
         // Sayfa yüklendiğinde kontrol et
         checkAuth();
-        initTheme();
     </script>
 
     <!-- ======================== GELİR TAHMİNİ + İÇERİK TAKVİMİ ======================== -->
@@ -1562,35 +1482,6 @@
         }
 
         /* ============================================================
-           DARK/LIGHT TEMA YÖNETİMİ
-        ============================================================ */
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            const toggleBtn = document.getElementById('themeToggle');
-            if (savedTheme === 'light') {
-                document.body.classList.add('light-theme');
-                if (toggleBtn) {
-                    toggleBtn.innerHTML = '<i class="fas fa-sun"></i> Gündüz Modu';
-                }
-            } else {
-                document.body.classList.remove('light-theme');
-                if (toggleBtn) {
-                    toggleBtn.innerHTML = '<i class="fas fa-moon"></i> Gece Modu';
-                }
-            }
-        }
-
-        function toggleTheme() {
-            const isLight = document.body.classList.contains('light-theme');
-            if (isLight) {
-                localStorage.setItem('theme', 'dark');
-            } else {
-                localStorage.setItem('theme', 'light');
-            }
-            initTheme();
-        }
-
-        /* ============================================================
            GDPR COOKIE BANNER
         ============================================================ */
         function checkCookies() {
@@ -1633,16 +1524,8 @@
             }, 2500);
         }
 
-        // Window storage event listener to synchronize theme across tabs instantly
-        window.addEventListener('storage', function(e) {
-            if (e.key === 'theme') {
-                initTheme();
-            }
-        });
-
         // Modülleri enjekte et
         window.addEventListener('DOMContentLoaded', () => {
-            initTheme();
             checkCookies();
             // Revenue module HTML
             const container = document.querySelector('.container');

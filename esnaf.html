@@ -987,7 +987,8 @@
         .premium-col { background: rgba(243,156,18,0.04); border-left: 1px solid rgba(243,156,18,0.15); border-right: 1px solid rgba(243,156,18,0.15); }
         .compare-popular-badge {
             background: var(--accent); color: #111; font-size: 0.65rem;
-            font-weight: 800; padding: 3px 10px; border-radius: 10px; position: absolute; top: -12px;
+            font-weight: 800; padding: 3px 10px; border-radius: 10px;
+            display: inline-block; margin-bottom: 4px;
         }
         .compare-yes { color: #2ecc71; font-size: 1rem; }
         .compare-no { color: rgba(255,255,255,0.2); font-size: 1rem; }
@@ -1229,151 +1230,7 @@
             display: flex; align-items: center; gap: 8px; animation: toastFadeIn 0.3s ease;
         }
 
-        /* LIGHT THEME STYLES - esnaf.html */
-        body.light-theme {
-            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%) !important;
-            color: #0f172a !important;
-        }
-        body.light-theme .topbar {
-            background: rgba(255, 255, 255, 0.8) !important;
-            color: #1e293b !important;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
-        }
-        body.light-theme .topbar-brand { color: #1e293b !important; }
-        body.light-theme .topbar-back { color: #475569 !important; }
-        body.light-theme .topbar-lang, body.light-theme #themeToggle { background: rgba(0,0,0,0.05) !important; color: #1e293b !important; }
-        
-        body.light-theme .page-hero,
-        body.light-theme .why-card,
-        body.light-theme .stats-dashboard,
-        body.light-theme .success-stories-wrapper,
-        body.light-theme .compare-table-wrapper,
-        body.light-theme .cal-wrapper,
-        body.light-theme .qr-section,
-        body.light-theme .showcase-pricing-card,
-        body.light-theme .calculator-box,
-        body.light-theme .request-box,
-        body.light-theme .channel-card,
-        body.light-theme .sticky-preview-card {
-            background: rgba(255, 255, 255, 0.7) !important;
-            border-color: rgba(0, 0, 0, 0.08) !important;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
-            color: #1e293b !important;
-        }
-        
-        body.light-theme .section-title,
-        body.light-theme .page-hero h1,
-        body.light-theme .why-card h3,
-        body.light-theme .success-author strong,
-        body.light-theme .compare-pkg-name,
-        body.light-theme .cal-month-label,
-        body.light-theme .channel-header h3,
-        body.light-theme .showcase-pricing-card .title,
-        body.light-theme .req-field label {
-            color: #0f172a !important;
-        }
-        
-        body.light-theme .section-subtitle,
-        body.light-theme .page-hero p,
-        body.light-theme .why-card p,
-        body.light-theme .success-quote,
-        body.light-theme .success-author span,
-        body.light-theme .compare-feature-col,
-        body.light-theme .cal-legend,
-        body.light-theme .channel-details-list li,
-        body.light-theme .showcase-pricing-card .features-list li,
-        body.light-theme .calc-field label {
-            color: #334155 !important;
-        }
-        
-        body.light-theme .stat-card,
-        body.light-theme .success-metric-item,
-        body.light-theme .compare-header-row,
-        body.light-theme .cal-day.free,
-        body.light-theme .simulator-box,
-        body.light-theme .calc-result,
-        body.light-theme .invoice-card,
-        body.light-theme #tabDescriptionPanel,
-        body.light-theme #invoiceCard {
-            background: rgba(0,0,0,0.03) !important;
-            border-color: rgba(0,0,0,0.05) !important;
-        }
-        body.light-theme .compare-row { border-bottom-color: rgba(0,0,0,0.04) !important; }
-        body.light-theme .compare-pkg-price,
-        body.light-theme .pkg-price { color: var(--accent) !important; }
-        
-        body.light-theme .calc-field input,
-        body.light-theme .req-field input,
-        body.light-theme .req-field textarea,
-        body.light-theme .req-field select,
-        body.light-theme .qr-form-side input {
-            background: rgba(255,255,255,0.9) !important;
-            color: #0f172a !important;
-            border-color: rgba(0,0,0,0.15) !important;
-        }
-        body.light-theme .calc-field input::placeholder,
-        body.light-theme .req-field input::placeholder,
-        body.light-theme .req-field textarea::placeholder {
-            color: #64748b !important;
-        }
-        
-        body.light-theme .flyer-preview {
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
-        }
-
-        /* Fixed Light Theme text colors for comparison table & uploads */
-        body.light-theme .compare-pkg-col,
-        body.light-theme .compare-feature-col,
-        body.light-theme .compare-pkg-name,
-        body.light-theme .compare-select-btn {
-            color: #1e293b !important;
-        }
-        body.light-theme .compare-select-btn:hover {
-            color: #000 !important;
-        }
-        body.light-theme .file-upload-wrapper {
-            background: rgba(0, 0, 0, 0.02) !important;
-            border-color: rgba(243, 156, 18, 0.4) !important;
-        }
-        body.light-theme .file-upload-wrapper:hover {
-            background: rgba(243, 156, 18, 0.06) !important;
-        }
-        body.light-theme .file-upload-wrapper .upload-text {
-            color: #1e293b !important;
-        }
-        body.light-theme #invoiceCard {
-            background: rgba(255, 255, 255, 0.95) !important;
-            border: 2px dashed var(--accent-dark) !important;
-            color: #0f172a !important;
-        }
-        body.light-theme #invoiceCard h4 {
-            color: #0f172a !important;
-        }
-        body.light-theme #invoiceItems {
-            color: #334155 !important;
-        }
-        body.light-theme #invoiceTotal {
-            color: var(--accent-dark) !important;
-        }
-        body.light-theme #roiPanel {
-            border-top: 1.5px dashed rgba(0, 0, 0, 0.15) !important;
-        }
-        body.light-theme #roiPanel h5 {
-            color: #0f172a !important;
-        }
-        body.light-theme #roiPanel div {
-            background: rgba(0, 0, 0, 0.03) !important;
-            border-color: rgba(0, 0, 0, 0.06) !important;
-        }
-        body.light-theme #roiPanel span {
-            color: #334155 !important;
-        }
-        body.light-theme #roiReach,
-        body.light-theme #roiConvRate,
-        body.light-theme #roiRevenue,
-        body.light-theme #roiRatio {
-            color: #0f172a !important;
-        }
+        /* LIGHT THEME STYLES - REMOVED PERMANENT DARK THEME ACTIVATED */
 
         /* 📱 MOBİL TASARIM İYİLEŞTİRMELERİ */
         @media (max-width: 600px) {
@@ -1416,9 +1273,6 @@
             Ilgın İnsanı
         </a>
         <div style="display: flex; gap: 10px; align-items: center;">
-            <div class="topbar-lang" id="themeToggle" onclick="toggleTheme()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 5px 14px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 6px;">
-                <i class="fas fa-moon"></i> <span data-tr="Gece Modu" data-en="Dark Mode">Gece Modu</span>
-            </div>
             <div class="topbar-lang" id="langSwitch" onclick="toggleLanguage()">
                 <i class="fas fa-globe"></i> English
             </div>
@@ -1585,7 +1439,7 @@
                     <blockquote class="success-quote">"Sezon sonu stoklarımızı eritmek için kampanya duyurusu yaptık. Uygulama üzerinden bildirim gönderildiği gün mağazamız dolup taştı. 7 günde stoklar eridi!"</blockquote>
                     <div class="success-author">
                         <strong>Mehmet Ç.</strong>
-                        <span>Ilgın Tekstil Dünyası — Premium Paket</span>
+                        <span>Ilgın Tekstil Dünyası — Temel Paket</span>
                     </div>
                 </div>
             </div>
@@ -2230,39 +2084,68 @@
 
         <hr class="section-divider">
 
-        <!-- ====================== İNDİRİM HESAPLAYICI ====================== -->
-        <h2 class="section-title reveal" data-tr="Hemen Hesapla" data-en="Calculate Now">Hemen Hesapla</h2>
-        <p class="section-subtitle reveal" data-tr="Kampanyanızı planlamadan önce kazancınızı ve indirim oranınızı hesaplayın." data-en="Calculate your earnings and discount rate before planning your campaign.">Kampanyanızı planlamadan önce kazancınızı ve indirim oranınızı hesaplayın.</p>
+        <!-- ====================== YATIRIM GETİRİSİ (ROI) HESAPLAYICI ====================== -->
+        <h2 class="section-title reveal" data-tr="Tahmini Kazanç (ROI) Hesaplayıcı" data-en="Earnings (ROI) Calculator">Tahmini Kazanç (ROI) Hesaplayıcı</h2>
+        <p class="section-subtitle reveal" data-tr="Seçtiğiniz pakete, sektörünüze ve ortalama sepet tutarınıza göre reklamınızın tahmini getirisini hesaplayın." data-en="Calculate the estimated return of your ad based on your selected package, sector, and average ticket size.">Seçtiğiniz pakete, sektörünüze ve ortalama sepet tutarınıza göre reklamınızın tahmini getirisini hesaplayın.</p>
 
         <div class="calculator-box reveal">
-            <div class="calc-grid">
+            <div class="calc-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
                 <div class="calc-field">
-                    <label data-tr="Eski Fiyat (TL)" data-en="Original Price (TL)">Eski Fiyat (TL)</label>
-                    <input type="number" id="calcOldPrice" placeholder="Örn: 500" min="0" step="0.01">
+                    <label data-tr="Reklam Paketi" data-en="Advertising Package">Reklam Paketi</label>
+                    <select id="calcPackage" onchange="calculateROI()" style="padding: 14px 16px; background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; color: #fff; font-size: 0.95rem; font-family: inherit; transition: all 0.25s ease;">
+                        <!-- Instagram Packages -->
+                        <option value="story" data-price="750" data-reach="13000">Instagram Story (₺750)</option>
+                        <option value="post" data-price="1500" data-reach="20000">Instagram Post (₺1.500)</option>
+                        <option value="post_story" data-price="2000" data-reach="25000">Post + Story Kombo (₺2.000)</option>
+                        <option value="reels" data-price="2500" data-reach="25000">Instagram Reels (₺2.500)</option>
+                        <option value="reels_story" data-price="3000" data-reach="30000" selected>Reels + Story Kombo (₺3.000)</option>
+                        <option value="kapsamli_reels_story" data-price="4000" data-reach="35000">Kapsamlı Reels + Story (₺4.000)</option>
+                        <option value="drone_combo" data-price="5000" data-reach="40000">Drone Reels + Story (₺5.000)</option>
+                        <option value="suggested" data-price="5000" data-reach="45000">#IlgınİnsanıÖneriyor (₺5.000)</option>
+                        <option value="monthly" data-price="12500" data-reach="150000">Aylık Sponsorluk (₺12.500)</option>
+                        <!-- App Packages -->
+                        <option value="temel" data-price="99" data-reach="3000">Temel Uygulama İlanı (₺99)</option>
+                        <option value="premium" data-price="299" data-reach="8000">Premium Uygulama İlanı (₺299)</option>
+                        <option value="vip" data-price="599" data-reach="15000">VIP Slider Banner (₺599)</option>
+                    </select>
                 </div>
                 <div class="calc-field">
-                    <label data-tr="Yeni Fiyat (TL)" data-en="New Price (TL)">Yeni Fiyat (TL)</label>
-                    <input type="number" id="calcNewPrice" placeholder="Örn: 350" min="0" step="0.01">
+                    <label data-tr="Sektör (Müşteri Oranı)" data-en="Sector (Conv. Rate)">Sektör (Müşteri Oranı)</label>
+                    <select id="calcSector" onchange="calculateROI()" style="padding: 14px 16px; background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; color: #fff; font-size: 0.95rem; font-family: inherit; transition: all 0.25s ease;">
+                        <option value="0.025" selected>Gıda / Kafe / Fırın (~%2.5)</option>
+                        <option value="0.020">Hizmet / Kuaför / Termal (~%2.0)</option>
+                        <option value="0.018">Giyim / Tekstil / Mağaza (~%1.8)</option>
+                        <option value="0.015">Tarım / Hırdavat / Market (~%1.5)</option>
+                        <option value="0.015">Diğer / Genel Hizmetler (~%1.5)</option>
+                    </select>
+                </div>
+                <div class="calc-field">
+                    <label data-tr="Ortalama Müşteri Harcaması (TL)" data-en="Avg. Basket Size (TL)">Ortalama Müşteri Harcaması (TL)</label>
+                    <input type="number" id="calcBasket" placeholder="Örn: 200" min="1" value="200" oninput="calculateROI()" style="padding: 14px 16px; background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; color: #fff; font-size: 0.95rem; font-family: inherit; transition: all 0.25s ease;">
                 </div>
             </div>
-            <button class="calc-btn" onclick="calculateDiscount()">
+            <button class="calc-btn" onclick="calculateROI()" style="margin-top: 15px;">
                 <i class="fas fa-calculator"></i>
-                <span data-tr="İndirim Oranını Hesapla" data-en="Calculate Discount Rate">İndirim Oranını Hesapla</span>
+                <span data-tr="Yatırım Getirisini (ROI) Hesapla" data-en="Calculate Return on Investment (ROI)">Yatırım Getirisini (ROI) Hesapla</span>
             </button>
 
-            <div class="calc-result" id="calcResult">
-                <div class="result-grid">
+            <div class="calc-result show" id="calcResult">
+                <div class="result-grid" style="grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));">
                     <div class="result-item">
-                        <div class="result-label" data-tr="İndirim Oranı" data-en="Discount Rate">İndirim Oranı</div>
-                        <div class="result-value rv-discount" id="resRate">—</div>
+                        <div class="result-label" data-tr="Tahmini Erişim" data-en="Est. Reach">Tahmini Erişim</div>
+                        <div class="result-value" id="resReach" style="color: #3498db; font-size: 1.5rem; font-weight: 900;">—</div>
                     </div>
                     <div class="result-item">
-                        <div class="result-label" data-tr="Müşteri Tasarrufu" data-en="Customer Savings">Müşteri Tasarrufu</div>
-                        <div class="result-value rv-savings" id="resSavings">—</div>
+                        <div class="result-label" data-tr="Yeni Müşteri" data-en="New Customers">Yeni Müşteri</div>
+                        <div class="result-value" id="resCustomers" style="color: #2ecc71; font-size: 1.5rem; font-weight: 900;">—</div>
                     </div>
                     <div class="result-item">
-                        <div class="result-label" data-tr="Kampanya Fiyatı" data-en="Campaign Price">Kampanya Fiyatı</div>
-                        <div class="result-value rv-new" id="resNew">—</div>
+                        <div class="result-label" data-tr="Tahmini Ciro" data-en="Est. Revenue">Tahmini Ciro</div>
+                        <div class="result-value" id="resRevenue" style="color: #f39c12; font-size: 1.5rem; font-weight: 900;">—</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label" data-tr="Yatırım Oranı (ROI)" data-en="ROI Ratio">Yatırım Oranı (ROI)</div>
+                        <div class="result-value" id="resROI" style="color: #9b59b6; font-size: 1.5rem; font-weight: 900;">—</div>
                     </div>
                 </div>
             </div>
@@ -2641,45 +2524,7 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script>
-        /* ============================================================
-           DARK/LIGHT TEMA YÖNETİMİ
-        ============================================================ */
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            if (savedTheme === 'light') {
-                document.body.classList.add('light-theme');
-                updateThemeToggleUI('light');
-            } else {
-                document.body.classList.remove('light-theme');
-                updateThemeToggleUI('dark');
-            }
-        }
-
-        function toggleTheme() {
-            const isLight = document.body.classList.toggle('light-theme');
-            const theme = isLight ? 'light' : 'dark';
-            localStorage.setItem('theme', theme);
-            updateThemeToggleUI(theme);
-        }
-
-        function updateThemeToggleUI(theme) {
-            const toggleBtn = document.getElementById('themeToggle');
-            if (!toggleBtn) return;
-            const icon = toggleBtn.querySelector('i');
-            const textSpan = toggleBtn.querySelector('span');
-            
-            if (theme === 'light') {
-                icon.className = 'fas fa-sun';
-                textSpan.setAttribute('data-tr', 'Gündüz Modu');
-                textSpan.setAttribute('data-en', 'Light Mode');
-                textSpan.innerHTML = currentLang === 'tr' ? 'Gündüz Modu' : 'Light Mode';
-            } else {
-                icon.className = 'fas fa-moon';
-                textSpan.setAttribute('data-tr', 'Gece Modu');
-                textSpan.setAttribute('data-en', 'Dark Mode');
-                textSpan.innerHTML = currentLang === 'tr' ? 'Gece Modu' : 'Dark Mode';
-            }
-        }
+        // Theme switching functionality removed. Permanent dark theme is active.
 
         /* ============================================================
            GDPR ÇEREZ BANNER YÖNETİMİ
@@ -3609,39 +3454,87 @@
         }
 
         /* ============================================================
-           İNDİRİM HESAPLAYICI
+           YATIRIM GETİRİSİ (ROI) HESAPLAYICI
         ============================================================ */
-        function calculateDiscount() {
-            const oldRaw = parseFloat(document.getElementById('calcOldPrice').value);
-            const newRaw = parseFloat(document.getElementById('calcNewPrice').value);
+        function calculateROI() {
+            const packageEl = document.getElementById('calcPackage');
+            const selectedOpt = packageEl.options[packageEl.selectedIndex];
+            const cost = parseFloat(selectedOpt.getAttribute('data-price'));
+            const reach = parseInt(selectedOpt.getAttribute('data-reach'));
+            
+            const convRate = parseFloat(document.getElementById('calcSector').value);
+            const basket = parseFloat(document.getElementById('calcBasket').value) || 0;
+            
             const resultBox = document.getElementById('calcResult');
 
-            if (isNaN(oldRaw) || isNaN(newRaw) || oldRaw <= 0 || newRaw < 0 || newRaw >= oldRaw) {
-                resultBox.classList.remove('show');
-                alert(currentLang === 'tr'
-                    ? 'Lütfen geçerli fiyat değerleri girin. Eski fiyat, yeni fiyattan büyük olmalıdır.'
-                    : 'Please enter valid prices. Original price must be greater than the new price.');
+            if (isNaN(basket) || basket <= 0) {
+                document.getElementById('resReach').textContent = '—';
+                document.getElementById('resCustomers').textContent = '—';
+                document.getElementById('resRevenue').textContent = '—';
+                document.getElementById('resROI').textContent = '—';
                 return;
             }
 
-            const rate = ((oldRaw - newRaw) / oldRaw * 100).toFixed(1);
-            const savings = (oldRaw - newRaw).toFixed(2);
+            const newCustomers = Math.round(reach * convRate);
+            const grossRevenue = newCustomers * basket;
+            const roiVal = (grossRevenue / cost).toFixed(1);
 
-            document.getElementById('resRate').textContent = `%${rate}`;
-            document.getElementById('resSavings').textContent = `${savings} TL`;
-            document.getElementById('resNew').textContent = `${newRaw.toFixed(2)} TL`;
+            document.getElementById('resReach').textContent = reach.toLocaleString();
+            document.getElementById('resCustomers').textContent = `~${newCustomers}`;
+            document.getElementById('resRevenue').textContent = `₺${Math.round(grossRevenue).toLocaleString()}`;
+            document.getElementById('resROI').textContent = `${roiVal}x`;
             resultBox.classList.add('show');
         }
 
-        /* Hesaplayıcı alanlarına otomatik aktarım */
-        document.getElementById('calcOldPrice').addEventListener('blur', () => {
-            const v = document.getElementById('calcOldPrice').value;
-            if (v) document.getElementById('reqOldPrice').value = v;
-        });
-        document.getElementById('calcNewPrice').addEventListener('blur', () => {
-            const v = document.getElementById('calcNewPrice').value;
-            if (v) document.getElementById('reqNewPrice').value = v;
-        });
+        /* ============================================================
+           PAKET KARŞILAŞTIRMA TAB KONTROLLERİ & SEÇİM BUTONLARI
+        ============================================================ */
+        function switchCompareTab(tab) {
+            const btnInsta = document.getElementById('btnCompareInsta');
+            const btnApp = document.getElementById('btnCompareApp');
+            const wrapInsta = document.getElementById('compareInstaWrapper');
+            const wrapApp = document.getElementById('compareAppWrapper');
+            
+            if (tab === 'insta') {
+                btnInsta.classList.add('active');
+                btnApp.classList.remove('active');
+                wrapInsta.style.display = 'block';
+                wrapApp.style.display = 'none';
+            } else {
+                btnApp.classList.add('active');
+                btnInsta.classList.remove('active');
+                wrapApp.style.display = 'block';
+                wrapInsta.style.display = 'none';
+            }
+        }
+
+        function selectPkgFromTableInsta(pkg) {
+            // Scroll to form
+            const talep = document.getElementById('talep');
+            if (talep) talep.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Select Instagram tab in form ad type if needed
+            selectAdType('insta_only');
+            // Select the package dropdown
+            const select = document.getElementById('reqInstaPackage');
+            if (select) {
+                select.value = pkg;
+            }
+            updatePrices();
+            // Toast
+            const toast = document.createElement('div');
+            const names = { story: 'Instagram Story', reels_story: 'Reels + Story Kombo', suggested: '#IlgınİnsanıÖneriyor' };
+            toast.innerHTML = `<i class="fas fa-check-circle"></i> <strong>${names[pkg] || pkg}</strong> paketi formda seçildi!`;
+            Object.assign(toast.style, {
+                position: 'fixed', bottom: '30px', left: '50%', transform: 'translateX(-50%)',
+                background: 'rgba(46,204,113,0.95)', color: '#fff', padding: '14px 28px',
+                borderRadius: '50px', fontWeight: '700', fontSize: '0.95rem', zIndex: '9999',
+                boxShadow: '0 10px 30px rgba(46,204,113,0.3)', backdropFilter: 'blur(10px)',
+                display: 'flex', alignItems: 'center', gap: '10px',
+                animation: 'fadeIn 0.4s ease'
+            });
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
 
         /* ============================================================
            PAKET SEÇİMİ
@@ -3888,7 +3781,7 @@
         }
 
         // Initialize values on page load
-        initTheme();
+        calculateROI();
         checkCookies();
         checkUrlParams();
         updatePrices();
