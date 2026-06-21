@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,12 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
 
         :root {
             --accent: #f39c12;
@@ -69,7 +75,7 @@
         }
 
         .btn-nav {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border-color);
             color: #fff;
             padding: 8px 16px;
@@ -81,7 +87,7 @@
         }
 
         .btn-nav:hover {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             border-color: var(--accent);
         }
 
@@ -113,9 +119,17 @@
             background: var(--accent);
         }
 
-        .stat-card.approved::after { background: var(--green); }
-        .stat-card.pending::after { background: var(--blue); }
-        .stat-card.rejected::after { background: var(--red); }
+        .stat-card.approved::after {
+            background: var(--green);
+        }
+
+        .stat-card.pending::after {
+            background: var(--blue);
+        }
+
+        .stat-card.rejected::after {
+            background: var(--red);
+        }
 
         .stat-label {
             font-size: 0.8rem;
@@ -157,7 +171,7 @@
         .search-box input {
             width: 100%;
             padding: 12px 16px 12px 40px;
-            background: rgba(0,0,0,0.25);
+            background: rgba(0, 0, 0, 0.25);
             border: 1px solid var(--border-color);
             border-radius: 12px;
             color: #fff;
@@ -185,7 +199,7 @@
 
         .filter-select {
             padding: 12px 16px;
-            background: rgba(0,0,0,0.25);
+            background: rgba(0, 0, 0, 0.25);
             border: 1px solid var(--border-color);
             border-radius: 12px;
             color: #fff;
@@ -205,7 +219,7 @@
             border: 1px solid var(--border-color);
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             margin-bottom: 30px;
         }
 
@@ -216,7 +230,7 @@
         }
 
         th {
-            background: rgba(0,0,0,0.2);
+            background: rgba(0, 0, 0, 0.2);
             padding: 18px 24px;
             font-size: 0.85rem;
             text-transform: uppercase;
@@ -238,7 +252,7 @@
         }
 
         tr:hover td {
-            background: rgba(255,255,255,0.01);
+            background: rgba(255, 255, 255, 0.01);
         }
 
         /* BADGES */
@@ -251,17 +265,37 @@
             text-transform: uppercase;
         }
 
-        .badge-pending { background: rgba(52,152,219,0.15); color: var(--blue); }
-        .badge-approved { background: rgba(46,204,113,0.15); color: var(--green); }
-        .badge-rejected { background: rgba(231,76,60,0.15); color: var(--red); }
+        .badge-pending {
+            background: rgba(52, 152, 219, 0.15);
+            color: var(--blue);
+        }
+
+        .badge-approved {
+            background: rgba(46, 204, 113, 0.15);
+            color: var(--green);
+        }
+
+        .badge-rejected {
+            background: rgba(231, 76, 60, 0.15);
+            color: var(--red);
+        }
 
         .badge-pkg {
             border: 1px solid var(--border-color);
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             color: #fff;
         }
-        .badge-pkg.premium { border-color: var(--accent); color: var(--accent); }
-        .badge-pkg.vip { background: linear-gradient(45deg, #d4af37, #aa7c11); color: #fff; border: none; }
+
+        .badge-pkg.premium {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .badge-pkg.vip {
+            background: linear-gradient(45deg, #d4af37, #aa7c11);
+            color: #fff;
+            border: none;
+        }
 
         /* ACTION BUTTONS */
         .actions-wrap {
@@ -282,28 +316,54 @@
             color: #fff;
         }
 
-        .btn-approve { background: rgba(46,204,113,0.2); color: var(--green); }
-        .btn-approve:hover { background: var(--green); color: #111; }
+        .btn-approve {
+            background: rgba(46, 204, 113, 0.2);
+            color: var(--green);
+        }
 
-        .btn-reject { background: rgba(231,76,60,0.2); color: var(--red); }
-        .btn-reject:hover { background: var(--red); color: #fff; }
+        .btn-approve:hover {
+            background: var(--green);
+            color: #111;
+        }
 
-        .btn-delete { background: rgba(255,255,255,0.05); color: #ccc; }
-        .btn-delete:hover { background: rgba(255,255,255,0.15); color: #fff; }
+        .btn-reject {
+            background: rgba(231, 76, 60, 0.2);
+            color: var(--red);
+        }
+
+        .btn-reject:hover {
+            background: var(--red);
+            color: #fff;
+        }
+
+        .btn-delete {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ccc;
+        }
+
+        .btn-delete:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
 
         /* MODAL */
         .modal {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(5px);
             z-index: 2000;
             align-items: center;
             justify-content: center;
         }
 
-        .modal.show { display: flex; }
+        .modal.show {
+            display: flex;
+        }
 
         .modal-content {
             background: #13222d;
@@ -319,13 +379,16 @@
 
         .modal-close {
             position: absolute;
-            top: 20px; right: 20px;
+            top: 20px;
+            right: 20px;
             font-size: 1.5rem;
             cursor: pointer;
             color: #789;
         }
 
-        .modal-close:hover { color: #fff; }
+        .modal-close:hover {
+            color: #fff;
+        }
 
         .modal-title {
             margin-bottom: 20px;
@@ -337,111 +400,341 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
             padding-bottom: 8px;
         }
 
-        .detail-label { color: #9ab; font-size: 0.85rem; }
-        .detail-val { font-weight: 600; font-size: 0.9rem; }
+        .detail-label {
+            color: #9ab;
+            font-size: 0.85rem;
+        }
+
+        .detail-val {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
 
         @media (max-width: 768px) {
-            body { padding: 15px; }
-            th, td { padding: 12px 10px; font-size: 0.8rem; }
-            .header { flex-direction: column; gap: 15px; text-align: center; }
-            .nav-links { justify-content: center; gap: 10px; width: 100%; flex-wrap: wrap; }
-            .btn-nav { flex-grow: 1; text-align: center; font-size: 0.8rem; padding: 10px 12px; }
-            .filter-bar { flex-direction: column; align-items: stretch; gap: 15px; }
-            .search-box { max-width: 100%; min-width: auto; }
-            .filters { flex-direction: column; gap: 10px; }
-            .filter-select { width: 100%; }
-            .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-            table { min-width: 750px; }
-            .charts-row { grid-template-columns: 1fr !important; }
+            body {
+                padding: 15px;
+            }
+
+            th,
+            td {
+                padding: 12px 10px;
+                font-size: 0.8rem;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .nav-links {
+                justify-content: center;
+                gap: 10px;
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .btn-nav {
+                flex-grow: 1;
+                text-align: center;
+                font-size: 0.8rem;
+                padding: 10px 12px;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+            }
+
+            .search-box {
+                max-width: 100%;
+                min-width: auto;
+            }
+
+            .filters {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .filter-select {
+                width: 100%;
+            }
+
+            .table-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            table {
+                min-width: 750px;
+            }
+
+            .charts-row {
+                grid-template-columns: 1fr !important;
+            }
         }
 
         /* ADMIN LOGIN OVERLAY */
         .login-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: linear-gradient(135deg, #071118 0%, #0f1c24 100%);
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             z-index: 9999;
         }
+
         .login-box {
-            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.08); border-top: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 24px; padding: 40px; width: 90%; max-width: 400px;
-            text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 40px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
         }
-        .login-box h3 { margin-bottom: 20px; font-weight: 800; font-size: 1.5rem; }
-        .login-box h3 span { color: var(--accent); }
+
+        .login-box h3 {
+            margin-bottom: 20px;
+            font-weight: 800;
+            font-size: 1.5rem;
+        }
+
+        .login-box h3 span {
+            color: var(--accent);
+        }
+
         .login-box input {
-            width: 100%; padding: 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.15);
-            background: rgba(0,0,0,0.3); color: #fff; text-align: center; font-size: 1.1rem;
-            margin-bottom: 18px; outline: none; transition: 0.2s;
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 18px;
+            outline: none;
+            transition: 0.2s;
         }
-        .login-box input:focus { border-color: var(--accent); }
+
+        .login-box input:focus {
+            border-color: var(--accent);
+        }
+
         .btn-login {
-            width: 100%; padding: 14px; background: var(--accent); color: #111;
-            border: none; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.3s;
+            width: 100%;
+            padding: 14px;
+            background: var(--accent);
+            color: #111;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
         }
-        .btn-login:hover { background: var(--accent-dark); transform: translateY(-2px); }
+
+        .btn-login:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+        }
 
         /* GDPR COOKIE BANNER */
         .cookie-banner {
-            position: fixed; bottom: 20px; left: 20px; right: 20px; max-width: 500px;
-            background: rgba(13, 28, 36, 0.95); backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.12); border-top: 1px solid rgba(255,255,255,0.25);
-            border-radius: 16px; padding: 20px; z-index: 9999;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-            display: flex; flex-direction: column; gap: 15px;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            max-width: 500px;
+            background: rgba(13, 28, 36, 0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-top: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 16px;
+            padding: 20px;
+            z-index: 9999;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
             animation: slideUp 0.5s ease;
         }
-        .cookie-banner p { font-size: 0.85rem; color: #ddd; line-height: 1.4; }
-        .cookie-btn-wrap { display: flex; gap: 10px; justify-content: flex-end; }
-        .cookie-btn-accept { background: #2ecc71; color: #111; border: none; padding: 8px 20px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: 0.2s; }
-        .cookie-btn-accept:hover { background: #27ae60; }
-        
-        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .cookie-banner p {
+            font-size: 0.85rem;
+            color: #ddd;
+            line-height: 1.4;
+        }
+
+        .cookie-btn-wrap {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .cookie-btn-accept {
+            background: #2ecc71;
+            color: #111;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .cookie-btn-accept:hover {
+            background: #27ae60;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
 
         /* FLOATING SOCIAL SHARE BUTTONS */
         .social-share-bar {
-            position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
-            display: flex; flex-direction: column; gap: 10px; z-index: 1000;
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
         }
+
         @media (max-width: 900px) {
             .social-share-bar {
-                position: static; transform: none; flex-direction: row; justify-content: center; margin-top: 30px; margin-bottom: 20px;
+                position: static;
+                transform: none;
+                flex-direction: row;
+                justify-content: center;
+                margin-top: 30px;
+                margin-bottom: 20px;
             }
         }
+
         .share-btn {
-            width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            color: #fff; font-size: 1.2rem; text-decoration: none; transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08);
-            background: rgba(255,255,255,0.05); backdrop-filter: blur(5px);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
         }
-        .share-btn:hover { transform: scale(1.1) translateY(-2px); }
-        .share-x { color: #fff; }
-        .share-x:hover { background: #000; }
-        .share-facebook { color: #1877F2; }
-        .share-facebook:hover { background: #1877F2; color: #fff; }
-        .share-whatsapp { color: #25D366; }
-        .share-whatsapp:hover { background: #25D366; color: #fff; }
-        .share-telegram { color: #26A5E4; }
-        .share-telegram:hover { background: #26A5E4; color: #fff; }
-        .share-copy { color: #f39c12; }
-        .share-copy:hover { background: #f39c12; color: #111; }
-        
+
+        .share-btn:hover {
+            transform: scale(1.1) translateY(-2px);
+        }
+
+        .share-x {
+            color: #fff;
+        }
+
+        .share-x:hover {
+            background: #000;
+        }
+
+        .share-facebook {
+            color: #1877F2;
+        }
+
+        .share-facebook:hover {
+            background: #1877F2;
+            color: #fff;
+        }
+
+        .share-whatsapp {
+            color: #25D366;
+        }
+
+        .share-whatsapp:hover {
+            background: #25D366;
+            color: #fff;
+        }
+
+        .share-telegram {
+            color: #26A5E4;
+        }
+
+        .share-telegram:hover {
+            background: #26A5E4;
+            color: #fff;
+        }
+
+        .share-copy {
+            color: #f39c12;
+        }
+
+        .share-copy:hover {
+            background: #f39c12;
+            color: #111;
+        }
+
         /* MINI TOAST NOTIFICATION */
         .toast-notify {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            background: rgba(46, 204, 113, 0.95); color: #fff; padding: 12px 24px;
-            border-radius: 50px; font-weight: 700; font-size: 0.85rem; z-index: 99999;
-            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3); backdrop-filter: blur(10px);
-            display: flex; align-items: center; gap: 8px; animation: toastFadeIn 0.3s ease;
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(46, 204, 113, 0.95);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            z-index: 99999;
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: toastFadeIn 0.3s ease;
         }
-        @keyframes toastFadeIn { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+        @keyframes toastFadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, 20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <!-- Giriş Paneli -->
@@ -449,10 +742,14 @@
         <div class="login-box">
             <div class="brand-dot" style="margin: 0 auto 15px; width: 15px; height: 15px;"></div>
             <h3>Ilgın İnsanı <span>Admin</span></h3>
-            <p style="font-size: 0.85rem; color: #9ab; margin-bottom: 20px;">Devam etmek için yönetici şifresini girin.</p>
-            <input type="password" id="adminPassword" placeholder="••••••••" onkeydown="if(event.key === 'Enter') loginAdmin()">
+            <p style="font-size: 0.85rem; color: #9ab; margin-bottom: 20px;">Devam etmek için yönetici şifresini girin.
+            </p>
+            <input type="password" id="adminPassword" placeholder="••••••••"
+                onkeydown="if(event.key === 'Enter') loginAdmin()">
             <button class="btn-login" onclick="loginAdmin()">Giriş Yap</button>
-            <p id="loginError" style="color: var(--red); font-size: 0.8rem; margin-top: 12px; display: none; font-weight: bold;">Hatalı şifre! Tekrar deneyin.</p>
+            <p id="loginError"
+                style="color: var(--red); font-size: 0.8rem; margin-top: 12px; display: none; font-weight: bold;">Hatalı
+                şifre! Tekrar deneyin.</p>
         </div>
     </div>
 
@@ -490,15 +787,22 @@
         </div>
 
         <!-- CHARTS SECTION -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px;" class="charts-row">
-            <div style="background: var(--card-bg); backdrop-filter: blur(10px); border: 1px solid var(--border-color); border-radius: 18px; padding: 25px; min-height: 320px; display: flex; flex-direction: column; align-items: center;">
-                <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; color: #9ab; display: flex; align-items: center; gap: 8px;"><i class="fas fa-chart-pie" style="color: var(--accent);"></i> Sektörel Dağılım</h4>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px;"
+            class="charts-row">
+            <div
+                style="background: var(--card-bg); backdrop-filter: blur(10px); border: 1px solid var(--border-color); border-radius: 18px; padding: 25px; min-height: 320px; display: flex; flex-direction: column; align-items: center;">
+                <h4
+                    style="font-size: 0.95rem; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; color: #9ab; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-chart-pie" style="color: var(--accent);"></i> Sektörel Dağılım</h4>
                 <div style="width: 100%; max-width: 320px; height: 220px; position: relative;">
                     <canvas id="categoryChart"></canvas>
                 </div>
             </div>
-            <div style="background: var(--card-bg); backdrop-filter: blur(10px); border: 1px solid var(--border-color); border-radius: 18px; padding: 25px; min-height: 320px; display: flex; flex-direction: column; align-items: center;">
-                <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; color: #9ab; display: flex; align-items: center; gap: 8px;"><i class="fas fa-tasks" style="color: var(--blue);"></i> Talep Durum Analizi</h4>
+            <div
+                style="background: var(--card-bg); backdrop-filter: blur(10px); border: 1px solid var(--border-color); border-radius: 18px; padding: 25px; min-height: 320px; display: flex; flex-direction: column; align-items: center;">
+                <h4
+                    style="font-size: 0.95rem; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; color: #9ab; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-tasks" style="color: var(--blue);"></i> Talep Durum Analizi</h4>
                 <div style="width: 100%; height: 220px; position: relative;">
                     <canvas id="statusChart"></canvas>
                 </div>
@@ -509,7 +813,8 @@
         <div class="filter-bar">
             <div class="search-box">
                 <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="İşletme veya yetkili adı ara..." oninput="filterData()">
+                <input type="text" id="searchInput" placeholder="İşletme veya yetkili adı ara..."
+                    oninput="filterData()">
             </div>
             <div class="filters">
                 <select class="filter-select" id="filterStatus" onchange="filterData()">
@@ -524,7 +829,9 @@
                     <option value="premium">Premium (₺299)</option>
                     <option value="vip">VIP (₺599)</option>
                 </select>
-                <button class="btn-nav" style="border-color: var(--green); color: var(--green); background: rgba(46,204,113,0.05); padding: 10px 16px; border-radius: 12px; font-weight: 700; font-size: 0.85rem;" onclick="exportToCSV()"><i class="fas fa-file-excel"></i> Excel / CSV Aktar</button>
+                <button class="btn-nav"
+                    style="border-color: var(--green); color: var(--green); background: rgba(46,204,113,0.05); padding: 10px 16px; border-radius: 12px; font-weight: 700; font-size: 0.85rem;"
+                    onclick="exportToCSV()"><i class="fas fa-file-excel"></i> Excel / CSV Aktar</button>
             </div>
         </div>
 
@@ -655,14 +962,14 @@
             const tbody = document.getElementById('tableBody');
             tbody.innerHTML = '';
 
-            if(dataToRender.length === 0) {
+            if (dataToRender.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #789; padding: 40px;">Aradığınız kriterlere uygun kampanya talebi bulunamadı.</td></tr>`;
                 return;
             }
 
             dataToRender.forEach(item => {
                 const tr = document.createElement('tr');
-                
+
                 const categoryLabel = {
                     gida: "Gıda & Market",
                     tarim: "Tarım & Ziraat",
@@ -678,19 +985,19 @@
                     "Hizmet / Diğer": "Hizmet / Diğer"
                 }[item.kategori] || item.kategori || "Diğer";
 
-                const packageBadge = item.paket === 'temel' 
+                const packageBadge = item.paket === 'temel'
                     ? '<span class="badge badge-pkg">Temel</span>'
                     : item.paket === 'premium'
-                    ? '<span class="badge badge-pkg premium">Premium</span>'
-                    : item.paket === 'vip'
-                    ? '<span class="badge badge-pkg vip">VIP</span>'
-                    : '<span class="badge badge-pkg">Yok</span>';
+                        ? '<span class="badge badge-pkg premium">Premium</span>'
+                        : item.paket === 'vip'
+                            ? '<span class="badge badge-pkg vip">VIP</span>'
+                            : '<span class="badge badge-pkg">Yok</span>';
 
                 const statusBadge = item.durum === 'pending'
                     ? '<span class="badge badge-pending">Bekliyor</span>'
                     : item.durum === 'approved'
-                    ? '<span class="badge badge-approved">Onaylandı</span>'
-                    : '<span class="badge badge-rejected">Reddedildi</span>';
+                        ? '<span class="badge badge-approved">Onaylandı</span>'
+                        : '<span class="badge badge-rejected">Reddedildi</span>';
 
                 let priceHtml = '';
                 if (item.yeniFiyat) {
@@ -711,7 +1018,7 @@
 
                 const totalCost = item.toplamUcret ? item.toplamUcret : (parseFloat(item.ucret || 0) + parseFloat(item.instagramUcret || 0));
 
-                 tr.innerHTML = `
+                tr.innerHTML = `
                     <td style="cursor:pointer;" onclick="openDetails('${item.id}')">
                         <div style="display: flex; align-items: center; gap: 12px;">
                             <img src="${item.resimUrl || 'https://via.placeholder.com/400'}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0;" alt="Kampanya">
@@ -748,7 +1055,7 @@
         function updateStats() {
             const pending = campaigns.filter(c => c.durum === 'pending').length;
             const approved = campaigns.filter(c => c.durum === 'approved').length;
-            
+
             let revenue = 0;
             campaigns.forEach(c => {
                 if (c.durum === 'approved') {
@@ -882,10 +1189,10 @@
             }[item.kategori] || item.kategori || "Diğer";
 
             const cleanPhone = formatPhoneForWhatsApp(item.telefon);
-            
+
             // Build approve message containing passcode and link
             let approveMsg = `Merhaba ${item.yetkili}, Ilgın İnsanı portalında oluşturduğunuz '${item.isletme}' işletmesine ait '${item.kampanyaBasligi}' başlıklı kampanya talebiniz onaylanmıştır! Kampanyanız başarıyla yayına alınmıştır.\n\nCanlı kampanya verilerini takip etmek için aşağıdaki linki ve şifreyi kullanabilirsiniz:\nTakip Linki: https://ilgininsani.com/istatistik.html?id=${item.id}\nGiriş Şifresi: ${item.sifre || '—'}\n\nİyi çalışmalar dileriz!`;
-            
+
             const rejectMsg = `Merhaba ${item.yetkili}, Ilgın İnsanı portalında oluşturduğunuz '${item.isletme}' işletmesine ait '${item.kampanyaBasligi}' başlıklı kampanya talebiniz eksik veya hatalı bilgi nedeniyle onaylanamamıştır. Düzenleme detayları için bizimle iletişime geçebilirsiniz.`;
             const waApproveUrl = `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(approveMsg)}`;
             const waRejectUrl = `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(rejectMsg)}`;
@@ -915,22 +1222,21 @@
                 <div class="detail-row"><span class="detail-label">Kampanya Süresi:</span><span class="detail-val">${item.sure} Gün</span></div>
                 
                 <div class="detail-row" style="border-top:1px dashed rgba(255,255,255,0.1); padding-top:10px; margin-top:10px;"><span class="detail-label">Uygulama Paketi:</span><span class="detail-val" style="text-transform:uppercase;">${item.paket} (₺${item.ucret || 0})</span></div>
-                <div class="detail-row"><span class="detail-label">Instagram Paketi:</span><span class="detail-val" style="color:#e6683c; font-weight:bold;">${
-                    {
-                        none: "İstenmiyor",
-                        story: "Hikaye (Story)",
-                        post: "Gönderi (Post)",
-                        post_story: "Gönderi + Hikaye",
-                        reels: "Reels Videosu",
-                        reels_story: "Reels + Hikaye",
-                        kapsamli_reels_story: "Tasarım/Çekim Kapsamlı Reels + Hikaye",
-                        drone_story: "Drone ile Hikaye",
-                        drone_reels: "Drone ile Reels",
-                        drone_combo: "Drone ile Reels + Hikaye",
-                        suggested: "#IlgınİnsanıÖneriyor Özel Video",
-                        monthly: "Aylık Esnaf Sponsorluğu",
-                        giveaway: "Çekiliş Sponsorluğu"
-                    }[item.instagramPaket || "none"] || "İstenmiyor"
+                <div class="detail-row"><span class="detail-label">Instagram Paketi:</span><span class="detail-val" style="color:#e6683c; font-weight:bold;">${{
+                    none: "İstenmiyor",
+                    story: "Hikaye (Story)",
+                    post: "Gönderi (Post)",
+                    post_story: "Gönderi + Hikaye",
+                    reels: "Reels Videosu",
+                    reels_story: "Reels + Hikaye",
+                    kapsamli_reels_story: "Tasarım/Çekim Kapsamlı Reels + Hikaye",
+                    drone_story: "Drone ile Hikaye",
+                    drone_reels: "Drone ile Reels",
+                    drone_combo: "Drone ile Reels + Hikaye",
+                    suggested: "#IlgınİnsanıÖneriyor Özel Video",
+                    monthly: "Aylık Esnaf Sponsorluğu",
+                    giveaway: "Çekiliş Sponsorluğu"
+                }[item.instagramPaket || "none"] || "İstenmiyor"
                 } (₺${item.instagramUcret || 0})</span></div>
                 ${item.instagramPaket === 'giveaway' ? `<div class="detail-row"><span class="detail-label">Çekiliş Süresi:</span><span class="detail-val">${item.cekilisGunSayisi || 3} Gün</span></div>` : ''}
                 <div class="detail-row"><span class="detail-label">Çekim / Kurgu Talebi:</span><span class="detail-val">${item.montajIstegi || 'Hayır'}</span></div>
@@ -999,10 +1305,10 @@
             const mediaId = document.getElementById('modalInstaMediaId').value.trim();
             const postUrl = document.getElementById('modalInstaUrl').value.trim();
             const btn = document.getElementById('btnSaveInsta');
-            
+
             btn.disabled = true;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Kaydediliyor...';
-            
+
             campaigns = campaigns.map(c => {
                 if (c.id === id) {
                     c.instagram_media_id = mediaId;
@@ -1012,7 +1318,7 @@
                 return c;
             });
             localStorage.setItem('ilgin_campaigns', JSON.stringify(campaigns));
-            
+
             try {
                 const response = await fetch('https://n8n.ilgininsani.com/webhook/esnaf-kampanya-guncelle', {
                     method: 'POST',
@@ -1024,7 +1330,7 @@
                         instagram_active: mediaId !== '' ? 'TRUE' : 'FALSE'
                     })
                 });
-                
+
                 if (!response.ok) throw new Error("n8n güncelleme hatası");
                 alert("Instagram canlı takip detayları kaydedildi! ✅");
                 filterData();
@@ -1085,7 +1391,7 @@
                 'rgba(255, 255, 0, 0.75)',  // yellow
                 'rgba(112, 0, 255, 0.75)'   // purple
             ];
-            
+
             const neonBorders = [
                 'rgba(255, 0, 127, 1)',
                 'rgba(57, 255, 20, 1)',
@@ -1245,7 +1551,7 @@
         }
 
         // Close modal on click outside
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             const modal = document.getElementById('detailModal');
             if (event.target === modal) {
                 modal.classList.remove('show');
@@ -1257,7 +1563,7 @@
 
         // Şifre doğrulama mantığı
         const ADMIN_HASH = "ilgin42"; // Yönetici Şifresi
-        
+
         function checkAuth() {
             if (sessionStorage.getItem('admin_authenticated') === 'true') {
                 document.getElementById('loginOverlay').style.display = 'none';
@@ -1278,7 +1584,7 @@
                 document.getElementById('adminPassword').value = '';
             }
         }
-        
+
         // Sayfa yüklendiğinde kontrol et
         checkAuth();
     </script>
@@ -1287,127 +1593,320 @@
     <style>
         /* GELİR TAHMİNİ */
         .revenue-module {
-            background: var(--card-bg); backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color); border-radius: 20px;
-            padding: 30px; margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
+
         .revenue-module-title {
-            font-size: 1rem; font-weight: 700; color: #9ab;
-            text-transform: uppercase; letter-spacing: 0.5px;
-            margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #9ab;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .revenue-module-title i { color: var(--accent); }
+
+        .revenue-module-title i {
+            color: var(--accent);
+        }
+
         .revenue-kpi-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px; margin-bottom: 25px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
         }
+
         .revenue-kpi {
-            background: rgba(0,0,0,0.25); border-radius: 14px;
-            padding: 18px 16px; text-align: center;
-            border: 1px solid rgba(255,255,255,0.05);
-            position: relative; overflow: hidden;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 14px;
+            padding: 18px 16px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
         }
+
         .revenue-kpi::after {
-            content: ''; position: absolute; bottom: 0; left: 0;
-            width: 100%; height: 3px; background: var(--accent);
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
         }
-        .revenue-kpi.rev-month::after { background: var(--green); }
-        .revenue-kpi.rev-year::after { background: #9b59b6; }
-        .revenue-kpi.rev-target::after { background: var(--blue); }
-        .revenue-kpi-label { font-size: 0.7rem; color: #789; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; font-weight: 700; }
-        .revenue-kpi-value { font-size: 1.7rem; font-weight: 900; color: #fff; }
-        .revenue-kpi-sub { font-size: 0.72rem; color: #9ab; margin-top: 4px; }
+
+        .revenue-kpi.rev-month::after {
+            background: var(--green);
+        }
+
+        .revenue-kpi.rev-year::after {
+            background: #9b59b6;
+        }
+
+        .revenue-kpi.rev-target::after {
+            background: var(--blue);
+        }
+
+        .revenue-kpi-label {
+            font-size: 0.7rem;
+            color: #789;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .revenue-kpi-value {
+            font-size: 1.7rem;
+            font-weight: 900;
+            color: #fff;
+        }
+
+        .revenue-kpi-sub {
+            font-size: 0.72rem;
+            color: #9ab;
+            margin-top: 4px;
+        }
+
         .revenue-trend {
-            display: inline-flex; align-items: center; gap: 5px;
-            font-size: 0.8rem; font-weight: 700; padding: 3px 10px;
-            border-radius: 20px; margin-top: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-top: 6px;
         }
-        .trend-up { background: rgba(46,204,113,0.15); color: var(--green); }
-        .trend-down { background: rgba(231,76,60,0.15); color: var(--red); }
+
+        .trend-up {
+            background: rgba(46, 204, 113, 0.15);
+            color: var(--green);
+        }
+
+        .trend-down {
+            background: rgba(231, 76, 60, 0.15);
+            color: var(--red);
+        }
 
         .revenue-target-row {
-            display: flex; align-items: center; gap: 15px;
-            background: rgba(0,0,0,0.2); padding: 15px 20px;
-            border-radius: 14px; border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px 20px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .revenue-target-row label { font-size: 0.85rem; color: #9ab; font-weight: 600; white-space: nowrap; }
+
+        .revenue-target-row label {
+            font-size: 0.85rem;
+            color: #9ab;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
         .revenue-target-input {
-            flex: 1; padding: 10px 14px; background: rgba(0,0,0,0.3);
-            border: 1px solid var(--border-color); border-radius: 10px;
-            color: #fff; font-size: 0.95rem; outline: none;
+            flex: 1;
+            padding: 10px 14px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
         }
-        .revenue-target-input:focus { border-color: var(--accent); }
+
+        .revenue-target-input:focus {
+            border-color: var(--accent);
+        }
+
         .revenue-target-result {
-            font-size: 0.85rem; font-weight: 700; color: var(--accent); white-space: nowrap;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent);
+            white-space: nowrap;
         }
 
         /* İÇERİK TAKVİMİ */
         .content-cal-wrapper {
-            background: var(--card-bg); backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color); border-radius: 20px;
-            padding: 30px; margin-bottom: 30px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
         }
+
         .content-cal-header {
-            display: flex; align-items: center; justify-content: space-between;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             margin-bottom: 20px;
         }
+
         .content-cal-title {
-            font-size: 1rem; font-weight: 700; color: #9ab;
-            text-transform: uppercase; letter-spacing: 0.5px;
-            display: flex; align-items: center; gap: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #9ab;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .content-cal-title i { color: var(--blue); }
-        .content-cal-nav { display: flex; align-items: center; gap: 10px; }
+
+        .content-cal-title i {
+            color: var(--blue);
+        }
+
+        .content-cal-nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         .cal-nav-sm {
-            background: rgba(255,255,255,0.06); border: 1px solid var(--border-color);
-            color: #fff; width: 32px; height: 32px; border-radius: 8px;
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: 0.2s;
         }
-        .cal-nav-sm:hover { background: rgba(255,255,255,0.12); border-color: var(--accent); }
-        .content-cal-month { font-size: 0.9rem; font-weight: 700; color: #fff; }
+
+        .cal-nav-sm:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--accent);
+        }
+
+        .content-cal-month {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
         .content-cal-grid-header {
-            display: grid; grid-template-columns: repeat(7, 1fr);
-            gap: 3px; margin-bottom: 3px;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 3px;
+            margin-bottom: 3px;
         }
+
         .content-cal-dayname {
-            text-align: center; font-size: 0.65rem; font-weight: 700;
-            color: #789; text-transform: uppercase; padding: 5px 0;
+            text-align: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #789;
+            text-transform: uppercase;
+            padding: 5px 0;
         }
+
         .content-cal-days {
-            display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 3px;
         }
+
         .content-cal-day {
-            min-height: 60px; background: rgba(0,0,0,0.15);
-            border-radius: 8px; padding: 6px; border: 1px solid rgba(255,255,255,0.03);
-            position: relative; transition: 0.2s;
+            min-height: 60px;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            padding: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            position: relative;
+            transition: 0.2s;
         }
-        .content-cal-day:hover { background: rgba(255,255,255,0.03); }
-        .content-cal-day.empty { background: transparent; border-color: transparent; }
-        .content-cal-day.today { border-color: var(--accent); }
+
+        .content-cal-day:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .content-cal-day.empty {
+            background: transparent;
+            border-color: transparent;
+        }
+
+        .content-cal-day.today {
+            border-color: var(--accent);
+        }
+
         .content-cal-daynum {
-            font-size: 0.72rem; font-weight: 700; color: #789; margin-bottom: 4px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #789;
+            margin-bottom: 4px;
         }
-        .content-cal-day.today .content-cal-daynum { color: var(--accent); }
+
+        .content-cal-day.today .content-cal-daynum {
+            color: var(--accent);
+        }
+
         .content-event {
-            font-size: 0.58rem; font-weight: 700; padding: 2px 5px;
-            border-radius: 4px; margin-bottom: 2px; cursor: pointer;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            font-size: 0.58rem;
+            font-weight: 700;
+            padding: 2px 5px;
+            border-radius: 4px;
+            margin-bottom: 2px;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             max-width: 100%;
         }
-        .event-app { background: rgba(52,152,219,0.25); color: #3498db; border-left: 2px solid #3498db; }
-        .event-insta { background: rgba(225,48,108,0.2); color: #e1306c; border-left: 2px solid #e1306c; }
-        .event-combo { background: rgba(212,175,55,0.2); color: #d4af37; border-left: 2px solid #d4af37; }
+
+        .event-app {
+            background: rgba(52, 152, 219, 0.25);
+            color: #3498db;
+            border-left: 2px solid #3498db;
+        }
+
+        .event-insta {
+            background: rgba(225, 48, 108, 0.2);
+            color: #e1306c;
+            border-left: 2px solid #e1306c;
+        }
+
+        .event-combo {
+            background: rgba(212, 175, 55, 0.2);
+            color: #d4af37;
+            border-left: 2px solid #d4af37;
+        }
+
         .cal-legend-row {
-            display: flex; gap: 15px; margin-top: 15px; flex-wrap: wrap;
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
         }
+
         .cal-legend-item {
-            display: flex; align-items: center; gap: 6px;
-            font-size: 0.75rem; color: #9ab;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            color: #9ab;
         }
+
         .cal-legend-dot {
-            width: 10px; height: 10px; border-radius: 3px;
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
         }
     </style>
 
@@ -1463,7 +1962,7 @@
         /* ============================================================
            İÇERİK YAYİN TAKVİMİ
         ============================================================ */
-        const TR_MONTHS_DASH = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+        const TR_MONTHS_DASH = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
         let dashCalYear = new Date().getFullYear();
         let dashCalMonth = new Date().getMonth();
 
@@ -1554,13 +2053,13 @@
             dummy.select();
             document.execCommand('copy');
             document.body.removeChild(dummy);
-            
+
             // Show Toast
             const toast = document.createElement('div');
             toast.className = 'toast-notify';
             toast.innerHTML = `<i class="fas fa-check-circle"></i> <span>Bağlantı başarıyla kopyalandı!</span>`;
             document.body.appendChild(toast);
-            
+
             setTimeout(() => {
                 toast.style.opacity = '0';
                 toast.style.transition = 'opacity 0.3s ease';
@@ -1633,16 +2132,20 @@
 
     <!-- FLOATING SOCIAL SHARE BAR -->
     <div class="social-share-bar">
-        <a href="https://twitter.com/intent/tweet?url=https://ilgininsani.com/dashboard.html&text=Ilgın%20İnsanı%20Esnaf%20Kampanya%20Yönetim%20Paneli!" target="_blank" class="share-btn share-x" aria-label="X (Twitter) Share">
+        <a href="https://twitter.com/intent/tweet?url=https://ilgininsani.com/dashboard.html&text=Ilgın%20İnsanı%20Esnaf%20Kampanya%20Yönetim%20Paneli!"
+            target="_blank" class="share-btn share-x" aria-label="X (Twitter) Share">
             <i class="fab fa-x-twitter"></i>
         </a>
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://ilgininsani.com/dashboard.html" target="_blank" class="share-btn share-facebook" aria-label="Facebook Share">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://ilgininsani.com/dashboard.html" target="_blank"
+            class="share-btn share-facebook" aria-label="Facebook Share">
             <i class="fab fa-facebook-f"></i>
         </a>
-        <a href="https://wa.me/?text=Ilgın%20İnsanı%20Esnaf%20Kampanya%20Yönetim%20Paneli!%20İnceleyin:%20https://ilgininsani.com/dashboard.html" target="_blank" class="share-btn share-whatsapp" aria-label="WhatsApp Share">
+        <a href="https://wa.me/?text=Ilgın%20İnsanı%20Esnaf%20Kampanya%20Yönetim%20Paneli!%20İnceleyin:%20https://ilgininsani.com/dashboard.html"
+            target="_blank" class="share-btn share-whatsapp" aria-label="WhatsApp Share">
             <i class="fab fa-whatsapp"></i>
         </a>
-        <a href="https://t.me/share/url?url=https://ilgininsani.com/dashboard.html&text=Ilgın%20İnsanı%20Esnaf%20Kampanya%20Yönetim%20Paneli!" target="_blank" class="share-btn share-telegram" aria-label="Telegram Share">
+        <a href="https://t.me/share/url?url=https://ilgininsani.com/dashboard.html&text=Ilgın%20İnsanı%20Esnaf%20Kampanya%20Yönetim%20Paneli!"
+            target="_blank" class="share-btn share-telegram" aria-label="Telegram Share">
             <i class="fab fa-telegram-plane"></i>
         </a>
         <button class="share-btn share-copy" onclick="copyPageLink()" aria-label="Copy Link">
@@ -1652,10 +2155,12 @@
 
     <!-- GDPR COOKIE BANNER -->
     <div class="cookie-banner" id="cookieBanner" style="display: none;">
-        <p>Gizliliğinize önem veriyoruz. Sitemizde deneyiminizi iyileştirmek için çerezler kullanıyoruz. Sitemizi kullanmaya devam ederek çerez kullanımını kabul etmiş bulunursunuz.</p>
+        <p>Gizliliğinize önem veriyoruz. Sitemizde deneyiminizi iyileştirmek için çerezler kullanıyoruz. Sitemizi
+            kullanmaya devam ederek çerez kullanımını kabul etmiş bulunursunuz.</p>
         <div class="cookie-btn-wrap">
             <button class="cookie-btn-accept" onclick="acceptCookies()">Kabul Et</button>
         </div>
     </div>
 </body>
+
 </html>

@@ -6,7 +6,6 @@
     <meta name="description" content="Ilgın İnsanı — Canlı Kampanya İstatistik Takip Paneli. Reklam performansınızı ve yatırım getirinizi anlık olarak izleyin.">
     <title>Canlı Kampanya Analitiği — Ilgın İnsanı</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
 
@@ -198,38 +197,6 @@
         .metric-title { font-size: 0.75rem; text-transform: uppercase; color: var(--text-sub); letter-spacing: 0.5px; font-weight: 700; }
         .metric-sub { font-size: 0.65rem; color: #789; margin-top: 4px; }
 
-        /* CHART & DETAIL SECTION */
-        .chart-section {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 30px; margin-bottom: 30px;
-            display: flex; flex-direction: column; align-items: center;
-        }
-        .chart-header {
-            width: 100%; display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 25px; flex-wrap: wrap; gap: 10px;
-        }
-        .chart-title { font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-sub); display: flex; align-items: center; gap: 8px; }
-        .chart-title i { color: var(--accent); }
-        .chart-live-indicator {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(46,204,113,0.12); border: 1.5px solid rgba(46,204,113,0.3);
-            border-radius: 30px; padding: 5px 15px; font-size: 0.72rem; font-weight: 700; color: var(--green);
-        }
-        .live-dot {
-            width: 8px; height: 8px; background: var(--green); border-radius: 50%;
-            animation: pulse-green 1.5s infinite;
-        }
-        @keyframes pulse-green {
-            0% { box-shadow: 0 0 0 0 rgba(46,204,113,0.7); }
-            70% { box-shadow: 0 0 0 8px rgba(46,204,113,0); }
-            100% { box-shadow: 0 0 0 0 rgba(46,204,113,0); }
-        }
-        .chart-container {
-            width: 100%; height: 320px; position: relative;
-        }
-
         /* INFORMATION CARD */
         .info-card {
             background: var(--glass-bg);
@@ -254,11 +221,21 @@
             .campaign-details-right { text-align: center; width: 100%; }
             .metrics-grid { grid-template-columns: 1fr; gap: 15px; }
             .metric-number { font-size: 1.8rem; }
-            .chart-section { padding: 15px; }
-            .chart-header { flex-direction: column; gap: 12px; text-align: center; align-items: center; }
-            .chart-container { height: 260px; }
             .passcode-wrapper { padding: 30px 15px; }
             .passcode-wrapper h2 { font-size: 1.4rem; }
+        }
+        @keyframes pulse-orange {
+            0% { box-shadow: 0 0 0 0 rgba(230,104,60,0.4); }
+            70% { box-shadow: 0 0 0 8px rgba(230,104,60,0); }
+            100% { box-shadow: 0 0 0 0 rgba(230,104,60,0); }
+        }
+        .btn-insta-post {
+            transition: all 0.2s ease;
+        }
+        .btn-insta-post:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(220,39,67,0.4) !important;
+            filter: brightness(1.1);
         }
     </style>
 </head>
@@ -290,7 +267,7 @@
                 <p class="passcode-error" id="passcodeError" data-tr="Hatalı şifre! Lütfen tekrar deneyin." data-en="Incorrect passcode! Please try again.">Hatalı şifre! Lütfen tekrar deneyin.</p>
             </div>
             
-            <button class="btn-submit" onclick="verifyPasscode()" data-tr="Paneli Aç" data-en="Open Dashboard">Paneli Aç</button>
+            <button class="btn-submit" onclick="verifyPasscode()" data-tr="Paneli Aç" data-en="Open Panel">Paneli Aç</button>
         </div>
 
         <!-- 📊 PERFORMANCE ANALYTICS DASHBOARD (HIDDEN ON START) -->
@@ -310,6 +287,58 @@
                 </div>
             </div>
 
+            <!-- Instagram Live Stats (Conditional) - MOVED TO TOP -->
+            <div id="instaStatsSection" style="display: none; background: rgba(230,104,60,0.05); border: 1px solid rgba(230,104,60,0.2); border-radius: 20px; padding: 25px; margin-bottom: 30px;">
+                <h4 style="font-size: 1rem; font-weight: 800; color: #e6683c; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; margin-top: 0;">
+                    <i class="fab fa-instagram"></i> <span>Instagram Canlı Gönderi Analitiği (Canlı & Gerçek Veriler • Yarım Saatte Bir Güncellenir)</span>
+                </h4>
+                <div class="metrics-grid" style="margin-bottom: 0; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                    <!-- Instagram Görüntülenme / Erişim -->
+                    <div class="metric-card insta" style="min-height: 120px; padding: 18px 15px;">
+                        <span class="metric-icon" style="color: #e6683c;"><i class="fas fa-eye"></i></span>
+                        <div class="metric-number" id="metricInstaViews">0</div>
+                        <div class="metric-title" style="font-size: 0.7rem;">Instagram Gösterim</div>
+                    </div>
+                    <!-- Instagram Beğeni -->
+                    <div class="metric-card insta" style="min-height: 120px; padding: 18px 15px;">
+                        <span class="metric-icon" style="color: #e6683c;"><i class="fas fa-heart"></i></span>
+                        <div class="metric-number" id="metricInstaLikes">0</div>
+                        <div class="metric-title" style="font-size: 0.7rem;">Instagram Beğeni</div>
+                    </div>
+                    <!-- Instagram Yorum -->
+                    <div class="metric-card insta" style="min-height: 120px; padding: 18px 15px;">
+                        <span class="metric-icon" style="color: #e6683c;"><i class="fas fa-comment"></i></span>
+                        <div class="metric-number" id="metricInstaComments">0</div>
+                        <div class="metric-title" style="font-size: 0.7rem;">Instagram Yorum</div>
+                    </div>
+                </div>
+                <!-- Instagram Status and Action Button -->
+                <div id="instaStatsStatus" style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.02); border-radius: 14px; border: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+                    <div style="display: flex; align-items: center; gap: 10px; flex-grow: 1;">
+                        <span class="live-dot" style="background: #e6683c; animation: pulse-orange 1.5s infinite; flex-shrink: 0; width: 10px; height: 10px; border-radius: 50%;"></span>
+                        <span id="instaStatusText" style="font-size: 0.82rem; color: var(--text-sub); line-height: 1.4;">
+                            Instagram canlı takibiniz aktif durumdadır. Verileriniz, resmi Meta API entegrasyonu aracılığıyla doğrudan sosyal medya hesabınızdan doğrulanmış <strong>gerçek verilerdir</strong> ve yarım saatte bir güncellenmektedir.
+                        </span>
+                    </div>
+                    <a id="instaPostBtn" href="#" target="_blank" class="btn-insta-post" style="padding: 10px 20px; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-radius: 12px; color: #fff; font-weight: bold; font-size: 0.8rem; text-decoration: none; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(220,39,67,0.3);">
+                        <i class="fab fa-instagram"></i> Gönderinizi Görmek İçin Tıklayın
+                    </a>
+                </div>
+            </div>
+
+            <!-- In-App Stats Header & Disclaimer -->
+            <div style="margin-top: 10px; margin-bottom: 15px;">
+                <h4 style="font-size: 1rem; font-weight: 800; color: var(--blue); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-mobile-alt"></i> Uygulama İçi Gösterim ve Tıklama Analitiği
+                </h4>
+                <div style="padding: 12px 18px; background: rgba(52, 152, 219, 0.04); border: 1px solid rgba(52, 152, 219, 0.15); border-radius: 14px; font-size: 0.8rem; color: #9ab; display: flex; align-items: flex-start; gap: 10px; line-height: 1.4;">
+                    <i class="fas fa-info-circle" style="color: var(--blue); margin-top: 3px; font-size: 1rem; flex-shrink: 0;"></i>
+                    <div>
+                        <strong>Önemli Bilgilendirme (Tahmini Veri):</strong> Bu bölümdeki gösterim ve tıklama sayıları, esnaf reklam paketi standartları çerçevesinde modellenmiş <strong>tahmini verilerdir</strong> ve yarım saatte bir güncellenmektedir. Bu veriler tahminlere dayalı olup, gerçek kullanıcı hareketlerini ve kesin tıklama sayılarını net ve birebir olarak yansıtmamaktadır.
+                    </div>
+                </div>
+            </div>
+
             <!-- Performance Metrics Grid -->
             <div class="metrics-grid">
                 <!-- Görüntüleme -->
@@ -317,21 +346,21 @@
                     <span class="metric-icon"><i class="fas fa-eye"></i></span>
                     <div class="metric-number" id="metricViews">0</div>
                     <div class="metric-title" data-tr="Toplam Gösterim" data-en="Total Impressions">Toplam Gösterim</div>
-                    <span class="metric-sub" data-tr="Anlık Görüntülenme Sayısı" data-en="Live impressions count">Anlık Görüntülenme Sayısı</span>
+                    <span class="metric-sub" style="color: var(--accent); font-weight: 600;">(Tahmini • Yarım Saatte Bir Güncellenir)</span>
                 </div>
                 <!-- Tıklama -->
                 <div class="metric-card clicks">
                     <span class="metric-icon"><i class="fas fa-mouse-pointer"></i></span>
                     <div class="metric-number" id="metricClicks">0</div>
                     <div class="metric-title" data-tr="Buton Tıklaması" data-en="Action Clicks">Buton Tıklaması</div>
-                    <span class="metric-sub" data-tr="Yol Tarifi / Kampanya Kodu" data-en="Location / Promo clicks">Yol Tarifi / Kampanya Kodu</span>
+                    <span class="metric-sub" style="color: var(--blue); font-weight: 600;">(Tahmini • Yarım Saatte Bir Güncellenir)</span>
                 </div>
                 <!-- CTR (Tıklama Oranı) -->
                 <div class="metric-card ctr">
                     <span class="metric-icon"><i class="fas fa-percentage"></i></span>
                     <div class="metric-number" id="metricCtr">%0.0</div>
                     <div class="metric-title" data-tr="Tıklama Oranı (CTR)" data-en="Click-Through Rate">Tıklama Oranı (CTR)</div>
-                    <span class="metric-sub" data-tr="Erişim / İlgi Oranı" data-en="Engagement vs Reach ratio">Erişim / İlgi Oranı</span>
+                    <span class="metric-sub" data-tr="Erişim / İlgi Oranı" data-en="Engagement vs Reach ratio">Tahmini İlgi Oranı</span>
                 </div>
                 <!-- ROI (Tahmini Yatırım Getirisi) -->
                 <div class="metric-card roi">
@@ -342,54 +371,15 @@
                 </div>
             </div>
 
-            <!-- Instagram Live Stats (Conditional) -->
-            <div id="instaStatsSection" style="display: none; background: rgba(230,104,60,0.05); border: 1px solid rgba(230,104,60,0.2); border-radius: 20px; padding: 25px; margin-bottom: 30px;">
-                <h4 style="font-size: 1rem; font-weight: 800; color: #e6683c; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; margin-top: 0;">
-                    <i class="fab fa-instagram"></i> <span data-tr="Instagram Canlı Gönderi Analitiği" data-en="Instagram Live Post Analytics">Instagram Canlı Gönderi Analitiği</span>
-                </h4>
-                <div class="metrics-grid" style="margin-bottom: 0; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
-                    <!-- Instagram Görüntülenme / Erişim -->
-                    <div class="metric-card insta" style="min-height: 120px; padding: 18px 15px;">
-                        <span class="metric-icon" style="color: #e6683c;"><i class="fas fa-eye"></i></span>
-                        <div class="metric-number" id="metricInstaViews" style="font-size: 1.7rem;">0</div>
-                        <div class="metric-title" style="font-size: 0.7rem;" data-tr="Instagram Gösterim" data-en="Instagram Impressions">Instagram Gösterim</div>
-                    </div>
-                    <!-- Instagram Beğeni -->
-                    <div class="metric-card insta" style="min-height: 120px; padding: 18px 15px;">
-                        <span class="metric-icon" style="color: #e6683c;"><i class="fas fa-heart"></i></span>
-                        <div class="metric-number" id="metricInstaLikes" style="font-size: 1.7rem;">0</div>
-                        <div class="metric-title" style="font-size: 0.7rem;" data-tr="Instagram Beğeni" data-en="Instagram Likes">Instagram Beğeni</div>
-                    </div>
-                    <!-- Instagram Yorum -->
-                    <div class="metric-card insta" style="min-height: 120px; padding: 18px 15px;">
-                        <span class="metric-icon" style="color: #e6683c;"><i class="fas fa-comment"></i></span>
-                        <div class="metric-number" id="metricInstaComments" style="font-size: 1.7rem;">0</div>
-                        <div class="metric-title" style="font-size: 0.7rem;" data-tr="Instagram Yorum" data-en="Instagram Comments">Instagram Yorum</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Performance Graph (Chart.js) -->
-            <div class="chart-section">
-                <div class="chart-header">
-                    <div class="chart-title">
-                        <i class="fas fa-chart-area"></i>
-                        <span data-tr="7 Günlük Performans Grafiği" data-en="7-Day Performance Chart">7 Günlük Performans Grafiği</span>
-                    </div>
-                    <div class="chart-live-indicator">
-                        <div class="live-dot"></div>
-                        <span data-tr="CANLI VERİ AKIŞI" data-en="LIVE DATA STREAM">CANLI VERİ AKIŞI</span>
-                    </div>
-                </div>
-                <div class="chart-container">
-                    <canvas id="performanceChart"></canvas>
-                </div>
-            </div>
-
             <!-- Information Advice Card -->
             <div class="info-card">
-                <h4 data-tr="💡 Performans Notu & Değerlendirme" data-en="💡 Performance Note & Insights">💡 Performans Notu & Değerlendirme</h4>
-                <p id="adviceText" data-tr="Kampanya verileriniz anlık olarak güncellenmektedir. Gösterimlerinizi artırmak ve ROI oranınızı optimize etmek için reels videoları veya anlık push bildirimlerini kullanabilirsiniz." data-en="Your campaign data updates live. To maximize impressions and further optimize your ROI, you may combine app listings with Instagram Reels posts or instant push notification credits.">Kampanya verileriniz anlık olarak güncellenmektedir. Gösterimlerinizi artırmak ve ROI oranınızı optimize etmek için reels videoları veya anlık push bildirimlerini kullanabilirsiniz.</p>
+                <h4 data-tr="📊 Kampanya Performans Değerlendirmesi & Raporu" data-en="📊 Campaign Performance Evaluation & Insights">📊 Kampanya Performans Değerlendirmesi ve Raporu</h4>
+                <p id="adviceText">
+                    Sayın iş ortağımız, reklam kampanyanıza ait performans verileri iş akışımız doğrultusunda düzenli olarak güncellenmektedir. 
+                    Instagram canlı gönderi entegrasyonu kapsamında sunulan veriler (gösterim, beğeni ve yorum sayıları), Meta API entegrasyonu aracılığıyla doğrudan ilgili paylaşımdan çekilen <strong>doğrulanmış gerçek verilerdir</strong>. 
+                    Uygulama içi gösterim ve tıklama istatistikleri ise reklam paketi standartları çerçevesinde hesaplanmış <strong>tahmini performans projeksiyonlarıdır</strong> ve gerçek kullanıcı hareketlerinin birebir yansımasını garanti etmez. 
+                    Kampanya verimliliğinizi artırmak, erişim hacminizi genişletmek ve yatırım getirinizi (ROI) optimize etmek için ek reklam paketlerimizi ve anlık bildirim çözümlerimizi inceleyebilirsiniz.
+                </p>
             </div>
 
         </div>
@@ -403,10 +393,8 @@
     <script>
         /* ============================================================
            KAMPANYA DOĞRULAMA & VERİ YÖNETİMİ (E-TABLO / API)
-        ============================================================ */
+         ============================================================ */
         let activeCampaign = null;
-        let chartInstance = null;
-        let liveSimulationInterval = null;
 
         // Base metrics based on package type
         let currentViews = 0;
@@ -519,22 +507,26 @@
             // Seed initial metrics using Google Sheets data
             seedInitialMetrics();
 
-            // Set advice note depending on Instagram state
-            const adviceText = document.getElementById('adviceText');
-            if (activeCampaign.instagramPaket && activeCampaign.instagramPaket !== 'none') {
+            // Set Instagram state and status text dynamically in the Instagram section
+            const isInstaCampaign = activeCampaign.instagramPaket && activeCampaign.instagramPaket !== 'none';
+            const instaSection = document.getElementById('instaStatsSection');
+            if (isInstaCampaign) {
+                instaSection.style.display = 'block';
                 const isInstaActive = activeCampaign.instagram_active === 'TRUE' || activeCampaign.instagram_active === true;
+                const statusTextEl = document.getElementById('instaStatusText');
+                const postBtnEl = document.getElementById('instaPostBtn');
+                
                 if (isInstaActive) {
-                    adviceText.innerHTML = `🌟 <b>Instagram canlı takibiniz aktif!</b> Reklamınız paylaşıldı ve verileriniz akıyor. Gönderiye gitmek için <a href="${activeCampaign.instagram_url}" target="_blank" style="color: var(--accent); text-decoration: underline;">buraya tıklayın</a>.`;
+                    statusTextEl.innerHTML = `Instagram canlı takibiniz aktif durumdadır. Paylaşılan reklam gönderinizin performansı Meta API entegrasyonu aracılığıyla doğrudan doğrulanmış gerçek verilerle yarım saatte bir güncellenmektedir.`;
+                    postBtnEl.href = activeCampaign.instagram_url || '#';
+                    postBtnEl.style.display = 'flex';
                 } else {
-                    adviceText.innerHTML = `⏳ <b>Instagram yayınınız hazırlanıyor.</b> Reklam filminiz montajlandıktan sonra paylaşılacak ve canlı istatistikler buraya otomatik yansıyacaktır.`;
+                    statusTextEl.innerHTML = `Instagram yayınınız hazırlanmaktadır. Reklam filminiz yayına girdiğinde canlı istatistikler ve gönderi bağlantısı burada otomatik olarak aktif olacaktır.`;
+                    postBtnEl.style.display = 'none';
                 }
+            } else {
+                instaSection.style.display = 'none';
             }
-
-            // Render Chart
-            renderChart();
-
-            // Start live updates simulation
-            startSimulation();
         }
 
         function seedInitialMetrics() {
@@ -579,142 +571,6 @@
             document.getElementById('metricClicks').textContent = currentClicks.toLocaleString('tr-TR');
             document.getElementById('metricCtr').textContent = `%${(ctrRate * 100).toFixed(2)}`;
             document.getElementById('metricRoi').textContent = `${roiFactor}x`;
-        }
-
-        function startSimulation() {
-            if (liveSimulationInterval) clearInterval(liveSimulationInterval);
-
-            liveSimulationInterval = setInterval(() => {
-                // Simulate new views (1-5 views every interval)
-                const newViews = Math.floor(1 + Math.random() * 4);
-                currentViews += newViews;
-
-                // Simulate new clicks based on CTR
-                if (Math.random() < ctrRate) {
-                    currentClicks += 1;
-                }
-
-                // Recalculate CTR
-                ctrRate = currentViews > 0 ? (currentClicks / currentViews) : 0;
-                
-                // Recalculate ROI with simulated views + static Instagram views
-                const totalExposure = currentViews + instaViews;
-                const cost = parseFloat(activeCampaign.toplamUcret) || 500;
-                const newCustomers = Math.round(totalExposure * 0.02);
-                const grossRevenue = newCustomers * 200;
-                roiFactor = cost > 0 ? (grossRevenue / cost).toFixed(1) : '1.0';
-
-                updateDashboardUI();
-
-                // Dynamically update the last data point in the chart
-                if (chartInstance) {
-                    const dataLength = chartInstance.data.datasets[0].data.length;
-                    chartInstance.data.datasets[0].data[dataLength - 1] = currentViews;
-                    chartInstance.data.datasets[1].data[dataLength - 1] = currentClicks;
-                    chartInstance.update('none'); // silent update
-                }
-            }, 5000);
-        }
-
-        /* ============================================================
-           PERFORMANS GRAFİĞİ (CHART.JS)
-        ============================================================ */
-        function renderChart() {
-            const ctx = document.getElementById('performanceChart').getContext('2d');
-            
-            // Generate data for past 6 days + today
-            const daysLabels = [];
-            const viewsData = [];
-            const clicksData = [];
-            
-            const today = new Date();
-            for (let i = 6; i >= 0; i--) {
-                const pastDate = new Date(today);
-                pastDate.setDate(today.getDate() - i);
-                daysLabels.push(pastDate.toLocaleDateString('tr-TR', { day: 'numeric', month: 'short' }));
-                
-                // Past days data
-                if (i > 0) {
-                    const dayViews = Math.floor(currentViews * (1 - i * 0.15) * (0.8 + Math.random() * 0.4));
-                    const dayClicks = Math.floor(dayViews * ctrRate * (0.9 + Math.random() * 0.2));
-                    viewsData.push(dayViews);
-                    clicksData.push(dayClicks);
-                } else {
-                    // Today starts as current views/clicks
-                    viewsData.push(currentViews);
-                    clicksData.push(currentClicks);
-                }
-            }
-
-            // Create gradients
-            const gradientViews = ctx.createLinearGradient(0, 0, 0, 300);
-            gradientViews.addColorStop(0, 'rgba(243, 156, 18, 0.4)');
-            gradientViews.addColorStop(1, 'rgba(243, 156, 18, 0.0)');
-
-            const gradientClicks = ctx.createLinearGradient(0, 0, 0, 300);
-            gradientClicks.addColorStop(0, 'rgba(52, 152, 219, 0.4)');
-            gradientClicks.addColorStop(1, 'rgba(52, 152, 219, 0.0)');
-
-            chartInstance = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: daysLabels,
-                    datasets: [
-                        {
-                            label: 'Gösterim (Views)',
-                            data: viewsData,
-                            backgroundColor: gradientViews,
-                            borderColor: '#f39c12',
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.4,
-                            pointBackgroundColor: '#f39c12',
-                            pointRadius: 4
-                        },
-                        {
-                            label: 'Tıklama (Clicks)',
-                            data: clicksData,
-                            backgroundColor: gradientClicks,
-                            borderColor: '#3498db',
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.4,
-                            pointBackgroundColor: '#3498db',
-                            pointRadius: 4,
-                            yAxisID: 'yClicks'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: {
-                                color: '#b0c4de',
-                                font: { family: 'Inter', size: 11 }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            ticks: { color: '#b0c4de', font: { family: 'Inter' } },
-                            grid: { color: 'rgba(255, 255, 255, 0.05)' }
-                        },
-                        y: {
-                            position: 'left',
-                            ticks: { color: '#f39c12', font: { family: 'Inter' } },
-                            grid: { color: 'rgba(255, 255, 255, 0.05)' }
-                        },
-                        yClicks: {
-                            position: 'right',
-                            ticks: { color: '#3498db', font: { family: 'Inter' } },
-                            grid: { drawOnChartArea: false } // hide clicks grid lines to avoid clutter
-                        }
-                    }
-                }
-            });
         }
     </script>
 </body>
