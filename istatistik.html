@@ -395,6 +395,18 @@
         const campaignId = getQueryParam('id');
         let apiCampaignData = null;
 
+        // Deterministic passcode generator based on campaign ID
+        function generatePasscodeFromString(str) {
+            if (!str) return "123456";
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = (hash << 5) - hash + str.charCodeAt(i);
+                hash |= 0;
+            }
+            const val = Math.abs(hash) % 900000 + 100000;
+            return String(val);
+        }
+
         // Fetch campaign details from n8n API on page load
         async function loadCampaignFromAPI() {
             const errorEl = document.getElementById('passcodeError');
@@ -409,7 +421,8 @@
                 if (!response.ok) throw new Error("Kampanya bulunamadı");
                 
                 const data = await response.json();
-                apiCampaignData = Array.isArray(data) ? data[0] : data;
+                const campaignList = Array.isArray(data) ? data : [data];
+                apiCampaignData = campaignList.find(c => String(c.id).trim().toUpperCase() === String(campaignId).trim().toUpperCase());
                 
                 if (!apiCampaignData || !apiCampaignData.id) {
                     errorEl.textContent = "Kampanya bulunamadı! Lütfen linki kontrol edin.";
@@ -441,7 +454,9 @@
                 return;
             }
 
-            if (code === apiCampaignData.sifre) {
+            const expectedPasscode = apiCampaignData.sifre || generatePasscodeFromString(apiCampaignData.id);
+
+            if (code === expectedPasscode) {
                 // Success
                 activeCampaign = apiCampaignData;
                 errorEl.style.display = 'none';

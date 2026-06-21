@@ -560,6 +560,18 @@
     </div>
 
     <script>
+        // Deterministic passcode generator based on campaign ID
+        function generatePasscodeFromString(str) {
+            if (!str) return "123456";
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = (hash << 5) - hash + str.charCodeAt(i);
+                hash |= 0;
+            }
+            const val = Math.abs(hash) % 900000 + 100000;
+            return String(val);
+        }
+
         // Mock data initialization if local storage is empty
         const initialMockData = [
             {
@@ -782,7 +794,7 @@
                     // Trigger webhook notification back to n8n if approved
                     if (newStatus === 'approved') {
                         if (!c.sifre) {
-                            c.sifre = String(Math.floor(100000 + Math.random() * 900000));
+                            c.sifre = generatePasscodeFromString(c.id);
                         }
                         notifyN8NApproval(c);
                     }
@@ -806,48 +818,14 @@
         async function syncData() {
             const syncBtn = document.querySelector('button[onclick="syncData()"]');
             syncBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Eşitleniyor...';
-            
             try {
-                // Fetching from the user's GET webhook
                 const response = await fetch('https://n8n.ilgininsani.com/webhook/esnaf-kampanyalar-get');
                 if (!response.ok) throw new Error("n8n bağlantı hatası");
-                
                 const data = await response.json();
-                
-                if (Array.isArray(data)) {
-                    // Update campaigns with real fetched data, generating IDs
-                    campaigns = data.map((item, idx) => ({
-                        id: item.id || String(idx + 1),
-                        isletme: item.isletme || "İsimsiz Esnaf",
-                        yetkili: item.yetkili || "Belirtilmemiş",
-                        telefon: item.telefon || "Belirtilmemiş",
-                        kategori: item.kategori || "diger",
-                        kampanyaBasligi: item.kampanyaBasligi || "Kampanya Detayı",
-                        eskiFiyat: item.eskiFiyat || "",
-                        yeniFiyat: item.yeniFiyat || "",
-                        promokod: item.promokod || "",
-                        sure: item.sure || "7",
-                        paket: item.paket || "temel",
-                        ucret: item.ucret || 0,
-                        instagramPaket: item.instagramPaket || "none",
-                        instagramUcret: item.instagramUcret || 0,
-                        montajIstegi: item.montajIstegi || "Hayır",
-                        cekilisGunSayisi: item.cekilisGunSayisi || 0,
-                        toplamUcret: item.toplamUcret || 0,
-                        resimUrl: item.resimUrl || "https://via.placeholder.com/400",
-                        notlar: item.notlar || "",
-                        durum: item.durum || "pending",
-                        tarih: item.tarih || new Date().toISOString().split('T')[0],
-                        instagram_media_id: item.instagram_media_id || "",
-                        instagram_url: item.instagram_url || "",
-                        instagram_active: item.instagram_active || "FALSE"
-                    }));
-                    localStorage.setItem('ilgin_campaigns', JSON.stringify(campaigns));
-                    filterData();
-                    alert("Veriler n8n üzerinden başarıyla eşitlendi! ✅");
-                } else {
-                    alert("n8n'den gelen veri formatı geçersiz (Dizi bekleniyordu).");
-                }
+                campaigns = data;
+                localStorage.setItem('ilgin_campaigns', JSON.stringify(campaigns));
+                filterData();
+                alert("Veriler n8n üzerinden başarıyla eşitlendi! ✅");
             } catch (err) {
                 console.error("n8n Eşitleme Hatası:", err);
                 alert("n8n eşitleme hatası. Sunucuya ulaşılamadı. Mock veriler kullanılmaya devam ediyor.");
@@ -881,16 +859,9 @@
             return digits;
         }
 
-        // Open details modal
         function openDetails(id) {
             const item = campaigns.find(c => c.id === id);
             if (!item) return;
-
-            // Generate passcode if approved and missing
-            if (item.durum === 'approved' && !item.sifre) {
-                item.sifre = String(Math.floor(100000 + Math.random() * 900000));
-                localStorage.setItem('ilgin_campaigns', JSON.stringify(campaigns));
-            }
 
             const modal = document.getElementById('detailModal');
             document.getElementById('modalTitle').textContent = item.isletme + " — Talep Detayı";
