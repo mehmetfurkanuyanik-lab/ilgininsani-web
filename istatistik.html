@@ -186,6 +186,7 @@
         .metric-card.clicks::after { background: var(--blue); }
         .metric-card.ctr::after { background: #9b59b6; }
         .metric-card.roi::after { background: var(--green); }
+        .metric-card.insta::after { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
 
         .metric-icon { font-size: 1.6rem; color: var(--text-sub); margin-bottom: 12px; display: block; }
         .metric-card.views .metric-icon { color: var(--accent); }
@@ -341,6 +342,33 @@
                 </div>
             </div>
 
+            <!-- Instagram Live Stats (Conditional) -->
+            <div id="instaStatsSection" style="display: none; background: rgba(230,104,60,0.05); border: 1px solid rgba(230,104,60,0.2); border-radius: 20px; padding: 25px; margin-bottom: 30px;">
+                <h4 style="font-size: 1rem; font-weight: 800; color: #e6683c; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; margin-top: 0;">
+                    <i class="fab fa-instagram"></i> <span data-tr="Instagram Canlı Gönderi Analitiği" data-en="Instagram Live Post Analytics">Instagram Canlı Gönderi Analitiği</span>
+                </h4>
+                <div class="metrics-grid" style="margin-bottom: 0; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                    <!-- Instagram Görüntülenme / Erişim -->
+                    <div class="metric-card insta" style="min-height: 120px; padding: 18px 15px;">
+                        <span class="metric-icon" style="color: #e6683c;"><i class="fas fa-eye"></i></span>
+                        <div class="metric-number" id="metricInstaViews" style="font-size: 1.7rem;">0</div>
+                        <div class="metric-title" style="font-size: 0.7rem;" data-tr="Instagram Gösterim" data-en="Instagram Impressions">Instagram Gösterim</div>
+                    </div>
+                    <!-- Instagram Beğeni -->
+                    <div class="metric-card insta" style="min-height: 120px; padding: 18px 15px;">
+                        <span class="metric-icon" style="color: #e6683c;"><i class="fas fa-heart"></i></span>
+                        <div class="metric-number" id="metricInstaLikes" style="font-size: 1.7rem;">0</div>
+                        <div class="metric-title" style="font-size: 0.7rem;" data-tr="Instagram Beğeni" data-en="Instagram Likes">Instagram Beğeni</div>
+                    </div>
+                    <!-- Instagram Yorum -->
+                    <div class="metric-card insta" style="min-height: 120px; padding: 18px 15px;">
+                        <span class="metric-icon" style="color: #e6683c;"><i class="fas fa-comment"></i></span>
+                        <div class="metric-number" id="metricInstaComments" style="font-size: 1.7rem;">0</div>
+                        <div class="metric-title" style="font-size: 0.7rem;" data-tr="Instagram Yorum" data-en="Instagram Comments">Instagram Yorum</div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Performance Graph (Chart.js) -->
             <div class="chart-section">
                 <div class="chart-header">
@@ -385,6 +413,10 @@
         let currentClicks = 0;
         let ctrRate = 0;
         let roiFactor = 0;
+        
+        let instaViews = 0;
+        let instaLikes = 0;
+        let instaComments = 0;
 
         // Parse query parameters
         function getQueryParam(param) {
@@ -510,22 +542,34 @@
             const appViews = parseInt(activeCampaign.app_views) || 0;
             const appClicks = parseInt(activeCampaign.app_clicks) || 0;
             
-            const instaViews = parseInt(activeCampaign.instagram_views) || 0;
-            const instaLikes = parseInt(activeCampaign.instagram_likes) || 0;
-            const instaComments = parseInt(activeCampaign.instagram_comments) || 0;
+            instaViews = parseInt(activeCampaign.instagram_views) || 0;
+            instaLikes = parseInt(activeCampaign.instagram_likes) || 0;
+            instaComments = parseInt(activeCampaign.instagram_comments) || 0;
 
-            // Total view & click sum
-            currentViews = appViews + instaViews;
-            currentClicks = appClicks + instaLikes + instaComments;
+            // In-app specific metrics
+            currentViews = appViews;
+            currentClicks = appClicks;
 
-            // CTR
+            // In-app CTR
             ctrRate = currentViews > 0 ? (currentClicks / currentViews) : 0;
             
-            // ROI
+            // ROI (calculated on total exposure: app views + instagram views/impressions)
+            const totalExposure = appViews + instaViews;
             const cost = parseFloat(activeCampaign.toplamUcret) || 500;
-            const newCustomers = Math.round(currentViews * 0.02);
+            const newCustomers = Math.round(totalExposure * 0.02);
             const grossRevenue = newCustomers * 200; // Average basket size estimated at 200 TL
             roiFactor = cost > 0 ? (grossRevenue / cost).toFixed(1) : '1.0';
+
+            // Show Instagram stats section if it is an Instagram campaign
+            const instaSection = document.getElementById('instaStatsSection');
+            if (activeCampaign.instagramPaket && activeCampaign.instagramPaket !== 'none') {
+                instaSection.style.display = 'block';
+                document.getElementById('metricInstaViews').textContent = instaViews.toLocaleString('tr-TR');
+                document.getElementById('metricInstaLikes').textContent = instaLikes.toLocaleString('tr-TR');
+                document.getElementById('metricInstaComments').textContent = instaComments.toLocaleString('tr-TR');
+            } else {
+                instaSection.style.display = 'none';
+            }
 
             updateDashboardUI();
         }
@@ -553,6 +597,13 @@
                 // Recalculate CTR
                 ctrRate = currentViews > 0 ? (currentClicks / currentViews) : 0;
                 
+                // Recalculate ROI with simulated views + static Instagram views
+                const totalExposure = currentViews + instaViews;
+                const cost = parseFloat(activeCampaign.toplamUcret) || 500;
+                const newCustomers = Math.round(totalExposure * 0.02);
+                const grossRevenue = newCustomers * 200;
+                roiFactor = cost > 0 ? (grossRevenue / cost).toFixed(1) : '1.0';
+
                 updateDashboardUI();
 
                 // Dynamically update the last data point in the chart
