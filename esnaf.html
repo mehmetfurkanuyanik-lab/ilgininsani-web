@@ -1137,26 +1137,22 @@
         /* SPLIT BUILDER LAYOUT */
         .request-grid-layout {
             display: grid;
-            grid-template-columns: 1.25fr 0.75fr;
+            grid-template-columns: 1.2fr 0.8fr;
             gap: 30px;
-            margin-top: 20px;
+            max-width: 1200px;
+            margin: 20px auto 0;
             align-items: start;
         }
-        @media (max-width: 900px) {
-            .request-grid-layout {
-                grid-template-columns: 1fr;
-            }
-        }
         .sticky-preview-card {
-            position: sticky;
-            top: 80px;
             background: rgba(13, 28, 36, 0.5);
             backdrop-filter: blur(15px);
             border: 1.5px solid rgba(243, 156, 18, 0.25);
             border-radius: 20px;
             padding: 20px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            height: fit-content;
+            position: sticky;
+            top: 80px;
+            z-index: 10;
         }
         .preview-tab-btn {
             background: transparent; border: 1px solid transparent;
@@ -1168,6 +1164,19 @@
             background: rgba(243, 156, 18, 0.12) !important;
             border-color: var(--accent) !important;
             color: var(--accent) !important;
+        }
+
+        @media (max-width: 900px) {
+            .request-grid-layout {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                max-width: 800px;
+            }
+            .sticky-preview-card {
+                position: static;
+                margin-top: 10px;
+                width: 100%;
+            }
         }
 
         /* GDPR COOKIE BANNER */
@@ -2167,6 +2176,7 @@
             <div class="request-grid-layout">
                 <!-- Left: Form -->
                 <form id="requestForm" class="req-form">
+                    <input type="hidden" id="reqStartDate" name="reqStartDate" value="">
                         <!-- Reklam Türü Seçimi Tab Bar (En Üstte) -->
                         <div class="req-field" style="margin-top: 5px;">
                             <label data-tr="Hizmet / Reklam Türü Seçin *" data-en="Select Service / Ad Type *">Hizmet / Reklam Türü Seçin *</label>
@@ -2312,23 +2322,118 @@
                         <!-- INSTAGRAM REKLAM DETAYLARI -->
                         <div id="instagramAdFields" style="transition: all 0.3s ease; margin-top: 15px; border-top: 1px dashed rgba(255,255,255,0.15); padding-top: 15px;">
                             <div class="req-field">
-                                <label data-tr="Instagram Reklam Desteği / Paket Seçin *" data-en="Select Instagram Ad Package *">Instagram Reklam Desteği / Paket Seçin *</label>
-                                <select id="reqInstaPackage" onchange="updatePrices()">
-                                    <option value="story" data-tr="Hikaye Paylaşımı (₺750) — [12k-14k Gösterim]" data-en="Story Post (₺750) — [12k-14k Views]">Hikaye Paylaşımı (₺750) — [12k-14k Gösterim]</option>
-                                    <option value="post" data-tr="Gönderi Paylaşımı (₺1.500) — [15k-25k Gösterim]" data-en="Feed Post (₺1,500) — [15k-25k Views]">Gönderi Paylaşımı (₺1.500) — [15k-25k Gösterim]</option>
-                                    <option value="post_story" data-tr="Gönderi + Hikaye Kombosu (₺2.000) — [18k-28k Gösterim]" data-en="Post + Story Combo (₺2,000) — [18k-28k Views]">Gönderi + Hikaye Kombosu (₺2.000) — [18k-28k Gösterim]</option>
-                                    <option value="reels" data-tr="Reels Videosu (₺2.500) — [20k-30k Gösterim]" data-en="Reels Video (₺2,500) — [20k-30k Views]">Reels Videosu (₺2.500) — [20k-30k Gösterim]</option>
-                                    <option value="reels_story" data-tr="Reels + Hikaye Kombosu (₺3.000) — [25k-35k Gösterim]" data-en="Reels + Story Combo (₺3,000) — [25k-35k Views]">Reels + Hikaye Kombosu (₺3.000) — [25k-35k Gösterim]</option>
-                                    <option value="kapsamli_reels_story" data-tr="Tasarım/Çekim Kapsamlı Reels + Hikaye (₺4.000) — [25k-35k Gösterim]" data-en="Pro Reels + Story Shoot & Edit (₺4,000) — [25k-35k Views]">Tasarım/Çekim Kapsamlı Reels + Hikaye (₺4.000) — [25k-35k Gösterim]</option>
-                                    <option value="drone_story" data-tr="Drone ile Profesyonel Hikaye Çekimi (₺2.000) — [15k-20k Gösterim]" data-en="Drone Story Videography (₺2,000) — [15k-20k Views]">Drone ile Profesyonel Hikaye Çekimi (₺2.000) — [15k-20k Gösterim]</option>
-                                    <option value="drone_reels" data-tr="Drone ile Profesyonel Reels Çekimi (₺4.000) — [25k-35k Gösterim]" data-en="Drone Reels Videography (₺4,000) — [25k-35k Views]">Drone ile Profesyonel Reels Çekimi (₺4.000) — [25k-35k Gösterim]</option>
-                                    <option value="drone_combo" data-tr="Drone ile Profesyonel Reels + Hikaye (₺5.000) — [35k-45k Gösterim]" data-en="Drone Reels + Story Shoot (₺5,000) — [35k-45k Views]">Drone ile Profesyonel Reels + Hikaye (₺5.000) — [35k-45k Gösterim]</option>
-                                    <option value="suggested" data-tr="#IlgınİnsanıÖneriyor Özel Reels + Hikaye (₺5.000) — [45k-50k+ Gösterim]" data-en="#IlgınİnsanıÖneriyor Special Reels + Story (₺5,000) — [45k-50k+ Views]">#IlgınİnsanıÖneriyor Özel Reels + Hikaye (₺5.000) — [45k-50k+ Gösterim]</option>
-                                    <option value="monthly" data-tr="Esnaf Aylık Sponsorluk Paketi (₺12.500) — [150k+ Gösterim]" data-en="Monthly Merchant Sponsorship (₺12,500) — [150k+ Views]">Esnaf Aylık Sponsorluk Paketi (₺12.500) — [150k+ Gösterim]</option>
-                                    <option value="giveaway" data-tr="Çekiliş Sponsorluğu (₺500 / Gün) — [Min. 3 Gün]" data-en="Giveaway Sponsorship (₺500 / Day) — [Min. 3 Days]">Çekiliş Sponsorluğu (₺500 / Gün) — [Min. 3 Gün]</option>
-                                </select>
-                                
-                                <!-- Dinamik Paket Detayları -->
+                                <label data-tr="Instagram Reklam Paketleri (Birden Fazla Seçilebilir) *" data-en="Instagram Ad Packages (Multiple Selectable) *">Instagram Reklam Paketleri (Birden Fazla Seçilebilir) *</label>
+                                <div class="insta-pkgs-checkbox-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-top: 5px;">
+                                    
+                                    <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('story')">
+                                        <input type="checkbox" name="instaPackageCheck" value="story" data-price="750" data-label-tr="Story (₺750)" data-label-en="Story (₺750)" style="display: none;">
+                                        <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
+                                        <div style="flex-grow:1;">
+                                            <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Hikaye Paylaşımı (₺750)" data-en="Story Post (₺750)">Hikaye Paylaşımı (₺750)</div>
+                                            <div style="font-size:0.7rem; color:#9ab;">[12k-14k Gösterim]</div>
+                                        </div>
+                                    </label>
+
+                                    <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('post')">
+                                        <input type="checkbox" name="instaPackageCheck" value="post" data-price="1500" data-label-tr="Post (₺1.500)" data-label-en="Post (₺1.500)" style="display: none;">
+                                        <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
+                                        <div style="flex-grow:1;">
+                                            <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Gönderi Paylaşımı (₺1.500)" data-en="Feed Post (₺1,500)">Gönderi Paylaşımı (₺1.500)</div>
+                                            <div style="font-size:0.7rem; color:#9ab;">[15k-25k Gösterim]</div>
+                                        </div>
+                                    </label>
+
+                                    <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('post_story')">
+                                        <input type="checkbox" name="instaPackageCheck" value="post_story" data-price="2000" data-label-tr="Post+Story Kombo (₺2.000)" data-label-en="Post+Story Combo (₺2,000)" style="display: none;">
+                                        <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
+                                        <div style="flex-grow:1;">
+                                            <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Gönderi + Hikaye Kombosu (₺2.000)" data-en="Post + Story Combo (₺2,000)">Gönderi + Hikaye Kombosu (₺2.000)</div>
+                                            <div style="font-size:0.7rem; color:#9ab;">[18k-28k Gösterim]</div>
+                                        </div>
+                                    </label>
+
+                                    <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('reels')">
+                                        <input type="checkbox" name="instaPackageCheck" value="reels" data-price="2500" data-label-tr="Reels (₺2.500)" data-label-en="Reels (₺2,500)" style="display: none;">
+                                        <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
+                                        <div style="flex-grow:1;">
+                                            <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Reels Videosu (₺2.500)" data-en="Reels Video (₺2,500)">Reels Videosu (₺2.500)</div>
+                                            <div style="font-size:0.7rem; color:#9ab;">[20k-30k Gösterim]</div>
+                                        </div>
+                                    </label>
+
+                                    <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('reels_story')">
+                                        <input type="checkbox" name="instaPackageCheck" value="reels_story" data-price="3000" data-label-tr="Reels+Story Kombo (₺3.000)" data-label-en="Reels+Story Combo (₺3,000)" style="display: none;">
+                                        <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
+                                        <div style="flex-grow:1;">
+                                            <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Reels + Hikaye Kombosu (₺3.000)" data-en="Reels + Story Combo (₺3,000)">Reels + Hikaye Kombosu (₺3.000)</div>
+                                            <div style="font-size:0.7rem; color:#9ab;">[25k-35k Gösterim]</div>
+                                        </div>
+                                    </label>
+
+                                    <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('kapsamli_reels_story')">
+                                        <input type="checkbox" name="instaPackageCheck" value="kapsamli_reels_story" data-price="4000" data-label-tr="Çekimli Reels+Story (₺4.000)" data-label-en="Pro Reels+Story (₺4,000)" style="display: none;">
+                                        <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
+                                        <div style="flex-grow:1;">
+                                            <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Tasarım/Çekim Kapsamlı Reels + Hikaye (₺4.000)" data-en="Pro Reels + Story Shoot & Edit (₺4,000)">Tasarım/Çekim Kapsamlı Reels + Hikaye (₺4.000)</div>
+                                            <div style="font-size:0.7rem; color:#9ab;">[25k-35k Gösterim]</div>
+                                        </div>
+                                    </label>
+
+                                    <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('drone_story')">
+                                        <input type="checkbox" name="instaPackageCheck" value="drone_story" data-price="2000" data-label-tr="Drone Story (₺2.000)" data-label-en="Drone Story (₺2,000)" style="display: none;">
+                                        <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
+                                        <div style="flex-grow:1;">
+                                            <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Drone ile Hikaye Çekimi (₺2.000)" data-en="Drone Story Videography (₺2,000)">Drone ile Hikaye Çekimi (₺2.000)</div>
+                                            <div style="font-size:0.7rem; color:#9ab;">[15k-20k Gösterim]</div>
+                                        </div>
+                                    </label>
+
+                                    <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('drone_reels')">
+                                        <input type="checkbox" name="instaPackageCheck" value="drone_reels" data-price="4000" data-label-tr="Drone Reels (₺4.000)" data-label-en="Drone Reels (₺4,000)" style="display: none;">
+                                        <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
+                                        <div style="flex-grow:1;">
+                                            <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Drone ile Reels Çekimi (₺4.000)" data-en="Drone Reels Videography (₺4,000)">Drone ile Reels Çekimi (₺4.000)</div>
+                                            <div style="font-size:0.7rem; color:#9ab;">[25k-35k Gösterim]</div>
+                                        </div>
+                                    </label>
+
+                                    <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('drone_combo')">
+                                        <input type="checkbox" name="instaPackageCheck" value="drone_combo" data-price="5000" data-label-tr="Drone Reels+Story (₺5.000)" data-label-en="Drone Reels+Story (₺5,000)" style="display: none;">
+                                        <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
+                                        <div style="flex-grow:1;">
+                                            <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Drone ile Reels + Hikaye (₺5.000)" data-en="Drone Reels + Story Shoot (₺5,000)">Drone ile Reels + Hikaye (₺5.000)</div>
+                                            <div style="font-size:0.7rem; color:#9ab;">[35k-45k Gösterim]</div>
+                                        </div>
+                                    </label>
+
+                                    <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('suggested')">
+                                        <input type="checkbox" name="instaPackageCheck" value="suggested" data-price="5000" data-label-tr="#Öneriyor (₺5.000)" data-label-en="#Suggested (₺5,000)" style="display: none;">
+                                        <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
+                                        <div style="flex-grow:1;">
+                                            <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="#IlgınİnsanıÖneriyor (₺5.000)" data-en="#IlgınİnsanıÖneriyor Special (₺5,000)">#IlgınİnsanıÖneriyor (₺5.000)</div>
+                                            <div style="font-size:0.7rem; color:#9ab;">[45k-50k+ Gösterim]</div>
+                                        </div>
+                                    </label>
+
+                                    <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('monthly')">
+                                        <input type="checkbox" name="instaPackageCheck" value="monthly" data-price="12500" data-label-tr="Aylık Sponsor (₺12.500)" data-label-en="Monthly Sponsor (₺12,500)" style="display: none;">
+                                        <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
+                                        <div style="flex-grow:1;">
+                                            <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Aylık Sponsorluk (₺12.500)" data-en="Monthly Sponsorship (₺12,500)">Aylık Sponsorluk (₺12.500)</div>
+                                            <div style="font-size:0.7rem; color:#9ab;">[150k+ Gösterim]</div>
+                                        </div>
+                                    </label>
+
+                                    <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('giveaway')">
+                                        <input type="checkbox" name="instaPackageCheck" value="giveaway" data-price="500" data-label-tr="Çekiliş (₺500/Gün)" data-label-en="Giveaway (₺500/Day)" style="display: none;">
+                                        <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
+                                        <div style="flex-grow:1;">
+                                            <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Çekiliş Sponsorluğu (₺500/Gün)" data-en="Giveaway (₺500/Day)">Çekiliş Sponsorluğu (₺500/Gün)</div>
+                                            <div style="font-size:0.7rem; color:#9ab;">[Takipçi & Etkileşim]</div>
+                                        </div>
+                                    </label>
+
+                                </div>
                                 <div id="instaPackageDetails" style="margin-top: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 15px; font-size: 0.85rem; display: none;"></div>
                             </div>
 
@@ -2345,10 +2450,7 @@
                             </div>
                         </div>
 
-                        <div class="req-field" style="margin-top: 15px;">
-                            <label data-tr="Ek Notlar / İstekler" data-en="Additional Notes / Requests">Ek Notlar / İstekler</label>
-                            <textarea id="reqNotes" placeholder="Kampanyanızla ilgili eklemek istedikleriniz..."></textarea>
-                        </div>
+
 
                         <!-- Fatura Kartı (Summary) -->
                         <div id="invoiceCard" style="background: rgba(15, 28, 36, 0.85); backdrop-filter: blur(20px); border: 2px dashed var(--accent); border-radius: 20px; padding: 25px; margin-top: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 0 20px rgba(243, 156, 18, 0.05); display: none; position: relative;">
@@ -2393,6 +2495,7 @@
                                 <i class="fas fa-paper-plane"></i>
                                 <span data-tr="Talebi Gönder — 24 Saatte Yayına Al" data-en="Submit Request — Go Live in 24 Hours">Talebi Gönder — 24 Saatte Yayına Al</span>
                             </button>
+                            <input type="hidden" id="reqDate" value="">
                         </div>
 
                         <!-- Footer WhatsApp Support Section -->
@@ -2408,13 +2511,13 @@
                     <!-- Right: Sticky Mockup Preview -->
                     <div class="sticky-preview-card">
                         <div class="preview-tabs" style="display: flex; gap: 10px; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 10px;">
-                            <button type="button" id="btnPreviewApp" class="preview-tab-btn active" onclick="switchPreviewTab('app')" style="flex: 1;">📱 Uygulama</button>
-                            <button type="button" id="btnPreviewInsta" class="preview-tab-btn" onclick="switchPreviewTab('insta')" style="flex: 1;">📸 Instagram</button>
+                            <button type="button" id="btnPreviewApp" class="preview-tab-btn active" onclick="switchPreviewTab('app')" style="flex: 1;">📱 Uygulama Görünümü</button>
+                            <button type="button" id="btnPreviewInsta" class="preview-tab-btn" onclick="switchPreviewTab('insta')" style="flex: 1;">📸 Instagram Görünümü</button>
                         </div>
                         
                         <!-- APP PREVIEW PANEL -->
                         <div id="panelPreviewApp" class="preview-panel-content">
-                            <div class="campaign-card" style="margin: 0 auto; box-shadow: none; border: 1px solid rgba(255,255,255,0.08);">
+                            <div class="campaign-card" style="margin: 0 auto; box-shadow: none; border: 1px solid rgba(255,255,255,0.08); background: #1a1a2e;">
                                 <div class="campaign-card-img" style="height: 140px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
                                     <img id="previewAppImage" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
                                     <i class="fas fa-tags placeholder-icon" id="previewAppPlaceholder" style="font-size: 3rem; opacity: 0.25;"></i>
@@ -2425,8 +2528,8 @@
                                     <div class="campaign-title" id="previewAppTitle" style="font-size: 1rem; margin-bottom: 10px;">Kampanya Başlığınız Buraya Gelir</div>
                                     <div class="price-row" style="margin-bottom: 0;">
                                         <div>
-                                            <div class="price-old" id="previewAppPriceOld" style="font-size: 0.8rem; display: none;">500 TL</div>
-                                            <div class="price-new" id="previewAppPriceNew" style="font-size: 1.4rem;">— TL</div>
+                                            <div class="price-old" id="previewAppPriceOld" style="font-size: 0.8rem; display: none; text-decoration: line-through; opacity: 0.5;">500 TL</div>
+                                            <div class="price-new" id="previewAppPriceNew" style="font-size: 1.4rem; color: var(--accent); font-weight: 900;">— TL</div>
                                         </div>
                                         <div class="promo-badge" style="padding: 4px 10px; border-radius: 8px; margin-left: auto; display: none;">
                                             <span class="promo-label" style="font-size: 0.55rem;">KOD</span>
@@ -2834,10 +2937,7 @@
                 selectAdType('insta_only');
                 const pkg = urlParams.get('package') || getPackageFromHash(hash);
                 if (pkg) {
-                    const select = document.getElementById('reqInstaPackage');
-                    if (select && [...select.options].some(o => o.value === pkg)) {
-                        select.value = pkg;
-                    }
+                    toggleInstaCheckbox(pkg);
                 }
                 updatePrices();
             } else if (type === 'combo' || hash.includes('combo')) {
@@ -2883,9 +2983,9 @@
             giveaway: 500
         };
 
-        function updateInstaPackageDetails(pkg, days) {
+        function updateInstaPackageDetails(selectedPackages, days) {
             const container = document.getElementById('instaPackageDetails');
-            if (selectedAdType === 'app_only' || pkg === 'none') {
+            if (selectedAdType === 'app_only' || !selectedPackages || selectedPackages.length === 0) {
                 container.style.display = 'none';
                 return;
             }
@@ -2893,83 +2993,94 @@
             
             const details = {
                 story: {
+                    name: "Instagram Story (Hikaye)",
                     reach: "12.000 - 14.000 Gösterim (Ortalama)",
                     dur: "24 Saat (Paylaşımdan 24 saat sonra silinir)",
-                    desc: "Sizin tarafınızdan gönderilen fotoğraf/video hikaye (Story) olarak paylaşılır. <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ Hızlı duyurular, günlük indirimler ve flaş kampanyalar için idealdir.</li><li>✅ Doğrudan web sitesine veya WhatsApp hattına yönlendiren tıklanabilir buton linki eklenir.</li><li><li>✅ @etiket desteğiyle kendi Instagram hesabınıza doğrudan organik takipçi çekersiniz.</li></ul>"
+                    desc: "Sizin tarafınızdan gönderilen fotoğraf/video hikaye (Story) olarak paylaşılır. <b>Neden Seçmelisiniz?</b> Hızlı duyurular, günlük indirimler ve flaş kampanyalar için idealdir. Doğrudan web sitesine veya WhatsApp hattına yönlendiren tıklanabilir buton linki eklenir."
                 },
                 post: {
+                    name: "Instagram Post (Gönderi)",
                     reach: "15.000 - 25.000 Gösterim (Ortalama)",
                     dur: "Kalıcı (Profilimizde sürekli kalır)",
-                    desc: "Sizin tarafınızdan gönderilen dikey/kare görsel açıklama yazısı ve konumla birlikte gönderi (Post) olarak paylaşılır. <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ İşletmenizin vitrinini, imza ürünlerini ve genel bilgilerini kalıcı olarak sergiler.</li><li>✅ Ortak gönderi (Collab) seçeneğiyle dükkanınızın profilinde de yayınlanır, güven verir.</li><li>✅ Beğeni, kaydetme ve yerel yorumlarla yüksek etkileşim yakalar.</li></ul>"
+                    desc: "Sizin tarafınızdan gönderilen dikey/kare görsel açıklama yazısı ve konumla birlikte gönderi (Post) olarak paylaşılır. <b>Neden Seçmelisiniz?</b> İşletmenizin vitrinini, imza ürünlerini ve genel bilgilerini kalıcı olarak sergiler."
                 },
                 post_story: {
-                    reach: "20.000 - 30.000 Gösterim (Ortalama)",
+                    name: "Instagram Post + Story",
+                    reach: "18.000 - 28.000 Gösterim (Ortalama)",
                     dur: "Gönderi Kalıcı, Hikaye 24 Saat",
-                    desc: "Kampanyanız hem gönderi hem hikaye olarak paylaşılır. Hem hızlı etkileşim hem de kalıcılık sağlar. <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ Hem kalıcı bir arşiv hem de anlık yüksek trafik çeken en popüler ekonomik kombodur.</li><li>✅ Story üzerinden gelen sıcak müşteriler doğrudan satışa/rezervasyona dönüşür.</li></ul>"
+                    desc: "Kampanyanız hem gönderi hem hikaye olarak paylaşılır. Hem hızlı etkileşim hem de kalıcılık sağlar."
                 },
                 reels: {
+                    name: "Instagram Reels",
                     reach: "20.000 - 30.000 Gösterim (Ortalama)",
-                    dur: "Kalıcı (Profilimizde sürekli kalır)",
-                    desc: "Sizin tarafınızdan gönderilen dikey video (Reels) olarak paylaşılır. Keşfet etkileşimi çok yüksektir. <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ Instagram Keşfet algoritması sayesinde takipçi dışındaki binlerce yerel Ilgın halkına ulaşır.</li><li>✅ Trend sesler ve dinamik kurgu ile izleyicilerin hafızasında yer edersiniz.</li><li>✅ Paylaşım gücü en yüksek format olup viral yayılım sağlar.</li></ul>"
+                    dur: "Kalıcı (Reels sekmesinde kalıcı)",
+                    desc: "Sizin tarafınızdan hazırlanan dikey video Reels formatında ses kurgusu ile yayınlanır. <b>Neden Seçmelisiniz?</b> Reels algoritması sayesinde takipçi olmayan yerel kitlelere de yüksek erişim sağlar."
                 },
                 reels_story: {
+                    name: "Instagram Reels + Story",
                     reach: "25.000 - 35.000 Gösterim (Ortalama)",
                     dur: "Reels Kalıcı, Hikaye 24 Saat",
-                    desc: "Kampanyanız hem reels videosu hem de destekleyici hikaye paylaşımıyla çift yönlü duyurulur. <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ Video ile işletmenizi anlatırken hikayedeki link ile müşteriyi doğrudan kasaya çekersiniz.</li><li>✅ Ilgın genelinde maksimum etkileşim oranı sağlayan en verimli sosyal medya paketidir.</li></ul>"
+                    desc: "Reels videosu kalıcı olarak yayınlanırken hikaye ile anlık trafik çekilir. En popüler paketimizdir."
                 },
                 kapsamli_reels_story: {
+                    name: "Tasarım/Çekim Kapsamlı Reels + Hikaye",
                     reach: "25.000 - 35.000 Gösterim (Ortalama)",
                     dur: "Reels Kalıcı, Hikaye 24 Saat",
-                    desc: "Ilgın İnsanı ekibi tarafından bizzat işletmenizde profesyonel video/fotoğraf çekimi ve montajı yapılarak hazırlanan 1 Reels videosu + 1 Hikaye (Çekim ve montaj bedeli fiyata dahildir). <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ Ekipman, ışık ve kurgu derdiniz olmaz; tüm video üretimini biz üstleniriz.</li><li>✅ Profesyonel seslendirme (ses tonlama) ve modern kurgu teknikleri kullanılır.</li><li>✅ Marka prestijinizi en üst seviyeye çıkaran, kurumsal hissettiren Premium çözümdür.</li></ul>"
+                    desc: "Ilgın İnsanı ekibi dükkanınıza gelip video çeker. Profesyonel kurgu, montaj ve seslendirme dahil edilerek 1 Reels + 1 Hikaye yayınlanır."
                 },
                 drone_story: {
+                    name: "Drone ile Hikaye Çekimi",
                     reach: "15.000 - 20.000 Gösterim (Ortalama)",
-                    dur: "24 Saat Yayın",
-                    desc: "Drone ile profesyonel havadan çekimler yapılarak tasarlanan özel hikaye reklamı. <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ Alışılmışın dışında, havadan kuş bakışı görüntülerle anında dikkat çeker.</li><li>✅ Konumunuzu ve dükkan büyüklüğünüzü Ilgın halkına görsel bir şölenle kanıtlar.</li></ul>"
+                    dur: "24 Saat",
+                    desc: "4K Drone ile havadan profesyonel çekim yapılarak hikayede yayınlanır."
                 },
                 drone_reels: {
+                    name: "Drone ile Reels Çekimi",
                     reach: "25.000 - 35.000 Gösterim (Ortalama)",
-                    dur: "Kalıcı (Profilimizde sürekli kalır)",
-                    desc: "Drone ile havadan video çekimi ve kurgusu dahil olmak üzere hazırlanan özel Reels videosu. <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ Keşfet etkili havadan video ile benzersiz bir yerel tanıtım arşivi oluşturursunuz.</li><li>✅ Dış cephe, çevre ve dükkan lokasyonunuz hafızalara kazınır.</li></ul>"
+                    dur: "Kalıcı",
+                    desc: "4K Drone ile havadan profesyonel çekim ve montaj dahil Reels videosu hazırlanır."
                 },
                 drone_combo: {
+                    name: "Drone ile Reels + Hikaye",
                     reach: "35.000 - 45.000 Gösterim (Ortalama)",
                     dur: "Reels Kalıcı, Hikaye 24 Saat",
-                    desc: "Drone ile profesyonel çekim yapılmış 1 Reels videosu ve 1 destekleyici Hikaye paylaşımı. <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ Hem havadan görkemli bir tanıtım videosu hem de anında müşteri çeken linkli hikaye bir aradadır.</li><li>✅ Ilgın esnafı arasında fark yaratmak ve büyüklüğünüzü göstermek için en prestijli seçenektir.</li></ul>"
+                    desc: "4K Drone ile dükkanınızın iç/dış profesyonel kurgulu videosu çekilir ve 1 Reels + 1 Hikaye olarak yayınlanır."
                 },
                 suggested: {
-                    reach: "45.000 - 50.000+ Gösterim (Maksimum Etki)",
-                    dur: "Kalıcı (Profilimizde sürekli kalır)",
-                    desc: "Firmanız için en etkili reklam seçeneğidir! Drone ile çekim, profesyonel montaj, seslendirme, dükkan önerisi ve +1 hikaye fiyata dahildir. Ilgın İnsanı ekibi dükkanınızı bizzat önerir. <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ <b>Bölgesel Güven:</b> Ilgın İnsanı markasının referans gücünü arkanıza alırsınız.</li><li>✅ Dükkanınıza en yüksek müşteri dönüşünü getiren, güven odaklı en prestijli pakettir.</li></ul>"
+                    name: "#IlgınİnsanıÖneriyor Özel Paket",
+                    reach: "45.000 - 50.000+ Gösterim",
+                    dur: "Kalıcı",
+                    desc: "Yerinde 4K video çekimi + Drone çekimleri + Temsilcimiz tarafından bizzat dükkan önerisi ve seslendirme yapılır."
                 },
                 monthly: {
-                    reach: "150.000+ Toplam Gösterim (Aylık Yayılım)",
-                    dur: "1 Ay Boyunca Yayılım",
-                    desc: "Aylık kurumsal sponsorluk paketi. 1 ayda 10 adet hikaye + 2 adet gönderi + 2 adet reels videosu paylaşılır. <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ Aylık reklam bütçenizi tek seferde planlayıp dükkanınızı tüm ay boyunca Ilgın'ın gündeminde tutarsınız.</li><li>✅ Süreklilik sayesinde marka bilinirliğiniz kalıcı hale gelir.</li><li>✅ Tekil alımlara göre <b>%30 daha ekonomiktir</b>.</li></ul>"
+                    name: "Aylık Sponsorluk",
+                    reach: "150.000+ Gösterim (Aylık Toplam)",
+                    dur: "30 Gün Boyunca",
+                    desc: "1 ay boyunca tüm platformlarda sponsorluk. 10 adet Hikaye + 2 adet Post + 2 adet Reels yayını yapılır."
                 },
                 giveaway: {
-                    reach: "Maksimum Takipçi ve Yüksek Etkileşim",
+                    name: "Çekiliş Sponsorluğu",
+                    reach: "Takipçi & Etkileşim Odaklı",
                     dur: `${days} Gün Boyunca`,
-                    desc: `İşletmenizden çekilişle hediye vererek takipçi ve marka bilinirliği kazanın. Belirlenen gün sayısına göre hikaye eklenir (Min 3 gündür. Gün başı 500 ₺. 3 gün için 1, 5 gün için 2, 7 gün için 3 hikaye fiyata dahildir). <b>Neden Seçmelisiniz?</b><ul style='margin-top: 5px; margin-left: 15px; list-style-type: none; display: flex; flex-direction: column; gap: 4px;'><li>✅ Katılım şartı olarak dükkanınızın hesabını takip etme zorunluluğu konur.</li><li>✅ Kısa sürede <b>binlerce yeni yerel takipçi</b> ve yüksek hesap etkileşimi kazandırır.</li></ul>`
+                    desc: "İşletmenizin sponsorluğunda çekiliş düzenlenir. Takipçi ve etkileşim kazanmak için en hızlı yöntemdir."
                 }
-            }[pkg];
- 
-            if (!details) {
-                container.style.display = 'none';
-                return;
-            }
- 
-            container.innerHTML = `
-                <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:6px;">
-                    <span style="color:#e6683c; font-weight:700;"><i class="fas fa-chart-line"></i> Tahmini Erişim:</span>
-                    <span style="font-weight:700; color:#fff;">${details.reach}</span>
-                </div>
-                <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:6px;">
-                    <span style="color:#9b59b6; font-weight:700;"><i class="far fa-clock"></i> Yayın Süresi:</span>
-                    <span style="font-weight:700; color:#fff;">${details.dur}</span>
-                </div>
-                <div style="color:#ddd; line-height:1.4; font-size:0.8rem; margin-top:8px;">${details.desc}</div>
-            `;
+            };
+            
+            let html = '<h5 style="font-weight:800; margin-bottom:8px; color:var(--accent);">SEÇİLEN INSTAGRAM PAKET DETAYLARI:</h5>';
+            selectedPackages.forEach(pkg => {
+                const item = details[pkg];
+                if (item) {
+                    html += `
+                        <div style="margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed rgba(255,255,255,0.08);">
+                            <div style="font-weight:700; color:#fff; font-size:0.9rem;">✨ ${item.name}</div>
+                            <div style="font-size:0.75rem; color:#9ab; margin: 2px 0;">📊 Tahmini Erişim: <b>${item.reach}</b> | Süre: <b>${item.dur}</b></div>
+                            <div style="font-size:0.78rem; color:#ccc; line-height:1.4;">${item.desc}</div>
+                        </div>
+                    `;
+                }
+            });
+            
+            container.innerHTML = html;
         }
 
         // CANLI KAMPANYA ÖNİZLEME SİMÜLATÖRÜ
@@ -3041,31 +3152,82 @@
             const category = document.getElementById('reqCategory').value || (currentLang === 'tr' ? 'Hizmet' : 'Service');
             const instaCap = document.getElementById('previewInstaCaption');
             if (instaCap) {
+                // Seçilen Instagram Paket isimlerini caption'da listele
+                const checkedInputs = document.querySelectorAll('input[name="instaPackageCheck"]:checked');
+                const selectedLabels = Array.from(checkedInputs).map(input => {
+                    return currentLang === 'tr' ? input.getAttribute('data-label-tr') : input.getAttribute('data-label-en');
+                });
+                
                 let instaCaptionText = '';
                 if (currentLang === 'tr') {
-                    instaCaptionText = `🔥 <strong>${business}</strong> kalitesi şimdi Ilgın İnsanı topluluğunda! \n📍 Kategori: #${category.replace(/\s+/g, '')} \n📢 Kampanya: ${title}`;
-                    if (newPriceVal) {
-                        instaCaptionText += ` \n💰 Özel Fiyat: ${newPriceVal} TL`;
-                        if (oldPriceVal) instaCaptionText += ` (Yerine ${oldPriceVal} TL!)`;
+                    instaCaptionText = `🔥 <strong>${business}</strong> kalitesi şimdi Ilgın İnsanı topluluğunda! \n📍 Kategori: #${category.replace(/\s+/g, '')}`;
+                    if (selectedLabels.length > 0) {
+                        instaCaptionText += `\n✨ Seçilen Paketler: ${selectedLabels.join(', ')}`;
                     }
-                    if (promo) {
-                        instaCaptionText += ` \n🎁 İndirim Kodu: ${promo.toUpperCase()}`;
+                    if (selectedAdType !== 'insta_only') {
+                        instaCaptionText += `\n📢 Kampanya: ${title}`;
+                        if (newPriceVal) {
+                            instaCaptionText += ` \n💰 Özel Fiyat: ${newPriceVal} TL`;
+                            if (oldPriceVal) instaCaptionText += ` (Yerine ${oldPriceVal} TL!)`;
+                        }
+                        if (promo) {
+                            instaCaptionText += ` \n🎁 İndirim Kodu: ${promo.toUpperCase()}`;
+                        }
                     }
                     instaCaptionText += `\n\nDetaylar mobil uygulamamızda ve bio'daki linkte! #ilgin #ilgininsani`;
                 } else {
-                    instaCaptionText = `🔥 <strong>${business}</strong> is now featured in Ilgın İnsanı community! \n📍 Category: #${category.replace(/\s+/g, '')} \n📢 Campaign: ${title}`;
-                    if (newPriceVal) {
-                        instaCaptionText += ` \n💰 Special Price: ${newPriceVal} TL`;
-                        if (oldPriceVal) instaCaptionText += ` (Was ${oldPriceVal} TL!)`;
+                    instaCaptionText = `🔥 <strong>${business}</strong> is now featured in Ilgın İnsanı community! \n📍 Category: #${category.replace(/\s+/g, '')}`;
+                    if (selectedLabels.length > 0) {
+                        instaCaptionText += `\n✨ Selected Packages: ${selectedLabels.join(', ')}`;
                     }
-                    if (promo) {
-                        instaCaptionText += ` \n🎁 Promo Code: ${promo.toUpperCase()}`;
+                    if (selectedAdType !== 'insta_only') {
+                        instaCaptionText += `\n📢 Campaign: ${title}`;
+                        if (newPriceVal) {
+                            instaCaptionText += ` \n💰 Special Price: ${newPriceVal} TL`;
+                            if (oldPriceVal) instaCaptionText += ` (Was ${oldPriceVal} TL!)`;
+                        }
+                        if (promo) {
+                            instaCaptionText += ` \n🎁 Promo Code: ${promo.toUpperCase()}`;
+                        }
                     }
                     instaCaptionText += `\n\nDetails in our app & bio link! #ilgin #ilgininsani`;
                 }
                 instaCap.innerHTML = instaCaptionText.replace(/\n/g, '<br>');
             }
             updateStepBadges();
+        }
+
+        function toggleInstaCheckbox(val) {
+            if (window.event) {
+                window.event.preventDefault();
+            }
+            
+            const checkbox = document.querySelector(`input[name="instaPackageCheck"][value="${val}"]`);
+            if (!checkbox) return;
+            
+            checkbox.checked = !checkbox.checked;
+            
+            const card = checkbox.closest('.insta-pkg-check-card');
+            if (!card) return;
+            
+            const checkIcon = card.querySelector('.custom-chk i');
+            const customChk = card.querySelector('.custom-chk');
+            
+            if (checkbox.checked) {
+                card.classList.add('selected');
+                card.style.borderColor = 'var(--accent)';
+                card.style.background = 'rgba(243, 156, 18, 0.12)';
+                if (checkIcon) checkIcon.style.display = 'block';
+                if (customChk) customChk.style.borderColor = 'var(--accent)';
+            } else {
+                card.classList.remove('selected');
+                card.style.borderColor = 'rgba(255,255,255,0.12)';
+                card.style.background = 'transparent';
+                if (checkIcon) checkIcon.style.display = 'none';
+                if (customChk) customChk.style.borderColor = 'rgba(255,255,255,0.3)';
+            }
+            
+            updatePrices();
         }
 
         function updatePrices() {
@@ -3078,20 +3240,24 @@
             }
 
             // Instagram Alanları Kontrolü
-            const instaPackage = document.getElementById('reqInstaPackage').value;
+            const checkedInputs = document.querySelectorAll('input[name="instaPackageCheck"]:checked');
+            const selectedPackages = Array.from(checkedInputs).map(input => input.value);
+            
             const giveawayWrapper = document.getElementById('giveawayDaysWrapper');
             const shootWrapper = document.getElementById('shootRequiredWrapper');
-            const finalGiveawayDays = (instaPackage === 'giveaway') ? Math.max(3, parseInt(document.getElementById('reqGiveawayDays').value) || 3) : 0;
+            
+            const hasGiveaway = selectedPackages.includes('giveaway');
+            const finalGiveawayDays = hasGiveaway ? Math.max(3, parseInt(document.getElementById('reqGiveawayDays').value) || 3) : 0;
 
             // Çekiliş gün sayısı görünürlüğü
-            if (selectedAdType !== 'app_only' && instaPackage === 'giveaway') {
+            if (selectedAdType !== 'app_only' && hasGiveaway) {
                 if (giveawayWrapper) giveawayWrapper.style.display = 'block';
             } else {
                 if (giveawayWrapper) giveawayWrapper.style.display = 'none';
             }
 
             // Çekim/Montaj seçeneği görünürlüğü
-            const supportsShoot = ['story', 'post', 'post_story', 'reels', 'reels_story', 'giveaway'].includes(instaPackage);
+            const supportsShoot = selectedPackages.length > 0;
             if (selectedAdType !== 'app_only' && supportsShoot) {
                 if (shootWrapper) shootWrapper.style.display = 'flex';
             } else {
@@ -3100,7 +3266,7 @@
             }
 
             // Dinamik Açıklamalar Güncelle
-            updateInstaPackageDetails(instaPackage, finalGiveawayDays);
+            updateInstaPackageDetails(selectedPackages, finalGiveawayDays);
 
             // Hesaplama
             let appPrice = 0;
@@ -3110,11 +3276,13 @@
             
             let instaCost = 0;
             if (selectedAdType === 'insta_only' || selectedAdType === 'combo') {
-                if (instaPackage === 'giveaway') {
-                    instaCost = 500 * finalGiveawayDays;
-                } else {
-                    instaCost = instaPrices[instaPackage] || 0;
-                }
+                selectedPackages.forEach(pkg => {
+                    if (pkg === 'giveaway') {
+                        instaCost += 500 * finalGiveawayDays;
+                    } else {
+                        instaCost += instaPrices[pkg] || 0;
+                    }
+                });
             }
 
             const shootCost = (selectedAdType !== 'app_only' && supportsShoot && document.getElementById('reqShootRequired').checked) ? 500 : 0;
@@ -3126,7 +3294,12 @@
             const invoiceTotal = document.getElementById('invoiceTotal');
             
             if (invoiceCard && invoiceItems && invoiceTotal) {
-                invoiceCard.style.display = 'block';
+                if (totalCost > 0) {
+                    invoiceCard.style.display = 'block';
+                } else {
+                    invoiceCard.style.display = 'none';
+                }
+                
                 let itemsHtml = '';
                 
                 if (selectedAdType === 'app_only' || selectedAdType === 'combo') {
@@ -3149,9 +3322,13 @@
                         monthly: 'Instagram Aylık Sponsorluk',
                         giveaway: 'Instagram Çekiliş Sponsorluğu'
                     };
-                    const instaLabel = instaPkgLabels[instaPackage] || instaPackage;
-                    const instaDurationText = instaPackage === 'giveaway' ? ` (${finalGiveawayDays} Gün)` : '';
-                    itemsHtml += `<div style="display:flex; justify-content:space-between;"><span style="color:#ccc;">📸 ${instaLabel}${instaDurationText}:</span><span style="font-weight:bold; color:#fff;">₺${instaCost}</span></div>`;
+                    
+                    selectedPackages.forEach(pkg => {
+                        const instaLabel = instaPkgLabels[pkg] || pkg;
+                        const pkgPrice = pkg === 'giveaway' ? (500 * finalGiveawayDays) : (instaPrices[pkg] || 0);
+                        const instaDurationText = pkg === 'giveaway' ? ` (${finalGiveawayDays} Gün)` : '';
+                        itemsHtml += `<div style="display:flex; justify-content:space-between;"><span style="color:#ccc;">📸 ${instaLabel}${instaDurationText}:</span><span style="font-weight:bold; color:#fff;">₺${pkgPrice}</span></div>`;
+                    });
                 }
                 
                 if (selectedAdType !== 'app_only' && supportsShoot && document.getElementById('reqShootRequired').checked) {
@@ -3183,7 +3360,9 @@
                     monthly: 150000,
                     giveaway: 25000
                 };
-                estReach += instaReachMap[instaPackage] || 0;
+                selectedPackages.forEach(pkg => {
+                    estReach += instaReachMap[pkg] || 0;
+                });
             }
 
             const categoryRates = {
@@ -3237,7 +3416,6 @@
         document.getElementById('reqNewPrice').addEventListener('input', () => { updateMockupPreviews(); updatePrices(); });
         document.getElementById('reqPromoCode').addEventListener('input', updateMockupPreviews);
         document.getElementById('reqCategory').addEventListener('change', () => { updateMockupPreviews(); updatePrices(); });
-        document.getElementById('reqInstaPackage').addEventListener('change', () => { updateMockupPreviews(); updatePrices(); });
         document.getElementById('reqShootRequired').addEventListener('change', updatePrices);
         document.getElementById('reqGiveawayDays').addEventListener('input', updatePrices);
 
@@ -3444,11 +3622,24 @@
             // Paketi Seç
             if (type === 'app_only') {
                 selectPackage(packageVal);
-            } else if (type === 'insta_only') {
-                const select = document.getElementById('reqInstaPackage');
-                if (select) {
-                    select.value = packageVal;
-                }
+            } else if (type === 'insta_only' || type === 'combo') {
+                // Tüm Instagram checkbox'larını temizle
+                document.querySelectorAll('input[name="instaPackageCheck"]').forEach(chk => {
+                    chk.checked = false;
+                    const card = chk.closest('.insta-pkg-check-card');
+                    if (card) {
+                        card.classList.remove('selected');
+                        card.style.borderColor = 'rgba(255,255,255,0.12)';
+                        card.style.background = 'transparent';
+                        const checkIcon = card.querySelector('.custom-chk i');
+                        const customChk = card.querySelector('.custom-chk');
+                        if (checkIcon) checkIcon.style.display = 'none';
+                        if (customChk) customChk.style.borderColor = 'rgba(255,255,255,0.3)';
+                    }
+                });
+                
+                // Belirtilen paketi seç
+                toggleInstaCheckbox(packageVal);
             }
             updatePrices();
         }
@@ -3514,12 +3705,25 @@
             if (talep) talep.scrollIntoView({ behavior: 'smooth', block: 'start' });
             // Select Instagram tab in form ad type if needed
             selectAdType('insta_only');
-            // Select the package dropdown
-            const select = document.getElementById('reqInstaPackage');
-            if (select) {
-                select.value = pkg;
-            }
-            updatePrices();
+            
+            // Tüm Instagram checkbox'larını temizle
+            document.querySelectorAll('input[name="instaPackageCheck"]').forEach(chk => {
+                chk.checked = false;
+                const card = chk.closest('.insta-pkg-check-card');
+                if (card) {
+                    card.classList.remove('selected');
+                    card.style.borderColor = 'rgba(255,255,255,0.12)';
+                    card.style.background = 'transparent';
+                    const checkIcon = card.querySelector('.custom-chk i');
+                    const customChk = card.querySelector('.custom-chk');
+                    if (checkIcon) checkIcon.style.display = 'none';
+                    if (customChk) customChk.style.borderColor = 'rgba(255,255,255,0.3)';
+                }
+            });
+            
+            // Belirtilen paketi seç
+            toggleInstaCheckbox(pkg);
+            
             // Toast
             const toast = document.createElement('div');
             const names = { story: 'Instagram Story', reels_story: 'Reels + Story Kombo', suggested: '#IlgınİnsanıÖneriyor' };
@@ -3559,7 +3763,28 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>' + (currentLang === 'tr' ? 'Gönderiliyor...' : 'Sending...') + '</span>';
 
             const duration = document.getElementById('reqDuration').value;
+            const selectedDate = document.getElementById('reqStartDate').value || null;
             
+            // Checkbox'lardan seçilen paketleri al
+            const checkedInputs = document.querySelectorAll('input[name="instaPackageCheck"]:checked');
+            const selectedPackages = Array.from(checkedInputs).map(input => input.value);
+            
+            // Validasyon
+            if ((selectedAdType === 'insta_only' || selectedAdType === 'combo') && selectedPackages.length === 0) {
+                alert(currentLang === 'tr' ? 'Lütfen en az bir Instagram paketi seçin.' : 'Please select at least one Instagram ad package.');
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> <span>' + (currentLang === 'tr' ? 'Talebi Gönder' : 'Submit') + '</span>';
+                return;
+            }
+            
+            if (!selectedDate) {
+                alert(currentLang === 'tr' ? 'Lütfen reklamın başlamasını istediğiniz tarihi takvimden seçin.' : 'Please select a campaign start date from the calendar.');
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> <span>' + (currentLang === 'tr' ? 'Talebi Gönder' : 'Submit') + '</span>';
+                document.getElementById('calMonthLabel').scrollIntoView({ behavior: 'smooth' });
+                return;
+            }
+
             let appCost = 0;
             let finalInstaPackage = 'none';
             let finalInstaCost = 0;
@@ -3570,18 +3795,25 @@
                 appCost = pricingMatrix[duration] ? pricingMatrix[duration][selectedPackage] : 0;
             }
             if (selectedAdType === 'insta_only' || selectedAdType === 'combo') {
-                finalInstaPackage = document.getElementById('reqInstaPackage').value;
-                finalGiveawayDays = (finalInstaPackage === 'giveaway') ? Math.max(3, parseInt(document.getElementById('reqGiveawayDays').value) || 3) : 0;
-                finalInstaCost = (finalInstaPackage === 'giveaway') ? (500 * finalGiveawayDays) : (instaPrices[finalInstaPackage] || 0);
+                finalInstaPackage = selectedPackages.join(', ');
+                finalGiveawayDays = selectedPackages.includes('giveaway') ? Math.max(3, parseInt(document.getElementById('reqGiveawayDays').value) || 3) : 0;
                 
-                const supportsShoot = ['story', 'post', 'post_story', 'reels', 'reels_story', 'giveaway'].includes(finalInstaPackage);
-                shootRequired = supportsShoot && document.getElementById('reqShootRequired').checked;
+                selectedPackages.forEach(pkg => {
+                    if (pkg === 'giveaway') {
+                        finalInstaCost += 500 * finalGiveawayDays;
+                    } else {
+                        finalInstaCost += instaPrices[pkg] || 0;
+                    }
+                });
+                
+                shootRequired = selectedPackages.length > 0 && document.getElementById('reqShootRequired').checked;
             }
 
             const shootCost = shootRequired ? 500 : 0;
             const totalCost = appCost + finalInstaCost + shootCost;
 
             const payload = {
+                tarih: selectedDate,
                 reklamTuru: selectedAdType,
                 isletme: document.getElementById('reqBusiness').value,
                 yetkili: document.getElementById('reqContact').value,
