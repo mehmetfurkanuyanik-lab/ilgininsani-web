@@ -1055,6 +1055,271 @@
             padding: 12px 20px; font-size: 0.9rem; color: var(--accent);
             text-align: center; animation: fadeIn 0.4s ease;
         }
+
+        /* CHATBOT FLOATING CONTAINER */
+        .chatbot-container {
+            position: fixed; bottom: 25px; right: 25px; z-index: 9999;
+            display: flex; flex-direction: column; align-items: flex-end;
+            font-family: 'Inter', sans-serif;
+        }
+        .chatbot-toggle {
+            width: 56px; height: 56px; border-radius: 50%;
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: #fff; font-size: 1.5rem; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 5px 20px rgba(243,156,18,0.4);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: chatbotPulse 2s infinite;
+        }
+        .chatbot-toggle:hover { transform: scale(1.1) rotate(5deg); }
+        
+        @keyframes chatbotPulse {
+            0% { box-shadow: 0 0 0 0 rgba(243,156,18,0.7); }
+            70% { box-shadow: 0 0 0 12px rgba(243,156,18,0); }
+            100% { box-shadow: 0 0 0 0 rgba(243,156,18,0); }
+        }
+        
+        .chatbot-box {
+            width: 350px; height: 450px;
+            background: rgba(13, 28, 36, 0.95); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.12); border-top: 1px solid rgba(255,255,255,0.25);
+            border-radius: 20px; display: none; flex-direction: column;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5); overflow: hidden;
+            margin-bottom: 15px; animation: chatbotSlide 0.4s ease;
+        }
+        body.light-theme .chatbot-box {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border-color: rgba(0,0,0,0.08) !important;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1) !important;
+        }
+        .chatbot-box.show { display: flex; }
+        
+        @keyframes chatbotSlide { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        .chatbot-header {
+            background: linear-gradient(135deg, #13222d 0%, #0d1a22 100%);
+            padding: 15px 20px; display: flex; align-items: center; gap: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.08); color: #fff;
+        }
+        body.light-theme .chatbot-header {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%) !important;
+            border-bottom-color: rgba(0,0,0,0.08) !important;
+            color: #0f172a !important;
+        }
+        .chatbot-header-title { font-weight: 800; font-size: 0.95rem; }
+        .chatbot-header-close { margin-left: auto; cursor: pointer; color: #789; font-size: 1.1rem; }
+        .chatbot-header-close:hover { color: #fff; }
+        body.light-theme .chatbot-header-close:hover { color: #000; }
+        
+        .chatbot-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .chat-bubble { max-width: 80%; padding: 10px 14px; border-radius: 15px; font-size: 0.82rem; line-height: 1.45; }
+        .bubble-bot { background: rgba(255,255,255,0.05); color: #ddd; border-bottom-left-radius: 3px; align-self: flex-start; border: 1px solid rgba(255,255,255,0.05); }
+        body.light-theme .bubble-bot { background: rgba(0,0,0,0.03) !important; color: #1e293b !important; border-color: rgba(0,0,0,0.05) !important; }
+        .bubble-user { background: var(--accent); color: #111; border-bottom-right-radius: 3px; align-self: flex-end; font-weight: 600; }
+        
+        .chatbot-options { padding: 10px 15px; display: flex; flex-direction: column; gap: 8px; border-top: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.1); }
+        body.light-theme .chatbot-options { border-top-color: rgba(0,0,0,0.05) !important; background: rgba(0,0,0,0.01) !important; }
+        .chat-option-btn {
+            background: rgba(255,255,255,0.05); border: 1.5px solid rgba(255,255,255,0.1);
+            color: #ccc; padding: 8px 14px; border-radius: 30px; font-size: 0.75rem; font-weight: 700;
+            cursor: pointer; text-align: left; transition: all 0.25s;
+            font-family: inherit;
+        }
+        .chat-option-btn:hover { background: var(--accent); border-color: var(--accent); color: #111; }
+        
+        .typing-indicator { display: flex; gap: 4px; padding: 6px 0; }
+        .typing-dot { width: 6px; height: 6px; background: #888; border-radius: 50%; animation: typingAnimation 1.4s infinite; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typingAnimation { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
+        /* SPLIT BUILDER LAYOUT */
+        .request-grid-layout {
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 30px;
+            margin-top: 20px;
+            align-items: start;
+        }
+        @media (max-width: 900px) {
+            .request-grid-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+        .sticky-preview-card {
+            position: sticky;
+            top: 80px;
+            background: rgba(13, 28, 36, 0.5);
+            backdrop-filter: blur(15px);
+            border: 1.5px solid rgba(243, 156, 18, 0.25);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            height: fit-content;
+        }
+        .preview-tab-btn {
+            background: transparent; border: 1px solid transparent;
+            color: #ccc; padding: 6px 12px; border-radius: 20px;
+            font-size: 0.75rem; font-weight: bold; cursor: pointer;
+            transition: all 0.2s;
+        }
+        .preview-tab-btn.active {
+            background: rgba(243, 156, 18, 0.12) !important;
+            border-color: var(--accent) !important;
+            color: var(--accent) !important;
+        }
+
+        /* GDPR COOKIE BANNER */
+        .cookie-banner {
+            position: fixed; bottom: 20px; left: 20px; right: 20px; max-width: 500px;
+            background: rgba(13, 28, 36, 0.95); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.12); border-top: 1px solid rgba(255,255,255,0.25);
+            border-radius: 16px; padding: 20px; z-index: 9999;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            display: flex; flex-direction: column; gap: 15px;
+            animation: slideUp 0.5s ease;
+        }
+        body.light-theme .cookie-banner {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border-color: rgba(0,0,0,0.08) !important;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1) !important;
+        }
+        .cookie-banner p { font-size: 0.85rem; color: #ddd; line-height: 1.4; }
+        body.light-theme .cookie-banner p { color: #334155 !important; }
+        .cookie-btn-wrap { display: flex; gap: 10px; justify-content: flex-end; }
+        .cookie-btn-accept { background: #2ecc71; color: #111; border: none; padding: 8px 20px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: 0.2s; }
+        .cookie-btn-accept:hover { background: #27ae60; }
+        
+        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        /* FLOATING SOCIAL SHARE BUTTONS */
+        .social-share-bar {
+            position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 10px; z-index: 1000;
+        }
+        @media (max-width: 900px) {
+            .social-share-bar {
+                position: static; transform: none; flex-direction: row; justify-content: center; margin-top: 30px; margin-bottom: 20px;
+            }
+        }
+        .share-btn {
+            width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 1.2rem; text-decoration: none; transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.05); backdrop-filter: blur(5px);
+        }
+        .share-btn:hover { transform: scale(1.1) translateY(-2px); }
+        .share-x { color: #fff; }
+        .share-x:hover { background: #000; }
+        .share-facebook { color: #1877F2; }
+        .share-facebook:hover { background: #1877F2; color: #fff; }
+        .share-whatsapp { color: #25D366; }
+        .share-whatsapp:hover { background: #25D366; color: #fff; }
+        .share-telegram { color: #26A5E4; }
+        .share-telegram:hover { background: #26A5E4; color: #fff; }
+        .share-copy { color: #f39c12; }
+        .share-copy:hover { background: #f39c12; color: #111; }
+        
+        /* MINI TOAST NOTIFICATION */
+        .toast-notify {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: rgba(46, 204, 113, 0.95); color: #fff; padding: 12px 24px;
+            border-radius: 50px; font-weight: 700; font-size: 0.85rem; z-index: 99999;
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3); backdrop-filter: blur(10px);
+            display: flex; align-items: center; gap: 8px; animation: toastFadeIn 0.3s ease;
+        }
+
+        /* LIGHT THEME STYLES - esnaf.html */
+        body.light-theme {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%) !important;
+            color: #0f172a !important;
+        }
+        body.light-theme .topbar {
+            background: rgba(255, 255, 255, 0.8) !important;
+            color: #1e293b !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+        }
+        body.light-theme .topbar-brand { color: #1e293b !important; }
+        body.light-theme .topbar-back { color: #475569 !important; }
+        body.light-theme .topbar-lang, body.light-theme #themeToggle { background: rgba(0,0,0,0.05) !important; color: #1e293b !important; }
+        
+        body.light-theme .page-hero,
+        body.light-theme .why-card,
+        body.light-theme .stats-dashboard,
+        body.light-theme .success-stories-wrapper,
+        body.light-theme .compare-table-wrapper,
+        body.light-theme .cal-wrapper,
+        body.light-theme .qr-section,
+        body.light-theme .showcase-pricing-card,
+        body.light-theme .calculator-box,
+        body.light-theme .request-box,
+        body.light-theme .channel-card,
+        body.light-theme .sticky-preview-card {
+            background: rgba(255, 255, 255, 0.7) !important;
+            border-color: rgba(0, 0, 0, 0.08) !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
+            color: #1e293b !important;
+        }
+        
+        body.light-theme .section-title,
+        body.light-theme .page-hero h1,
+        body.light-theme .why-card h3,
+        body.light-theme .success-author strong,
+        body.light-theme .compare-pkg-name,
+        body.light-theme .cal-month-label,
+        body.light-theme .channel-header h3,
+        body.light-theme .showcase-pricing-card .title,
+        body.light-theme .req-field label {
+            color: #0f172a !important;
+        }
+        
+        body.light-theme .section-subtitle,
+        body.light-theme .page-hero p,
+        body.light-theme .why-card p,
+        body.light-theme .success-quote,
+        body.light-theme .success-author span,
+        body.light-theme .compare-feature-col,
+        body.light-theme .cal-legend,
+        body.light-theme .channel-details-list li,
+        body.light-theme .showcase-pricing-card .features-list li,
+        body.light-theme .calc-field label {
+            color: #334155 !important;
+        }
+        
+        body.light-theme .stat-card,
+        body.light-theme .success-metric-item,
+        body.light-theme .compare-header-row,
+        body.light-theme .cal-day.free,
+        body.light-theme .simulator-box,
+        body.light-theme .calc-result,
+        body.light-theme .invoice-card,
+        body.light-theme #tabDescriptionPanel,
+        body.light-theme #invoiceCard {
+            background: rgba(0,0,0,0.03) !important;
+            border-color: rgba(0,0,0,0.05) !important;
+        }
+        body.light-theme .compare-row { border-bottom-color: rgba(0,0,0,0.04) !important; }
+        body.light-theme .compare-pkg-price,
+        body.light-theme .pkg-price { color: var(--accent) !important; }
+        
+        body.light-theme .calc-field input,
+        body.light-theme .req-field input,
+        body.light-theme .req-field textarea,
+        body.light-theme .req-field select,
+        body.light-theme .qr-form-side input {
+            background: rgba(255,255,255,0.9) !important;
+            color: #0f172a !important;
+            border-color: rgba(0,0,0,0.15) !important;
+        }
+        body.light-theme .calc-field input::placeholder,
+        body.light-theme .req-field input::placeholder,
+        body.light-theme .req-field textarea::placeholder {
+            color: #64748b !important;
+        }
+        
+        body.light-theme .flyer-preview {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+        }
     </style>
 </head>
 <body>
@@ -1068,8 +1333,13 @@
             <div class="brand-dot"></div>
             Ilgın İnsanı
         </a>
-        <div class="topbar-lang" id="langSwitch" onclick="toggleLanguage()">
-            <i class="fas fa-globe"></i> English
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <div class="topbar-lang" id="themeToggle" onclick="toggleTheme()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 5px 14px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 6px;">
+                <i class="fas fa-moon"></i> <span data-tr="Gece Modu" data-en="Dark Mode">Gece Modu</span>
+            </div>
+            <div class="topbar-lang" id="langSwitch" onclick="toggleLanguage()">
+                <i class="fas fa-globe"></i> English
+            </div>
         </div>
     </div>
 
@@ -1830,256 +2100,310 @@
         <hr class="section-divider">
 
         <!-- ====================== TALEP FORMU ====================== -->
-        <div id="talep">
-            <h2 class="section-title reveal" data-tr="Kampanya Talebi Oluştur" data-en="Create Campaign Request">Kampanya Talebi Oluştur</h2>
-            <p class="section-subtitle reveal" data-tr="Formu doldurun, 24 saat içinde sizi arayalım ve kampanyanızı yayına alalım." data-en="Fill out the form, we'll call you within 24 hours and publish your campaign.">Formu doldurun, 24 saat içinde sizi arayalım ve kampanyanızı yayına alalım.</p>
+        <h2 class="section-title reveal" id="talep" data-tr="Hemen Başvurun" data-en="Apply Now">Hemen Başvurun</h2>
+        <p class="section-subtitle reveal" data-tr="Talep formunu doldurarak premium reklam ağımıza ilk adımınızı atın." data-en="Take your first step into our premium ad network by filling out the request form.">Talep formunu doldurarak premium reklam ağımıza ilk adımınızı atın.</p>
 
-            <div class="request-box reveal">
-                <!-- Adım göstergesi -->
-                <div class="step-badges">
-                    <div class="step-badge"><span class="step-num">1</span> <span data-tr="Bilgilerinizi girin" data-en="Enter your info">Bilgilerinizi girin</span></div>
-                    <div class="step-badge"><span class="step-num">2</span> <span data-tr="Reklam türünü seçin" data-en="Select ad type">Reklam türünü seçin</span></div>
-                    <div class="step-badge"><span class="step-num">3</span> <span data-tr="Talebi gönderin" data-en="Submit request">Talebi gönderin</span></div>
-                </div>
-
+        <div class="request-box reveal">
+            <div class="step-badges">
+                <div class="step-badge active" id="badgeStep1"><span class="step-num">1</span> <span data-tr="Hizmet Seçimi" data-en="Service Select">Hizmet Seçimi</span></div>
+                <div class="step-badge" id="badgeStep2"><span class="step-num">2</span> <span data-tr="Esnaf Bilgileri" data-en="Business Info">Esnaf Bilgileri</span></div>
+                <div class="step-badge" id="badgeStep3"><span class="step-num">3</span> <span data-tr="Kampanya Detayı" data-en="Deals Detail">Kampanya Detayı</span></div>
+                <div class="step-badge" id="badgeStep4"><span class="step-num">4</span> <span data-tr="Fatura ve Onay" data-en="Confirm Ad">Fatura ve Onay</span></div>
+            </div>
+            <div class="request-grid-layout">
+                <!-- Left: Form -->
                 <form id="requestForm" class="req-form">
-                    <!-- Reklam Türü Seçimi Tab Bar (En Üstte) -->
-                    <div class="req-field" style="margin-top: 5px;">
-                        <label data-tr="Hizmet / Reklam Türü Seçin *" data-en="Select Service / Ad Type *">Hizmet / Reklam Türü Seçin *</label>
-                        <div class="pkg-grid" style="grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 15px;">
-                            <label class="pkg-card selected" id="typeInstaOnly" onclick="selectAdType('insta_only')">
-                                <input type="radio" name="adType" value="insta_only" checked style="display:none;">
-                                <i class="fab fa-instagram" style="font-size: 1.6rem; margin-bottom: 8px; color: #e1306c; display: block;"></i>
-                                <div class="pkg-name" data-tr="Sadece Instagram" data-en="Instagram Only">Sadece Instagram</div>
-                                <div class="pkg-desc" data-tr="Story, Post, Reels" data-en="Story, Post, Reels">Story, Post, Reels</div>
-                            </label>
-                            <label class="pkg-card" id="typeAppOnly" onclick="selectAdType('app_only')">
-                                <input type="radio" name="adType" value="app_only" style="display:none;">
-                                <i class="fas fa-mobile-alt" style="font-size: 1.6rem; margin-bottom: 8px; color: var(--blue); display: block;"></i>
-                                <div class="pkg-name" data-tr="Sadece Mobil Uygulama" data-en="App Only">Sadece Mobil Uygulama</div>
-                                <div class="pkg-desc" data-tr="Uygulamada Liste İlanı" data-en="App Listed Ad">Uygulamada Liste İlanı</div>
-                            </label>
-                            <label class="pkg-card" id="typeCombo" onclick="selectAdType('combo')">
-                                <input type="radio" name="adType" value="combo" style="display:none;">
-                                <i class="fas fa-rocket" style="font-size: 1.6rem; margin-bottom: 8px; color: var(--accent); display: block;"></i>
-                                <div class="pkg-name" data-tr="Kombo Paket" data-en="Combo Pack">Kombo Paket</div>
-                                <div class="pkg-desc" data-tr="Hem Mobil Hem Instagram" data-en="App & Instagram">Hem Mobil Hem Instagram</div>
-                            </label>
+                        <!-- Reklam Türü Seçimi Tab Bar (En Üstte) -->
+                        <div class="req-field" style="margin-top: 5px;">
+                            <label data-tr="Hizmet / Reklam Türü Seçin *" data-en="Select Service / Ad Type *">Hizmet / Reklam Türü Seçin *</label>
+                            <div class="pkg-grid" style="grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 15px;">
+                                <label class="pkg-card selected" id="typeInstaOnly" onclick="selectAdType('insta_only')">
+                                    <input type="radio" name="adType" value="insta_only" checked style="display:none;">
+                                    <i class="fab fa-instagram" style="font-size: 1.6rem; margin-bottom: 8px; color: #e1306c; display: block;"></i>
+                                    <div class="pkg-name" data-tr="Sadece Instagram" data-en="Instagram Only">Sadece Instagram</div>
+                                    <div class="pkg-desc" data-tr="Story, Post, Reels" data-en="Story, Post, Reels">Story, Post, Reels</div>
+                                </label>
+                                <label class="pkg-card" id="typeAppOnly" onclick="selectAdType('app_only')">
+                                    <input type="radio" name="adType" value="app_only" style="display:none;">
+                                    <i class="fas fa-mobile-alt" style="font-size: 1.6rem; margin-bottom: 8px; color: var(--blue); display: block;"></i>
+                                    <div class="pkg-name" data-tr="Sadece Mobil Uygulama" data-en="App Only">Sadece Mobil Uygulama</div>
+                                    <div class="pkg-desc" data-tr="Uygulamada Liste İlanı" data-en="App Listed Ad">Uygulamada Liste İlanı</div>
+                                </label>
+                                <label class="pkg-card" id="typeCombo" onclick="selectAdType('combo')">
+                                    <input type="radio" name="adType" value="combo" style="display:none;">
+                                    <i class="fas fa-rocket" style="font-size: 1.6rem; margin-bottom: 8px; color: var(--accent); display: block;"></i>
+                                    <div class="pkg-name" data-tr="Kombo Paket" data-en="Combo Pack">Kombo Paket</div>
+                                    <div class="pkg-desc" data-tr="Hem Mobil Hem Instagram" data-en="App & Instagram">Hem Mobil Hem Instagram</div>
+                                </label>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Dinamik Sekme Açıklama Paneli -->
-                    <div id="tabDescriptionPanel" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 18px; margin-bottom: 20px; display: flex; align-items: center; gap: 15px;">
-                        <div class="desc-icon-wrap" style="width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; background: rgba(225, 48, 108, 0.08);">
-                            <i class="fab fa-instagram" id="descIcon" style="color: #e1306c;"></i>
+                        <!-- Dinamik Sekme Açıklama Paneli -->
+                        <div id="tabDescriptionPanel" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 18px; margin-bottom: 20px; display: flex; align-items: center; gap: 15px;">
+                            <div class="desc-icon-wrap" style="width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; background: rgba(225, 48, 108, 0.08);">
+                                <i class="fab fa-instagram" id="descIcon" style="color: #e1306c;"></i>
+                            </div>
+                            <div>
+                                <h4 id="descTitle" style="font-weight: 800; font-size: 0.95rem; color: #fff;" data-tr="Instagram Topluluk Reklamı" data-en="Instagram Community Ad">Instagram Topluluk Reklamı</h4>
+                                <p id="descSubtitle" style="font-size: 0.8rem; color: #9ab; line-height: 1.4;" data-tr="58.400+ takipçili @ilgin.insani Instagram hesabımızda dükkanınızın reklamını yayınlayın. Reels, Post ve Story seçenekleriyle doğrudan yerel müşterilere ulaşın." data-en="Advertise your business on our @ilgin.insani Instagram account with 58,400+ followers. Reach local customers directly with Reels, Post, and Story options.">58.400+ takipçili @ilgin.insani Instagram hesabımızda dükkanınızın reklamını yayınlayın. Reels, Post ve Story seçenekleriyle doğrudan yerel müşterilere ulaşın.</p>
+                            </div>
                         </div>
-                        <div>
-                            <h4 id="descTitle" style="font-weight: 800; font-size: 0.95rem; color: #fff;" data-tr="Instagram Topluluk Reklamı" data-en="Instagram Community Ad">Instagram Topluluk Reklamı</h4>
-                            <p id="descSubtitle" style="font-size: 0.8rem; color: #9ab; line-height: 1.4;" data-tr="58.400+ takipçili @ilgin.insani Instagram hesabımızda dükkanınızın reklamını yayınlayın. Reels, Post ve Story seçenekleriyle doğrudan yerel müşterilere ulaşın." data-en="Advertise your business on our @ilgin.insani Instagram account with 58,400+ followers. Reach local customers directly with Reels, Post, and Story options.">58.400+ takipçili @ilgin.insani Instagram hesabımızda dükkanınızın reklamını yayınlayın. Reels, Post ve Story seçenekleriyle doğrudan yerel müşterilere ulaşın.</p>
-                        </div>
-                    </div>
 
-                    <!-- İşletme Bilgileri -->
-                    <div class="req-row">
-                        <div class="req-field">
-                            <label data-tr="İşletme Adı *" data-en="Business Name *">İşletme Adı *</label>
-                            <input type="text" id="reqBusiness" placeholder="Örn: Ilgın Kuaförü" required>
-                        </div>
-                        <div class="req-field">
-                            <label data-tr="Sektör / Kategori *" data-en="Category / Industry *">Sektör / Kategori *</label>
-                            <select id="reqCategory" required>
-                                <option value="" disabled selected data-tr="Sektör Seçin" data-en="Select Sector">Sektör Seçin</option>
-                                <option value="Gıda / Restoran" data-tr="Gıda / Restoran" data-en="Food / Restaurant">Gıda / Restoran</option>
-                                <option value="Giyim / Moda" data-tr="Giyim / Moda" data-en="Clothing / Fashion">Giyim / Moda</option>
-                                <option value="Kozmetik / Güzellik" data-tr="Kozmetik / Güzellik" data-en="Cosmetics / Beauty">Kozmetik / Güzellik</option>
-                                <option value="Tarım / Hayvancılık" data-tr="Tarım / Hayvancılık" data-en="Agriculture / Livestock">Tarım / Hayvancılık</option>
-                                <option value="Teknoloji / Elektronik" data-tr="Teknoloji / Elektronik" data-en="Technology / Electronics">Teknoloji / Elektronik</option>
-                                <option value="Hizmet / Diğer" data-tr="Hizmet / Diğer" data-en="Service / Other">Hizmet / Diğer</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="req-row">
-                        <div class="req-field">
-                            <label data-tr="Yetkili Adı Soyadı *" data-en="Authorized Contact Person *">Yetkili Adı Soyadı *</label>
-                            <input type="text" id="reqContact" placeholder="Örn: Ahmet Yılmaz" required>
-                        </div>
-                        <div class="req-field">
-                            <label data-tr="Telefon Numarası *" data-en="Phone Number *">Telefon Numarası *</label>
-                            <input type="tel" id="reqPhone" placeholder="Örn: 0505 123 45 67" required>
-                        </div>
-                    </div>
-
-                    <!-- UYGULAMA İÇİ FIRSAT DETAYLARI -->
-                    <div id="appCampaignFields" style="transition: all 0.3s ease;">
-                        <div class="req-field">
-                            <label data-tr="Kampanya / İndirim Başlığı *" data-en="Campaign / Discount Title *">Kampanya / İndirim Başlığı *</label>
-                            <input type="text" id="reqCampaignTitle" placeholder="Örn: Yazlık Saç Modeli Kampanyası" required>
-                        </div>
+                        <!-- İşletme Bilgileri -->
                         <div class="req-row">
                             <div class="req-field">
-                                <label data-tr="Eski Fiyat (TL)" data-en="Original Price (TL)">Eski Fiyat (TL)</label>
-                                <input type="number" id="reqOldPrice" placeholder="Örn: 500" min="0" step="0.01">
+                                <label data-tr="İşletme Adı *" data-en="Business Name *">İşletme Adı *</label>
+                                <input type="text" id="reqBusiness" placeholder="Örn: Ilgın Kuaförü" required>
                             </div>
                             <div class="req-field">
-                                <label data-tr="Kampanya Fiyatı (TL)" data-en="Campaign Price (TL)">Kampanya Fiyatı (TL)</label>
-                                <input type="number" id="reqNewPrice" placeholder="Örn: 350" min="0" step="0.01">
-                            </div>
-                        </div>
-                        <div class="req-row">
-                            <div class="req-field">
-                                <label data-tr="İndirim Kodu (Opsiyonel)" data-en="Promo Code (Optional)">İndirim Kodu (Opsiyonel)</label>
-                                <input type="text" id="reqPromoCode" placeholder="Örn: YAZ30">
-                            </div>
-                            <div class="req-field">
-                                <label data-tr="Kampanya Süresi" data-en="Campaign Duration">Kampanya Süresi</label>
-                                <select id="reqDuration">
-                                    <option value="3" data-tr="3 Gün" data-en="3 Days">3 Gün</option>
-                                    <option value="7" selected data-tr="1 Hafta" data-en="1 Week">1 Hafta</option>
-                                    <option value="14" data-tr="2 Hafta" data-en="2 Weeks">2 Hafta</option>
-                                    <option value="30" data-tr="1 Ay" data-en="1 Month">1 Ay</option>
+                                <label data-tr="Sektör / Kategori *" data-en="Category / Industry *">Sektör / Kategori *</label>
+                                <select id="reqCategory" required>
+                                    <option value="" disabled selected data-tr="Sektör Seçin" data-en="Select Sector">Sektör Seçin</option>
+                                    <option value="Gıda / Restoran" data-tr="Gıda / Restoran" data-en="Food / Restaurant">Gıda / Restoran</option>
+                                    <option value="Giyim / Moda" data-tr="Giyim / Moda" data-en="Clothing / Fashion">Giyim / Moda</option>
+                                    <option value="Kozmetik / Güzellik" data-tr="Kozmetik / Güzellik" data-en="Cosmetics / Beauty">Kozmetik / Güzellik</option>
+                                    <option value="Tarım / Hayvancılık" data-tr="Tarım / Hayvancılık" data-en="Agriculture / Livestock">Tarım / Hayvancılık</option>
+                                    <option value="Teknoloji / Elektronik" data-tr="Teknoloji / Elektronik" data-en="Technology / Electronics">Teknoloji / Elektronik</option>
+                                    <option value="Hizmet / Diğer" data-tr="Hizmet / Diğer" data-en="Service / Other">Hizmet / Diğer</option>
                                 </select>
                             </div>
                         </div>
-
-                        <!-- Yayın Paketi Seçimi -->
-                        <div class="req-field">
-                            <label data-tr="Uygulama İçi Yayın Paketi Seçin" data-en="Select In-App Publishing Package">Uygulama İçi Yayın Paketi Seçin</label>
-                            <div class="pkg-grid">
-                                <label class="pkg-card" id="pkgBasic" onclick="selectPackage('temel')">
-                                    <input type="radio" name="pkg" value="temel">
-                                    <div class="pkg-name" data-tr="Temel" data-en="Basic">Temel</div>
-                                    <div class="pkg-price" id="priceBasic">₺99</div>
-                                    <div class="pkg-desc" data-tr="Liste görünümünde yayın" data-en="List view publishing">Liste görünümünde yayın</div>
-                                </label>
-                                <label class="pkg-card selected" id="pkgPremium" onclick="selectPackage('premium')">
-                                    <input type="radio" name="pkg" value="premium" checked>
-                                    <span class="pkg-popular" data-tr="Popüler" data-en="Popular">Popüler</span>
-                                    <div class="pkg-name" data-tr="Premium" data-en="Premium">Premium</div>
-                                    <div class="pkg-price" id="pricePremium">₺299</div>
-                                    <div class="pkg-desc" data-tr="Öne çıkan + bildirim" data-en="Featured + notification">Öne çıkan + bildirim</div>
-                                </label>
-                                <label class="pkg-card" id="pkgVip" onclick="selectPackage('vip')">
-                                    <input type="radio" name="pkg" value="vip">
-                                    <div class="pkg-name">VIP</div>
-                                    <div class="pkg-price" id="priceVip">₺599</div>
-                                    <div class="pkg-desc" data-tr="Tam sayfa banner + bildirim" data-en="Full page banner + notification">Tam sayfa banner + bildirim</div>
-                                </label>
+                        <div class="req-row">
+                            <div class="req-field">
+                                <label data-tr="Yetkili Adı Soyadı *" data-en="Authorized Contact Person *">Yetkili Adı Soyadı *</label>
+                                <input type="text" id="reqContact" placeholder="Örn: Ahmet Yılmaz" required>
+                            </div>
+                            <div class="req-field">
+                                <label data-tr="Telefon Numarası *" data-en="Phone Number *">Telefon Numarası *</label>
+                                <input type="tel" id="reqPhone" placeholder="Örn: 0505 123 45 67" required>
                             </div>
                         </div>
-                        
-                        <!-- Görsel Yükleme Alanı -->
+
+                        <!-- UYGULAMA İÇİ FIRSAT DETAYLARI -->
+                        <div id="appCampaignFields" style="transition: all 0.3s ease;">
+                            <div class="req-field">
+                                <label data-tr="Kampanya / İndirim Başlığı *" data-en="Campaign / Discount Title *">Kampanya / İndirim Başlığı *</label>
+                                <input type="text" id="reqCampaignTitle" placeholder="Örn: Yazlık Saç Modeli Kampanyası" required>
+                            </div>
+                            <div class="req-row">
+                                <div class="req-field">
+                                    <label data-tr="Eski Fiyat (TL)" data-en="Original Price (TL)">Eski Fiyat (TL)</label>
+                                    <input type="number" id="reqOldPrice" placeholder="Örn: 500" min="0" step="0.01">
+                                </div>
+                                <div class="req-field">
+                                    <label data-tr="Kampanya Fiyatı (TL)" data-en="Campaign Price (TL)">Kampanya Fiyatı (TL)</label>
+                                    <input type="number" id="reqNewPrice" placeholder="Örn: 350" min="0" step="0.01">
+                                </div>
+                            </div>
+                            <div class="req-row">
+                                <div class="req-field">
+                                    <label data-tr="İndirim Kodu (Opsiyonel)" data-en="Promo Code (Optional)">İndirim Kodu (Opsiyonel)</label>
+                                    <input type="text" id="reqPromoCode" placeholder="Örn: YAZ30">
+                                </div>
+                                <div class="req-field">
+                                    <label data-tr="Kampanya Süresi" data-en="Campaign Duration">Kampanya Süresi</label>
+                                    <select id="reqDuration">
+                                        <option value="3" data-tr="3 Gün" data-en="3 Days">3 Gün</option>
+                                        <option value="7" selected data-tr="1 Hafta" data-en="1 Week">1 Hafta</option>
+                                        <option value="14" data-tr="2 Hafta" data-en="2 Weeks">2 Hafta</option>
+                                        <option value="30" data-tr="1 Ay" data-en="1 Month">1 Ay</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Yayın Paketi Seçimi -->
+                            <div class="req-field">
+                                <label data-tr="Uygulama İçi Yayın Paketi Seçin" data-en="Select In-App Publishing Package">Uygulama İçi Yayın Paketi Seçin</label>
+                                <div class="pkg-grid">
+                                    <label class="pkg-card" id="pkgBasic" onclick="selectPackage('temel')">
+                                        <input type="radio" name="pkg" value="temel">
+                                        <div class="pkg-name" data-tr="Temel" data-en="Basic">Temel</div>
+                                        <div class="pkg-price" id="priceBasic">₺99</div>
+                                        <div class="pkg-desc" data-tr="Liste görünümünde yayın" data-en="List view publishing">Liste görünümünde yayın</div>
+                                    </label>
+                                    <label class="pkg-card selected" id="pkgPremium" onclick="selectPackage('premium')">
+                                        <input type="radio" name="pkg" value="premium" checked>
+                                        <span class="pkg-popular" data-tr="Popüler" data-en="Popular">Popüler</span>
+                                        <div class="pkg-name" data-tr="Premium" data-en="Premium">Premium</div>
+                                        <div class="pkg-price" id="pricePremium">₺299</div>
+                                        <div class="pkg-desc" data-tr="Öne çıkan + bildirim" data-en="Featured + notification">Öne çıkan + bildirim</div>
+                                    </label>
+                                    <label class="pkg-card" id="pkgVip" onclick="selectPackage('vip')">
+                                        <input type="radio" name="pkg" value="vip">
+                                        <div class="pkg-name">VIP</div>
+                                        <div class="pkg-price" id="priceVip">₺599</div>
+                                        <div class="pkg-desc" data-tr="Tam sayfa banner + bildirim" data-en="Full page banner + notification">Tam sayfa banner + bildirim</div>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Görsel Yükleme Alanı -->
+                            <div class="req-field" style="margin-top: 15px;">
+                                <label data-tr="Kampanya Görseli (Dosya Seçin) *" data-en="Campaign Image (Choose File) *">Kampanya Görseli (Dosya Seçin) *</label>
+                                <div class="file-upload-wrapper">
+                                    <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                                    <span class="upload-text" data-tr="Görsel Seçmek İçin Tıklayın veya Dosya Sürükleyin" data-en="Click or Drag File to Select Image">Görsel Seçmek İçin Tıklayın veya Dosya Sürükleyin</span>
+                                    <span class="upload-desc" data-tr="PNG, JPG veya JPEG (Maks. 5MB)" data-en="PNG, JPG or JPEG (Max 5MB)">PNG, JPG veya JPEG (Maks. 5MB)</span>
+                                    <input type="file" id="reqImageFile" accept="image/*" onchange="uploadImage()">
+                                </div>
+                                <input type="hidden" id="reqImageUrl" value="https://via.placeholder.com/400">
+                                
+                                <div id="imagePreview" style="margin-top: 10px; display: none; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);">
+                                    <img id="previewImg" src="" style="max-width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
+                                    <span id="uploadStatus" style="font-size: 0.8rem; font-weight: 600;"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- INSTAGRAM REKLAM DETAYLARI -->
+                        <div id="instagramAdFields" style="transition: all 0.3s ease; margin-top: 15px; border-top: 1px dashed rgba(255,255,255,0.15); padding-top: 15px;">
+                            <div class="req-field">
+                                <label data-tr="Instagram Reklam Desteği / Paket Seçin *" data-en="Select Instagram Ad Package *">Instagram Reklam Desteği / Paket Seçin *</label>
+                                <select id="reqInstaPackage" onchange="updatePrices()">
+                                    <option value="story" data-tr="Hikaye Paylaşımı (₺750) — [12k-14k Gösterim]" data-en="Story Post (₺750) — [12k-14k Views]">Hikaye Paylaşımı (₺750) — [12k-14k Gösterim]</option>
+                                    <option value="post" data-tr="Gönderi Paylaşımı (₺1.500) — [15k-25k Gösterim]" data-en="Feed Post (₺1,500) — [15k-25k Views]">Gönderi Paylaşımı (₺1.500) — [15k-25k Gösterim]</option>
+                                    <option value="post_story" data-tr="Gönderi + Hikaye Kombosu (₺2.000) — [18k-28k Gösterim]" data-en="Post + Story Combo (₺2,000) — [18k-28k Views]">Gönderi + Hikaye Kombosu (₺2.000) — [18k-28k Gösterim]</option>
+                                    <option value="reels" data-tr="Reels Videosu (₺2.500) — [20k-30k Gösterim]" data-en="Reels Video (₺2,500) — [20k-30k Views]">Reels Videosu (₺2.500) — [20k-30k Gösterim]</option>
+                                    <option value="reels_story" data-tr="Reels + Hikaye Kombosu (₺3.000) — [25k-35k Gösterim]" data-en="Reels + Story Combo (₺3,000) — [25k-35k Views]">Reels + Hikaye Kombosu (₺3.000) — [25k-35k Gösterim]</option>
+                                    <option value="kapsamli_reels_story" data-tr="Tasarım/Çekim Kapsamlı Reels + Hikaye (₺4.000) — [25k-35k Gösterim]" data-en="Pro Reels + Story Shoot & Edit (₺4,000) — [25k-35k Views]">Tasarım/Çekim Kapsamlı Reels + Hikaye (₺4.000) — [25k-35k Gösterim]</option>
+                                    <option value="drone_story" data-tr="Drone ile Profesyonel Hikaye Çekimi (₺2.000) — [15k-20k Gösterim]" data-en="Drone Story Videography (₺2,000) — [15k-20k Views]">Drone ile Profesyonel Hikaye Çekimi (₺2.000) — [15k-20k Gösterim]</option>
+                                    <option value="drone_reels" data-tr="Drone ile Profesyonel Reels Çekimi (₺4.000) — [25k-35k Gösterim]" data-en="Drone Reels Videography (₺4,000) — [25k-35k Views]">Drone ile Profesyonel Reels Çekimi (₺4.000) — [25k-35k Gösterim]</option>
+                                    <option value="drone_combo" data-tr="Drone ile Profesyonel Reels + Hikaye (₺5.000) — [35k-45k Gösterim]" data-en="Drone Reels + Story Shoot (₺5,000) — [35k-45k Views]">Drone ile Profesyonel Reels + Hikaye (₺5.000) — [35k-45k Gösterim]</option>
+                                    <option value="suggested" data-tr="#IlgınİnsanıÖneriyor Özel Reels + Hikaye (₺5.000) — [45k-50k+ Gösterim]" data-en="#IlgınİnsanıÖneriyor Special Reels + Story (₺5,000) — [45k-50k+ Views]">#IlgınİnsanıÖneriyor Özel Reels + Hikaye (₺5.000) — [45k-50k+ Gösterim]</option>
+                                    <option value="monthly" data-tr="Esnaf Aylık Sponsorluk Paketi (₺12.500) — [150k+ Gösterim]" data-en="Monthly Merchant Sponsorship (₺12,500) — [150k+ Views]">Esnaf Aylık Sponsorluk Paketi (₺12.500) — [150k+ Gösterim]</option>
+                                    <option value="giveaway" data-tr="Çekiliş Sponsorluğu (₺500 / Gün) — [Min. 3 Gün]" data-en="Giveaway Sponsorship (₺500 / Day) — [Min. 3 Days]">Çekiliş Sponsorluğu (₺500 / Gün) — [Min. 3 Gün]</option>
+                                </select>
+                                
+                                <!-- Dinamik Paket Detayları -->
+                                <div id="instaPackageDetails" style="margin-top: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 15px; font-size: 0.85rem; display: none;"></div>
+                            </div>
+
+                            <!-- Çekiliş Gün Sayısı -->
+                            <div id="giveawayDaysWrapper" class="req-field" style="display: none; margin-top: 10px;">
+                                <label data-tr="Çekiliş Süresi (Gün - En Az 3 Gün)" data-en="Giveaway Duration (Days - Min 3 Days)">Çekiliş Süresi (Gün - En Az 3 Gün)</label>
+                                <input type="number" id="reqGiveawayDays" min="3" value="3" oninput="updatePrices()" style="width: 100%;">
+                            </div>
+
+                            <!-- Çekim ve Montaj Talebi -->
+                            <div id="shootRequiredWrapper" class="req-field" style="display: none; flex-direction: row; align-items: center; gap: 10px; margin-top: 10px; background: rgba(255,255,255,0.02); padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);">
+                                <input type="checkbox" id="reqShootRequired" style="width: 18px; height: 18px; cursor: pointer; margin: 0;" onchange="updatePrices()">
+                                <label for="reqShootRequired" style="cursor: pointer; font-size: 0.8rem; color: #ccc;" data-tr="Fotoğraf / Video çekimi ve kurgusunu Ilgın İnsanı yapsın (+₺500)" data-en="Ilgın İnsanı shoots & edits photos / videos (+₺500)">Fotoğraf / Video çekimi ve kurgusunu Ilgın İnsanı yapsın (+₺500)</label>
+                            </div>
+                        </div>
+
                         <div class="req-field" style="margin-top: 15px;">
-                            <label data-tr="Kampanya Görseli (Dosya Seçin) *" data-en="Campaign Image (Choose File) *">Kampanya Görseli (Dosya Seçin) *</label>
-                            <div class="file-upload-wrapper">
-                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
-                                <span class="upload-text" data-tr="Görsel Seçmek İçin Tıklayın veya Dosya Sürükleyin" data-en="Click or Drag File to Select Image">Görsel Seçmek İçin Tıklayın veya Dosya Sürükleyin</span>
-                                <span class="upload-desc" data-tr="PNG, JPG veya JPEG (Maks. 5MB)" data-en="PNG, JPG or JPEG (Max 5MB)">PNG, JPG veya JPEG (Maks. 5MB)</span>
-                                <input type="file" id="reqImageFile" accept="image/*" onchange="uploadImage()">
+                            <label data-tr="Ek Notlar / İstekler" data-en="Additional Notes / Requests">Ek Notlar / İstekler</label>
+                            <textarea id="reqNotes" placeholder="Kampanyanızla ilgili eklemek istedikleriniz..."></textarea>
+                        </div>
+
+                        <!-- Fatura Kartı (Summary) -->
+                        <div id="invoiceCard" style="background: rgba(15, 28, 36, 0.85); backdrop-filter: blur(20px); border: 2px dashed var(--accent); border-radius: 20px; padding: 25px; margin-top: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 0 20px rgba(243, 156, 18, 0.05); display: none; position: relative;">
+                            <div style="position: absolute; top: -2px; left: 20px; right: 20px; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); box-shadow: 0 0 8px var(--accent);"></div>
+                            <h4 style="font-size: 1.05rem; color: #fff; margin-bottom: 15px; border-bottom: 1.5px dashed rgba(255,255,255,0.15); padding-bottom: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; justify-content: center;"><i class="fas fa-receipt" style="color: var(--accent);"></i> <span data-tr="SEÇİLEN HİZMETLER VE ÖDEME DETAYI" data-en="SELECTED SERVICES & PAYMENT DETAIL">SEÇİLEN HİZMETLER VE ÖDEME DETAYI</span></h4>
+                            <div id="invoiceItems" style="display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; padding: 5px 0;">
+                                <!-- Dinamik Fatura Öğeleri -->
                             </div>
-                            <input type="hidden" id="reqImageUrl" value="https://via.placeholder.com/400">
-                            
-                            <div id="imagePreview" style="margin-top: 10px; display: none; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);">
-                                <img id="previewImg" src="" style="max-width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
-                                <span id="uploadStatus" style="font-size: 0.8rem; font-weight: 600;"></span>
+                            <div style="border-top: 2px dashed rgba(255,255,255,0.15); margin-top: 15px; padding-top: 15px; display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-weight: 800; font-size: 0.95rem; color: #b0c4de; letter-spacing: 0.5px;" data-tr="TOPLAM FATURA TUTARI:" data-en="TOTAL INVOICE AMOUNT:">TOPLAM FATURA TUTARI:</span>
+                                <span style="font-weight: 900; font-size: 1.6rem; color: var(--accent); text-shadow: 0 0 10px rgba(243, 156, 18, 0.4);" id="invoiceTotal">₺0</span>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- INSTAGRAM REKLAM DETAYLARI -->
-                    <div id="instagramAdFields" style="transition: all 0.3s ease; margin-top: 15px; border-top: 1px dashed rgba(255,255,255,0.15); padding-top: 15px;">
-                        <div class="req-field">
-                            <label data-tr="Instagram Reklam Desteği / Paket Seçin *" data-en="Select Instagram Ad Package *">Instagram Reklam Desteği / Paket Seçin *</label>
-                            <select id="reqInstaPackage" onchange="updatePrices()">
-                                <option value="story" data-tr="Hikaye Paylaşımı (₺750) — [12k-14k Gösterim]" data-en="Story Post (₺750) — [12k-14k Views]">Hikaye Paylaşımı (₺750) — [12k-14k Gösterim]</option>
-                                <option value="post" data-tr="Gönderi Paylaşımı (₺1.500) — [15k-25k Gösterim]" data-en="Feed Post (₺1,500) — [15k-25k Views]">Gönderi Paylaşımı (₺1.500) — [15k-25k Gösterim]</option>
-                                <option value="post_story" data-tr="Gönderi + Hikaye Kombosu (₺2.000) — [18k-28k Gösterim]" data-en="Post + Story Combo (₺2,000) — [18k-28k Views]">Gönderi + Hikaye Kombosu (₺2.000) — [18k-28k Gösterim]</option>
-                                <option value="reels" data-tr="Reels Videosu (₺2.500) — [20k-30k Gösterim]" data-en="Reels Video (₺2,500) — [20k-30k Views]">Reels Videosu (₺2.500) — [20k-30k Gösterim]</option>
-                                <option value="reels_story" data-tr="Reels + Hikaye Kombosu (₺3.000) — [25k-35k Gösterim]" data-en="Reels + Story Combo (₺3,000) — [25k-35k Views]">Reels + Hikaye Kombosu (₺3.000) — [25k-35k Gösterim]</option>
-                                <option value="kapsamli_reels_story" data-tr="Tasarım/Çekim Kapsamlı Reels + Hikaye (₺4.000) — [25k-35k Gösterim]" data-en="Pro Reels + Story Shoot & Edit (₺4,000) — [25k-35k Views]">Tasarım/Çekim Kapsamlı Reels + Hikaye (₺4.000) — [25k-35k Gösterim]</option>
-                                <option value="drone_story" data-tr="Drone ile Profesyonel Hikaye Çekimi (₺2.000) — [15k-20k Gösterim]" data-en="Drone Story Videography (₺2,000) — [15k-20k Views]">Drone ile Profesyonel Hikaye Çekimi (₺2.000) — [15k-20k Gösterim]</option>
-                                <option value="drone_reels" data-tr="Drone ile Profesyonel Reels Çekimi (₺4.000) — [25k-35k Gösterim]" data-en="Drone Reels Videography (₺4,000) — [25k-35k Views]">Drone ile Profesyonel Reels Çekimi (₺4.000) — [25k-35k Gösterim]</option>
-                                <option value="drone_combo" data-tr="Drone ile Profesyonel Reels + Hikaye (₺5.000) — [35k-45k Gösterim]" data-en="Drone Reels + Story Shoot (₺5,000) — [35k-45k Views]">Drone ile Profesyonel Reels + Hikaye (₺5.000) — [35k-45k Gösterim]</option>
-                                <option value="suggested" data-tr="#IlgınİnsanıÖneriyor Özel Reels + Hikaye (₺5.000) — [45k-50k+ Gösterim]" data-en="#IlgınİnsanıÖneriyor Special Reels + Story (₺5,000) — [45k-50k+ Views]">#IlgınİnsanıÖneriyor Özel Reels + Hikaye (₺5.000) — [45k-50k+ Gösterim]</option>
-                                <option value="monthly" data-tr="Esnaf Aylık Sponsorluk Paketi (₺12.500) — [150k+ Gösterim]" data-en="Monthly Merchant Sponsorship (₺12,500) — [150k+ Views]">Esnaf Aylık Sponsorluk Paketi (₺12.500) — [150k+ Gösterim]</option>
-                                <option value="giveaway" data-tr="Çekiliş Sponsorluğu (₺500 / Gün) — [Min. 3 Gün]" data-en="Giveaway Sponsorship (₺500 / Day) — [Min. 3 Days]">Çekiliş Sponsorluğu (₺500 / Gün) — [Min. 3 Gün]</option>
-                            </select>
                             
-                            <!-- Dinamik Paket Detayları -->
-                            <div id="instaPackageDetails" style="margin-top: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 15px; font-size: 0.85rem; display: none;"></div>
+                            <!-- Dinamik ROI Hesaplayıcı Paneli -->
+                            <div id="roiPanel" style="margin-top: 20px; padding-top: 15px; border-top: 1.5px dashed rgba(255,255,255,0.15);">
+                                <h5 style="font-size: 0.85rem; color: #fff; margin-bottom: 12px; font-weight: 700; text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px;"><i class="fas fa-chart-pie" style="color: var(--green);"></i> <span data-tr="TAHMİNİ YATIRIM GETİRİSİ (ROI) ANALİZİ" data-en="ESTIMATED RETURN ON INVESTMENT (ROI)">TAHMİNİ YATIRIM GETİRİSİ (ROI) ANALİZİ</span></h5>
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; background: rgba(0,0,0,0.25); border-radius: 12px; padding: 15px; border: 1px solid rgba(255,255,255,0.05);">
+                                    <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                        <span style="font-size: 0.62rem; color: #9ab; font-weight: 600; text-transform: uppercase;" data-tr="Tahmini Erişim" data-en="Est. Reach">Tahmini Erişim</span>
+                                        <span style="font-size: 1.05rem; font-weight: 800; color: #fff;" id="roiReach">—</span>
+                                    </div>
+                                    <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                        <span style="font-size: 0.62rem; color: #9ab; font-weight: 600; text-transform: uppercase;" data-tr="Sektör Dönüşüm" data-en="Conv. Rate">Sektör Dönüşüm</span>
+                                        <span style="font-size: 1.05rem; font-weight: 800; color: var(--blue);" id="roiConvRate">—</span>
+                                    </div>
+                                    <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                        <span style="font-size: 0.62rem; color: #9ab; font-weight: 600; text-transform: uppercase;" data-tr="Tahmini Ciro" data-en="Projected Revenue">Tahmini Ciro</span>
+                                        <span style="font-size: 1.05rem; font-weight: 800; color: var(--green);" id="roiRevenue">—</span>
+                                    </div>
+                                    <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                        <span style="font-size: 0.62rem; color: #9ab; font-weight: 600; text-transform: uppercase;" data-tr="Tahmini ROI Oranı" data-en="Projected ROI">Tahmini ROI Oranı</span>
+                                        <span style="font-size: 1.05rem; font-weight: 800; color: var(--accent);" id="roiRatio">—</span>
+                                    </div>
+                                </div>
+                                <div style="text-align: center; margin-top: 8px; font-size: 0.65rem; color: #888;" data-tr="* ROI analizi, sektörel ortalamalar ve tahmini gösterimler temel alınarak hesaplanmıştır." data-en="* ROI analysis is based on industry averages and estimated views.">* ROI analizi, sektörel ortalamalar ve tahmini gösterimler temel alınarak hesaplanmıştır.</div>
+                            </div>
+
+                            <div style="text-align: center; margin-top: 12px; font-size: 0.72rem; color: #789; font-style: italic; margin-bottom: 15px;" data-tr="* Ödeme detayları ve aktivasyon için 24 saat içinde temsilcimiz sizinle iletişime geçecektir." data-en="* Our representative will contact you within 24 hours for payment details and activation.">* Ödeme detayları ve aktivasyon için 24 saat içinde temsilcimiz sizinle iletişime geçecektir.</div>
+                            
+                            <!-- Submit Button inside Invoice Card -->
+                            <button type="submit" class="req-submit" id="reqSubmitBtn">
+                                <i class="fas fa-paper-plane"></i>
+                                <span data-tr="Talebi Gönder — 24 Saatte Yayına Al" data-en="Submit Request — Go Live in 24 Hours">Talebi Gönder — 24 Saatte Yayına Al</span>
+                            </button>
                         </div>
 
-                        <!-- Çekiliş Gün Sayısı -->
-                        <div id="giveawayDaysWrapper" class="req-field" style="display: none; margin-top: 10px;">
-                            <label data-tr="Çekiliş Süresi (Gün - En Az 3 Gün)" data-en="Giveaway Duration (Days - Min 3 Days)">Çekiliş Süresi (Gün - En Az 3 Gün)</label>
-                            <input type="number" id="reqGiveawayDays" min="3" value="3" oninput="updatePrices()" style="width: 100%;">
+                        <!-- Footer WhatsApp Support Section -->
+                        <div style="text-align: center; margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                            <span style="font-size: 0.82rem; color: #9ab; font-weight: 600;" data-tr="Sorularınız mı var? Doğrudan temsilcimizle WhatsApp üzerinden iletişime geçin:" data-en="Have questions? Contact our representative directly via WhatsApp:">Sorularınız mı var? Doğrudan temsilcimizle WhatsApp üzerinden iletişime geçin:</span>
+                            <a href="https://wa.me/905464154299?text=Merhaba,%20Ilgın%20İnsanı%20reklam%20paneli%20üzerinden%20bir%20reklam%20paketi%20satın%20almak%20istiyorum." target="_blank" class="whatsapp-btn" style="margin-top: 0; width: 100%;">
+                                <i class="fab fa-whatsapp"></i>
+                                <span data-tr="Müşteri Temsilcisine Sor (0546 415 42 99)" data-en="Ask a Representative (0546 415 42 99)">Müşteri Temsilcisine Sor (0546 415 42 99)</span>
+                            </a>
                         </div>
+                    </form>
 
-                        <!-- Çekim ve Montaj Talebi -->
-                        <div id="shootRequiredWrapper" class="req-field" style="display: none; flex-direction: row; align-items: center; gap: 10px; margin-top: 10px; background: rgba(255,255,255,0.02); padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);">
-                            <input type="checkbox" id="reqShootRequired" style="width: 18px; height: 18px; cursor: pointer; margin: 0;" onchange="updatePrices()">
-                            <label for="reqShootRequired" style="cursor: pointer; font-size: 0.8rem; color: #ccc;" data-tr="Fotoğraf / Video çekimi ve kurgusunu Ilgın İnsanı yapsın (+₺500)" data-en="Ilgın İnsanı shoots & edits photos / videos (+₺500)">Fotoğraf / Video çekimi ve kurgusunu Ilgın İnsanı yapsın (+₺500)</label>
-                        </div>
-                    </div>
-
-                    <div class="req-field" style="margin-top: 15px;">
-                        <label data-tr="Ek Notlar / İstekler" data-en="Additional Notes / Requests">Ek Notlar / İstekler</label>
-                        <textarea id="reqNotes" placeholder="Kampanyanızla ilgili eklemek istedikleriniz..."></textarea>
-                    </div>
-
-                    <!-- Fatura Kartı (Summary) -->
-                    <div id="invoiceCard" style="background: rgba(15, 28, 36, 0.85); backdrop-filter: blur(20px); border: 2px dashed var(--accent); border-radius: 20px; padding: 25px; margin-top: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 0 20px rgba(243, 156, 18, 0.05); display: none; position: relative;">
-                        <div style="position: absolute; top: -2px; left: 20px; right: 20px; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); box-shadow: 0 0 8px var(--accent);"></div>
-                        <h4 style="font-size: 1.05rem; color: #fff; margin-bottom: 15px; border-bottom: 1.5px dashed rgba(255,255,255,0.15); padding-bottom: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; justify-content: center;"><i class="fas fa-receipt" style="color: var(--accent);"></i> <span data-tr="SEÇİLEN HİZMETLER VE ÖDEME DETAYI" data-en="SELECTED SERVICES & PAYMENT DETAIL">SEÇİLEN HİZMETLER VE ÖDEME DETAYI</span></h4>
-                        <div id="invoiceItems" style="display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; padding: 5px 0;">
-                            <!-- Dinamik Fatura Öğeleri -->
-                        </div>
-                        <div style="border-top: 2px dashed rgba(255,255,255,0.15); margin-top: 15px; padding-top: 15px; display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-weight: 800; font-size: 0.95rem; color: #b0c4de; letter-spacing: 0.5px;" data-tr="TOPLAM FATURA TUTARI:" data-en="TOTAL INVOICE AMOUNT:">TOPLAM FATURA TUTARI:</span>
-                            <span style="font-weight: 900; font-size: 1.6rem; color: var(--accent); text-shadow: 0 0 10px rgba(243,156,18,0.4);" id="invoiceTotal">₺0</span>
+                    <!-- Right: Sticky Mockup Preview -->
+                    <div class="sticky-preview-card">
+                        <div class="preview-tabs" style="display: flex; gap: 10px; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 10px;">
+                            <button type="button" id="btnPreviewApp" class="preview-tab-btn active" onclick="switchPreviewTab('app')" style="flex: 1;">📱 Uygulama</button>
+                            <button type="button" id="btnPreviewInsta" class="preview-tab-btn" onclick="switchPreviewTab('insta')" style="flex: 1;">📸 Instagram</button>
                         </div>
                         
-                        <!-- Dinamik ROI Hesaplayıcı Paneli -->
-                        <div id="roiPanel" style="margin-top: 20px; padding-top: 15px; border-top: 1.5px dashed rgba(255,255,255,0.15);">
-                            <h5 style="font-size: 0.85rem; color: #fff; margin-bottom: 12px; font-weight: 700; text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px;"><i class="fas fa-chart-pie" style="color: var(--green);"></i> <span data-tr="TAHMİNİ YATIRIM GETİRİSİ (ROI) ANALİZİ" data-en="ESTIMATED RETURN ON INVESTMENT (ROI)">TAHMİNİ YATIRIM GETİRİSİ (ROI) ANALİZİ</span></h5>
-                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; background: rgba(0,0,0,0.25); border-radius: 12px; padding: 15px; border: 1px solid rgba(255,255,255,0.05);">
-                                <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                                    <span style="font-size: 0.62rem; color: #9ab; font-weight: 600; text-transform: uppercase;" data-tr="Tahmini Erişim" data-en="Est. Reach">Tahmini Erişim</span>
-                                    <span style="font-size: 1.05rem; font-weight: 800; color: #fff;" id="roiReach">—</span>
+                        <!-- APP PREVIEW PANEL -->
+                        <div id="panelPreviewApp" class="preview-panel-content">
+                            <div class="campaign-card" style="margin: 0 auto; box-shadow: none; border: 1px solid rgba(255,255,255,0.08);">
+                                <div class="campaign-card-img" style="height: 140px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                                    <img id="previewAppImage" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                    <i class="fas fa-tags placeholder-icon" id="previewAppPlaceholder" style="font-size: 3rem; opacity: 0.25;"></i>
+                                    <span class="discount-badge" id="previewAppDiscount" style="display: none;">%30 İNDİRİM</span>
                                 </div>
-                                <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                                    <span style="font-size: 0.62rem; color: #9ab; font-weight: 600; text-transform: uppercase;" data-tr="Sektör Dönüşüm" data-en="Conv. Rate">Sektör Dönüşüm</span>
-                                    <span style="font-size: 1.05rem; font-weight: 800; color: var(--blue);" id="roiConvRate">—</span>
-                                </div>
-                                <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                                    <span style="font-size: 0.62rem; color: #9ab; font-weight: 600; text-transform: uppercase;" data-tr="Tahmini Ciro" data-en="Projected Revenue">Tahmini Ciro</span>
-                                    <span style="font-size: 1.05rem; font-weight: 800; color: var(--green);" id="roiRevenue">—</span>
-                                </div>
-                                <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                                    <span style="font-size: 0.62rem; color: #9ab; font-weight: 600; text-transform: uppercase;" data-tr="Tahmini ROI Oranı" data-en="Projected ROI">Tahmini ROI Oranı</span>
-                                    <span style="font-size: 1.05rem; font-weight: 800; color: var(--accent);" id="roiRatio">—</span>
+                                <div class="campaign-card-body" style="padding: 15px; text-align: left;">
+                                    <div class="campaign-esnaf" id="previewAppEsnaf" style="font-size: 0.7rem;">İşletme Adınız</div>
+                                    <div class="campaign-title" id="previewAppTitle" style="font-size: 1rem; margin-bottom: 10px;">Kampanya Başlığınız Buraya Gelir</div>
+                                    <div class="price-row" style="margin-bottom: 0;">
+                                        <div>
+                                            <div class="price-old" id="previewAppPriceOld" style="font-size: 0.8rem; display: none;">500 TL</div>
+                                            <div class="price-new" id="previewAppPriceNew" style="font-size: 1.4rem;">— TL</div>
+                                        </div>
+                                        <div class="promo-badge" style="padding: 4px 10px; border-radius: 8px; margin-left: auto; display: none;">
+                                            <span class="promo-label" style="font-size: 0.55rem;">KOD</span>
+                                            <span class="promo-code" id="previewAppPromoCode" style="font-size: 0.85rem;">PROMO</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div style="text-align: center; margin-top: 8px; font-size: 0.65rem; color: #888;" data-tr="* ROI analizi, sektörel ortalamalar ve tahmini gösterimler temel alınarak hesaplanmıştır." data-en="* ROI analysis is based on industry averages and estimated views.">* ROI analizi, sektörel ortalamalar ve tahmini gösterimler temel alınarak hesaplanmıştır.</div>
                         </div>
 
-                        <div style="text-align: center; margin-top: 12px; font-size: 0.72rem; color: #789; font-style: italic; margin-bottom: 15px;" data-tr="* Ödeme detayları ve aktivasyon için 24 saat içinde temsilcimiz sizinle iletişime geçecektir." data-en="* Our representative will contact you within 24 hours for payment details and activation.">* Ödeme detayları ve aktivasyon için 24 saat içinde temsilcimiz sizinle iletişime geçecektir.</div>
-                        
-                        <!-- Submit Button inside Invoice Card -->
-                        <button type="submit" class="req-submit" id="reqSubmitBtn">
-                            <i class="fas fa-paper-plane"></i>
-                            <span data-tr="Talebi Gönder — 24 Saatte Yayına Al" data-en="Submit Request — Go Live in 24 Hours">Talebi Gönder — 24 Saatte Yayına Al</span>
-                        </button>
+                        <!-- INSTAGRAM PREVIEW PANEL -->
+                        <div id="panelPreviewInsta" class="preview-panel-content" style="display: none;">
+                            <div class="insta-mockup-feed" style="margin: 0 auto; background: #000; border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); overflow: hidden; font-size: 0.75rem; text-align: left; line-height: 1.4;">
+                                <div style="padding: 10px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); background: #000;">
+                                    <div style="width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743); padding: 1px;"><div style="width: 100%; height: 100%; border-radius: 50%; background: #000; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.5rem; color: #fff;">II</div></div>
+                                    <span style="font-weight: bold; color: #fff;">ilgin.insani</span>
+                                    <span style="margin-left: auto; color: #888;"><i class="fas fa-ellipsis-h"></i></span>
+                                </div>
+                                <div style="aspect-ratio: 1/1; background: linear-gradient(135deg, #e1306c, #833ab4); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                                    <img id="previewInstaImage" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                    <i class="fab fa-instagram" id="previewInstaPlaceholder" style="font-size: 4rem; color: #fff; opacity: 0.35;"></i>
+                                </div>
+                                <div style="padding: 12px; background: #000;">
+                                    <div style="display:flex; gap:12px; margin-bottom: 6px; font-size: 0.95rem; color: #fff;"><span><i class="far fa-heart"></i></span><span><i class="far fa-comment"></i></span><span><i class="far fa-paper-plane"></i></span></div>
+                                    <div style="font-weight: bold; color: #fff; margin-bottom: 4px;">1.432 beğeni</div>
+                                    <div style="line-height: 1.4; color: #eee; max-height: 120px; overflow-y: auto; scrollbar-width: none;"><span style="font-weight: bold; color: #fff; margin-right: 6px;">ilgin.insani</span><span id="previewInstaCaption">İşletmeniz için hazırladığımız profesyonel reklam yayını yayında! #ilgın</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <!-- Footer WhatsApp Support Section -->
-                    <div style="text-align: center; margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
-                        <span style="font-size: 0.82rem; color: #9ab; font-weight: 600;" data-tr="Sorularınız mı var? Doğrudan temsilcimizle WhatsApp üzerinden iletişime geçin:" data-en="Have questions? Contact our representative directly via WhatsApp:">Sorularınız mı var? Doğrudan temsilcimizle WhatsApp üzerinden iletişime geçin:</span>
-                        <a href="https://wa.me/905464154299?text=Merhaba,%20Ilgın%20İnsanı%20reklam%20paneli%20üzerinden%20bir%20reklam%20paketi%20satın%20almak%20istiyorum." target="_blank" class="whatsapp-btn" style="margin-top: 0; width: 100%;">
-                            <i class="fab fa-whatsapp"></i>
-                            <span data-tr="Müşteri Temsilcisine Sor (0546 415 42 99)" data-en="Ask a Representative (0546 415 42 99)">Müşteri Temsilcisine Sor (0546 415 42 99)</span>
-                        </a>
-                    </div>
-                </form>
+                </div>
                 <div class="form-status" id="reqFormStatus"></div>
             </div>
         </div>
@@ -2090,7 +2414,275 @@
         </div>
     </div>
 
+    <!-- FLOATING SOCIAL SHARE BAR -->
+    <div class="social-share-bar">
+        <a href="https://twitter.com/intent/tweet?url=https://ilgininsani.com/esnaf.html&text=Ilgın%20İnsanı%20Esnaf%20ve%20Reklam%20Portalı!" target="_blank" class="share-btn share-x" aria-label="X (Twitter) Share">
+            <i class="fab fa-x-twitter"></i>
+        </a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://ilgininsani.com/esnaf.html" target="_blank" class="share-btn share-facebook" aria-label="Facebook Share">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://wa.me/?text=Ilgın%20İnsanı%20Esnaf%20ve%20Reklam%20Portalı!%20İnceleyin:%20https://ilgininsani.com/esnaf.html" target="_blank" class="share-btn share-whatsapp" aria-label="WhatsApp Share">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://t.me/share/url?url=https://ilgininsani.com/esnaf.html&text=Ilgın%20İnsanı%20Esnaf%20ve%20Reklam%20Portalı!" target="_blank" class="share-btn share-telegram" aria-label="Telegram Share">
+            <i class="fab fa-telegram-plane"></i>
+        </a>
+        <button class="share-btn share-copy" onclick="copyPageLink()" aria-label="Copy Link">
+            <i class="fas fa-link"></i>
+        </button>
+    </div>
+
+    <!-- GDPR COOKIE BANNER -->
+    <div class="cookie-banner" id="cookieBanner" style="display: none;">
+        <p data-tr="Gizliliğinize önem veriyoruz. Sitemizde deneyiminizi iyileştirmek için çerezler kullanıyoruz. Sitemizi kullanmaya devam ederek çerez kullanımını kabul etmiş bulunursunuz." data-en="We value your privacy. We use cookies to enhance your experience on our website. By continuing to visit our site, you agree to our use of cookies.">Gizliliğinize önem veriyoruz. Sitemizde deneyiminizi iyileştirmek için çerezler kullanıyoruz. Sitemizi kullanmaya devam ederek çerez kullanımını kabul etmiş bulunursunuz.</p>
+        <div class="cookie-btn-wrap">
+            <button class="cookie-btn-accept" onclick="acceptCookies()" data-tr="Kabul Et" data-en="Accept">Kabul Et</button>
+        </div>
+    </div>
+
+    <!-- CHATBOT FLOATING WIDGET -->
+    <div class="chatbot-container">
+        <!-- Sohbet Penceresi -->
+        <div class="chatbot-box" id="chatbotBox">
+            <div class="chatbot-header">
+                <div style="width: 8px; height: 8px; background: #2ecc71; border-radius: 50%;"></div>
+                <span class="chatbot-header-title" data-tr="Ilgın İnsanı Reklam Destek" data-en="Ilgın İnsanı Ad Support">Ilgın İnsanı Reklam Destek</span>
+                <span class="chatbot-header-close" onclick="toggleChatbot()">&times;</span>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="chat-bubble bubble-bot" data-tr="Merhaba! Ben Ilgın İnsanı Yapay Zeka Asistanıyım. Reklam ve sponsorluk paketlerimiz hakkında merak ettiğiniz konuyu seçebilirsiniz:" data-en="Hello! I am Ilgın İnsanı AI Assistant. You can choose a topic to learn more about our advertising and sponsorship packages:">Merhaba! Ben Ilgın İnsanı Yapay Zeka Asistanıyım. Reklam ve sponsorluk paketlerimiz hakkında merak ettiğiniz konuyu seçebilirsiniz:</div>
+            </div>
+            <div class="chatbot-options">
+                <button class="chat-option-btn" onclick="askChatbot('odeme', 'Ödeme Yöntemleri')" data-tr="💳 Ödeme Yöntemleri" data-en="💳 Payment Methods">💳 Ödeme Yöntemleri</button>
+                <button class="chat-option-btn" onclick="askChatbot('sure', 'Yayın Süresi')" data-tr="⏱️ Yayın Süresi" data-en="⏱️ Publishing Duration">⏱️ Yayın Süresi</button>
+                <button class="chat-option-btn" onclick="askChatbot('drone', 'Drone Çekimi')" data-tr="🚁 Drone Çekimi" data-en="🚁 Drone Videography">🚁 Drone Çekimi</button>
+                <button class="chat-option-btn" onclick="askChatbot('istatistik', 'İstatistik Takibi')" data-tr="📊 İstatistik Takibi" data-en="📊 Stats Tracking">📊 İstatistik Takibi</button>
+            </div>
+        </div>
+        <!-- Toggle Butonu -->
+        <div class="chatbot-toggle" onclick="toggleChatbot()" id="chatbotToggle">
+            <i class="fas fa-comments"></i>
+        </div>
+    </div>
+
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <script>
+        /* ============================================================
+           DARK/LIGHT TEMA YÖNETİMİ
+        ============================================================ */
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+                updateThemeToggleUI('light');
+            } else {
+                document.body.classList.remove('light-theme');
+                updateThemeToggleUI('dark');
+            }
+        }
+
+        function toggleTheme() {
+            const isLight = document.body.classList.toggle('light-theme');
+            const theme = isLight ? 'light' : 'dark';
+            localStorage.setItem('theme', theme);
+            updateThemeToggleUI(theme);
+        }
+
+        function updateThemeToggleUI(theme) {
+            const toggleBtn = document.getElementById('themeToggle');
+            if (!toggleBtn) return;
+            const icon = toggleBtn.querySelector('i');
+            const textSpan = toggleBtn.querySelector('span');
+            
+            if (theme === 'light') {
+                icon.className = 'fas fa-sun';
+                textSpan.setAttribute('data-tr', 'Gündüz Modu');
+                textSpan.setAttribute('data-en', 'Light Mode');
+                textSpan.innerHTML = currentLang === 'tr' ? 'Gündüz Modu' : 'Light Mode';
+            } else {
+                icon.className = 'fas fa-moon';
+                textSpan.setAttribute('data-tr', 'Gece Modu');
+                textSpan.setAttribute('data-en', 'Dark Mode');
+                textSpan.innerHTML = currentLang === 'tr' ? 'Gece Modu' : 'Dark Mode';
+            }
+        }
+
+        /* ============================================================
+           GDPR ÇEREZ BANNER YÖNETİMİ
+        ============================================================ */
+        function checkCookies() {
+            const accepted = localStorage.getItem('cookiesAccepted');
+            const banner = document.getElementById('cookieBanner');
+            if (banner && !accepted) {
+                banner.style.display = 'flex';
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            const banner = document.getElementById('cookieBanner');
+            if (banner) {
+                banner.style.display = 'none';
+            }
+        }
+
+        /* ============================================================
+           SOSYAL PAYLAŞIM VE LİNK KOPYALAMA
+        ============================================================ */
+        function copyPageLink() {
+            const dummy = document.createElement('input');
+            dummy.value = window.location.href;
+            document.body.appendChild(dummy);
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+            
+            // Show Toast
+            const toast = document.createElement('div');
+            toast.className = 'toast-notify';
+            toast.innerHTML = `<i class="fas fa-check-circle"></i> ` 
+                + (currentLang === 'tr' ? 'Bağlantı başarıyla kopyalandı!' : 'Link copied successfully!');
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+
+        /* ============================================================
+           CANLI CHATBOT SSS SİSTEMİ
+        ============================================================ */
+        function toggleChatbot() {
+            const box = document.getElementById('chatbotBox');
+            box.classList.toggle('show');
+            const msgContainer = document.getElementById('chatbotMessages');
+            msgContainer.scrollTop = msgContainer.scrollHeight;
+        }
+
+        const chatbotReplies = {
+            odeme: {
+                tr: "Reklam ödemelerinizi Banka Havalesi / EFT veya Kredi Kartı ile güvenli ödeme linki üzerinden gerçekleştirebilirsiniz. Talebiniz onaylandıktan sonra fatura detayları tarafınıza iletilecektir.",
+                en: "You can make your ad payments via Bank Transfer / EFT or Credit Card through our secure payment link. Invoice details will be sent to you after your request is approved."
+            },
+            sure: {
+                tr: "Uygulama ilanları seçtiğiniz süre boyunca (3, 7, 14 veya 30 gün) kesintisiz yayında kalır. Sosyal medya paylaşımlarımız (Post, Reels) profilimizde kalıcı olarak arşivlenir. Hikayeler (Story) ise 24 saat sonra silinir.",
+                en: "App listings remain active for your selected duration (3, 7, 14, or 30 days). Social media posts (Posts, Reels) are permanently archived on our grid. Stories expire after 24 hours."
+            },
+            drone: {
+                tr: "4K Drone çekimi VIP, Drone Reels ve Drone Kombo paketlerimizde ücrete dahildir. Diğer paketlerde ise isteğe bağlı olarak +₺500 ek çekim ve montaj ücretiyle profesyonel drone çekimi hizmetini ekleyebilirsiniz.",
+                en: "4K Drone videography is included in our VIP, Drone Reels, and Drone Combo packages. For other packages, you can optionally add professional drone services for an extra +₺500 shooting and editing fee."
+            },
+            istatistik: {
+                tr: "Premium ve VIP paket alan esnaflarımıza kampanya sonunda detaylı erişim, gösterim ve tıklama analitik raporu PDF formatında sunulur. Ayrıca canlı platform verilerini web sitemizdeki Dashboard sayfasından da izleyebilirsiniz.",
+                en: "For merchants purchasing Premium and VIP packages, a detailed PDF analytics report covering reach, impressions, and clicks is provided at the end of the campaign. You can also view live stats on our Dashboard page."
+            }
+        };
+
+        function askChatbot(topic, labelText) {
+            const container = document.getElementById('chatbotMessages');
+            
+            const userBubble = document.createElement('div');
+            userBubble.className = 'chat-bubble bubble-user';
+            userBubble.innerText = labelText;
+            container.appendChild(userBubble);
+            container.scrollTop = container.scrollHeight;
+            
+            const buttons = document.querySelectorAll('.chat-option-btn');
+            buttons.forEach(btn => btn.disabled = true);
+            
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'chat-bubble bubble-bot typing-indicator-wrap';
+            typingIndicator.innerHTML = `
+                <div class="typing-indicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            `;
+            container.appendChild(typingIndicator);
+            container.scrollTop = container.scrollHeight;
+            
+            setTimeout(() => {
+                typingIndicator.remove();
+                const reply = chatbotReplies[topic][currentLang];
+                const botBubble = document.createElement('div');
+                botBubble.className = 'chat-bubble bubble-bot';
+                botBubble.innerHTML = reply;
+                container.appendChild(botBubble);
+                container.scrollTop = container.scrollHeight;
+                buttons.forEach(btn => btn.disabled = false);
+            }, 1200);
+        }
+
+        /* ============================================================
+           PREVIEW TAB SWITCHING
+        ============================================================ */
+        function switchPreviewTab(tab) {
+            const btnApp = document.getElementById('btnPreviewApp');
+            const btnInsta = document.getElementById('btnPreviewInsta');
+            const panelApp = document.getElementById('panelPreviewApp');
+            const panelInsta = document.getElementById('panelPreviewInsta');
+            
+            if (tab === 'app') {
+                if (btnApp) btnApp.classList.add('active');
+                if (btnInsta) btnInsta.classList.remove('active');
+                if (panelApp) panelApp.style.display = 'block';
+                if (panelInsta) panelInsta.style.display = 'none';
+            } else {
+                if (btnApp) btnApp.classList.remove('active');
+                if (btnInsta) btnInsta.classList.add('active');
+                if (panelApp) panelApp.style.display = 'none';
+                if (panelInsta) panelInsta.style.display = 'block';
+            }
+        }
+
+        /* ============================================================
+           UPDATE STEP BADGES LOGIC
+        ============================================================ */
+        function updateStepBadges() {
+            const b1 = document.getElementById('badgeStep1');
+            const b2 = document.getElementById('badgeStep2');
+            const b3 = document.getElementById('badgeStep3');
+            const b4 = document.getElementById('badgeStep4');
+            
+            const bizName = document.getElementById('reqBusiness').value;
+            const contactName = document.getElementById('reqContact').value;
+            const phone = document.getElementById('reqPhone').value;
+            
+            const hasInfo = bizName && contactName && phone;
+            
+            let hasDetails = false;
+            if (selectedAdType === 'app_only') {
+                hasDetails = document.getElementById('reqCampaignTitle').value !== '';
+            } else if (selectedAdType === 'insta_only') {
+                hasDetails = document.getElementById('reqInstaPackage').value !== '';
+            } else {
+                hasDetails = document.getElementById('reqCampaignTitle').value !== '' && document.getElementById('reqInstaPackage').value !== '';
+            }
+            
+            if (b1) b1.classList.add('active');
+            
+            if (b2) {
+                if (hasInfo) b2.classList.add('active');
+                else b2.classList.remove('active');
+            }
+            if (b3) {
+                if (hasInfo && hasDetails) b3.classList.add('active');
+                else b3.classList.remove('active');
+            }
+            if (b4) {
+                const totalText = document.getElementById('invoiceTotal') ? document.getElementById('invoiceTotal').innerText : '0';
+                const totalCost = parseInt(totalText.replace('₺', '')) || 0;
+                if (hasInfo && hasDetails && totalCost > 0) b4.classList.add('active');
+                else b4.classList.remove('active');
+            }
+        }
+
         /* ============================================================
            DİL YÖNETİMİ
         ============================================================ */
@@ -2457,6 +3049,7 @@
                 }
                 instaCap.innerHTML = instaCaptionText.replace(/\n/g, '<br>');
             }
+            updateStepBadges();
         }
 
         function updatePrices() {
@@ -2961,6 +3554,12 @@
                 status.style.border = '1px solid rgba(46,204,113,0.3)';
                 status.style.color = '#2ecc71';
                 status.style.display = 'block';
+                // Trigger confetti animation
+                confetti({
+                    particleCount: 150,
+                    spread: 80,
+                    origin: { y: 0.6 }
+                });
                 document.getElementById('requestForm').reset();
                 selectPackage('premium');
                 selectAdType('app_only');
@@ -3118,6 +3717,8 @@
         }
 
         // Initialize values on page load
+        initTheme();
+        checkCookies();
         checkUrlParams();
         updatePrices();
         updateFlyer();

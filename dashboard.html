@@ -376,6 +376,144 @@
             border: none; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.3s;
         }
         .btn-login:hover { background: var(--accent-dark); transform: translateY(-2px); }
+
+        /* LIGHT THEME STYLES - dashboard.html */
+        body.light-theme {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%) !important;
+            color: #0f172a !important;
+        }
+        body.light-theme .header {
+            border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+        }
+        body.light-theme .brand {
+            color: #1e293b !important;
+        }
+        body.light-theme .btn-nav, body.light-theme .filter-select, body.light-theme .search-box input {
+            background: rgba(0, 0, 0, 0.04) !important;
+            color: #1e293b !important;
+            border-color: rgba(0, 0, 0, 0.08) !important;
+        }
+        body.light-theme .search-box input:focus, body.light-theme .filter-select:focus {
+            border-color: var(--accent) !important;
+        }
+        body.light-theme .search-box i {
+            color: #64748b !important;
+        }
+        body.light-theme .stat-card,
+        body.light-theme .revenue-module,
+        body.light-theme .content-cal-wrapper,
+        body.light-theme .table-container,
+        body.light-theme .modal-content,
+        body.light-theme .revenue-kpi,
+        body.light-theme .revenue-target-row,
+        body.light-theme .content-cal-day {
+            background: rgba(255, 255, 255, 0.7) !important;
+            border-color: rgba(0, 0, 0, 0.08) !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
+            color: #1e293b !important;
+        }
+        body.light-theme th {
+            background: rgba(0,0,0,0.03) !important;
+            border-bottom-color: rgba(0,0,0,0.08) !important;
+            color: #475569 !important;
+        }
+        body.light-theme td {
+            border-bottom-color: rgba(0, 0, 0, 0.05) !important;
+            color: #334155 !important;
+        }
+        body.light-theme tr:hover td {
+            background: rgba(0,0,0,0.01) !important;
+        }
+        body.light-theme .stat-label,
+        body.light-theme .revenue-module-title,
+        body.light-theme .content-cal-title,
+        body.light-theme .revenue-kpi-label,
+        body.light-theme .detail-label,
+        body.light-theme .revenue-target-row label {
+            color: #475569 !important;
+        }
+        body.light-theme .stat-value,
+        body.light-theme .revenue-kpi-value,
+        body.light-theme .content-cal-month,
+        body.light-theme .detail-val,
+        body.light-theme .modal-title {
+            color: #0f172a !important;
+        }
+        body.light-theme .login-overlay {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%) !important;
+        }
+        body.light-theme .login-box {
+            background: rgba(255, 255, 255, 0.7) !important;
+            border-color: rgba(0, 0, 0, 0.08) !important;
+            color: #0f172a !important;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05) !important;
+        }
+        body.light-theme .login-box input {
+            background: rgba(255, 255, 255, 0.9) !important;
+            color: #0f172a !important;
+            border-color: rgba(0,0,0,0.15) !important;
+        }
+
+        /* GDPR COOKIE BANNER */
+        .cookie-banner {
+            position: fixed; bottom: 20px; left: 20px; right: 20px; max-width: 500px;
+            background: rgba(13, 28, 36, 0.95); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.12); border-top: 1px solid rgba(255,255,255,0.25);
+            border-radius: 16px; padding: 20px; z-index: 9999;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            display: flex; flex-direction: column; gap: 15px;
+            animation: slideUp 0.5s ease;
+        }
+        body.light-theme .cookie-banner {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border-color: rgba(0,0,0,0.08) !important;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1) !important;
+        }
+        .cookie-banner p { font-size: 0.85rem; color: #ddd; line-height: 1.4; }
+        body.light-theme .cookie-banner p { color: #334155 !important; }
+        .cookie-btn-wrap { display: flex; gap: 10px; justify-content: flex-end; }
+        .cookie-btn-accept { background: #2ecc71; color: #111; border: none; padding: 8px 20px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: 0.2s; }
+        .cookie-btn-accept:hover { background: #27ae60; }
+        
+        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        /* FLOATING SOCIAL SHARE BUTTONS */
+        .social-share-bar {
+            position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 10px; z-index: 1000;
+        }
+        @media (max-width: 900px) {
+            .social-share-bar {
+                position: static; transform: none; flex-direction: row; justify-content: center; margin-top: 30px; margin-bottom: 20px;
+            }
+        }
+        .share-btn {
+            width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 1.2rem; text-decoration: none; transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.05); backdrop-filter: blur(5px);
+        }
+        .share-btn:hover { transform: scale(1.1) translateY(-2px); }
+        .share-x { color: #fff; }
+        .share-x:hover { background: #000; }
+        .share-facebook { color: #1877F2; }
+        .share-facebook:hover { background: #1877F2; color: #fff; }
+        .share-whatsapp { color: #25D366; }
+        .share-whatsapp:hover { background: #25D366; color: #fff; }
+        .share-telegram { color: #26A5E4; }
+        .share-telegram:hover { background: #26A5E4; color: #fff; }
+        .share-copy { color: #f39c12; }
+        .share-copy:hover { background: #f39c12; color: #111; }
+        
+        /* MINI TOAST NOTIFICATION */
+        .toast-notify {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: rgba(46, 204, 113, 0.95); color: #fff; padding: 12px 24px;
+            border-radius: 50px; font-weight: 700; font-size: 0.85rem; z-index: 99999;
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3); backdrop-filter: blur(10px);
+            display: flex; align-items: center; gap: 8px; animation: toastFadeIn 0.3s ease;
+        }
+        @keyframes toastFadeIn { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
     </style>
 </head>
 <body>
@@ -403,6 +541,7 @@
                 <a href="index.html" class="btn-nav"><i class="fas fa-home"></i> Ana Sayfa</a>
                 <a href="esnaf.html" class="btn-nav"><i class="fas fa-store"></i> Esnaf Sayfası</a>
                 <button class="btn-nav" onclick="syncData()"><i class="fas fa-sync"></i> n8n Eşitle</button>
+                <button class="btn-nav" id="themeToggle" onclick="toggleTheme()"><i class="fas fa-moon"></i> Gece Modu</button>
             </div>
         </div>
 
@@ -1139,6 +1278,7 @@
         
         // Sayfa yüklendiğinde kontrol et
         checkAuth();
+        initTheme();
     </script>
 
     <!-- ======================== GELİR TAHMİNİ + İÇERİK TAKVİMİ ======================== -->
@@ -1383,8 +1523,82 @@
             renderContentCalendar();
         }
 
+        /* ============================================================
+           DARK/LIGHT TEMA YÖNETİMİ
+        ============================================================ */
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            const toggleBtn = document.getElementById('themeToggle');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+                if (toggleBtn) {
+                    toggleBtn.innerHTML = '<i class="fas fa-sun"></i> Gündüz Modu';
+                }
+            } else {
+                document.body.classList.remove('light-theme');
+                if (toggleBtn) {
+                    toggleBtn.innerHTML = '<i class="fas fa-moon"></i> Gece Modu';
+                }
+            }
+        }
+
+        function toggleTheme() {
+            const isLight = document.body.classList.contains('light-theme');
+            if (isLight) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+            initTheme();
+        }
+
+        /* ============================================================
+           GDPR COOKIE BANNER
+        ============================================================ */
+        function checkCookies() {
+            const accepted = localStorage.getItem('cookiesAccepted');
+            const banner = document.getElementById('cookieBanner');
+            if (banner && !accepted) {
+                banner.style.display = 'flex';
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            const banner = document.getElementById('cookieBanner');
+            if (banner) {
+                banner.style.display = 'none';
+            }
+        }
+
+        /* ============================================================
+           SOSYAL PAYLAŞIM VE LİNK KOPYALAMA
+        ============================================================ */
+        function copyPageLink() {
+            const dummy = document.createElement('input');
+            dummy.value = window.location.href;
+            document.body.appendChild(dummy);
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+            
+            // Show Toast
+            const toast = document.createElement('div');
+            toast.className = 'toast-notify';
+            toast.innerHTML = `<i class="fas fa-check-circle"></i> <span>Bağlantı başarıyla kopyalandı!</span>`;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+
         // Modülleri enjekte et
         window.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            checkCookies();
             // Revenue module HTML
             const container = document.querySelector('.container');
             const tableContainer = document.querySelector('.table-container');
@@ -1444,5 +1658,32 @@
             }
         });
     </script>
+
+    <!-- FLOATING SOCIAL SHARE BAR -->
+    <div class="social-share-bar">
+        <a href="https://twitter.com/intent/tweet?url=https://ilgininsani.com/dashboard.html&text=Ilgın%20İnsanı%20Esnaf%20Kampanya%20Yönetim%20Paneli!" target="_blank" class="share-btn share-x" aria-label="X (Twitter) Share">
+            <i class="fab fa-x-twitter"></i>
+        </a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://ilgininsani.com/dashboard.html" target="_blank" class="share-btn share-facebook" aria-label="Facebook Share">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://wa.me/?text=Ilgın%20İnsanı%20Esnaf%20Kampanya%20Yönetim%20Paneli!%20İnceleyin:%20https://ilgininsani.com/dashboard.html" target="_blank" class="share-btn share-whatsapp" aria-label="WhatsApp Share">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://t.me/share/url?url=https://ilgininsani.com/dashboard.html&text=Ilgın%20İnsanı%20Esnaf%20Kampanya%20Yönetim%20Paneli!" target="_blank" class="share-btn share-telegram" aria-label="Telegram Share">
+            <i class="fab fa-telegram-plane"></i>
+        </a>
+        <button class="share-btn share-copy" onclick="copyPageLink()" aria-label="Copy Link">
+            <i class="fas fa-link"></i>
+        </button>
+    </div>
+
+    <!-- GDPR COOKIE BANNER -->
+    <div class="cookie-banner" id="cookieBanner" style="display: none;">
+        <p>Gizliliğinize önem veriyoruz. Sitemizde deneyiminizi iyileştirmek için çerezler kullanıyoruz. Sitemizi kullanmaya devam ederek çerez kullanımını kabul etmiş bulunursunuz.</p>
+        <div class="cookie-btn-wrap">
+            <button class="cookie-btn-accept" onclick="acceptCookies()">Kabul Et</button>
+        </div>
+    </div>
 </body>
 </html>
