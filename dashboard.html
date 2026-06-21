@@ -1140,5 +1140,309 @@
         // Sayfa yüklendiğinde kontrol et
         checkAuth();
     </script>
+
+    <!-- ======================== GELİR TAHMİNİ + İÇERİK TAKVİMİ ======================== -->
+    <style>
+        /* GELİR TAHMİNİ */
+        .revenue-module {
+            background: var(--card-bg); backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color); border-radius: 20px;
+            padding: 30px; margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .revenue-module-title {
+            font-size: 1rem; font-weight: 700; color: #9ab;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
+        }
+        .revenue-module-title i { color: var(--accent); }
+        .revenue-kpi-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px; margin-bottom: 25px;
+        }
+        .revenue-kpi {
+            background: rgba(0,0,0,0.25); border-radius: 14px;
+            padding: 18px 16px; text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative; overflow: hidden;
+        }
+        .revenue-kpi::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 100%; height: 3px; background: var(--accent);
+        }
+        .revenue-kpi.rev-month::after { background: var(--green); }
+        .revenue-kpi.rev-year::after { background: #9b59b6; }
+        .revenue-kpi.rev-target::after { background: var(--blue); }
+        .revenue-kpi-label { font-size: 0.7rem; color: #789; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; font-weight: 700; }
+        .revenue-kpi-value { font-size: 1.7rem; font-weight: 900; color: #fff; }
+        .revenue-kpi-sub { font-size: 0.72rem; color: #9ab; margin-top: 4px; }
+        .revenue-trend {
+            display: inline-flex; align-items: center; gap: 5px;
+            font-size: 0.8rem; font-weight: 700; padding: 3px 10px;
+            border-radius: 20px; margin-top: 6px;
+        }
+        .trend-up { background: rgba(46,204,113,0.15); color: var(--green); }
+        .trend-down { background: rgba(231,76,60,0.15); color: var(--red); }
+
+        .revenue-target-row {
+            display: flex; align-items: center; gap: 15px;
+            background: rgba(0,0,0,0.2); padding: 15px 20px;
+            border-radius: 14px; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .revenue-target-row label { font-size: 0.85rem; color: #9ab; font-weight: 600; white-space: nowrap; }
+        .revenue-target-input {
+            flex: 1; padding: 10px 14px; background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color); border-radius: 10px;
+            color: #fff; font-size: 0.95rem; outline: none;
+        }
+        .revenue-target-input:focus { border-color: var(--accent); }
+        .revenue-target-result {
+            font-size: 0.85rem; font-weight: 700; color: var(--accent); white-space: nowrap;
+        }
+
+        /* İÇERİK TAKVİMİ */
+        .content-cal-wrapper {
+            background: var(--card-bg); backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color); border-radius: 20px;
+            padding: 30px; margin-bottom: 30px;
+        }
+        .content-cal-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .content-cal-title {
+            font-size: 1rem; font-weight: 700; color: #9ab;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .content-cal-title i { color: var(--blue); }
+        .content-cal-nav { display: flex; align-items: center; gap: 10px; }
+        .cal-nav-sm {
+            background: rgba(255,255,255,0.06); border: 1px solid var(--border-color);
+            color: #fff; width: 32px; height: 32px; border-radius: 8px;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: 0.2s;
+        }
+        .cal-nav-sm:hover { background: rgba(255,255,255,0.12); border-color: var(--accent); }
+        .content-cal-month { font-size: 0.9rem; font-weight: 700; color: #fff; }
+        .content-cal-grid-header {
+            display: grid; grid-template-columns: repeat(7, 1fr);
+            gap: 3px; margin-bottom: 3px;
+        }
+        .content-cal-dayname {
+            text-align: center; font-size: 0.65rem; font-weight: 700;
+            color: #789; text-transform: uppercase; padding: 5px 0;
+        }
+        .content-cal-days {
+            display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px;
+        }
+        .content-cal-day {
+            min-height: 60px; background: rgba(0,0,0,0.15);
+            border-radius: 8px; padding: 6px; border: 1px solid rgba(255,255,255,0.03);
+            position: relative; transition: 0.2s;
+        }
+        .content-cal-day:hover { background: rgba(255,255,255,0.03); }
+        .content-cal-day.empty { background: transparent; border-color: transparent; }
+        .content-cal-day.today { border-color: var(--accent); }
+        .content-cal-daynum {
+            font-size: 0.72rem; font-weight: 700; color: #789; margin-bottom: 4px;
+        }
+        .content-cal-day.today .content-cal-daynum { color: var(--accent); }
+        .content-event {
+            font-size: 0.58rem; font-weight: 700; padding: 2px 5px;
+            border-radius: 4px; margin-bottom: 2px; cursor: pointer;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            max-width: 100%;
+        }
+        .event-app { background: rgba(52,152,219,0.25); color: #3498db; border-left: 2px solid #3498db; }
+        .event-insta { background: rgba(225,48,108,0.2); color: #e1306c; border-left: 2px solid #e1306c; }
+        .event-combo { background: rgba(212,175,55,0.2); color: #d4af37; border-left: 2px solid #d4af37; }
+        .cal-legend-row {
+            display: flex; gap: 15px; margin-top: 15px; flex-wrap: wrap;
+        }
+        .cal-legend-item {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 0.75rem; color: #9ab;
+        }
+        .cal-legend-dot {
+            width: 10px; height: 10px; border-radius: 3px;
+        }
+    </style>
+
+    <script>
+        /* ============================================================
+           GELİR TAHMİNİ MODÜLÜ
+        ============================================================ */
+        function renderRevenueModule() {
+            const approved = campaigns.filter(c => c.durum === 'approved');
+            let monthRevenue = 0;
+            approved.forEach(c => {
+                if (c.toplamUcret) monthRevenue += parseFloat(c.toplamUcret);
+                else if (c.ucret) monthRevenue += parseFloat(c.ucret);
+                else {
+                    if (c.paket === 'temel') monthRevenue += 99;
+                    else if (c.paket === 'premium') monthRevenue += 299;
+                    else if (c.paket === 'vip') monthRevenue += 599;
+                }
+            });
+            const yearEstimate = monthRevenue * 12;
+            const prevMonth = monthRevenue * 0.78; // Simüle geçen ay
+            const growth = ((monthRevenue - prevMonth) / Math.max(prevMonth, 1) * 100).toFixed(0);
+            const avgPerClient = approved.length > 0 ? (monthRevenue / approved.length).toFixed(0) : 0;
+
+            document.getElementById('revMonthValue').textContent = '₺' + monthRevenue.toLocaleString('tr-TR');
+            document.getElementById('revYearValue').textContent = '₺' + yearEstimate.toLocaleString('tr-TR');
+            document.getElementById('revAvgValue').textContent = '₺' + Number(avgPerClient).toLocaleString('tr-TR');
+            document.getElementById('revGrowth').textContent = `${growth > 0 ? '▲' : '▼'} %${Math.abs(growth)} geçen aya göre`;
+            document.getElementById('revGrowth').className = 'revenue-trend ' + (growth >= 0 ? 'trend-up' : 'trend-down');
+            updateTargetCalc();
+        }
+
+        function updateTargetCalc() {
+            const target = parseFloat(document.getElementById('revenueTargetInput').value) || 0;
+            const approved = campaigns.filter(c => c.durum === 'approved');
+            let current = 0;
+            approved.forEach(c => {
+                if (c.toplamUcret) current += parseFloat(c.toplamUcret);
+                else if (c.ucret) current += parseFloat(c.ucret);
+                else {
+                    if (c.paket === 'temel') current += 99;
+                    else if (c.paket === 'premium') current += 299;
+                    else if (c.paket === 'vip') current += 599;
+                }
+            });
+            const remaining = Math.max(0, target - current);
+            const needed = target > 0 ? Math.ceil(remaining / 299) : 0;
+            document.getElementById('revTargetResult').textContent = target > 0
+                ? (remaining > 0 ? `Hedefe ₺${remaining.toLocaleString('tr-TR')} kaldı → ~${needed} Premium esnaf gerekiyor` : '🎉 Hedefe ulaşıldı!')
+                : 'Hedef girin';
+        }
+
+        /* ============================================================
+           İÇERİK YAYİN TAKVİMİ
+        ============================================================ */
+        const TR_MONTHS_DASH = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+        let dashCalYear = new Date().getFullYear();
+        let dashCalMonth = new Date().getMonth();
+
+        function renderContentCalendar() {
+            const label = document.getElementById('dashCalMonthLabel');
+            label.textContent = `${TR_MONTHS_DASH[dashCalMonth]} ${dashCalYear}`;
+
+            const grid = document.getElementById('dashCalDaysGrid');
+            grid.innerHTML = '';
+
+            const firstDay = new Date(dashCalYear, dashCalMonth, 1).getDay();
+            const daysInMonth = new Date(dashCalYear, dashCalMonth + 1, 0).getDate();
+            const today = new Date();
+            const startOffset = (firstDay === 0) ? 6 : firstDay - 1;
+
+            for (let i = 0; i < startOffset; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'content-cal-day empty';
+                grid.appendChild(empty);
+            }
+
+            for (let d = 1; d <= daysInMonth; d++) {
+                const cell = document.createElement('div');
+                cell.className = 'content-cal-day';
+                const isToday = d === today.getDate() && dashCalMonth === today.getMonth() && dashCalYear === today.getFullYear();
+                if (isToday) cell.classList.add('today');
+
+                const dateStr = `${dashCalYear}-${String(dashCalMonth + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                cell.innerHTML = `<div class="content-cal-daynum">${d}</div>`;
+
+                // Onaylı kampanyalar: tarih + sure ile çakışan günleri göster
+                campaigns.filter(c => c.durum === 'approved').forEach(c => {
+                    if (!c.tarih) return;
+                    const start = new Date(c.tarih);
+                    const end = new Date(c.tarih);
+                    end.setDate(end.getDate() + parseInt(c.sure || 7));
+                    const cellDate = new Date(dateStr);
+                    if (cellDate >= start && cellDate <= end) {
+                        const type = c.instagramPaket && c.instagramPaket !== 'none'
+                            ? (c.paket && c.paket !== 'temel' ? 'combo' : 'insta')
+                            : 'app';
+                        const ev = document.createElement('div');
+                        ev.className = `content-event event-${type}`;
+                        ev.textContent = c.isletme;
+                        ev.title = `${c.isletme} — ${c.kampanyaBasligi}`;
+                        ev.onclick = () => openDetails(c.id);
+                        cell.appendChild(ev);
+                    }
+                });
+
+                grid.appendChild(cell);
+            }
+        }
+
+        function changeDashCalMonth(dir) {
+            dashCalMonth += dir;
+            if (dashCalMonth < 0) { dashCalMonth = 11; dashCalYear--; }
+            if (dashCalMonth > 11) { dashCalMonth = 0; dashCalYear++; }
+            renderContentCalendar();
+        }
+
+        // Modülleri enjekte et
+        window.addEventListener('DOMContentLoaded', () => {
+            // Revenue module HTML
+            const container = document.querySelector('.container');
+            const tableContainer = document.querySelector('.table-container');
+            if (container && tableContainer) {
+                const revHTML = `
+                    <div class="revenue-module" id="revenueModule">
+                        <div class="revenue-module-title"><i class="fas fa-chart-line"></i> Gelir Tahmini Modülü</div>
+                        <div class="revenue-kpi-grid">
+                            <div class="revenue-kpi rev-month">
+                                <div class="revenue-kpi-label">Bu Ay Gelir</div>
+                                <div class="revenue-kpi-value" id="revMonthValue">₺0</div>
+                                <div id="revGrowth" class="revenue-trend trend-up">▲ %0</div>
+                            </div>
+                            <div class="revenue-kpi rev-year">
+                                <div class="revenue-kpi-label">Tahmini Yıllık</div>
+                                <div class="revenue-kpi-value" id="revYearValue">₺0</div>
+                                <div class="revenue-kpi-sub">Mevcut tempo × 12</div>
+                            </div>
+                            <div class="revenue-kpi">
+                                <div class="revenue-kpi-label">Ortalama / Esnaf</div>
+                                <div class="revenue-kpi-value" id="revAvgValue">₺0</div>
+                                <div class="revenue-kpi-sub">Onaylı kampanyalar</div>
+                            </div>
+                        </div>
+                        <div class="revenue-target-row">
+                            <label><i class="fas fa-bullseye" style="color: var(--blue);"></i> Hedef Gelir (₺):</label>
+                            <input type="number" id="revenueTargetInput" class="revenue-target-input" placeholder="Örn: 5000" oninput="updateTargetCalc()">
+                            <div class="revenue-target-result" id="revTargetResult">Hedef girin</div>
+                        </div>
+                    </div>
+                    <div class="content-cal-wrapper">
+                        <div class="content-cal-header">
+                            <div class="content-cal-title"><i class="fas fa-calendar-alt"></i> İçerik Yayın Takvimi</div>
+                            <div class="content-cal-nav">
+                                <button class="cal-nav-sm" onclick="changeDashCalMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                                <span class="content-cal-month" id="dashCalMonthLabel"></span>
+                                <button class="cal-nav-sm" onclick="changeDashCalMonth(1)"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                        <div class="content-cal-grid-header">
+                            <div class="content-cal-dayname">Pt</div><div class="content-cal-dayname">Sa</div>
+                            <div class="content-cal-dayname">Ça</div><div class="content-cal-dayname">Pe</div>
+                            <div class="content-cal-dayname">Cu</div><div class="content-cal-dayname">Ct</div>
+                            <div class="content-cal-dayname">Pz</div>
+                        </div>
+                        <div class="content-cal-days" id="dashCalDaysGrid"></div>
+                        <div class="cal-legend-row">
+                            <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#3498db;"></div> Uygulama</div>
+                            <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#e1306c;"></div> Instagram</div>
+                            <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#d4af37;"></div> Kombine</div>
+                        </div>
+                    </div>
+                `;
+                tableContainer.insertAdjacentHTML('beforebegin', revHTML);
+                renderRevenueModule();
+                renderContentCalendar();
+            }
+        });
+    </script>
 </body>
 </html>

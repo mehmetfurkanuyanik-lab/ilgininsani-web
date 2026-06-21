@@ -10,6 +10,8 @@
 
     <title>Ilgın İnsanı - Şehrin Dijital Alanı</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
         
@@ -835,9 +837,27 @@
             </div>
         </div>
 
+        <!-- ====================== İNTERAKTİF ILGIN HARİTASI ====================== -->
+        <div class="reveal" id="ilginMapSection" style="margin-bottom: 50px;">
+            <h2 class="section-title">🗺️ İnteraktif Ilgın Haritası</h2>
+            <p style="text-align: center; color: #bbb; margin-top: -30px; margin-bottom: 25px;">Esnaf, sağlık, tarihi ve doğa noktalarını keşfedin. Pinlere tıklayarak detay görün.</p>
+
+            <!-- Filtre butonları -->
+            <div id="mapFilters" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 18px;">
+                <button class="map-filter-btn active" data-cat="all" onclick="filterMapPins('all', this)"><i class="fas fa-layer-group"></i> Tümü</button>
+                <button class="map-filter-btn" data-cat="esnaf" onclick="filterMapPins('esnaf', this)"><i class="fas fa-store"></i> Esnaf</button>
+                <button class="map-filter-btn" data-cat="saglik" onclick="filterMapPins('saglik', this)"><i class="fas fa-heart"></i> Sağlık</button>
+                <button class="map-filter-btn" data-cat="tarih" onclick="filterMapPins('tarih', this)"><i class="fas fa-landmark"></i> Tarihi</button>
+                <button class="map-filter-btn" data-cat="doga" onclick="filterMapPins('doga', this)"><i class="fas fa-tree"></i> Doğa</button>
+            </div>
+
+            <div id="ilginMap" style="width: 100%; height: 420px; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 15px 35px rgba(0,0,0,0.4);"></div>
+        </div>
+
         <!-- GLASSMORPHISM SHOWCASE -->
         <div class="showcase-section">
             <h2 class="section-title" data-tr="Uygulama İçi Dijital Vitrin" data-en="In-App Digital Showcase">Uygulama İçi Dijital Vitrin</h2>
+
             <p style="text-align: center; color: #bbb; margin-top: -30px; margin-bottom: 30px;" data-tr="Ilgın İnsanı uygulamasının benzersiz ekran tasarımlarına göz atın." data-en="Take a look at the unique interface designs of the Ilgın İnsanı app.">Ilgın İnsanı uygulamasının benzersiz ekran tasarımlarına göz atın.</p>
             
             <div class="glass-showcase-grid">
@@ -1801,5 +1821,119 @@
             scale: 1.02
         });
     </script>
+
+    <script>
+        /* ============================================================
+           İNTERAKTİF ILGIN HARİTASI — Leaflet.js
+        ============================================================ */
+        const ilginMapPins = [
+            { lat: 38.0441, lng: 31.9202, cat: 'tarih', icon: '🕌', title: 'Lala Mustafa Paşa Külliyesi', desc: 'Osmanlı dönemine ait tarihi külliye. 16. yüzyıldan kalma cami, medrese ve hamam.', link: 'https://maps.app.goo.gl/6KLiH3' },
+            { lat: 38.0385, lng: 31.9178, cat: 'saglik', icon: '♨️', title: 'Sahip Ata Kaplıcaları', desc: '42°C doğal termal sular. Romatizma ve cilt hastalıklarına şifalı.', link: 'https://maps.app.goo.gl/7pQ' },
+            { lat: 38.0612, lng: 31.8834, cat: 'doga', icon: '🌲', title: 'Bulcuk Göleti', desc: 'Ilgın\'ın doğa kaçamak noktası. Piknik alanları ve yürüyüş güzergahları.', link: 'https://maps.app.goo.gl/' },
+            { lat: 38.0218, lng: 31.9521, cat: 'tarih', icon: '🏛️', title: 'Yalburt Anıtı', desc: 'Hitit dönemine ait yazıtlar. MÖ 1300\'lere tarihlenen nadir eser.', link: 'https://maps.app.goo.gl/' },
+            { lat: 38.0448, lng: 31.9215, cat: 'esnaf', icon: '🍞', title: 'Yılmaz Fırın & Kafe', desc: 'Ilgın\'ın meşhur halkası ve çayı. Kampanyalar için Ilgın İnsanı\'nı takip edin!', link: 'https://ilgininsani.com' },
+            { lat: 38.0461, lng: 31.9188, cat: 'saglik', icon: '💊', title: 'Ilgın Devlet Hastanesi', desc: 'Devlet hastanesi ve acil servis. 7/24 hizmet.', link: 'https://maps.app.goo.gl/' },
+            { lat: 38.0432, lng: 31.9231, cat: 'esnaf', icon: '🌾', title: 'Bulcuk Tarım Market', desc: 'Gübre, tohum ve tarım ekipmanları. Hasat sezonunda büyük indirimler!', link: 'https://ilgininsani.com' },
+            { lat: 38.0455, lng: 31.9203, cat: 'esnaf', icon: '💇', title: 'Vakıf Termal Kuaför', desc: 'Gelin başı ve porselen makyaj uzmanı. Randevu için arayın.', link: 'https://ilgininsani.com' },
+            { lat: 38.0428, lng: 31.9245, cat: 'saglik', icon: '🏥', title: 'Eczane Nöbetçi Bölgesi', desc: 'Ilgın merkezindeki eczaneler. Nöbetçi bilgisi için Ilgın İnsanı uygulamasını kullanın!', link: 'https://ilgininsani.com' },
+            { lat: 38.0402, lng: 31.9167, cat: 'tarih', icon: '🕍', title: 'Ulu Cami', desc: 'Ilgın\'ın tarihi Ulu Camii. Selçuklu mimari izleri taşıyan değerli eser.', link: 'https://maps.app.goo.gl/' },
+        ];
+
+        const catColors = {
+            esnaf: '#f39c12',
+            saglik: '#e74c3c',
+            tarih: '#9b59b6',
+            doga: '#2ecc71',
+        };
+
+        let ilginMap = null;
+        let mapMarkers = [];
+
+        function initIlginMap() {
+            if (ilginMap) return;
+            ilginMap = L.map('ilginMap', { zoomControl: true, scrollWheelZoom: false }).setView([38.0445, 31.9205], 14);
+
+            // Dark tile layer
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '© OpenStreetMap contributors © CARTO',
+                maxZoom: 19
+            }).addTo(ilginMap);
+
+            ilginMapPins.forEach(pin => {
+                const color = catColors[pin.cat] || '#aaa';
+                const markerHtml = `<div style="
+                    background: ${color};
+                    width: 36px; height: 36px;
+                    border-radius: 50% 50% 50% 0;
+                    transform: rotate(-45deg);
+                    border: 3px solid rgba(255,255,255,0.9);
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+                    display: flex; align-items: center; justify-content: center;
+                "><span style="transform: rotate(45deg); font-size: 16px; display:block; margin-left:0;">${pin.icon}</span></div>`;
+
+                const icon = L.divIcon({ html: markerHtml, iconSize: [36, 36], iconAnchor: [18, 36], className: '' });
+                const marker = L.marker([pin.lat, pin.lng], { icon, cat: pin.cat })
+                    .addTo(ilginMap)
+                    .bindPopup(`
+                        <div style="font-family: Inter, sans-serif; min-width: 200px;">
+                            <div style="font-size: 1.6rem; margin-bottom: 6px;">${pin.icon}</div>
+                            <strong style="font-size: 0.95rem; color: #fff;">${pin.title}</strong>
+                            <p style="font-size: 0.8rem; color: #ccc; margin: 6px 0;">${pin.desc}</p>
+                            <a href="${pin.link}" target="_blank" style="display:inline-block; background: ${color}; color: #111; padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-decoration: none; margin-top: 4px;">Detay →</a>
+                        </div>
+                    `, { className: 'ilgin-popup' });
+
+                marker.options.pinCat = pin.cat;
+                mapMarkers.push(marker);
+            });
+        }
+
+        function filterMapPins(cat, btn) {
+            document.querySelectorAll('.map-filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            mapMarkers.forEach(m => {
+                if (cat === 'all' || m.options.pinCat === cat) {
+                    m.addTo(ilginMap);
+                } else {
+                    ilginMap.removeLayer(m);
+                }
+            });
+        }
+
+        // Haritayı görünüme girince başlat (lazy init)
+        const mapObserver = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    initIlginMap();
+                    mapObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.1 });
+        mapObserver.observe(document.getElementById('ilginMap'));
+    </script>
+
+    <style>
+        /* Leaflet popup dark style */
+        .ilgin-popup .leaflet-popup-content-wrapper {
+            background: rgba(13, 28, 36, 0.97);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 14px;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .ilgin-popup .leaflet-popup-tip { background: rgba(13, 28, 36, 0.97); }
+        .ilgin-popup .leaflet-popup-close-button { color: #aaa !important; }
+
+        /* Map filter buttons */
+        .map-filter-btn {
+            background: rgba(255,255,255,0.05); border: 1.5px solid rgba(255,255,255,0.1);
+            color: #ccc; padding: 9px 18px; border-radius: 25px; font-weight: 700;
+            cursor: pointer; transition: all 0.25s; font-size: 0.85rem;
+            display: inline-flex; align-items: center; gap: 7px;
+            font-family: 'Inter', sans-serif;
+        }
+        .map-filter-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.25); color: #fff; }
+        .map-filter-btn.active { background: rgba(243,156,18,0.15); border-color: #f39c12; color: #f39c12; box-shadow: 0 0 12px rgba(243,156,18,0.2); }
+    </style>
 </body>
 </html>

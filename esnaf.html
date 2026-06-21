@@ -805,6 +805,256 @@
             transform: translateY(-3px);
             box-shadow: 0 15px 30px rgba(37, 211, 102, 0.45);
         }
+
+        /* ========================
+           BAŞARI HİKAYELERİ SLIDER
+           ======================== */
+        .success-stories-wrapper {
+            position: relative;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-top: 1px solid rgba(255,255,255,0.2);
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+        .success-stories-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .success-card {
+            min-width: 100%;
+            padding: 40px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 20px;
+        }
+        .success-avatar {
+            font-size: 4rem;
+            line-height: 1;
+            filter: drop-shadow(0 0 15px rgba(243,156,18,0.3));
+        }
+        .success-metrics {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .success-metric-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            background: rgba(0,0,0,0.25);
+            padding: 14px 24px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .metric-before {
+            font-size: 0.65rem;
+            color: #789;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 700;
+        }
+        .metric-val { font-size: 1rem; font-weight: 800; }
+        .before-val { color: #e74c3c; }
+        .after-val { color: #2ecc71; }
+        .metric-arrow { font-size: 1.5rem; color: #f39c12; }
+        .success-badge {
+            background: linear-gradient(135deg, rgba(243,156,18,0.2), rgba(241,196,15,0.2));
+            border: 1px solid rgba(243,156,18,0.5);
+            color: #f39c12;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 1rem;
+        }
+        .success-quote {
+            font-size: 1rem;
+            font-style: italic;
+            color: #ccc;
+            max-width: 600px;
+            line-height: 1.7;
+            border-left: 3px solid var(--accent);
+            padding-left: 16px;
+            text-align: left;
+        }
+        .success-author {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .success-author strong { color: #fff; font-size: 1rem; }
+        .success-author span { color: #9ab; font-size: 0.85rem; }
+        .success-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(0,0,0,0.15);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .success-prev, .success-next {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #fff;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .success-prev:hover, .success-next:hover {
+            background: var(--accent); border-color: var(--accent); color: #111;
+        }
+        .success-dots { display: flex; gap: 8px; }
+        .s-dot {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: rgba(255,255,255,0.2); cursor: pointer; transition: 0.3s;
+        }
+        .s-dot.active { background: var(--accent); transform: scale(1.3); }
+
+        /* ========================
+           PAKET KARŞILAŞTIRMA TABLOSU
+           ======================== */
+        .compare-table-wrapper {
+            overflow-x: auto;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+        .compare-table { min-width: 600px; }
+        .compare-header-row, .compare-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+        }
+        .compare-header-row {
+            background: rgba(0,0,0,0.35);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .compare-row {
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            transition: background 0.2s;
+        }
+        .compare-row:last-child { border-bottom: none; }
+        .compare-row:hover { background: rgba(255,255,255,0.02); }
+        .compare-feature-col, .compare-pkg-col {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        .compare-feature-col {
+            justify-content: flex-start;
+            text-align: left;
+            color: #b0c4de;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .compare-header-row .compare-feature-col {
+            color: #9ab;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .compare-header-row .compare-pkg-col {
+            flex-direction: column;
+            gap: 8px;
+            padding: 24px 12px;
+        }
+        .compare-pkg-icon { font-size: 1.8rem; }
+        .compare-pkg-name { font-weight: 800; font-size: 1rem; color: #fff; }
+        .compare-pkg-price { font-size: 1.4rem; font-weight: 900; color: var(--accent); }
+        .compare-pkg-price span { font-size: 0.7rem; color: #9ab; font-weight: 600; }
+        .compare-select-btn {
+            padding: 8px 18px; border-radius: 20px; border: 1.5px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.06); color: #fff; font-weight: 700;
+            font-size: 0.8rem; cursor: pointer; transition: 0.25s; margin-top: 4px;
+        }
+        .compare-select-btn:hover { transform: translateY(-2px); }
+        .temel-btn:hover { background: #3498db; border-color: #3498db; color: #fff; }
+        .premium-btn:hover { background: var(--accent); border-color: var(--accent); color: #111; }
+        .vip-btn:hover { background: #d4af37; border-color: #d4af37; color: #111; }
+        .premium-col { background: rgba(243,156,18,0.04); border-left: 1px solid rgba(243,156,18,0.15); border-right: 1px solid rgba(243,156,18,0.15); }
+        .compare-popular-badge {
+            background: var(--accent); color: #111; font-size: 0.65rem;
+            font-weight: 800; padding: 3px 10px; border-radius: 10px; position: absolute; top: -12px;
+        }
+        .compare-yes { color: #2ecc71; font-size: 1rem; }
+        .compare-no { color: rgba(255,255,255,0.2); font-size: 1rem; }
+        .compare-note { font-size: 0.7rem; color: #9ab; margin-left: 4px; }
+
+        /* ========================
+           REZERVASYON TAKVİMİ
+           ======================== */
+        .cal-wrapper {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-top: 1px solid rgba(255,255,255,0.2);
+            border-radius: 24px;
+            padding: 30px;
+            max-width: 700px;
+            margin: 0 auto 10px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+        .cal-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .cal-nav-btn {
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+            color: #fff; width: 38px; height: 38px; border-radius: 50%;
+            cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center;
+        }
+        .cal-nav-btn:hover { background: var(--accent); border-color: var(--accent); color: #111; }
+        .cal-month-label { font-size: 1.15rem; font-weight: 800; color: #fff; }
+        .cal-grid {
+            display: grid; grid-template-columns: repeat(7, 1fr);
+            gap: 4px; margin-bottom: 4px;
+        }
+        .cal-days-grid {
+            display: grid; grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+        .cal-day-name {
+            text-align: center; font-size: 0.7rem; font-weight: 700;
+            color: #789; text-transform: uppercase; padding: 6px 0;
+        }
+        .cal-day {
+            aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+            border-radius: 10px; font-size: 0.85rem; font-weight: 600;
+            cursor: pointer; transition: all 0.2s; border: 1px solid transparent;
+            color: #ccc;
+        }
+        .cal-day.free { background: rgba(46,204,113,0.1); border-color: rgba(46,204,113,0.2); color: #2ecc71; }
+        .cal-day.free:hover { background: rgba(46,204,113,0.25); transform: scale(1.08); }
+        .cal-day.busy { background: rgba(231,76,60,0.08); border-color: rgba(231,76,60,0.15); color: rgba(231,76,60,0.5); cursor: not-allowed; text-decoration: line-through; }
+        .cal-day.selected { background: var(--accent); color: #111; border-color: var(--accent); transform: scale(1.1); box-shadow: 0 4px 15px rgba(243,156,18,0.4); }
+        .cal-day.empty { visibility: hidden; cursor: default; }
+        .cal-day.past { opacity: 0.3; cursor: not-allowed; }
+        .cal-legend {
+            display: flex; gap: 20px; justify-content: center;
+            margin-top: 16px; font-size: 0.78rem; color: #9ab;
+        }
+        .cal-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+        .dot-free { background: #2ecc71; }
+        .dot-busy { background: #e74c3c; }
+        .dot-selected { background: var(--accent); }
+        .cal-selected-info {
+            margin-top: 16px; background: rgba(243,156,18,0.1);
+            border: 1px solid rgba(243,156,18,0.3); border-radius: 12px;
+            padding: 12px 20px; font-size: 0.9rem; color: var(--accent);
+            text-align: center; animation: fadeIn 0.4s ease;
+        }
     </style>
 </head>
 <body>
@@ -898,6 +1148,218 @@
                 </a>
             </div>
         </div>
+
+        <!-- ====================== BAŞARI HİKAYELERİ ====================== -->
+        <hr class="section-divider">
+        <h2 class="section-title reveal">🏆 Esnaflarımızın Başarı Hikayeleri</h2>
+        <p class="section-subtitle reveal">Ilgın İnsanı reklam ağına katılan esnafların gerçek sonuçları.</p>
+
+        <div class="success-stories-wrapper reveal" id="successSlider">
+            <div class="success-stories-track" id="successTrack">
+                <div class="success-card">
+                    <div class="success-avatar">🍞</div>
+                    <div class="success-metrics">
+                        <div class="success-metric-item">
+                            <span class="metric-before">Öncesi</span>
+                            <span class="metric-val before-val">~40 müşteri/gün</span>
+                        </div>
+                        <div class="metric-arrow">→</div>
+                        <div class="success-metric-item">
+                            <span class="metric-before">Sonrası</span>
+                            <span class="metric-val after-val">~68 müşteri/gün</span>
+                        </div>
+                    </div>
+                    <div class="success-badge">+%70 Artış</div>
+                    <blockquote class="success-quote">"Kampanya başlar başlamaz telefon susmadı! Ilgın İnsanı'nda reklam vermek en doğru kararımdı."</blockquote>
+                    <div class="success-author">
+                        <strong>Ahmet Y.</strong>
+                        <span>Yılmaz Fırın & Kafe — Premium Paket</span>
+                    </div>
+                </div>
+                <div class="success-card">
+                    <div class="success-avatar">🌾</div>
+                    <div class="success-metrics">
+                        <div class="success-metric-item">
+                            <span class="metric-before">Öncesi</span>
+                            <span class="metric-val before-val">Aylık ₺28.000 ciro</span>
+                        </div>
+                        <div class="metric-arrow">→</div>
+                        <div class="success-metric-item">
+                            <span class="metric-before">Sonrası</span>
+                            <span class="metric-val after-val">Aylık ₺47.000 ciro</span>
+                        </div>
+                    </div>
+                    <div class="success-badge">+%68 Ciro Artışı</div>
+                    <blockquote class="success-quote">"Hasat sezonunda kampanya açtım, stokları 3 günde bitirdim. Şiddetle tavsiye ederim."</blockquote>
+                    <div class="success-author">
+                        <strong>Mustafa B.</strong>
+                        <span>Bulcuk Tarım Market — VIP Paket</span>
+                    </div>
+                </div>
+                <div class="success-card">
+                    <div class="success-avatar">💇</div>
+                    <div class="success-metrics">
+                        <div class="success-metric-item">
+                            <span class="metric-before">Öncesi</span>
+                            <span class="metric-val before-val">12 randevu/hafta</span>
+                        </div>
+                        <div class="metric-arrow">→</div>
+                        <div class="success-metric-item">
+                            <span class="metric-before">Sonrası</span>
+                            <span class="metric-val after-val">31 randevu/hafta</span>
+                        </div>
+                    </div>
+                    <div class="success-badge">+%158 Artış</div>
+                    <blockquote class="success-quote">"Reels videosu yayınlandıktan sonra haftalık randevularım iki katına çıktı. Mükemmel bir iş!"</blockquote>
+                    <div class="success-author">
+                        <strong>Fatma D.</strong>
+                        <span>Vakıf Termal Kuaför — VIP + Instagram Reels</span>
+                    </div>
+                </div>
+                <div class="success-card">
+                    <div class="success-avatar">👕</div>
+                    <div class="success-metrics">
+                        <div class="success-metric-item">
+                            <span class="metric-before">Öncesi</span>
+                            <span class="metric-val before-val">Sezon sonu stok sorunu</span>
+                        </div>
+                        <div class="metric-arrow">→</div>
+                        <div class="success-metric-item">
+                            <span class="metric-before">Sonrası</span>
+                            <span class="metric-val after-val">7 günde %85 stok eridi</span>
+                        </div>
+                    </div>
+                    <div class="success-badge">Hızlı Satış</div>
+                    <blockquote class="success-quote">"Sezon sonu ürünlerimi eritmek için mükemmeldi. Push bildirimi gönderilince dükkan doldu."</blockquote>
+                    <div class="success-author">
+                        <strong>Mehmet Ç.</strong>
+                        <span>Ilgın Tekstil Dünyası — Premium Paket</span>
+                    </div>
+                </div>
+            </div>
+            <div class="success-controls">
+                <button class="success-prev" onclick="prevStory()" aria-label="Önceki"><i class="fas fa-chevron-left"></i></button>
+                <div class="success-dots" id="successDots">
+                    <span class="s-dot active" onclick="goStory(0)"></span>
+                    <span class="s-dot" onclick="goStory(1)"></span>
+                    <span class="s-dot" onclick="goStory(2)"></span>
+                    <span class="s-dot" onclick="goStory(3)"></span>
+                </div>
+                <button class="success-next" onclick="nextStory()" aria-label="Sonraki"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- ====================== PAKET KARŞILAŞTIRMA TABLOSU ====================== -->
+        <h2 class="section-title reveal">📊 Paket Karşılaştırma Tablosu</h2>
+        <p class="section-subtitle reveal">Hangi paket size uygun? Yan yana karşılaştırın, formu otomatik doldurun.</p>
+
+        <div class="compare-table-wrapper reveal">
+            <div class="compare-table">
+                <!-- Header Row -->
+                <div class="compare-header-row">
+                    <div class="compare-feature-col">Özellik</div>
+                    <div class="compare-pkg-col temel-col">
+                        <div class="compare-pkg-icon">🌱</div>
+                        <div class="compare-pkg-name">Temel</div>
+                        <div class="compare-pkg-price">₺99<span>/hafta</span></div>
+                        <button class="compare-select-btn temel-btn" onclick="selectPkgFromTable('temel')">Seç</button>
+                    </div>
+                    <div class="compare-pkg-col premium-col" style="position:relative;">
+                        <div class="compare-popular-badge">⭐ En Popüler</div>
+                        <div class="compare-pkg-icon">🚀</div>
+                        <div class="compare-pkg-name">Premium</div>
+                        <div class="compare-pkg-price">₺299<span>/hafta</span></div>
+                        <button class="compare-select-btn premium-btn" onclick="selectPkgFromTable('premium')">Seç</button>
+                    </div>
+                    <div class="compare-pkg-col vip-col">
+                        <div class="compare-pkg-icon">👑</div>
+                        <div class="compare-pkg-name">VIP</div>
+                        <div class="compare-pkg-price">₺599<span>/hafta</span></div>
+                        <button class="compare-select-btn vip-btn" onclick="selectPkgFromTable('vip')">Seç</button>
+                    </div>
+                </div>
+                <!-- Feature Rows -->
+                <div class="compare-row">
+                    <div class="compare-feature-col">Uygulamada Görünüm</div>
+                    <div class="compare-pkg-col temel-col"><i class="fas fa-check compare-yes"></i></div>
+                    <div class="compare-pkg-col premium-col"><i class="fas fa-check compare-yes"></i> <span class="compare-note">Öncelikli</span></div>
+                    <div class="compare-pkg-col vip-col"><i class="fas fa-check compare-yes"></i> <span class="compare-note">VIP Slider</span></div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-feature-col">Push Bildirimi</div>
+                    <div class="compare-pkg-col temel-col"><i class="fas fa-times compare-no"></i></div>
+                    <div class="compare-pkg-col premium-col"><i class="fas fa-check compare-yes"></i></div>
+                    <div class="compare-pkg-col vip-col"><i class="fas fa-check compare-yes"></i></div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-feature-col">Instagram Paketi</div>
+                    <div class="compare-pkg-col temel-col"><i class="fas fa-times compare-no"></i></div>
+                    <div class="compare-pkg-col premium-col"><span class="compare-note">+Eklenebilir</span></div>
+                    <div class="compare-pkg-col vip-col"><i class="fas fa-check compare-yes"></i> <span class="compare-note">Dahil</span></div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-feature-col">Yayın Süresi</div>
+                    <div class="compare-pkg-col temel-col">7 Gün</div>
+                    <div class="compare-pkg-col premium-col">14 Gün</div>
+                    <div class="compare-pkg-col vip-col">30 Gün</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-feature-col">Öncelik Sırası</div>
+                    <div class="compare-pkg-col temel-col">Standart</div>
+                    <div class="compare-pkg-col premium-col">Yüksek</div>
+                    <div class="compare-pkg-col vip-col">En Üst</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-feature-col">Analitik Rapor</div>
+                    <div class="compare-pkg-col temel-col"><i class="fas fa-times compare-no"></i></div>
+                    <div class="compare-pkg-col premium-col"><i class="fas fa-check compare-yes"></i></div>
+                    <div class="compare-pkg-col vip-col"><i class="fas fa-check compare-yes"></i> <span class="compare-note">Detaylı</span></div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-feature-col">QR Afiş Üretimi</div>
+                    <div class="compare-pkg-col temel-col"><i class="fas fa-check compare-yes"></i></div>
+                    <div class="compare-pkg-col premium-col"><i class="fas fa-check compare-yes"></i></div>
+                    <div class="compare-pkg-col vip-col"><i class="fas fa-check compare-yes"></i></div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-feature-col">Müşteri Temsilcisi</div>
+                    <div class="compare-pkg-col temel-col"><i class="fas fa-times compare-no"></i></div>
+                    <div class="compare-pkg-col premium-col"><i class="fas fa-check compare-yes"></i></div>
+                    <div class="compare-pkg-col vip-col"><i class="fas fa-check compare-yes"></i> <span class="compare-note">7/24</span></div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- ====================== REZERVASYON TAKVİMİ ====================== -->
+        <h2 class="section-title reveal">📅 Müsait Yayın Tarihi Seçin</h2>
+        <p class="section-subtitle reveal">Kampanyanızın başlayacağı tarihi seçin. Seçtiğiniz tarih forma otomatik aktarılır.</p>
+
+        <div class="cal-wrapper reveal">
+            <div class="cal-header">
+                <button class="cal-nav-btn" onclick="changeCalMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                <span class="cal-month-label" id="calMonthLabel">Haziran 2026</span>
+                <button class="cal-nav-btn" onclick="changeCalMonth(1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="cal-grid">
+                <div class="cal-day-name">Pt</div><div class="cal-day-name">Sa</div><div class="cal-day-name">Ça</div>
+                <div class="cal-day-name">Pe</div><div class="cal-day-name">Cu</div><div class="cal-day-name">Ct</div><div class="cal-day-name">Pz</div>
+            </div>
+            <div class="cal-days-grid" id="calDaysGrid"></div>
+            <div class="cal-legend">
+                <span><span class="cal-dot dot-free"></span> Müsait</span>
+                <span><span class="cal-dot dot-busy"></span> Dolu</span>
+                <span><span class="cal-dot dot-selected"></span> Seçili</span>
+            </div>
+            <div class="cal-selected-info" id="calSelectedInfo" style="display:none;">
+                <i class="fas fa-calendar-check"></i> <strong id="calSelectedText"></strong> tarihi kampanya başlangıcı olarak seçildi ve forma aktarıldı!
+            </div>
+        </div>
+
+        <hr class="section-divider">
 
         <!-- ====================== NEDEN BİZ? ====================== -->
         <h2 class="section-title reveal" data-tr="Neden Ilgın İnsanı Reklam Ağında Olmalısınız?" data-en="Why Choose Ilgın İnsanı Advertising Network?">Neden Ilgın İnsanı Reklam Ağında Olmalısınız?</h2>
@@ -2686,6 +3148,147 @@
             "max-glare": 0.15,
             scale: 1.02
         });
+    </script>
+
+    <script>
+        /* ============================================================
+           BAŞARI HİKAYELERİ SLIDER
+        ============================================================ */
+        let currentStory = 0;
+        const totalStories = 4;
+        let storyAutoTimer;
+
+        function goStory(idx) {
+            currentStory = idx;
+            document.getElementById('successTrack').style.transform = `translateX(-${idx * 100}%)`;
+            document.querySelectorAll('.s-dot').forEach((d, i) => {
+                d.classList.toggle('active', i === idx);
+            });
+        }
+        function nextStory() {
+            goStory((currentStory + 1) % totalStories);
+            resetStoryTimer();
+        }
+        function prevStory() {
+            goStory((currentStory - 1 + totalStories) % totalStories);
+            resetStoryTimer();
+        }
+        function resetStoryTimer() {
+            clearInterval(storyAutoTimer);
+            storyAutoTimer = setInterval(() => nextStory(), 5000);
+        }
+        resetStoryTimer();
+
+        /* ============================================================
+           PAKET KARŞILAŞTIRMA — Tablodaki "Seç" butonları formu doldurur
+        ============================================================ */
+        function selectPkgFromTable(pkg) {
+            // Scroll to form
+            const talep = document.getElementById('talep');
+            if (talep) talep.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Select the package card
+            setTimeout(() => selectPackage(pkg), 600);
+            // Toast
+            const toast = document.createElement('div');
+            const names = { temel: 'Temel', premium: 'Premium', vip: 'VIP' };
+            toast.innerHTML = `<i class="fas fa-check-circle"></i> <strong>${names[pkg]}</strong> paketi formda seçildi!`;
+            Object.assign(toast.style, {
+                position: 'fixed', bottom: '30px', left: '50%', transform: 'translateX(-50%)',
+                background: 'rgba(46,204,113,0.95)', color: '#fff', padding: '14px 28px',
+                borderRadius: '50px', fontWeight: '700', fontSize: '0.95rem', zIndex: '9999',
+                boxShadow: '0 10px 30px rgba(46,204,113,0.3)', backdropFilter: 'blur(10px)',
+                display: 'flex', alignItems: 'center', gap: '10px',
+                animation: 'fadeIn 0.4s ease'
+            });
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
+
+        /* ============================================================
+           REZERVASYON TAKVİMİ
+        ============================================================ */
+        const TR_MONTHS = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+        // Simüle dolu günler (gün sayısı olarak — gerçekte backend'den gelebilir)
+        const busyDaysConfig = {
+            '2026-6': [3, 5, 10, 15, 18, 22, 25],
+            '2026-7': [2, 7, 12, 14, 19, 21, 28],
+            '2026-8': [1, 6, 11, 16, 20, 24, 30],
+        };
+        let calCurrentDate = new Date();
+        let calYear = calCurrentDate.getFullYear();
+        let calMonth = calCurrentDate.getMonth(); // 0-indexed
+        let calSelectedDay = null;
+
+        function renderCalendar() {
+            const grid = document.getElementById('calDaysGrid');
+            const label = document.getElementById('calMonthLabel');
+            grid.innerHTML = '';
+            label.textContent = `${TR_MONTHS[calMonth]} ${calYear}`;
+
+            const firstDay = new Date(calYear, calMonth, 1).getDay(); // 0=Sun
+            const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+            const busyKey = `${calYear}-${calMonth + 1}`;
+            const busyDays = busyDaysConfig[busyKey] || [];
+            const today = new Date();
+
+            // Adjust so week starts on Monday
+            const startOffset = (firstDay === 0) ? 6 : firstDay - 1;
+            for (let i = 0; i < startOffset; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'cal-day empty';
+                grid.appendChild(empty);
+            }
+
+            for (let d = 1; d <= daysInMonth; d++) {
+                const cell = document.createElement('div');
+                cell.className = 'cal-day';
+                cell.textContent = d;
+
+                const cellDate = new Date(calYear, calMonth, d);
+                const isPast = cellDate < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+                const isBusy = busyDays.includes(d);
+                const isSelected = calSelectedDay === d && calMonth === (new Date()).getMonth() + (calYear > today.getFullYear() ? 12 : 0);
+
+                if (isPast) {
+                    cell.classList.add('past');
+                } else if (isBusy) {
+                    cell.classList.add('busy');
+                } else {
+                    cell.classList.add('free');
+                    cell.onclick = () => selectCalDay(d, cell);
+                }
+                grid.appendChild(cell);
+            }
+        }
+
+        function selectCalDay(day, cellEl) {
+            document.querySelectorAll('.cal-day').forEach(c => c.classList.remove('selected'));
+            cellEl.classList.add('selected');
+            calSelectedDay = day;
+
+            const dateStr = `${calYear}-${String(calMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            const displayStr = `${day} ${TR_MONTHS[calMonth]} ${calYear}`;
+
+            // Formdaki başlangıç tarihi alanına aktar (varsa)
+            const startDateField = document.getElementById('reqStartDate');
+            if (startDateField) startDateField.value = dateStr;
+
+            document.getElementById('calSelectedText').textContent = displayStr;
+            document.getElementById('calSelectedInfo').style.display = 'flex';
+            document.getElementById('calSelectedInfo').style.alignItems = 'center';
+            document.getElementById('calSelectedInfo').style.gap = '10px';
+        }
+
+        function changeCalMonth(dir) {
+            calMonth += dir;
+            if (calMonth < 0) { calMonth = 11; calYear--; }
+            if (calMonth > 11) { calMonth = 0; calYear++; }
+            calSelectedDay = null;
+            document.getElementById('calSelectedInfo').style.display = 'none';
+            renderCalendar();
+        }
+
+        renderCalendar();
     </script>
 </body>
 </html>
