@@ -1,0 +1,9 @@
+.git
+.gitignore
+Dockerfile
+nginx.conf
+.dockerignore
+vercel.json
+netlify.toml
+README.md
+n8n_guide.md
