@@ -4,9 +4,141 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- Preconnect & Preload for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+    <!-- SEO Meta Tags -->
     <meta name="description" content="Ilgın İnsanı uygulaması; Ilgın'daki nöbetçi eczaneler, güncel haberler, vefat ilanları, canlı yol durumu ve yapay zeka asistanları sunan kapsamlı şehrin dijital platformudur.">
     <meta name="keywords" content="Ilgın, Ilgın haberleri, Ilgın nöbetçi eczane, Ilgın İnsanı uygulaması, Furkan Uyanık, Ilgın hava durumu, ziraat asistanı, Konya Ilgın, Ilgın vefat ilanları">
     <meta name="author" content="Furkan Uyanık">
+    <link rel="canonical" href="https://ilgininsani.com/" />
+    <meta name="robots" content="index, follow">
+
+    <!-- Security Meta Tags -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https:; child-src 'none'; object-src 'none';">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f2027">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ilgininsani.com/">
+    <meta property="og:title" content="Ilgın İnsanı - Şehrin Dijital Alanı">
+    <meta property="og:description" content="Ilgın İnsanı uygulaması; Ilgın'daki nöbetçi eczaneler, güncel haberler, vefat ilanları, canlı yol durumu ve yapay zeka asistanları sunan kapsamlı şehrin dijital platformudur.">
+    <meta property="og:image" content="https://ilgininsani.com/assets/icons/icon-512.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ilgininsani.com/">
+    <meta property="twitter:title" content="Ilgın İnsanı - Şehrin Dijital Alanı">
+    <meta property="twitter:description" content="Ilgın İnsanı uygulaması; Ilgın'daki nöbetçi eczaneler, güncel haberler, vefat ilanları, canlı yol durumu ve yapay zeka asistanları sunan kapsamlı şehrin dijital platformudur.">
+    <meta property="twitter:image" content="https://ilgininsani.com/assets/icons/icon-512.png">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Ilgın İnsanı",
+      "url": "https://ilgininsani.com/",
+      "logo": "https://ilgininsani.com/assets/icons/icon-512.png",
+      "sameAs": [
+        "https://instagram.com/ilgin.insani"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Ilgın İnsanı",
+      "url": "https://ilgininsani.com/"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Uygulamayı indirmek ve kullanmak ücretli mi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hayır, Ilgın İnsanı uygulamasını indirmek ve tüm temel özellikleri kullanmak tamamen ücretsizdir."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Nöbetçi eczane bilgileri güncel mi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Evet, bilgilerimiz Konya Eczacı Odası ve yerel eczane sistemlerinden günlük olarak çekilmekte ve anlık olarak güncellenmektedir."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Yapay zeka asistanları nasıl çalışıyor?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "İlçemizin verileriyle özel olarak eğitilmiş sistemimiz, sorduğunuz sorulara tıpkı bir insanla mesajlaşıyormuşsunuz gibi saniyeler içinde mantıklı ve yerel cevaplar verir."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "İlan vermek veya duyuru yapmak istiyorum, ne yapmalıyım?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Uygulama içerisindeki 'Dijital Meydan' veya 'Kayıp Eşya' bölümlerini kullanarak hemşehrilerimizle iletişim kurabilir, kendi ilanlarınızı hızlıca oluşturabilirsiniz."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Analytics Placeholders (Disabled by Default - Add actual IDs to enable) -->
+    <!--
+    <script>
+      // Google Analytics 4 (GA4)
+      // (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      // (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      // m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      // })(window,document,'script','https://www.googletagmanager.com/gtag/js?id=YOUR_GA_TRACKING_ID','gtag');
+      // window.dataLayer = window.dataLayer || [];
+      // function gtag(){dataLayer.push(arguments);}
+      // gtag('js', new Date());
+      // gtag('config', 'YOUR_GA_TRACKING_ID');
+    </script>
+    <script>
+      // Meta Pixel
+      // !function(f,b,e,v,n,t,s)
+      // {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      // n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      // if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      // n.queue=[];t=b.createElement(e);t.async=!0;
+      // t.src=v;s=b.getElementsByTagName(e)[0];
+      // s.parentNode.insertBefore(t,s)}(window, document,'script',
+      // 'https://connect.facebook.net/en_US/fbevents.js');
+      // fbq('init', 'YOUR_META_PIXEL_ID');
+      // fbq('track', 'PageView');
+    </script>
+    <script type="text/javascript">
+      // Microsoft Clarity
+      // (function(c,l,a,r,i,t,y){
+      //     c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      //     t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      //     y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      // })(window, document, "clarity", "script", "YOUR_CLARITY_PROJECT_ID");
+    </script>
+    -->
 
     <title>Ilgın İnsanı - Şehrin Dijital Alanı</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -704,7 +836,7 @@
             }
         }
         .share-btn {
-            width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
             color: #fff; font-size: 1.2rem; text-decoration: none; transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08);
             background: rgba(255,255,255,0.05); backdrop-filter: blur(5px);
@@ -755,7 +887,7 @@
             .showcase-tab-btn { padding: 10px 16px; font-size: 0.85rem; width: 100%; justify-content: center; }
             .cookie-banner { bottom: 10px; left: 10px; right: 10px; padding: 15px; }
             .social-share-bar { gap: 6px; }
-            .share-btn { width: 38px; height: 38px; font-size: 1rem; }
+            .share-btn { width: 48px; height: 48px; font-size: 1.1rem; }
         }
     </style>
 
@@ -765,7 +897,7 @@
     <div class="weather-band" id="weatherBand" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 20px;">
         <span id="weatherText"><i class="fas fa-sun"></i> Ilgın Canlı Hava Durumu Yükleniyor...</span>
         <div style="display: flex; gap: 10px; align-items: center;">
-            <span id="langSwitch" onclick="toggleLanguage()" style="cursor: pointer; background: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; transition: 0.2s;"><i class="fas fa-globe"></i> English</span>
+            <span id="langSwitch" role="button" tabindex="0" data-tr-aria="English (Dili Değiştir)" data-en-aria="Türkçe (Change Language)" aria-label="English (Dili Değiştir)" onclick="toggleLanguage()" onkeydown="if(event.key === 'Enter' || event.key === ' ') { toggleLanguage(); event.preventDefault(); }" style="cursor: pointer; background: rgba(255,255,255,0.15); padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; min-height: 44px;"><i class="fas fa-globe"></i> English</span>
         </div>
     </div>
 
@@ -779,6 +911,7 @@
                 <div class="action-buttons">
                     <a href="https://apps.apple.com/tr/app/ilg%C4%B1n-i-nsan%C4%B1/id6776758130?l=tr" target="_blank" class="btn btn-apple"><i class="fab fa-apple"></i> App Store</a>
                     <a href="https://play.google.com/store/apps/details?id=com.ilgininsani.app&pcampaignid=web_share" target="_blank" class="btn btn-play"><i class="fab fa-google-play"></i> Google Play</a>
+                    <button id="pwaInstallBtn" class="btn" style="display: none; background: #e67e22; color: #fff; border: 1px solid #f39c12; cursor: pointer;" data-tr="<i class='fas fa-download'></i> Uygulamayı Yükle" data-en="<i class='fas fa-download'></i> Install Web App"><i class="fas fa-download"></i> Uygulamayı Yükle</button>
                 </div>
                 <div class="action-buttons">
                     <a href="https://instagram.com/ilgin.insani" target="_blank" class="btn btn-insta" data-tr="<i class='fab fa-instagram'></i> @ilgin.insani Takip Et" data-en="<i class='fab fa-instagram'></i> Follow @ilgin.insani"><i class="fab fa-instagram"></i> @ilgin.insani Takip Et</a>
@@ -812,19 +945,19 @@
                         <div class="phone-body" id="phoneBodyApp" style="display: none; flex-direction: column; gap: 12px; height: 100%; justify-content: flex-start;">
                             <div class="phone-app-title">Ilgın İnsanı</div>
                             <div class="phone-menu-grid">
-                                <div class="phone-menu-item" onclick="clickPhoneDemo('eczane', this)">
+                                <div class="phone-menu-item" role="button" tabindex="0" data-tr-aria="Nöbetçi Eczane Simülasyonu" data-en-aria="Duty Pharmacy Simulation" aria-label="Nöbetçi Eczane Simülasyonu" onclick="clickPhoneDemo('eczane', this)" onkeydown="if(event.key === 'Enter' || event.key === ' ') { clickPhoneDemo('eczane', this); event.preventDefault(); }">
                                     <i class="fas fa-clinic-medical"></i>
                                     <span data-tr="Eczane" data-en="Pharmacy">Eczane</span>
                                 </div>
-                                <div class="phone-menu-item" onclick="clickPhoneDemo('haber', this)">
+                                <div class="phone-menu-item" role="button" tabindex="0" data-tr-aria="Haberler Simülasyonu" data-en-aria="News Simulation" aria-label="Haberler Simülasyonu" onclick="clickPhoneDemo('haber', this)" onkeydown="if(event.key === 'Enter' || event.key === ' ') { clickPhoneDemo('haber', this); event.preventDefault(); }">
                                     <i class="far fa-newspaper"></i>
                                     <span data-tr="Haberler" data-en="News">Haberler</span>
                                 </div>
-                                <div class="phone-menu-item" onclick="clickPhoneDemo('ziraat', this)">
+                                <div class="phone-menu-item" role="button" tabindex="0" data-tr-aria="Ziraat (Yapay Zeka) Simülasyonu" data-en-aria="Agri-AI Simulation" aria-label="Ziraat (Yapay Zeka) Simülasyonu" onclick="clickPhoneDemo('ziraat', this)" onkeydown="if(event.key === 'Enter' || event.key === ' ') { clickPhoneDemo('ziraat', this); event.preventDefault(); }">
                                     <i class="fas fa-tractor"></i>
                                     <span data-tr="Ziraat" data-en="Agri-AI">Ziraat</span>
                                 </div>
-                                <div class="phone-menu-item" onclick="clickPhoneDemo('yol', this)">
+                                <div class="phone-menu-item" role="button" tabindex="0" data-tr-aria="Yolculuk Simülasyonu" data-en-aria="Rideshare Simulation" aria-label="Yolculuk Simülasyonu" onclick="clickPhoneDemo('yol', this)" onkeydown="if(event.key === 'Enter' || event.key === ' ') { clickPhoneDemo('yol', this); event.preventDefault(); }">
                                     <i class="fas fa-car"></i>
                                     <span data-tr="Yolculuk" data-en="Rideshare">Yolculuk</span>
                                 </div>
@@ -851,7 +984,7 @@
                             
                             <!-- Insta Feed Image -->
                             <div style="width: 100%; aspect-ratio: 1.25/1; background: #050505; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); position: relative;">
-                                <img id="phoneInstaPostImg" src="A_dramatic_and_cinematic_dikey_202606192209.jpeg" style="width: 100%; height: 100%; object-fit: cover;">
+                                <img id="phoneInstaPostImg" src="A_dramatic_and_cinematic_dikey_202606192209.jpeg" alt="Instagram Post Showcase" width="220" height="176" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
                                 <div style="position: absolute; top: 6px; right: 6px; background: rgba(0,0,0,0.6); padding: 2px 5px; border-radius: 8px; font-size: 0.45rem; display: flex; align-items: center; gap: 2px; border: 1px solid rgba(255,255,255,0.1);"><i class="fas fa-play" style="color: #fff; font-size: 0.45rem;"></i> Reels</div>
                             </div>
                             
@@ -976,7 +1109,7 @@
                 <!-- Sağ Panel: Kayan Sinematik Fotoğraf Alanı -->
                 <div style="position: relative; overflow: hidden; height: 100%; min-height: 350px;">
                     <div id="travelImgContainer" style="width: 100%; height: 100%; background: #000; position: relative;">
-                        <img id="travelImg" class="travel-zoom-pan" src="kaplica.jfif" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.8s ease; opacity: 0.9;">
+                        <img id="travelImg" class="travel-zoom-pan" src="kaplica.jfif" alt="Sahip Ata Kaplıcaları — 42°C Doğal Şifa Kaynağı" width="450" height="350" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.8s ease; opacity: 0.9;">
                         <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, transparent 100%); z-index: 1;"></div>
                         <span id="travelImgCaption" style="position: absolute; bottom: 20px; left: 20px; color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.5px; z-index: 2; text-shadow: 0 2px 4px rgba(0,0,0,0.8);" data-tr="Sahip Ata Kaplıcaları — 42°C Doğal Şifa Kaynağı" data-en="Sahip Ata Baths — 42°C Natural Healing Source">Sahip Ata Kaplıcaları — 42°C Doğal Şifa Kaynağı</span>
                     </div>
@@ -1601,6 +1734,7 @@
                     badgeEl.innerHTML = currentLang === 'tr' ? data.badgeTr : data.badgeEn;
                     
                     imgEl.src = data.img;
+                    imgEl.alt = currentLang === 'tr' ? data.captionTr : data.captionEn;
                     imgCaptionEl.setAttribute('data-tr', data.captionTr);
                     imgCaptionEl.setAttribute('data-en', data.captionEn);
                     imgCaptionEl.innerHTML = currentLang === 'tr' ? data.captionTr : data.captionEn;
@@ -1622,9 +1756,23 @@
                 ? '<i class="fas fa-globe"></i> English'
                 : '<i class="fas fa-globe"></i> Türkçe';
             
+            // Translate page title and description metadata dynamically
+            if (currentLang === 'tr') {
+                document.title = "Ilgın İnsanı - Şehrin Dijital Alanı";
+                document.querySelector('meta[name="description"]')?.setAttribute('content', "Ilgın İnsanı uygulaması; Ilgın'daki nöbetçi eczaneler, güncel haberler, vefat ilanları, canlı yol durumu ve yapay zeka asistanları sunan kapsamlı şehrin dijital platformudur.");
+            } else {
+                document.title = "Ilgın People - City's Digital Space";
+                document.querySelector('meta[name="description"]')?.setAttribute('content', "Ilgın People application is the city's comprehensive digital platform, providing duty pharmacies, current news, obituaries, live road status and AI assistants.");
+            }
+
             // Translate all elements with data-tr / data-en attributes
             document.querySelectorAll('[data-tr]').forEach(el => {
                 el.innerHTML = el.getAttribute(`data-${currentLang}`);
+            });
+
+            // Translate all elements with data-tr-aria / data-en-aria attributes
+            document.querySelectorAll('[data-tr-aria]').forEach(el => {
+                el.setAttribute('aria-label', el.getAttribute(`data-${currentLang}-aria`));
             });
             
             // Translate placeholders
@@ -1638,6 +1786,28 @@
                     nameField.placeholder = "Your Name";
                     msgField.placeholder = "Your message or idea...";
                 }
+            }
+
+            // Update social share bar titles if it exists
+            const shareBar = document.getElementById('socialShareBar');
+            if (shareBar) {
+                const xTitle = currentLang === 'tr' ? "X'te Paylaş" : "Share on X";
+                const fbTitle = currentLang === 'tr' ? "Facebook'ta Paylaş" : "Share on Facebook";
+                const waTitle = currentLang === 'tr' ? "WhatsApp'ta Paylaş" : "Share on WhatsApp";
+                const tgTitle = currentLang === 'tr' ? "Telegram'da Paylaş" : "Share on Telegram";
+                const copyTitle = currentLang === 'tr' ? "Bağlantıyı Kopyala" : "Copy Link";
+                
+                const btnX = shareBar.querySelector('.share-x');
+                const btnFB = shareBar.querySelector('.share-facebook');
+                const btnWA = shareBar.querySelector('.share-whatsapp');
+                const btnTG = shareBar.querySelector('.share-telegram');
+                const btnCopy = shareBar.querySelector('.share-copy');
+                
+                if(btnX) { btnX.setAttribute('title', xTitle); btnX.setAttribute('aria-label', xTitle); }
+                if(btnFB) { btnFB.setAttribute('title', fbTitle); btnFB.setAttribute('aria-label', fbTitle); }
+                if(btnWA) { btnWA.setAttribute('title', waTitle); btnWA.setAttribute('aria-label', waTitle); }
+                if(btnTG) { btnTG.setAttribute('title', tgTitle); btnTG.setAttribute('aria-label', tgTitle); }
+                if(btnCopy) { btnCopy.setAttribute('title', copyTitle); btnCopy.setAttribute('aria-label', copyTitle); }
             }
             
             // Update weather display text
@@ -2090,12 +2260,20 @@
         function initSocialShare() {
             const shareBar = document.createElement('div');
             shareBar.className = 'social-share-bar';
+            shareBar.id = 'socialShareBar';
+            
+            const xTitle = currentLang === 'tr' ? "X'te Paylaş" : "Share on X";
+            const fbTitle = currentLang === 'tr' ? "Facebook'ta Paylaş" : "Share on Facebook";
+            const waTitle = currentLang === 'tr' ? "WhatsApp'ta Paylaş" : "Share on WhatsApp";
+            const tgTitle = currentLang === 'tr' ? "Telegram'da Paylaş" : "Share on Telegram";
+            const copyTitle = currentLang === 'tr' ? "Bağlantıyı Kopyala" : "Copy Link";
+            
             shareBar.innerHTML = `
-                <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn share-x" title="X'te Paylaş"><i class="fab fa-x-twitter"></i></a>
-                <a href="https://facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn share-facebook" title="Facebook'ta Paylaş"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://api.whatsapp.com/send?text=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn share-whatsapp" title="WhatsApp'ta Paylaş"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://t.me/share/url?url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn share-telegram" title="Telegram'da Paylaş"><i class="fab fa-telegram-plane"></i></a>
-                <a href="javascript:void(0)" onclick="copyLink()" class="share-btn share-copy" title="Bağlantıyı Kopyala"><i class="far fa-copy"></i></a>
+                <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn share-x" title="${xTitle}" aria-label="${xTitle}"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn share-facebook" title="${fbTitle}" aria-label="${fbTitle}"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://api.whatsapp.com/send?text=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn share-whatsapp" title="${waTitle}" aria-label="${waTitle}"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://t.me/share/url?url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn share-telegram" title="${tgTitle}" aria-label="${tgTitle}"><i class="fab fa-telegram-plane"></i></a>
+                <a href="javascript:void(0)" onclick="copyLink()" class="share-btn share-copy" title="${copyTitle}" aria-label="${copyTitle}"><i class="far fa-copy"></i></a>
             `;
             document.body.appendChild(shareBar);
         }
@@ -2176,6 +2354,17 @@
             animate();
         }
 
+        // PWA Install Prompt Event Handling
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const installBtn = document.getElementById('pwaInstallBtn');
+            if (installBtn) {
+                installBtn.style.display = 'inline-flex';
+            }
+        });
+
         // Initialize features
         document.addEventListener('DOMContentLoaded', () => {
             initCookieBanner();
@@ -2183,6 +2372,27 @@
             initCursorSparkle();
             fetchDetailedWeather();
             setPhoneMode('insta');
+
+            // PWA Install Button click handling
+            const installBtn = document.getElementById('pwaInstallBtn');
+            if (installBtn) {
+                installBtn.addEventListener('click', async () => {
+                    if (deferredPrompt) {
+                        deferredPrompt.prompt();
+                        const { outcome } = await deferredPrompt.userChoice;
+                        console.log(`User response to install: ${outcome}`);
+                        deferredPrompt = null;
+                        installBtn.style.display = 'none';
+                    }
+                });
+            }
+
+            // Service Worker Registration
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered:', reg.scope))
+                    .catch(err => console.error('Service Worker registration failed:', err));
+            }
         });
     </script>
 </body>

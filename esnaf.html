@@ -3,9 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Preconnect & Preload for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <!-- SEO Meta Tags -->
     <meta name="description" content="Ilgın İnsanı - Reklam ve Sponsorluk Portalı. Kampanya oluştur, indirim hesapla, işletmenizi Ilgın'ın en büyük dijital topluluğunda öne çıkarın.">
     <meta name="keywords" content="Ilgın reklam, Ilgın sponsorluk, Ilgın esnaf reklamı, Ilgın İnsanı tanıtım, Ilgın pazarlama">
     <meta name="author" content="Furkan Uyanık">
+    <link rel="canonical" href="https://ilgininsani.com/esnaf.html" />
+    <meta name="robots" content="index, follow">
+
+    <!-- Security Meta Tags -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https:; child-src 'none'; object-src 'none';">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f2027">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ilgininsani.com/esnaf.html">
+    <meta property="og:title" content="Reklam & Sponsorluk Portalı — Ilgın İnsanı">
+    <meta property="og:description" content="Ilgın İnsanı - Reklam ve Sponsorluk Portalı. Kampanya oluştur, indirim hesapla, işletmenizi Ilgın'ın en büyük dijital topluluğunda öne çıkarın.">
+    <meta property="og:image" content="https://ilgininsani.com/assets/icons/icon-512.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ilgininsani.com/esnaf.html">
+    <meta property="twitter:title" content="Reklam & Sponsorluk Portalı — Ilgın İnsanı">
+    <meta property="twitter:description" content="Ilgın İnsanı - Reklam ve Sponsorluk Portalı. Kampanya oluştur, indirim hesapla, işletmenizi Ilgın'ın en büyük dijital topluluğunda öne çıkarın.">
+    <meta property="twitter:image" content="https://ilgininsani.com/assets/icons/icon-512.png">
+
+    <!-- JSON-LD Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Ana Sayfa",
+          "item": "https://ilgininsani.com/index.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Esnaf Portalı",
+          "item": "https://ilgininsani.com/esnaf.html"
+        }
+      ]
+    }
+    </script>
+
     <title>Reklam & Sponsorluk Portalı — Ilgın İnsanı</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -346,7 +403,22 @@
         #typeInstaOnly.selected::after { color: #e1306c !important; }
         #typeCombo.selected { border-color: var(--accent) !important; background: rgba(243, 156, 18, 0.12) !important; }
         #typeCombo.selected::after { color: var(--accent) !important; }
-        .pkg-card input[type="radio"] { display: none; }
+        .pkg-card input[type="radio"],
+        .insta-pkg-check-card input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+        .pkg-card:focus-within,
+        .insta-pkg-check-card:focus-within {
+            outline: 2px solid var(--accent) !important;
+            outline-offset: 2px;
+        }
+        #typeAppOnly:focus-within { outline-color: var(--blue) !important; }
+        #typeInstaOnly:focus-within { outline-color: #e1306c !important; }
+        #typeCombo:focus-within { outline-color: var(--accent) !important; }
         .pkg-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; }
         .pkg-price { color: var(--accent); font-size: 1.3rem; font-weight: 900; margin-bottom: 6px; }
         .pkg-desc { font-size: 0.75rem; color: #9ab; }
@@ -446,9 +518,14 @@
         .theme-swatches { display: flex; gap: 8px; margin-top: 10px; }
         .theme-swatch {
             width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 2px solid transparent;
-            transition: 0.2s;
+            transition: 0.2s; position: relative; display: inline-block; outline: none;
         }
-        .theme-swatch:hover { transform: scale(1.1); }
+        .theme-swatch::after {
+            content: ''; position: absolute;
+            top: -8px; left: -8px; right: -8px; bottom: -8px;
+        }
+        .theme-swatch:hover, .theme-swatch:focus-visible { transform: scale(1.1); }
+        .theme-swatch:focus-visible { border-color: #fff; box-shadow: 0 0 0 2px rgba(243, 156, 18, 0.6); }
         .theme-swatch.active { border-color: #fff; transform: scale(1.1); }
         .swatch-gold { background: linear-gradient(135deg, #f39c12, #aa7c11); }
         .swatch-blue { background: linear-gradient(135deg, #3498db, #2980b9); }
@@ -1905,10 +1982,10 @@
                     <div class="req-field">
                         <label data-tr="Afiş Rengi / Tema" data-en="Flyer Color / Theme">Afiş Rengi / Tema</label>
                         <div class="theme-swatches">
-                            <div class="theme-swatch swatch-gold active" onclick="setFlyerTheme('gold', this)"></div>
-                            <div class="theme-swatch swatch-blue" onclick="setFlyerTheme('blue', this)"></div>
-                            <div class="theme-swatch swatch-emerald" onclick="setFlyerTheme('emerald', this)"></div>
-                            <div class="theme-swatch swatch-crimson" onclick="setFlyerTheme('crimson', this)"></div>
+                            <div class="theme-swatch swatch-gold active" role="button" tabindex="0" data-tr-aria="Altın Sarısı Teması" data-en-aria="Gold Theme" aria-label="Altın Sarısı Teması" onclick="setFlyerTheme('gold', this)" onkeydown="if(event.key==='Enter'||event.key===' '){setFlyerTheme('gold',this);event.preventDefault();}"></div>
+                            <div class="theme-swatch swatch-blue" role="button" tabindex="0" data-tr-aria="Mavi Teması" data-en-aria="Blue Theme" aria-label="Mavi Teması" onclick="setFlyerTheme('blue', this)" onkeydown="if(event.key==='Enter'||event.key===' '){setFlyerTheme('blue',this);event.preventDefault();}"></div>
+                            <div class="theme-swatch swatch-emerald" role="button" tabindex="0" data-tr-aria="Zümrüt Yeşili Teması" data-en-aria="Emerald Theme" aria-label="Zümrüt Yeşili Teması" onclick="setFlyerTheme('emerald', this)" onkeydown="if(event.key==='Enter'||event.key===' '){setFlyerTheme('emerald',this);event.preventDefault();}"></div>
+                            <div class="theme-swatch swatch-crimson" role="button" tabindex="0" data-tr-aria="Kırmızı Teması" data-en-aria="Crimson Theme" aria-label="Kırmızı Teması" onclick="setFlyerTheme('crimson', this)" onkeydown="if(event.key==='Enter'||event.key===' '){setFlyerTheme('crimson',this);event.preventDefault();}"></div>
                         </div>
                     </div>
                 </div>
@@ -2270,19 +2347,19 @@
                             <label data-tr="Hizmet / Reklam Türü Seçin *" data-en="Select Service / Ad Type *">Hizmet / Reklam Türü Seçin *</label>
                             <div class="pkg-grid" style="grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 15px;">
                                 <label class="pkg-card selected" id="typeInstaOnly" onclick="selectAdType('insta_only')">
-                                    <input type="radio" name="adType" value="insta_only" checked style="display:none;">
+                                    <input type="radio" name="adType" value="insta_only" checked>
                                     <i class="fab fa-instagram" style="font-size: 1.6rem; margin-bottom: 8px; color: #e1306c; display: block;"></i>
                                     <div class="pkg-name" data-tr="Sadece Instagram" data-en="Instagram Only">Sadece Instagram</div>
                                     <div class="pkg-desc" data-tr="Story, Post, Reels" data-en="Story, Post, Reels">Story, Post, Reels</div>
                                 </label>
                                 <label class="pkg-card" id="typeAppOnly" onclick="selectAdType('app_only')">
-                                    <input type="radio" name="adType" value="app_only" style="display:none;">
+                                    <input type="radio" name="adType" value="app_only">
                                     <i class="fas fa-mobile-alt" style="font-size: 1.6rem; margin-bottom: 8px; color: var(--blue); display: block;"></i>
                                     <div class="pkg-name" data-tr="Sadece Mobil Uygulama" data-en="App Only">Sadece Mobil Uygulama</div>
                                     <div class="pkg-desc" data-tr="Uygulamada Liste İlanı" data-en="App Listed Ad">Uygulamada Liste İlanı</div>
                                 </label>
                                 <label class="pkg-card" id="typeCombo" onclick="selectAdType('combo')">
-                                    <input type="radio" name="adType" value="combo" style="display:none;">
+                                    <input type="radio" name="adType" value="combo">
                                     <i class="fas fa-rocket" style="font-size: 1.6rem; margin-bottom: 8px; color: var(--accent); display: block;"></i>
                                     <div class="pkg-name" data-tr="Kombo Paket" data-en="Combo Pack">Kombo Paket</div>
                                     <div class="pkg-desc" data-tr="Hem Mobil Hem Instagram" data-en="App & Instagram">Hem Mobil Hem Instagram</div>
@@ -2401,7 +2478,7 @@
                                 <input type="hidden" id="reqImageUrl" value="https://via.placeholder.com/400">
                                 
                                 <div id="imagePreview" style="margin-top: 10px; display: none; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);">
-                                    <img id="previewImg" src="" style="max-width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
+                                    <img id="previewImg" src="" alt="Görsel Önizleme" width="60" height="60" style="max-width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
                                     <span id="uploadStatus" style="font-size: 0.8rem; font-weight: 600;"></span>
                                 </div>
                             </div>
@@ -2414,7 +2491,7 @@
                                 <div class="insta-pkgs-checkbox-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-top: 5px;">
                                     
                                     <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('story', event)">
-                                        <input type="checkbox" name="instaPackageCheck" value="story" data-price="750" data-label-tr="Story (₺750)" data-label-en="Story (₺750)" style="display: none;">
+                                        <input type="checkbox" name="instaPackageCheck" value="story" data-price="750" data-label-tr="Story (₺750)" data-label-en="Story (₺750)" >
                                         <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
                                         <div style="flex-grow:1;">
                                             <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Hikaye Paylaşımı (₺750)" data-en="Story Post (₺750)">Hikaye Paylaşımı (₺750)</div>
@@ -2423,7 +2500,7 @@
                                     </label>
 
                                     <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('post', event)">
-                                        <input type="checkbox" name="instaPackageCheck" value="post" data-price="1500" data-label-tr="Post (₺1.500)" data-label-en="Post (₺1.500)" style="display: none;">
+                                        <input type="checkbox" name="instaPackageCheck" value="post" data-price="1500" data-label-tr="Post (₺1.500)" data-label-en="Post (₺1.500)" >
                                         <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
                                         <div style="flex-grow:1;">
                                             <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Gönderi Paylaşımı (₺1.500)" data-en="Feed Post (₺1,500)">Gönderi Paylaşımı (₺1.500)</div>
@@ -2432,7 +2509,7 @@
                                     </label>
 
                                     <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('post_story', event)">
-                                        <input type="checkbox" name="instaPackageCheck" value="post_story" data-price="2000" data-label-tr="Post+Story Kombo (₺2.000)" data-label-en="Post+Story Combo (₺2,000)" style="display: none;">
+                                        <input type="checkbox" name="instaPackageCheck" value="post_story" data-price="2000" data-label-tr="Post+Story Kombo (₺2.000)" data-label-en="Post+Story Combo (₺2,000)" >
                                         <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
                                         <div style="flex-grow:1;">
                                             <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Gönderi + Hikaye Kombosu (₺2.000)" data-en="Post + Story Combo (₺2,000)">Gönderi + Hikaye Kombosu (₺2.000)</div>
@@ -2441,7 +2518,7 @@
                                     </label>
 
                                     <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('reels', event)">
-                                        <input type="checkbox" name="instaPackageCheck" value="reels" data-price="2500" data-label-tr="Reels (₺2.500)" data-label-en="Reels (₺2,500)" style="display: none;">
+                                        <input type="checkbox" name="instaPackageCheck" value="reels" data-price="2500" data-label-tr="Reels (₺2.500)" data-label-en="Reels (₺2,500)" >
                                         <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
                                         <div style="flex-grow:1;">
                                             <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Reels Videosu (₺2.500)" data-en="Reels Video (₺2,500)">Reels Videosu (₺2.500)</div>
@@ -2450,7 +2527,7 @@
                                     </label>
 
                                     <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('reels_story', event)">
-                                        <input type="checkbox" name="instaPackageCheck" value="reels_story" data-price="3000" data-label-tr="Reels+Story Kombo (₺3.000)" data-label-en="Reels+Story Combo (₺3,000)" style="display: none;">
+                                        <input type="checkbox" name="instaPackageCheck" value="reels_story" data-price="3000" data-label-tr="Reels+Story Kombo (₺3.000)" data-label-en="Reels+Story Combo (₺3,000)" >
                                         <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
                                         <div style="flex-grow:1;">
                                             <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Reels + Hikaye Kombosu (₺3.000)" data-en="Reels + Story Combo (₺3,000)">Reels + Hikaye Kombosu (₺3.000)</div>
@@ -2459,7 +2536,7 @@
                                     </label>
 
                                     <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('kapsamli_reels_story', event)">
-                                        <input type="checkbox" name="instaPackageCheck" value="kapsamli_reels_story" data-price="4000" data-label-tr="Çekimli Reels+Story (₺4.000)" data-label-en="Pro Reels+Story (₺4,000)" style="display: none;">
+                                        <input type="checkbox" name="instaPackageCheck" value="kapsamli_reels_story" data-price="4000" data-label-tr="Çekimli Reels+Story (₺4.000)" data-label-en="Pro Reels+Story (₺4,000)" >
                                         <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
                                         <div style="flex-grow:1;">
                                             <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Tasarım/Çekim Kapsamlı Reels + Hikaye (₺4.000)" data-en="Pro Reels + Story Shoot & Edit (₺4,000)">Tasarım/Çekim Kapsamlı Reels + Hikaye (₺4.000)</div>
@@ -2468,7 +2545,7 @@
                                     </label>
 
                                     <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('drone_story', event)">
-                                        <input type="checkbox" name="instaPackageCheck" value="drone_story" data-price="2000" data-label-tr="Drone Story (₺2.000)" data-label-en="Drone Story (₺2,000)" style="display: none;">
+                                        <input type="checkbox" name="instaPackageCheck" value="drone_story" data-price="2000" data-label-tr="Drone Story (₺2.000)" data-label-en="Drone Story (₺2,000)" >
                                         <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
                                         <div style="flex-grow:1;">
                                             <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Drone ile Hikaye Çekimi (₺2.000)" data-en="Drone Story Videography (₺2,000)">Drone ile Hikaye Çekimi (₺2.000)</div>
@@ -2477,7 +2554,7 @@
                                     </label>
 
                                     <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('drone_reels', event)">
-                                        <input type="checkbox" name="instaPackageCheck" value="drone_reels" data-price="4000" data-label-tr="Drone Reels (₺4.000)" data-label-en="Drone Reels (₺4,000)" style="display: none;">
+                                        <input type="checkbox" name="instaPackageCheck" value="drone_reels" data-price="4000" data-label-tr="Drone Reels (₺4.000)" data-label-en="Drone Reels (₺4,000)" >
                                         <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
                                         <div style="flex-grow:1;">
                                             <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Drone ile Reels Çekimi (₺4.000)" data-en="Drone Reels Videography (₺4,000)">Drone ile Reels Çekimi (₺4.000)</div>
@@ -2486,7 +2563,7 @@
                                     </label>
 
                                     <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('drone_combo', event)">
-                                        <input type="checkbox" name="instaPackageCheck" value="drone_combo" data-price="5000" data-label-tr="Drone Reels+Story (₺5.000)" data-label-en="Drone Reels+Story (₺5,000)" style="display: none;">
+                                        <input type="checkbox" name="instaPackageCheck" value="drone_combo" data-price="5000" data-label-tr="Drone Reels+Story (₺5.000)" data-label-en="Drone Reels+Story (₺5,000)" >
                                         <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
                                         <div style="flex-grow:1;">
                                             <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Drone ile Reels + Hikaye (₺5.000)" data-en="Drone Reels + Story Shoot (₺5,000)">Drone ile Reels + Hikaye (₺5.000)</div>
@@ -2495,7 +2572,7 @@
                                     </label>
 
                                     <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('suggested', event)">
-                                        <input type="checkbox" name="instaPackageCheck" value="suggested" data-price="5000" data-label-tr="#Öneriyor (₺5.000)" data-label-en="#Suggested (₺5,000)" style="display: none;">
+                                        <input type="checkbox" name="instaPackageCheck" value="suggested" data-price="5000" data-label-tr="#Öneriyor (₺5.000)" data-label-en="#Suggested (₺5,000)" >
                                         <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
                                         <div style="flex-grow:1;">
                                             <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="#IlgınİnsanıÖneriyor (₺5.000)" data-en="#IlgınİnsanıÖneriyor Special (₺5,000)">#IlgınİnsanıÖneriyor (₺5.000)</div>
@@ -2504,7 +2581,7 @@
                                     </label>
 
                                     <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('monthly', event)">
-                                        <input type="checkbox" name="instaPackageCheck" value="monthly" data-price="12500" data-label-tr="Aylık Sponsor (₺12.500)" data-label-en="Monthly Sponsor (₺12,500)" style="display: none;">
+                                        <input type="checkbox" name="instaPackageCheck" value="monthly" data-price="12500" data-label-tr="Aylık Sponsor (₺12.500)" data-label-en="Monthly Sponsor (₺12,500)" >
                                         <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
                                         <div style="flex-grow:1;">
                                             <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Aylık Sponsorluk (₺12.500)" data-en="Monthly Sponsorship (₺12,500)">Aylık Sponsorluk (₺12.500)</div>
@@ -2513,7 +2590,7 @@
                                     </label>
 
                                     <label class="insta-pkg-check-card" style="border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.25s;" onclick="toggleInstaCheckbox('giveaway', event)">
-                                        <input type="checkbox" name="instaPackageCheck" value="giveaway" data-price="500" data-label-tr="Çekiliş (₺500/Gün)" data-label-en="Giveaway (₺500/Day)" style="display: none;">
+                                        <input type="checkbox" name="instaPackageCheck" value="giveaway" data-price="500" data-label-tr="Çekiliş (₺500/Gün)" data-label-en="Giveaway (₺500/Day)" >
                                         <div class="custom-chk" style="width:18px; height:18px; border: 1.5px solid rgba(255,255,255,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-check" style="font-size:10px; display:none; color:var(--accent);"></i></div>
                                         <div style="flex-grow:1;">
                                             <div style="font-weight:700; font-size:0.85rem; color:#fff;" data-tr="Çekiliş Sponsorluğu (₺500/Gün)" data-en="Giveaway (₺500/Day)">Çekiliş Sponsorluğu (₺500/Gün)</div>
@@ -2656,7 +2733,6 @@
                 </div>
                 <div class="form-status" id="reqFormStatus"></div>
             </div>
-        </div>
 
         <div class="footer">
             <a href="index.html">← <span data-tr="Ana Sayfaya Dön" data-en="Back to Home">Ana Sayfaya Dön</span></a>
@@ -2698,7 +2774,7 @@
             <div class="chatbot-header">
                 <div style="width: 8px; height: 8px; background: #2ecc71; border-radius: 50%;"></div>
                 <span class="chatbot-header-title" data-tr="Ilgın İnsanı Reklam Destek" data-en="Ilgın İnsanı Ad Support">Ilgın İnsanı Reklam Destek</span>
-                <span class="chatbot-header-close" onclick="toggleChatbot()">&times;</span>
+                <span class="chatbot-header-close" role="button" tabindex="0" data-tr-aria="Yardım Asistanını Kapat" data-en-aria="Close Help Assistant" aria-label="Yardım Asistanını Kapat" onclick="toggleChatbot()" onkeydown="if(event.key==='Enter'||event.key===' '){toggleChatbot();event.preventDefault();}">&times;</span>
             </div>
             <div class="chatbot-messages" id="chatbotMessages">
                 <div class="chat-bubble bubble-bot" data-tr="Merhaba! Ben Ilgın İnsanı Yapay Zeka Asistanıyım. Reklam ve sponsorluk paketlerimiz hakkında merak ettiğiniz konuyu seçebilirsiniz:" data-en="Hello! I am Ilgın İnsanı AI Assistant. You can choose a topic to learn more about our advertising and sponsorship packages:">Merhaba! Ben Ilgın İnsanı Yapay Zeka Asistanıyım. Reklam ve sponsorluk paketlerimiz hakkında merak ettiğiniz konuyu seçebilirsiniz:</div>
@@ -2711,7 +2787,7 @@
             </div>
         </div>
         <!-- Toggle Butonu -->
-        <div class="chatbot-toggle" onclick="toggleChatbot()" id="chatbotToggle">
+        <div class="chatbot-toggle" role="button" tabindex="0" data-tr-aria="Canlı Reklam Destek Asistanı" data-en-aria="Live Advertising Support Assistant" aria-label="Canlı Reklam Destek Asistanı" onclick="toggleChatbot()" onkeydown="if(event.key==='Enter'||event.key===' '){toggleChatbot();event.preventDefault();}" id="chatbotToggle">
             <i class="fas fa-comments"></i>
         </div>
     </div>
@@ -2905,9 +2981,30 @@
             btn.innerHTML = currentLang === 'tr'
                 ? '<i class="fas fa-globe"></i> English'
                 : '<i class="fas fa-globe"></i> Türkçe';
+
+            // Translate page title and description metadata dynamically
+            if (currentLang === 'tr') {
+                document.title = "Reklam & Sponsorluk Portalı — Ilgın İnsanı";
+                document.querySelector('meta[name="description"]')?.setAttribute('content', "Ilgın İnsanı - Reklam ve Sponsorluk Portalı. Kampanya oluştur, indirim hesapla, işletmenizi Ilgın'ın en büyük dijital topluluğunda öne çıkarın.");
+            } else {
+                document.title = "Ad & Sponsorship Portal — Ilgın People";
+                document.querySelector('meta[name="description"]')?.setAttribute('content', "Ilgın People - Advertising and Partnership Portal. Create campaigns, calculate discount ROI, and promote your business in Ilgın's largest digital community.");
+            }
+
             document.querySelectorAll('[data-tr]').forEach(el => {
                 el.innerHTML = el.getAttribute(`data-${currentLang}`);
             });
+
+            // Translate all elements with data-tr-aria / data-en-aria attributes
+            document.querySelectorAll('[data-tr-aria]').forEach(el => {
+                el.setAttribute('aria-label', el.getAttribute(`data-${currentLang}-aria`));
+            });
+
+            // Translate all elements with data-tr-placeholder / data-en-placeholder attributes
+            document.querySelectorAll('[data-tr-placeholder]').forEach(el => {
+                el.setAttribute('placeholder', el.getAttribute(`data-${currentLang}-placeholder`));
+            });
+
             updateFlyer();
         }
 
@@ -3292,14 +3389,17 @@
 
         function toggleInstaCheckbox(val, event) {
             const ev = event || (typeof window !== 'undefined' ? window.event : null);
-            if (ev && ev.preventDefault) {
-                ev.preventDefault();
-            }
-            
             const checkbox = document.querySelector(`input[name="instaPackageCheck"][value="${val}"]`);
             if (!checkbox) return;
             
-            checkbox.checked = !checkbox.checked;
+            if (ev && ev.target === checkbox) {
+                // Let the browser handle the check natively
+            } else {
+                if (ev && ev.preventDefault) {
+                    ev.preventDefault();
+                }
+                checkbox.checked = !checkbox.checked;
+            }
             
             const card = checkbox.closest('.insta-pkg-check-card');
             if (!card) return;
@@ -3841,7 +3941,12 @@
         function selectPackage(pkg) {
             selectedPackage = pkg;
             document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('selected'));
-            document.getElementById('pkg' + pkg.charAt(0).toUpperCase() + pkg.slice(1)).classList.add('selected');
+            const selectedCard = document.getElementById('pkg' + pkg.charAt(0).toUpperCase() + pkg.slice(1));
+            if (selectedCard) {
+                selectedCard.classList.add('selected');
+                const radio = selectedCard.querySelector('input[type="radio"]');
+                if (radio) radio.checked = true;
+            }
             updatePrices(); // 🔥 Toplam fiyatı güncelle
         }
 
