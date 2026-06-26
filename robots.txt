@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /esnaf.html
+Disallow: /dashboard.html
+Disallow: /istatistik.html
+
+Sitemap: https://ilgininsani.com/sitemap.xml

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, follow">
+    <title>Sayfa Bulunamadı — Ilgın İnsanı</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body {
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .error-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 24px;
+            padding: 50px 30px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        .error-icon {
+            font-size: 5rem;
+            color: #f39c12;
+            margin-bottom: 25px;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 15px; }
+        p { font-size: 1.05rem; color: #ddd; margin-bottom: 30px; line-height: 1.5; }
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: #f39c12;
+            color: #111;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.3);
+        }
+        .btn-home:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(243, 156, 18, 0.4);
+            background: #e67e22;
+        }
+        .lang-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 10px 20px;
+            min-height: 44px;
+            border-radius: 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+        .lang-switch:hover { background: rgba(255,255,255,0.2); }
+    </style>
+</head>
+<body>
+    <button class="lang-switch" id="langSwitch" onclick="toggleLanguage()">English</button>
+    <div class="error-card">
+        <div class="error-icon"><i class="fas fa-exclamation-triangle"></i></div>
+        <h1 id="errorTitle">Aradığınız Sayfa Bulunamadı</h1>
+        <p id="errorDesc">Aradığınız sayfa silinmiş, ismi değiştirilmiş veya geçici olarak kullanılamıyor olabilir.</p>
+        <a href="index.html" class="btn-home" id="errorBtn"><i class="fas fa-home"></i> Ana Sayfa'ya Dön</a>
+    </div>
+    <script>
+        let currentLang = 'tr';
+        function toggleLanguage() {
+            currentLang = currentLang === 'tr' ? 'en' : 'tr';
+            const switchBtn = document.getElementById('langSwitch');
+            const title = document.getElementById('errorTitle');
+            const desc = document.getElementById('errorDesc');
+            const btn = document.getElementById('errorBtn');
+
+            if (currentLang === 'tr') {
+                switchBtn.innerText = 'English';
+                document.title = 'Sayfa Bulunamadı — Ilgın İnsanı';
+                title.innerText = 'Aradığınız Sayfa Bulunamadı';
+                desc.innerText = 'Aradığınız sayfa silinmiş, ismi değiştirilmiş veya geçici olarak kullanılamıyor olabilir.';
+                btn.innerHTML = '<i class="fas fa-home"></i> Ana Sayfa\'ya Dön';
+            } else {
+                switchBtn.innerText = 'Türkçe';
+                document.title = 'Page Not Found — Ilgın People';
+                title.innerText = 'Page Not Found';
+                desc.innerText = 'The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.';
+                btn.innerHTML = '<i class="fas fa-home"></i> Back to Homepage';
+            }
+        }
+    </script>
+</body>
+</html>
