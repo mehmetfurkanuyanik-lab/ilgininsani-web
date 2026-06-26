@@ -119,6 +119,8 @@
             border: 1.5px solid var(--glass-border); border-radius: 14px;
             color: #fff; font-size: 1.3rem; font-weight: bold; letter-spacing: 4px;
             text-align: center; outline: none; transition: 0.3s ease;
+            -webkit-text-security: disc;
+            text-security: disc;
         }
         .passcode-input-group input:focus {
             border-color: var(--accent);
@@ -279,15 +281,15 @@
             <div class="passcode-icon">
                 <i class="fas fa-shield-alt"></i>
             </div>
-            <h2 data-tr="Esnaf Girişi" data-en="Merchant Login">Esnaf Girişi</h2>
-            <p data-tr="Kampanyanıza özel üretilen 6 haneli takip şifrenizi girin." data-en="Enter the 6-digit passcode generated for your campaign.">Kampanyanıza özel üretilen 6 haneli takip şifrenizi girin.</p>
+            <h2 data-tr="Esnaf Raporlama" data-en="Merchant Reporting">Esnaf Raporlama</h2>
+            <p data-tr="Kampanyanıza özel üretilen 6 haneli takip kodunu girin." data-en="Enter the 6-digit tracking code generated for your campaign.">Kampanyanıza özel üretilen 6 haneli takip kodunu girin.</p>
             
             <div class="passcode-input-group">
-                <input type="password" id="passcodeField" maxlength="6" placeholder="••••••" onkeydown="if(event.key === 'Enter') verifyPasscode()">
-                <p class="passcode-error" id="passcodeError" data-tr="Hatalı şifre! Lütfen tekrar deneyin." data-en="Incorrect passcode! Please try again.">Hatalı şifre! Lütfen tekrar deneyin.</p>
+                <input type="text" id="passcodeField" maxlength="6" placeholder="••••••" onkeydown="if(event.key === 'Enter') verifyPasscode()">
+                <p class="passcode-error" id="passcodeError" data-tr="Hatalı takip kodu! Lütfen tekrar deneyin." data-en="Incorrect code! Please try again.">Hatalı takip kodu! Lütfen tekrar deneyin.</p>
             </div>
             
-            <button class="btn-submit" onclick="verifyPasscode()" data-tr="Paneli Aç" data-en="Open Panel">Paneli Aç</button>
+            <button class="btn-submit" onclick="verifyPasscode()" data-tr="Raporu Aç" data-en="Open Report">Raporu Aç</button>
         </div>
 
         <!-- 📊 PERFORMANCE ANALYTICS DASHBOARD (HIDDEN ON START) -->
@@ -528,7 +530,7 @@
                 
                 initDashboard();
             } else {
-                errorEl.textContent = "Hatalı şifre! Lütfen tekrar deneyin.";
+                errorEl.textContent = "Hatalı takip kodu! Lütfen tekrar deneyin.";
                 errorEl.style.display = 'block';
                 document.getElementById('passcodeField').value = '';
             }

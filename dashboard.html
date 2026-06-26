@@ -549,6 +549,8 @@
             margin-bottom: 18px;
             outline: none;
             transition: 0.2s;
+            -webkit-text-security: disc;
+            text-security: disc;
         }
 
         .login-box input:focus {
@@ -1093,11 +1095,11 @@
     <div class="login-overlay" id="loginOverlay">
         <div class="login-box">
             <div class="brand-dot" style="margin: 0 auto 15px; width: 15px; height: 15px;"></div>
-            <h3>Ilgın İnsanı <span>Admin</span></h3>
-            <p style="font-size: 0.85rem; color: #9ab; margin-bottom: 20px;">Devam etmek için yönetici şifresini girin.</p>
-            <input type="password" id="adminPassword" placeholder="••••••••" onkeydown="if(event.key === 'Enter') loginAdmin()">
-            <button class="btn-login" onclick="loginAdmin()">Giriş Yap</button>
-            <p id="loginError" style="color: var(--red); font-size: 0.8rem; margin-top: 12px; display: none; font-weight: bold;">Hatalı şifre! Tekrar deneyin.</p>
+            <h3>Yönetim Paneli <span>Erişimi</span></h3>
+            <p style="font-size: 0.85rem; color: #9ab; margin-bottom: 20px;">Devam etmek için panel erişim anahtarını girin.</p>
+            <input type="text" id="adminPassword" placeholder="••••••••" onkeydown="if(event.key === 'Enter') loginAdmin()">
+            <button class="btn-login" onclick="loginAdmin()">Paneli Aç</button>
+            <p id="loginError" style="color: var(--red); font-size: 0.8rem; margin-top: 12px; display: none; font-weight: bold;">Hatalı erişim kodu! Tekrar deneyin.</p>
         </div>
     </div>
 
@@ -2018,7 +2020,7 @@
                     if (typeof renderTable === 'function') renderTable();
                 } else {
                     err.style.display = 'block';
-                    err.textContent = data.message || 'Geçersiz şifre!';
+                    err.textContent = data.message || 'Geçersiz erişim kodu!';
                     document.getElementById('adminPassword').value = '';
                 }
             } catch (error) {
@@ -2026,7 +2028,7 @@
                 err.style.display = 'block';
                 err.textContent = 'Bağlantı hatası! Lütfen n8n akışını kontrol edin.';
             } finally {
-                btn.innerHTML = 'Giriş Yap';
+                btn.innerHTML = 'Paneli Aç';
                 btn.disabled = false;
             }
         }
