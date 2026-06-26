@@ -51,7 +51,7 @@
           "@type": "ListItem",
           "position": 1,
           "name": "Ana Sayfa",
-          "item": "https://ilgininsani.com/index.html"
+          "item": "https://ilgininsani.com/"
         },
         {
           "@type": "ListItem",
@@ -64,9 +64,13 @@
     </script>
 
     <title>Reklam & Sponsorluk Portalı — Ilgın İnsanı</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Non-blocking FontAwesome -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
+    <!-- Non-blocking Google Fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"></noscript>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
 
@@ -932,7 +936,7 @@
         }
         .metric-before {
             font-size: 0.65rem;
-            color: #789;
+            color: #9ab;
             text-transform: uppercase;
             letter-spacing: 0.8px;
             font-weight: 700;
@@ -1105,7 +1109,7 @@
         }
         .cal-day-name {
             text-align: center; font-size: 0.7rem; font-weight: 700;
-            color: #789; text-transform: uppercase; padding: 6px 0;
+            color: #9ab; text-transform: uppercase; padding: 6px 0;
         }
         .cal-day {
             aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
@@ -1439,10 +1443,10 @@
 
     <!-- TOPBAR -->
     <div class="topbar">
-        <a href="index.html" class="topbar-back" id="backBtn">
+        <a href="./" class="topbar-back" id="backBtn">
             <i class="fas fa-arrow-left"></i> <span data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</span>
         </a>
-        <a href="index.html" class="topbar-brand">
+        <a href="./" class="topbar-brand">
             <div class="brand-dot"></div>
             Ilgın İnsanı
         </a>
@@ -1454,8 +1458,9 @@
     </div>
 
     <div class="container">
+        <main id="main-content">
 
-        <!-- PAGE HERO -->
+            <!-- PAGE HERO -->
         <div class="page-hero reveal">
             <span class="hero-icon"><i class="fas fa-bullhorn"></i></span>
             <h1 data-tr="<span>Reklam, İşbirliği</span> & Sponsorluk — Ilgın İnsanı" data-en="<span>Advertising, Partnership</span> & Sponsor — Ilgın İnsanı"><span>Reklam, İşbirliği</span> & Sponsorluk — Ilgın İnsanı</h1>
@@ -2373,7 +2378,7 @@
                                 <i class="fab fa-instagram" id="descIcon" style="color: #e1306c;"></i>
                             </div>
                             <div>
-                                <h4 id="descTitle" style="font-weight: 800; font-size: 0.95rem; color: #fff;" data-tr="Instagram Topluluk Reklamı" data-en="Instagram Community Ad">Instagram Topluluk Reklamı</h4>
+                                <h3 id="descTitle" style="font-weight: 800; font-size: 0.95rem; color: #fff;" data-tr="Instagram Topluluk Reklamı" data-en="Instagram Community Ad">Instagram Topluluk Reklamı</h3>
                                 <p id="descSubtitle" style="font-size: 0.8rem; color: #9ab; line-height: 1.4;" data-tr="58.400+ takipçili @ilgin.insani Instagram hesabımızda dükkanınızın reklamını yayınlayın. Reels, Post ve Story seçenekleriyle doğrudan yerel müşterilere ulaşın." data-en="Advertise your business on our @ilgin.insani Instagram account with 58,400+ followers. Reach local customers directly with Reels, Post, and Story options.">58.400+ takipçili @ilgin.insani Instagram hesabımızda dükkanınızın reklamını yayınlayın. Reels, Post ve Story seçenekleriyle doğrudan yerel müşterilere ulaşın.</p>
                             </div>
                         </div>
@@ -2620,7 +2625,7 @@
                         <!-- Fatura Kartı (Summary) -->
                         <div id="invoiceCard" style="background: rgba(15, 28, 36, 0.85); backdrop-filter: blur(20px); border: 2px dashed var(--accent); border-radius: 20px; padding: 25px; margin-top: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 0 20px rgba(243, 156, 18, 0.05); display: none; position: relative;">
                             <div style="position: absolute; top: -2px; left: 20px; right: 20px; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); box-shadow: 0 0 8px var(--accent);"></div>
-                            <h4 style="font-size: 1.05rem; color: #fff; margin-bottom: 15px; border-bottom: 1.5px dashed rgba(255,255,255,0.15); padding-bottom: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; justify-content: center;"><i class="fas fa-receipt" style="color: var(--accent);"></i> <span data-tr="SEÇİLEN HİZMETLER VE ÖDEME DETAYI" data-en="SELECTED SERVICES & PAYMENT DETAIL">SEÇİLEN HİZMETLER VE ÖDEME DETAYI</span></h4>
+                            <h3 style="font-size: 1.05rem; color: #fff; margin-bottom: 15px; border-bottom: 1.5px dashed rgba(255,255,255,0.15); padding-bottom: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; justify-content: center;"><i class="fas fa-receipt" style="color: var(--accent);"></i> <span data-tr="SEÇİLEN HİZMETLER VE ÖDEME DETAYI" data-en="SELECTED SERVICES & PAYMENT DETAIL">SEÇİLEN HİZMETLER VE ÖDEME DETAYI</span></h3>
                             <div id="invoiceItems" style="display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; padding: 5px 0;">
                                 <!-- Dinamik Fatura Öğeleri -->
                             </div>
@@ -2733,11 +2738,12 @@
                 </div>
                 <div class="form-status" id="reqFormStatus"></div>
             </div>
+        </main>
 
-        <div class="footer">
-            <a href="index.html">← <span data-tr="Ana Sayfaya Dön" data-en="Back to Home">Ana Sayfaya Dön</span></a>
+        <footer class="footer">
+            <a href="./">← <span data-tr="Ana Sayfaya Dön" data-en="Back to Home">Ana Sayfaya Dön</span></a>
             &nbsp;|&nbsp; © 2026 Ilgın İnsanı 🌾
-        </div>
+        </footer>
     </div>
 
     <!-- FLOATING SOCIAL SHARE BAR -->

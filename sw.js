@@ -5,10 +5,14 @@ const ASSETS_TO_CACHE = [
   'dashboard.html',
   'istatistik.html',
   'manifest.json',
-  'bulcuk.jpg',
-  'yalburt.jpg',
-  'kulliye.jpg',
-  'kaplica.jfif',
+  'bulcuk.webp',
+  'yalburt.webp',
+  'kulliye.webp',
+  'kaplica.webp',
+  'A_dramatic_and_cinematic_dikey_202606192209.webp',
+  'A_panoramic,_wide-angle_2D_fantasy_202606191827.webp',
+  'A_professional_stylized_3D_mobile_202606192209.webp',
+  'ilgin_horizontal_map.webp',
   'assets/icons/icon-192.png',
   'assets/icons/icon-512.png'
 ];

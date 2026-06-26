@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
-Allow: /index.html
 Allow: /esnaf.html
 Disallow: /dashboard.html
 Disallow: /istatistik.html

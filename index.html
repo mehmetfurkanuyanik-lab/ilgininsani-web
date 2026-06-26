@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preload" href="A_dramatic_and_cinematic_dikey_202606192209.webp" as="image" fetchpriority="high">
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="Ilgın İnsanı uygulaması; Ilgın'daki nöbetçi eczaneler, güncel haberler, vefat ilanları, canlı yol durumu ve yapay zeka asistanları sunan kapsamlı şehrin dijital platformudur.">
@@ -141,10 +142,15 @@
     -->
 
     <title>Ilgın İnsanı - Şehrin Dijital Alanı</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Non-blocking FontAwesome -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
+    <!-- Non-blocking Google Fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"></noscript>
+    <!-- Deferred script to reduce render blocking -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
         
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         
@@ -339,12 +345,12 @@
 
         .disclaimer {
             background: rgba(0, 0, 0, 0.4); padding: 30px; border-radius: 12px;
-            font-size: 0.8rem; color: #888; margin-top: 50px;
+            font-size: 0.8rem; color: #aaa; margin-top: 50px;
         }
-        .disclaimer h4 { color: #aaa; margin-bottom: 15px; font-size: 0.9rem; }
+        .disclaimer h4 { color: #ccc; margin-bottom: 15px; font-size: 0.9rem; }
         .disclaimer p { margin-bottom: 10px; }
 
-        .footer { text-align: center; padding: 20px; color: #666; font-size: 0.9rem; }
+        .footer { text-align: center; padding: 20px; color: #999; font-size: 0.9rem; }
 
         /* GLASSMORPHISM SHOWCASE & SMARTPHONE MOCKUP */
         .showcase-section { margin-bottom: 50px; }
@@ -840,6 +846,7 @@
             color: #fff; font-size: 1.2rem; text-decoration: none; transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08);
             background: rgba(255,255,255,0.05); backdrop-filter: blur(5px);
+            cursor: pointer; outline: none; font-family: inherit;
         }
         .share-btn:hover { transform: scale(1.1) translateY(-2px); }
         .share-x { color: #fff; }
@@ -902,7 +909,8 @@
     </div>
 
     <div class="container">
-        <!-- HERO SECTION WITH INTEGRATED SMARTPHONE DEMO -->
+        <main id="main-content">
+            <!-- HERO SECTION WITH INTEGRATED SMARTPHONE DEMO -->
         <div class="hero-wrapper">
             <div class="hero">
                 <h1 data-tr="Ilgın <span>İnsanı</span>" data-en="Ilgın <span>People</span>">Ilgın <span>İnsanı</span></h1>
@@ -984,7 +992,7 @@
                             
                             <!-- Insta Feed Image -->
                             <div style="width: 100%; aspect-ratio: 1.25/1; background: #050505; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); position: relative;">
-                                <img id="phoneInstaPostImg" src="A_dramatic_and_cinematic_dikey_202606192209.jpeg" alt="Instagram Post Showcase" width="220" height="176" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
+                                <img id="phoneInstaPostImg" src="A_dramatic_and_cinematic_dikey_202606192209.webp" alt="Instagram Post Showcase" width="220" height="176" fetchpriority="high" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
                                 <div style="position: absolute; top: 6px; right: 6px; background: rgba(0,0,0,0.6); padding: 2px 5px; border-radius: 8px; font-size: 0.45rem; display: flex; align-items: center; gap: 2px; border: 1px solid rgba(255,255,255,0.1);"><i class="fas fa-play" style="color: #fff; font-size: 0.45rem;"></i> Reels</div>
                             </div>
                             
@@ -1040,7 +1048,7 @@
         </div>
 
         <div class="whats-new">
-            <h3 data-tr="<i class='fas fa-rocket'></i> Ilgın İnsanı v2.0.2 Yayında!" data-en="<i class='fas fa-rocket'></i> Ilgın İnsanı v2.0.2 is Live!"><i class="fas fa-rocket"></i> Ilgın İnsanı v2.0.2 Yayında!</h3>
+            <h2 data-tr="<i class='fas fa-rocket'></i> Ilgın İnsanı v2.0.2 Yayında!" data-en="<i class='fas fa-rocket'></i> Ilgın İnsanı v2.0.2 is Live!"><i class="fas fa-rocket"></i> Ilgın İnsanı v2.0.2 Yayında!</h2>
             <ul>
                 <li data-tr="💎 <strong>Premium Tasarım:</strong> Arayüz baştan aşağı yenilendi ve çok daha şık oldu." data-en="💎 <strong>Premium Design:</strong> The interface has been completely redesigned and is much sleeker.">💎 <strong>Premium Tasarım:</strong> Arayüz baştan aşağı yenilendi ve çok daha şık oldu.</li>
                 <li data-tr="🗺️ <strong>Canlı Yol Durumu:</strong> Konya yolundaki kaza ve radarları haritadan anlık takip edin." data-en="🗺️ <strong>Live Road Status:</strong> Track accidents and speed traps on the Konya road live from the map.">🗺️ <strong>Canlı Yol Durumu:</strong> Konya yolundaki kaza ve radarları haritadan anlık takip edin.</li>
@@ -1109,7 +1117,7 @@
                 <!-- Sağ Panel: Kayan Sinematik Fotoğraf Alanı -->
                 <div style="position: relative; overflow: hidden; height: 100%; min-height: 350px;">
                     <div id="travelImgContainer" style="width: 100%; height: 100%; background: #000; position: relative;">
-                        <img id="travelImg" class="travel-zoom-pan" src="kaplica.jfif" alt="Sahip Ata Kaplıcaları — 42°C Doğal Şifa Kaynağı" width="450" height="350" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.8s ease; opacity: 0.9;">
+                        <img id="travelImg" class="travel-zoom-pan" src="kaplica.webp" alt="Sahip Ata Kaplıcaları — 42°C Doğal Şifa Kaynağı" width="450" height="350" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.8s ease; opacity: 0.9;">
                         <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, transparent 100%); z-index: 1;"></div>
                         <span id="travelImgCaption" style="position: absolute; bottom: 20px; left: 20px; color: #fff; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.5px; z-index: 2; text-shadow: 0 2px 4px rgba(0,0,0,0.8);" data-tr="Sahip Ata Kaplıcaları — 42°C Doğal Şifa Kaynağı" data-en="Sahip Ata Baths — 42°C Natural Healing Source">Sahip Ata Kaplıcaları — 42°C Doğal Şifa Kaynağı</span>
                     </div>
@@ -1169,17 +1177,17 @@
             <div class="ai-grid">
                 <div class="ai-card">
                     <i class="fas fa-tractor"></i>
-                    <h4 data-tr="Ziraat Asistanı" data-en="Agriculture Assistant">Ziraat Asistanı</h4>
+                    <h3 data-tr="Ziraat Asistanı" data-en="Agriculture Assistant">Ziraat Asistanı</h3>
                     <p style="font-size: 0.9rem; color: #bbb; margin-top: 5px;" data-tr="Tarlanız, ürünleriniz ve hava durumu hakkında çiftçimize özel destek." data-en="Special support for our farmers regarding your field, crops, and weather.">Tarlanız, ürünleriniz ve hava durumu hakkında çiftçimize özel destek.</p>
                 </div>
                 <div class="ai-card">
                     <i class="fas fa-paw"></i>
-                    <h4 data-tr="Veteriner Asistanı" data-en="Veterinary Assistant">Veteriner Asistanı</h4>
+                    <h3 data-tr="Veteriner Asistanı" data-en="Veterinary Assistant">Veteriner Asistanı</h3>
                     <p style="font-size: 0.9rem; color: #bbb; margin-top: 5px;" data-tr="Hayvanlarınızın sağlığı hakkında hızlıca ön bilgi alın." data-en="Get quick preliminary info about the health of your animals.">Hayvanlarınızın sağlığı hakkında hızlıca ön bilgi alın.</p>
                 </div>
                 <div class="ai-card">
                     <i class="fas fa-robot"></i>
-                    <h4 data-tr="Genel Asistan" data-en="General Assistant">Genel Asistan</h4>
+                    <h3 data-tr="Genel Asistan" data-en="General Assistant">Genel Asistan</h3>
                     <p style="font-size: 0.9rem; color: #bbb; margin-top: 5px;" data-tr="Ilgın tarihi, kültürü veya günlük sorularınız için anında sohbet edin." data-en="Chat instantly about Ilgın's history, culture, or your daily questions.">Ilgın tarihi, kültürü veya günlük sorularınız için anında sohbet edin.</p>
                 </div>
             </div>
@@ -1493,7 +1501,7 @@
             
             <!-- Ekstra Drone Fiyat Listesi (İnce detaylar) -->
             <div style="margin-top: 30px; background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; font-size: 0.85rem; color: #ccc;">
-                <h4 style="color: #f39c12; font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-info-circle"></i> <span data-tr="Önemli Reklam Detayları ve Ek Hizmetler" data-en="Important Advertising Details & Add-ons">Önemli Reklam Detayları ve Ek Hizmetler</span></h4>
+                <h3 style="color: #f39c12; font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-info-circle"></i> <span data-tr="Önemli Reklam Detayları ve Ek Hizmetler" data-en="Important Advertising Details & Add-ons">Önemli Reklam Detayları ve Ek Hizmetler</span></h3>
                 <ul style="list-style: none; padding-left: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px;">
                     <li>📷 <strong data-tr="Kendi Çekiminiz/Fotoğrafınız:" data-en="Your Own Content:">Kendi Çekiminiz/Fotoğrafınız:</strong> <span data-tr="Yukarıdaki fiyatlar hazır görseller içindir." data-en="Above prices apply to pre-made visual submissions.">Yukarıdaki fiyatlar hazır görseller içindir.</span></li>
                     <li>🎬 <strong data-tr="Bizim Çekimimiz ve Video Kurgu:" data-en="Our Shooting & Video Editing:">Bizim Çekimimiz ve Video Kurgu:</strong> <span data-tr="İşletmenizde yapacağımız çekimler için ekstra 500 ₺ eklenir." data-en="Filming & post-production adds 500 ₺.">İşletmenizde yapacağımız çekimler için ekstra 500 ₺ eklenir.</span></li>
@@ -1565,7 +1573,7 @@
         </div>
 
         <div class="disclaimer">
-            <h4 data-tr="YASAL UYARI (DISCLAIMER)" data-en="LEGAL DISCLAIMER (YASAL UYARI)">YASAL UYARI (DISCLAIMER)</h4>
+            <h3 data-tr="YASAL UYARI (DISCLAIMER)" data-en="LEGAL DISCLAIMER (YASAL UYARI)">YASAL UYARI (DISCLAIMER)</h3>
             <p data-tr="<strong>1. Devlet Kurumu Temsiliyeti Yoktur:</strong> &quot;Ilgın İnsanı&quot; uygulaması, Ilgın Belediyesi, Konya Büyükşehir Belediyesi veya herhangi bir resmi devlet kurumu ile bağlantılı değildir. Bu uygulama, Ilgın halkına bilgi sağlamak amacıyla geliştirilmiş bağımsız ve özel bir girişimdir." data-en="<strong>1. No Government Representation:</strong> The 'Ilgın İnsanı' app has no affiliation with Ilgın Municipality, Konya Metropolitan Municipality, or any official government agency. This app is an independent and private initiative developed to provide information to the people of Ilgın."><strong>1. Devlet Kurumu Temsiliyeti Yoktur:</strong> "Ilgın İnsanı" uygulaması, Ilgın Belediyesi, Konya Büyükşehir Belediyesi veya herhangi bir resmi devlet kurumu ile bağlantılı değildir. Bu uygulama, Ilgın halkına bilgi sağlamak amacıyla geliştirilmiş bağımsız ve özel bir girişimdir.</p>
             <p data-tr="<strong>2. Bilgi Kaynakları (Sources of Information):</strong> Uygulama içerisindeki veriler, halka açık ve genel erişime uygun kaynaklardan derlenmektedir:<br>- Nöbetçi Eczane Bilgileri: Konya Eczacı Odası ve halka açık nöbet listeleri.<br>- Ulaşım Saatleri: Yerel taşıma kooperatiflerinin halka açık duyuruları.<br>- Borsa/Hal Fiyatları: Halka açık piyasa verileri ve Konya Ticaret Borsası bültenleri.<br>- Vefat Haberleri: Yerel cami duyuruları ve kullanıcı bildirimleri.<br><br>Uygulamadaki bilgiler bilgilendirme amaçlıdır ve resmiyet taşımaz. Resmi işlemler için lütfen ilgili devlet kurumlarının web sitelerini ziyaret ediniz." data-en="<strong>2. Information Sources:</strong> Data in the app is compiled from public and generally accessible sources:<br>- Duty Pharmacy Info: Konya Chamber of Pharmacists and public duty lists.<br>- Transit Hours: Public announcements of local transport cooperatives.<br>- Exchange/Market Prices: Public market data and Konya Commodity Exchange bulletins.<br>- Obituary News: Local mosque announcements and user reports.<br><br>Information in the app is for informational purposes only and is not official. For official transactions, please visit the websites of the relevant government institutions."><strong>2. Bilgi Kaynakları (Sources of Information):</strong> Uygulama içerisindeki veriler, halka açık ve genel erişime uygun kaynaklardan derlenmektedir:<br>
             - Nöbetçi Eczane Bilgileri: Konya Eczacı Odası ve halka açık nöbet listeleri.<br>
@@ -1573,12 +1581,13 @@
             - Borsa/Hal Fiyatları: Halka açık piyasa verileri ve Konya Ticaret Borsası bültenleri.<br>
             - Vefat Haberleri: Yerel cami duyuruları ve kullanıcı bildirimleri.</p>
         </div>
+    </main>
 
-        <div class="footer">
-            &copy; 2026 Ilgın İnsanı | Teknolojiyi şehrimizle buluşturuyoruz. 🌾
-            <a href="dashboard.html" style="color: #444; margin-left: 8px; font-size: 0.8rem; text-decoration: none;" title="Yönetici Girişi"><i class="fas fa-lock"></i></a>
-        </div>
-    </div>
+    <footer class="footer">
+        &copy; 2026 Ilgın İnsanı | Teknolojiyi şehrimizle buluşturuyoruz. 🌾
+        <a href="dashboard.html" style="color: #444; margin-left: 8px; font-size: 0.8rem; text-decoration: none;" title="Yönetici Girişi"><i class="fas fa-lock"></i></a>
+    </footer>
+</div>
 
     <script>
         // Hava Durumu Çekme & Dinamik Temalandırma
@@ -1655,18 +1664,18 @@
                 bodyEn: "Ilgın Thermal Baths were built by the Seljuk Vizier Sahip Ata Fahreddin Ali in 1236. Located at the foot of Hamam Mountain, it has been a healing source since Roman and Byzantine times. Its 42°C colorless, odorless, and clear waters provide cures for rheumatism, skin diseases, nervous fatigue, and kidney stones. Modern accommodation and separate bath sections for men and women are actively operating today.",
                 badgeTr: "📌 Tarihi Selçuklu hamam yapısı halen aktif ve şifa dağıtmaya devam etmektedir.",
                 badgeEn: "📌 The historical Seljuk bathhouse is still active and continues to heal visitors.",
-                img: "kaplica.jfif",
+                img: "kaplica.webp",
                 captionTr: "Sahip Ata Kaplıcaları — 42°C Selçuklu Şifası",
                 captionEn: "Sahip Ata Thermal Baths — 42°C Seljuk Healing"
             },
             kulliye: {
                 titleTr: "Lala Mustafa Paşa Külliyesi",
                 titleEn: "Lala Mustafa Pasha Complex",
-                bodyTr: "1576-1584 yılları arasında Kıbrıs Fatihi Lala Mustafa Paşa tarafından yaptırılan külliye, Mimar Sinan ve Hassa Mimarlar Teşkilatı'nın eşsiz bir eseridir. Osmanlı döneminin önemli bir menzil (konaklama) külliyesi olan yapı; cami, arasta (çarşı), han, hamam, sıbyan mektebi ve imaretten oluşmaktadır. Günümüzde halen aktif ticari hayatın döndüğü tarihi Arastası ve kurşun kubbeli camisiyle Ilgın'ın mimari kalbidir.",
+                bodyTr: "1576-1584 yılları arasında Kıbrıs Fatihi Lala Mustafa Paşa tarafından yaptırılan külliye, Mimar Sinan ve Hassa Mimarlar Teşkilatı'nın eşsiz bir eseridir. Osmanlı döneminin önemli bir menzil (konaklama) külliyesi olan yapı; cami, arasta (çarşı), han, hamam, sıbyan mektebi ve imaretten omission. Günümüzde halen aktif ticari hayatın döndüğü tarihi Arastası ve kurşun kubbeli camisiyle Ilgın'ın mimari kalbidir.",
                 bodyEn: "Built between 1576-1584 by the Conqueror of Cyprus Lala Mustafa Pasha, this complex is a masterpiece of Mimar Sinan and the Ottoman Imperial Guild of Architects. Serving as an important lodging complex (menzil) of the Ottoman era, it consists of a mosque, bazaar (arasta), inn, bathhouse, primary school, and public kitchen. It remains the architectural heart of Ilgın today.",
                 badgeTr: "📌 Mimar Sinan'ın Konya bölgesindeki en büyük ve en korunmuş eserlerinden biridir.",
                 badgeEn: "📌 One of Mimar Sinan's largest and best-preserved masterpieces in the Konya region.",
-                img: "kulliye.jpg",
+                img: "kulliye.webp",
                 captionTr: "Lala Mustafa Paşa Külliyesi — Mimar Sinan Mirası",
                 captionEn: "Lala Mustafa Pasha Complex — Mimar Sinan Heritage"
             },
@@ -1677,7 +1686,7 @@
                 bodyEn: "Located 16 km south of Ilgın center, Bulcuk Pond is a natural wonder fed by Kozlu and Bulcuk mountain springs. Surrounded by ancient pine forests, it is one of Konya's most popular recreation spots. It is a perfect weekend getaway for picnics, nature walks, fresh air, and amateur recreational fishing.",
                 badgeTr: "📌 Orman içinde yürüyüş yolları and piknik masaları mevcuttur.",
                 badgeEn: "📌 Hiking paths and picnic tables are available in the pine forest.",
-                img: "bulcuk.jpg",
+                img: "bulcuk.webp",
                 captionTr: "Bulcuk Göleti — Orman ve Suyun Huzuru",
                 captionEn: "Bulcuk Pond — Peace of Forest and Water"
             },
@@ -1688,7 +1697,7 @@
                 bodyEn: "Located in the Yalburt Plateau 23 km northwest of Ilgın, this is a unique sacred water pool dating back to the 13th century BC Hittite Empire. Limestone blocks surrounding the pool carry Luvi hieroglyphic inscriptions describing Hittite King Tudhaliya IV's military campaigns. It is a priceless monument in world archaeology showing the Hittite reverence for water.",
                 badgeTr: "📌 Luvi hiyeroglif yazıtlarıyla bezeli 20 adet kireçtaşı blokla çevrili su anıtı havuzudur.",
                 badgeEn: "📌 A sacred pool monument surrounded by 20 limestone blocks carved with Luvi hieroglyphs.",
-                img: "yalburt.jpg",
+                img: "yalburt.webp",
                 captionTr: "Yalburt Hitit Su Anıtı — 3300 Yıllık Yazıtlar",
                 captionEn: "Yalburt Hittite Water Monument — 3300 Years Old Inscriptions"
             }
@@ -2024,7 +2033,7 @@
         ============================================================ */
         const defaultInstaPosts = [
             {
-                imageUrl: "A_dramatic_and_cinematic_dikey_202606192209.jpeg",
+                imageUrl: "A_dramatic_and_cinematic_dikey_202606192209.webp",
                 link: "https://instagram.com/ilgin.insani",
                 likes: "1,245",
                 comments: "84",
@@ -2032,7 +2041,7 @@
                 caption: "Ilgın'ın tarihi sokaklarında sinematik bir yürüyüş... 🌾"
             },
             {
-                imageUrl: "A_panoramic,_wide-angle_2D_fantasy_202606191827.jpeg",
+                imageUrl: "A_panoramic,_wide-angle_2D_fantasy_202606191827.webp",
                 link: "https://instagram.com/ilgin.insani",
                 likes: "956",
                 comments: "42",
@@ -2040,7 +2049,7 @@
                 caption: "Çavuşçu Gölü'nde gün batımı manzarası. Doğanın renkleri... 🌅"
             },
             {
-                imageUrl: "A_professional_stylized_3D_mobile_202606192209.jpeg",
+                imageUrl: "A_professional_stylized_3D_mobile_202606192209.webp",
                 link: "https://instagram.com/ilgin.insani",
                 likes: "2,104",
                 comments: "156",
@@ -2048,7 +2057,7 @@
                 caption: "Yeni mobil sürümümüz yayında! Hemen App Store ve Google Play'den indirin. 📱"
             },
             {
-                imageUrl: "ilgin_horizontal_map.png",
+                imageUrl: "ilgin_horizontal_map.webp",
                 link: "https://instagram.com/ilgin.insani",
                 likes: "1,530",
                 comments: "93",
@@ -2273,7 +2282,7 @@
                 <a href="https://facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn share-facebook" title="${fbTitle}" aria-label="${fbTitle}"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://api.whatsapp.com/send?text=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn share-whatsapp" title="${waTitle}" aria-label="${waTitle}"><i class="fab fa-whatsapp"></i></a>
                 <a href="https://t.me/share/url?url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn share-telegram" title="${tgTitle}" aria-label="${tgTitle}"><i class="fab fa-telegram-plane"></i></a>
-                <a href="javascript:void(0)" onclick="copyLink()" class="share-btn share-copy" title="${copyTitle}" aria-label="${copyTitle}"><i class="far fa-copy"></i></a>
+                <button type="button" onclick="copyLink()" class="share-btn share-copy" title="${copyTitle}" aria-label="${copyTitle}"><i class="far fa-copy"></i></button>
             `;
             document.body.appendChild(shareBar);
         }

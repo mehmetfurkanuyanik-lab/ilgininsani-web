@@ -27,10 +27,14 @@
     <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
 
     <title>Esnaf Kampanya Paneli — Ilgın İnsanı</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Non-blocking FontAwesome -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
+    <!-- Non-blocking Google Fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"></noscript>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
 
         * {
             box-sizing: border-box;
@@ -1104,18 +1108,19 @@
     </div>
 
     <div class="container">
-        <!-- HEADER -->
-        <div class="header">
-            <a href="index.html" class="brand">
-                <div class="brand-dot"></div>
-                Ilgın İnsanı Admin
-            </a>
-            <div class="nav-links">
-                <a href="index.html" class="btn-nav"><i class="fas fa-home"></i> Ana Sayfa</a>
-                <a href="esnaf.html" class="btn-nav"><i class="fas fa-store"></i> Esnaf Sayfası</a>
-                <button class="btn-nav" onclick="syncData()"><i class="fas fa-sync"></i> n8n Eşitle</button>
+        <main id="main-content">
+            <!-- HEADER -->
+            <div class="header">
+                <a href="./" class="brand">
+                    <div class="brand-dot"></div>
+                    Ilgın İnsanı Admin
+                </a>
+                <div class="nav-links">
+                    <a href="./" class="btn-nav"><i class="fas fa-home"></i> Ana Sayfa</a>
+                    <a href="esnaf.html" class="btn-nav"><i class="fas fa-store"></i> Esnaf Sayfası</a>
+                    <button class="btn-nav" onclick="syncData()"><i class="fas fa-sync"></i> n8n Eşitle</button>
+                </div>
             </div>
-        </div>
 
         <!-- STATS -->
         <div class="stats-grid">
@@ -1299,7 +1304,7 @@
                 <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#d4af37;"></div> Kombine</div>
             </div>
         </div>
-
+    </main>
     </div>
 
     <!-- DETAIL MODAL -->

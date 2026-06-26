@@ -25,9 +25,13 @@
     <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
 
     <title>Canlı Kampanya Analitiği — Ilgın İnsanı</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Non-blocking FontAwesome -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
+    <!-- Non-blocking Google Fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"></noscript>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
 
@@ -268,15 +272,16 @@
         <a href="esnaf.html" class="topbar-back">
             <i class="fas fa-arrow-left"></i> <span data-tr="Esnaf Portalı" data-en="Merchant Portal">Esnaf Portalı</span>
         </a>
-        <a href="index.html" class="topbar-brand">
+        <a href="./" class="topbar-brand">
             <div class="brand-dot"></div>
             Ilgın İnsanı
         </a>
     </div>
 
     <div class="container">
+        <main id="main-content">
 
-        <!-- 🔐 PASSWORD VERIFICATION BOX -->
+            <!-- 🔐 PASSWORD VERIFICATION BOX -->
         <div class="passcode-wrapper" id="passcodeScreen">
             <div class="passcode-icon">
                 <i class="fas fa-shield-alt"></i>
@@ -362,7 +367,7 @@
                             Instagram canlı takibiniz aktif durumdadır. Verileriniz, resmi Meta API entegrasyonu aracılığıyla doğrudan sosyal medya hesabınızdan doğrulanmış <strong>gerçek verilerdir</strong>  ve yarım saatte bir güncellenmektedir.
                         </span>
                     </div>
-                    <a id="instaPostBtn" href="#" target="_blank" class="btn-insta-post" style="padding: 10px 20px; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-radius: 12px; color: #fff; font-weight: bold; font-size: 0.8rem; text-decoration: none; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(220,39,67,0.3);">
+                    <a id="instaPostBtn" href="https://instagram.com/ilgin.insani" target="_blank" class="btn-insta-post" style="padding: 10px 20px; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-radius: 12px; color: #fff; font-weight: bold; font-size: 0.8rem; text-decoration: none; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(220,39,67,0.3);">
                         <i class="fab fa-instagram"></i> Gönderinizi Görmek İçin Tıklayın
                     </a>
                 </div>
@@ -428,12 +433,13 @@
             </div>
 
         </div>
+    </main>
 
-        <div class="footer">
-            <a href="esnaf.html">← <span data-tr="Esnaf Portalı'na Dön" data-en="Back to Merchant Portal">Esnaf Portalı'na Dön</span></a>
-            &nbsp;|&nbsp; © 2026 Ilgın İnsanı 🌾
-        </div>
-    </div>
+    <footer class="footer">
+        <a href="esnaf.html">← <span data-tr="Esnaf Portalı'na Dön" data-en="Back to Merchant Portal">Esnaf Portalı'na Dön</span></a>
+        &nbsp;|&nbsp; © 2026 Ilgın İnsanı 🌾
+    </footer>
+</div>
 
     <script>
         /* ============================================================
