@@ -1,11 +1,11 @@
 {
   "name": "Ilgın İnsanı",
   "short_name": "Ilgın İnsanı",
-  "description": "Ilgın'daki nöbetçi eczaneler, güncel haberler, vefat ilanları, canlı yol durumu ve yapay zeka asistanları sunan kapsamlı şehrin dijital platformudur.",
-  "start_url": "index.html",
+  "description": "Ilgın’dan haberler, hikâyeler, şehir rehberi ve günlük servisler.",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f2027",
-  "theme_color": "#0f2027",
+  "background_color": "#e9f2f0",
+  "theme_color": "#e9f2f0",
   "orientation": "portrait-primary",
   "icons": [
     {
