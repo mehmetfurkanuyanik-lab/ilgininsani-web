@@ -1,92 +1,22 @@
-const CACHE_NAME = 'ilgin-insani-cache-v1';
-const ASSETS_TO_CACHE = [
-  'index.html',
-  'esnaf.html',
-  'dashboard.html',
-  'istatistik.html',
-  'manifest.json',
-  'bulcuk.webp',
-  'yalburt.webp',
-  'kulliye.webp',
-  'kaplica.webp',
-  'A_dramatic_and_cinematic_dikey_202606192209.webp',
-  'A_panoramic,_wide-angle_2D_fantasy_202606191827.webp',
-  'A_professional_stylized_3D_mobile_202606192209.webp',
-  'ilgin_horizontal_map.webp',
-  'assets/icons/icon-192.png',
-  'assets/icons/icon-512.png'
-];
-
-// Install Service Worker and cache static assets
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('[Service Worker] Caching static assets');
-        return cache.addAll(ASSETS_TO_CACHE);
-      })
-      .then(() => self.skipWaiting())
-  );
+'use strict';
+const CACHE_NAME='ilgin-insani-editorial-v2';
+const OFFLINE='/offline.html';
+self.addEventListener('install',event=>{
+  event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll([OFFLINE])).then(()=>self.skipWaiting()));
 });
-
-// Activate Service Worker and clear old caches
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cache => {
-          if (cache !== CACHE_NAME) {
-            console.log('[Service Worker] Clearing old cache:', cache);
-            return caches.delete(cache);
-          }
-        })
-      );
-    }).then(() => self.clients.claim())
-  );
+self.addEventListener('activate',event=>{
+  event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('ilgin-insani-')&&key!==CACHE_NAME).map(key=>caches.delete(key)))).then(()=>self.clients.claim()));
 });
-
-// Intercept fetch requests
-self.addEventListener('fetch', event => {
-  // Only cache GET requests and do not cache API requests or webhooks (e.g. open-meteo, n8n)
-  const requestUrl = new URL(event.request.url);
-  const isApiRequest = requestUrl.hostname.includes('api.open-meteo.com') || requestUrl.hostname.includes('n8n.ilgininsani.com');
-  
-  if (event.request.method !== 'GET' || isApiRequest) {
-    // Network-only for APIs, POST requests
-    return;
+self.addEventListener('fetch',event=>{
+  const request=event.request,url=new URL(request.url);
+  if(request.method!=='GET'||url.origin!==self.location.origin)return;
+  // Never cache live services, forms, authenticated portals, or third-party data.
+  if(request.mode==='navigate'){
+    event.respondWith(fetch(request).catch(()=>caches.match(OFFLINE)));return;
   }
-
-  event.respondWith(
-    caches.match(event.request)
-      .then(cachedResponse => {
-        if (cachedResponse) {
-          // Serve static asset from cache, but update it in background (stale-while-revalidate)
-          fetch(event.request).then(networkResponse => {
-            if (networkResponse.status === 200) {
-              caches.open(CACHE_NAME).then(cache => cache.put(event.request, networkResponse));
-            }
-          }).catch(() => {/* Ignore network failures on background sync */});
-          
-          return cachedResponse;
-        }
-        
-        // Network fallback
-        return fetch(event.request)
-          .then(response => {
-            // Cache newly fetched valid static assets
-            if (response && response.status === 200 && response.type === 'basic') {
-              const responseCopy = response.clone();
-              caches.open(CACHE_NAME).then(cache => cache.put(event.request, responseCopy));
-            }
-            return response;
-          })
-          .catch(() => {
-            // Fallback for offline mode if HTML page is requested
-            const acceptHeader = event.request.headers.get('accept');
-            if (acceptHeader && acceptHeader.includes('text/html')) {
-              return caches.match('index.html');
-            }
-          });
-      })
-  );
+  if(!/\.(?:webp|png|woff2)$/.test(url.pathname))return;
+  event.respondWith(caches.open(CACHE_NAME).then(async cache=>{
+    const cached=await cache.match(request);if(cached)return cached;
+    const response=await fetch(request);if(response.ok)await cache.put(request,response.clone());return response;
+  }));
 });
